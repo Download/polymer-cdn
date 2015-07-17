@@ -203,7 +203,9 @@ A mirror of Polymer's components so that they can be used directly from CDN
 		<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/paper-toolbar/paper-toolbar.html</pre></code></dd>
 	</dl>
 	</dd>
+</dl>
 
+<dl>
 	<dt>gold-elements#1.0.1</dt>
 	<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/gold-elements/gold-elements.html</pre></code>
 	<dl>
@@ -226,7 +228,9 @@ A mirror of Polymer's components so that they can be used directly from CDN
 		<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/gold-zip-input/gold-zip-input.html</pre></code></dd>
 	</dl>
 	</dd>
+</dl>
 
+<dl>
 	<dt>platinum-elements#1.0.1</dt>
 	<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/platinum-elements/platinum-elements.html</pre></code>
 	<dl>
@@ -237,7 +241,9 @@ A mirror of Polymer's components so that they can be used directly from CDN
 		<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/platinum-sw/platinum-sw.html</pre></code></dd>
 	</dl>
 	</dd>
+</dl>
 
+<dl>
 	<dt>neon-elements#1.0.0</dt>
 	<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/neon-elements/neon-elements.html</pre></code>
 	<dl>
@@ -245,7 +251,9 @@ A mirror of Polymer's components so that they can be used directly from CDN
 		<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/neon-animation/neon-animation.html</pre></code></dd>
 	</dl>
 	</dd>
+</dl>
 
+<dl>
 	<dt>google-web-components#1.0.1</dt>
 	<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/google-web-components/google-web-components.html</pre></code>
 	<dl>
@@ -295,7 +303,9 @@ A mirror of Polymer's components so that they can be used directly from CDN
 		<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/google-youtube-upload/google-youtube-upload.html</pre></code></dd>
 	</dl>
 	</dd>
+</dl>
 
+<dl>
 	<dt>molecules#1.0.0</dt>
 	<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/molecules/molecules.html</pre></code>
 	<dl>
@@ -303,3 +313,4 @@ A mirror of Polymer's components so that they can be used directly from CDN
 		<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/marked-element/marked-element.html</pre></code></dd>
 	</dl>
 	</dd>
+</dl>
