@@ -4,7 +4,7 @@ A mirror of Polymer's components so that they can be used directly from CDN
 ## Contents
 <dl>
 	<dt>promise-polyfill#1.0.0</dt>
-	<dd>`https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/promise-polyfill/promise-polyfill.html`</dd>
+	<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/promise-polyfill/promise-polyfill.html</pre></code></dd>
 	<dt>webcomponentsjs#0.7.7</dt>
 	<dt>polymer#1.0.0
 	<dt>iron-elements#1.0.2
