@@ -4,7 +4,7 @@ A mirror of Polymer's components so that they can be used directly from CDN
 ## How to use
 In general, given an element named `my-cool-element`, the CDN url for it will be:
 
-<code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/</pre><b>my-cool-element</b>/<b>my-cool-element</b><pre>.html</pre></code>
+> https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/**my-cool-element**/**my-cool-element**.html
 
 
 ## Contents
