@@ -118,7 +118,9 @@ A mirror of Polymer's components so that they can be used directly from CDN
 		<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/iron-validator-behavior/iron-validator-behavior.html</pre></code></dd>
 	</dl>
 	</dd>
+</dl>
 
+<dl>
 	<dt>paper-elements#1.0.1</dt>
 	<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/paper-elements/paper-elements.html</pre></code>
 	<dl>
