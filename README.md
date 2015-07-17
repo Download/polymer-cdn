@@ -13,7 +13,7 @@ A mirror of Polymer's components so that they can be used directly from CDN
 	<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/polymer/polymer.html</pre></code></dd>
 
 	<dt>iron-elements#1.0.2</dt>
-	<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/iron-elements/iron-elements.html</pre></code></dd>
+	<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/iron-elements/iron-elements.html</pre></code>
 	<dl>
 		<dt>iron-a11y-announcer#1.0.2</dt>
 		<dd><code><pre>https://cdn.rawgit.com/download/polymer-cdn/1.0.0/lib/iron-a11y-announcer/iron-a11y-announcer.html</pre></code></dd>
