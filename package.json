@@ -1,0 +1,20 @@
+{
+	"name": "polymer-cdn",
+	"version": "1.0.0",
+	"description": "A mirror of Polymer so it can be used from CDN.",
+	"keywords": ["polymer", "cdn"],
+	"homepage": "https://github.com/download/polymer-cdn",
+	"bugs": "https://github.com/download/polymer-cdn/issues",
+	"author": {
+	"name": "Stijn de Witt",
+	"email": "StijnDeWitt@hotmail.com",
+	"url": "http://StijnDeWitt.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/download/polymer-cdn.git"
+	},
+	"licenses": [{"type": "BSD"}],
+	"devDependencies": {
+	}
+}

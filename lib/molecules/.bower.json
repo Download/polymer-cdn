@@ -1,0 +1,35 @@
+{
+  "name": "molecules",
+  "version": "1.0.0",
+  "homepage": "https://github.com/PolymerElements/molecules",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "description": "Molecules are elements that wrap other javascript libraries. More of these coming soon!",
+  "main": "molecules.html",
+  "keywords": [
+    "web-components",
+    "polymer"
+  ],
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "marked-element": "PolymerElements/marked-element#^1.0.0"
+  },
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0",
+    "commit": "d05a324f6d48b626d6d771edcace2fb4d77a2db1"
+  },
+  "_source": "git://github.com/polymerelements/molecules.git",
+  "_target": "~1.0.0",
+  "_originalSource": "polymerelements/molecules",
+  "_direct": true
+}
