@@ -1,33 +1,33 @@
 BUILD LOG
 ---------
-Build Time: 2015-07-15T17:22:18-0700
+Build Time: 2015-08-03T18:11:51-0700
 
 NODEJS INFORMATION
 ==================
-nodejs: v2.3.4
+nodejs: v2.4.0
 gulp: 3.9.0
 gulp-audit: 1.0.0
 gulp-concat: 2.6.0
 gulp-header: 1.2.2
 gulp-uglify: 1.2.0
-run-sequence: 1.1.1
-web-component-tester: 3.3.1
+run-sequence: 1.1.2
+web-component-tester: 3.3.9
 
 REPO REVISIONS
 ==============
-webcomponentsjs: 83cd82b847c1fbeab6ba9a40d822c7d4cc96367a
+webcomponentsjs: 966e0dba7098776113794712a6eff8d9bff2ecb1
 
 BUILD HASHES
 ============
-CustomElements.js: f77fa5739800df7721b1e2bb86bdd8f260ef672d
-CustomElements.min.js: f1ba945213ce0495cb93919caa6d050ef114fbf5
-HTMLImports.js: c5473ac4fc64180ba40da4679479ed5903feb54f
-HTMLImports.min.js: 401ea71282cb28c1af168d7c08defecab18f5afb
-MutationObserver.js: 2cc42498f20f5b3842c6b5e8f7735d111967b579
-MutationObserver.min.js: 39a017771ac32f3edc8881b7ea20d0b2013d103e
-ShadowDOM.js: fd1d36923e47ed2c48719485dc7768a854e09015
-ShadowDOM.min.js: f771f33aab417207f8e198500918f74c1dce7314
-webcomponents-lite.js: 77d1bace03f086a89f9a8346fa1974205ba130b5
-webcomponents-lite.min.js: e87572819aedb8268109af569158d65911d8e398
-webcomponents.js: c4b4dd834dc76bba3b45e143adbfaae19bd0d340
-webcomponents.min.js: fd64b22600db44a3a428b538c468f18069435f4f
+CustomElements.js: 09cceb18067c04b3aa8f42bc690d8539058092a0
+CustomElements.min.js: 9c0d4deef0b318136b8d604aff7d6a4e98c6b907
+HTMLImports.js: 446ad35f80322b8af49a37e3e0a7a4f1ae0820be
+HTMLImports.min.js: 5822d74489170025ea7835082868b42658c9da3d
+MutationObserver.js: 37387e75a31af167f17f5469b7b80c50bed1085a
+MutationObserver.min.js: 15a7663e4de05580652b4a45651ecc7d4ce660f0
+ShadowDOM.js: 1908ae74e28b14f4e8856d24462ff6da34ae8a54
+ShadowDOM.min.js: 5541e03c9e88d8ab2ee6c072e9efb6c48fbd92da
+webcomponents-lite.js: b57e02b82bcbafb80bbd166ca21b127156626923
+webcomponents-lite.min.js: 464dc8b319321b6065be393a01e0650a8fd9e243
+webcomponents.js: 63acfa2bb68769c417be75f8aec9fc6a0c02b2a3
+webcomponents.min.js: 2cbb839241df72761ca5a9f9d5c56ff8bdca0e6f

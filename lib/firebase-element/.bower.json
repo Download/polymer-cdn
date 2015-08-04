@@ -1,6 +1,6 @@
 {
   "name": "firebase-element",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "main": [
     "firebase-collection.html",
@@ -21,11 +21,11 @@
     "web-component-tester": "*"
   },
   "homepage": "https://github.com/GoogleWebComponents/firebase-element",
-  "_release": "1.0.2",
+  "_release": "1.0.3",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.2",
-    "commit": "5ac68d72d44fb9c446a85cc2d25513ad52b1a594"
+    "tag": "v1.0.3",
+    "commit": "6641f76631cc815a96e3e001fe1cd4e5d60556f0"
   },
   "_source": "git://github.com/GoogleWebComponents/firebase-element.git",
   "_target": "^1.0.0",
