@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Polymer-cdn by Download</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Polymer-cdn</h1>
+          <h2>A mirror of Polymer&#39;s components so that they can be used directly from CDN</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Download/polymer-cdn/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Download/polymer-cdn/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Download/polymer-cdn" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="polymer-cdn-v113" class="anchor" href="#polymer-cdn-v113" aria-hidden="true"><span class="octicon octicon-link"></span></a>polymer-cdn <sub><sup>v1.1.3</sup></sub>
+</h1>
+
+<p><strong>A mirror of Polymer's components so that they can be used directly from CDN</strong></p>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<p>In general, given an element named <code>my-cool-element</code>, the CDN url for it will be:</p>
+
+<pre><code>https://cdn.rawgit.com/download/polymer-cdn/1.1.3/lib/my-cool-element/my-cool-element.html
+</code></pre>
+
+<p>To be sure, browse this repo and copy-paste the url to the raw version into <a href="https://rawgit.com">RawGit</a>.</p>
+
+<h2>
+<a id="versioning" class="anchor" href="#versioning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Versioning</h2>
+
+<p>As this repo groups a whole set of components, versioning is tricky. For now I've decided to
+follow the Polymer version number and add an extra number behind it for updates that did not
+involve a change of the Polymer version. It's important to remember that this repo does not
+(can not) follow semantic versioning guidelines and that it's version numbers indicate not 
+much more than which versions came before which and after which other versions.</p>
+
+<p>Make sure you always link to a specific version and not to <code>master</code>, as that would mean your
+code could change right under your nose. Something you don't want in production! Also, for 
+this same reason, I recommend forking this repo and including from your own fork, so you'll
+have full control over it.</p>
+
+<p>To see available versions and select one, use the <code>Branch</code> dropdown menu and select one of
+the <code>tags</code>. You can then browse that version of the Repo. Browse to the file you want to include
+and copy the url to it's <code>raw</code> version. Throw that into <a href="https://rawgit.com">RawGit</a> and you'll
+have a url to a file on CDN that never expires from cache and is not throttled or limited
+in bandwidth in any way.</p>
+
+<p><img src="https://camo.githubusercontent.com/8dbe1c395f07374e7d435880cc6804513989fea4/687474703a2f2f692e696d6775722e636f6d2f447867774872362e706e67" alt="Branch selection in GitHub"></p>
+
+<h2>
+<a id="missing-something" class="anchor" href="#missing-something" aria-hidden="true"><span class="octicon octicon-link"></span></a>Missing something?</h2>
+
+<p>This repository aims to be a complete set of the standard Polymer components, grouped in such
+a way that (transitive) dependencies can be correctly resolved for all components. If you are
+missing some (version of) a component, please <a href="https://github.com/Download/polymer-cdn/issues">create an issue</a>
+explaining what should be changed and I'll do my best to implement it.</p>
+
+<p>Pull requests are of course also always welcome! If you want to try that, here is the rough procedure: </p>
+
+<ol>
+<li> Create an issue in this repo describing your change and mention you're preparing a pull request</li>
+<li> Fork this repo</li>
+<li> Clone your forked repo to your own machine</li>
+<li> Create and switch to a new Branch</li>
+<li> Implement the change</li>
+<li> Commit your change, making sure to mention the URL to the issue created in step 1 in the commit comment</li>
+<li> Push your change to your fork (make sure to push the right branch)</li>
+<li> Create a Pull Request from your change.</li>
+</ol>
+
+<p>I will review the PR and if it looks good, Merge it and Publish the resulting work as a new Release.</p>
+
+<h2>
+<a id="contents" class="anchor" href="#contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contents</h2>
+
+<p>All these libraries can be found in the <code>lib</code> subfolder. These used to be links to the actual files, 
+but it made updating painful so now I just copy the Bower output. You can browse the repo to locate
+the files manually, or just trust Bower.</p>
+
+<div class="highlight highlight-source-shell"><pre>└── webcomponentsjs#0.7.12
+
+paper-elements#1.0.5 lib<span class="pl-cce">\p</span>aper-elements
+├── paper-badge#1.0.3
+├── paper-behaviors#1.0.3
+├── paper-button#1.0.6
+├── paper-card#1.0.5
+├── paper-checkbox#1.0.10
+├── paper-dialog#1.0.1
+├── paper-dialog-behavior#1.0.4
+├── paper-dialog-scrollable#1.0.1
+├── paper-drawer-panel#1.0.3
+├── paper-dropdown-menu#1.0.2
+├── paper-fab#1.0.4
+├── paper-header-panel#1.0.5
+├── paper-icon-button#1.0.3
+├── paper-input#1.0.14
+├── paper-item#1.0.2
+├── paper-material#1.0.2
+├── paper-menu#1.1.0
+├── paper-menu-button#1.0.3
+├── paper-progress#1.0.5
+├── paper-radio-button#1.0.8
+├── paper-radio-group#1.0.4
+├── paper-ripple#1.0.2
+├── paper-scroll-header-panel#1.0.8
+├── paper-slider#1.0.6
+├── paper-spinner#1.0.2
+├── paper-styles#1.0.11
+├── paper-tabs#1.0.2
+├── paper-toast#1.0.0
+├── paper-toggle-button#1.0.8
+├── paper-toolbar#1.0.4
+└── paper-tooltip#1.1.0
+
+iron-autogrow-textarea#1.0.5 lib<span class="pl-cce">\i</span>ron-autogrow-textarea
+├── iron-behaviors#1.0.8
+├── iron-flex-layout#1.0.3
+├── iron-form-element-behavior#1.0.4
+├── iron-validatable-behavior#1.0.4
+└── polymer#1.1.3
+
+google-apis#1.1.0 lib<span class="pl-cce">\g</span>oogle-apis
+├── iron-jsonp-library#1.0.3
+└── polymer#1.1.3
+
+iron-collapse#1.0.3 lib<span class="pl-cce">\i</span>ron-collapse
+└── polymer#1.1.3
+
+firebase-element#1.0.6 lib<span class="pl-cce">\f</span>irebase-element
+├── firebase#2.2.9
+└── polymer#1.1.3
+
+google-map#1.1.0 lib<span class="pl-cce">\g</span>oogle-map
+├── google-apis#1.1.0
+├── iron-resizable-behavior#1.0.2
+└── polymer#1.1.3
+
+iron-behaviors#1.0.8 lib<span class="pl-cce">\i</span>ron-behaviors
+├── iron-a11y-keys-behavior#1.0.5
+└── polymer#1.1.3
+
+google-analytics#1.2.0 lib<span class="pl-cce">\g</span>oogle-analytics
+├── ga-api-utils#0.2.0
+├── google-chart#1.0.2
+├── google-signin#1.0.3
+├── polymer#1.1.3
+└── promise-polyfill#1.0.0
+
+iron-flex-layout#1.0.3 lib<span class="pl-cce">\i</span>ron-flex-layout
+└── polymer#1.1.3
+
+iron-form-element-behavior#1.0.4 lib<span class="pl-cce">\i</span>ron-form-element-behavior
+└── polymer#1.1.3
+
+iron-dropdown#1.0.6 lib<span class="pl-cce">\i</span>ron-dropdown
+├── iron-a11y-keys-behavior#1.0.5
+├── iron-behaviors#1.0.8
+├── iron-overlay-behavior#1.0.6
+├── iron-resizable-behavior#1.0.2
+├── neon-animation#1.0.6
+└── polymer#1.1.3
+
+iron-icon#1.0.4 lib<span class="pl-cce">\i</span>ron-icon
+├── iron-flex-layout#1.0.3
+├── iron-meta#1.0.3
+└── polymer#1.1.3
+
+iron-input#1.0.6 lib<span class="pl-cce">\i</span>ron-input
+├── iron-validatable-behavior#1.0.4
+└── polymer#1.1.3
+
+iron-form#1.0.9 lib<span class="pl-cce">\i</span>ron-form
+├── iron-ajax#1.0.4
+└── polymer#1.1.3
+
+iron-menu-behavior#1.0.3 lib<span class="pl-cce">\i</span>ron-menu-behavior
+├── iron-a11y-keys-behavior#1.0.5
+├── iron-selector#1.0.3
+└── polymer#1.1.3
+
+iron-overlay-behavior#1.0.6 lib<span class="pl-cce">\i</span>ron-overlay-behavior
+├── iron-fit-behavior#1.0.3
+├── iron-resizable-behavior#1.0.2
+└── polymer#1.1.3
+
+iron-test-helpers#1.0.3 lib<span class="pl-cce">\i</span>ron-test-helpers
+└── polymer#1.1.3
+
+iron-validatable-behavior#1.0.4 lib<span class="pl-cce">\i</span>ron-validatable-behavior
+├── iron-meta#1.0.3
+└── polymer#1.1.3
+
+iron-doc-viewer#1.0.5 lib<span class="pl-cce">\i</span>ron-doc-viewer
+├── marked-element#1.1.1
+├── paper-button#1.0.6
+├── paper-styles#1.0.11
+├── polymer#1.1.3
+└── prism-element#1.0.2
+
+gold-cc-cvc-input#1.0.4 lib<span class="pl-cce">\g</span>old-cc-cvc-input
+├── iron-form-element-behavior#1.0.4
+├── iron-icon#1.0.4
+├── paper-input#1.0.14
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+marked-element#1.1.1 lib<span class="pl-cce">\m</span>arked-element
+├── marked#0.3.5
+└── polymer#1.1.3
+
+iron-selector#1.0.3 lib<span class="pl-cce">\i</span>ron-selector
+└── polymer#1.1.3
+
+gold-phone-input#1.0.6 lib<span class="pl-cce">\g</span>old-phone-input
+├── iron-form-element-behavior#1.0.4
+├── iron-input#1.0.6
+├── paper-input#1.0.14
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+gold-zip-input#1.0.3 lib<span class="pl-cce">\g</span>old-zip-input
+├── iron-form-element-behavior#1.0.4
+├── iron-icon#1.0.4
+├── iron-validator-behavior#1.0.1
+├── paper-input#1.0.14
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+gold-email-input#1.0.4 lib<span class="pl-cce">\g</span>old-email-input
+├── iron-form-element-behavior#1.0.4
+├── iron-icon#1.0.4
+├── paper-input#1.0.14
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+gold-cc-expiration-input#1.0.5 lib<span class="pl-cce">\g</span>old-cc-expiration-input
+├── iron-form-element-behavior#1.0.4
+├── iron-validatable-behavior#1.0.4
+├── iron-validator-behavior#1.0.1
+├── paper-input#1.0.14
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-material#1.0.2 lib<span class="pl-cce">\p</span>aper-material
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+platinum-push-messaging#1.0.3 lib<span class="pl-cce">\p</span>latinum-push-messaging
+├── polymer#1.1.3
+└── promise-polyfill#1.0.0
+
+paper-ripple#1.0.2 lib<span class="pl-cce">\p</span>aper-ripple
+├── iron-a11y-keys-behavior#1.0.5
+└── polymer#1.1.3
+
+gold-cc-input#1.0.6 lib<span class="pl-cce">\g</span>old-cc-input
+├── iron-form-element-behavior#1.0.4
+├── iron-icon#1.0.4
+├── iron-validator-behavior#1.0.1
+├── paper-input#1.0.14
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-header-panel#1.0.5 lib<span class="pl-cce">\p</span>aper-header-panel
+├── iron-flex-layout#1.0.3
+└── polymer#1.1.3
+
+paper-dropdown-menu#1.0.2 lib<span class="pl-cce">\p</span>aper-dropdown-menu
+├── iron-a11y-keys-behavior#1.0.5
+├── iron-icon#1.0.4
+├── iron-icons#1.0.3
+├── paper-input#1.0.14
+├── paper-menu-button#1.0.3
+├── paper-ripple#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-badge#1.0.3 lib<span class="pl-cce">\p</span>aper-badge
+├── iron-resizable-behavior#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-checkbox#1.0.10 lib<span class="pl-cce">\p</span>aper-checkbox
+├── iron-checked-element-behavior#1.0.2
+├── paper-behaviors#1.0.3
+├── paper-ripple#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-card#1.0.5 lib<span class="pl-cce">\p</span>aper-card
+├── iron-flex-layout#1.0.3
+├── paper-material#1.0.2
+└── polymer#1.1.3
+
+promise-polyfill#1.0.0 lib<span class="pl-cce">\p</span>romise-polyfill
+└── polymer#1.1.3
+
+paper-button#1.0.6 lib<span class="pl-cce">\p</span>aper-button
+├── iron-flex-layout#1.0.3
+├── paper-behaviors#1.0.3
+├── paper-material#1.0.2
+├── paper-ripple#1.0.2
+└── polymer#1.1.3
+
+iron-list#1.1.1 lib<span class="pl-cce">\i</span>ron-list
+├── iron-resizable-behavior#1.0.2
+└── polymer#1.1.3
+
+paper-fab#1.0.4 lib<span class="pl-cce">\p</span>aper-fab
+├── iron-flex-layout#1.0.3
+├── iron-icon#1.0.4
+├── iron-icons#1.0.3
+├── paper-behaviors#1.0.3
+├── paper-material#1.0.2
+├── paper-ripple#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-progress#1.0.5 lib<span class="pl-cce">\p</span>aper-progress
+├── iron-range-behavior#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-input#1.0.14 lib<span class="pl-cce">\p</span>aper-input
+├── iron-autogrow-textarea#1.0.5
+├── iron-behaviors#1.0.8
+├── iron-form-element-behavior#1.0.4
+├── iron-input#1.0.6
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-menu-button#1.0.3 lib<span class="pl-cce">\p</span>aper-menu-button
+├── iron-a11y-keys-behavior#1.0.5
+├── iron-behaviors#1.0.8
+├── iron-dropdown#1.0.6
+├── neon-animation#1.0.6
+├── paper-material#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-menu#1.1.0 lib<span class="pl-cce">\p</span>aper-menu
+├── iron-behaviors#1.0.8
+├── iron-collapse#1.0.3
+├── iron-menu-behavior#1.0.3
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+webcomponentsjs#0.7.12 lib<span class="pl-cce">\w</span>ebcomponentsjs
+
+paper-slider#1.0.6 lib<span class="pl-cce">\p</span>aper-slider
+├── iron-a11y-keys-behavior#1.0.5
+├── iron-behaviors#1.0.8
+├── iron-flex-layout#1.0.3
+├── iron-form-element-behavior#1.0.4
+├── paper-behaviors#1.0.3
+├── paper-input#1.0.14
+├── paper-progress#1.0.5
+├── paper-ripple#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-toggle-button#1.0.8 lib<span class="pl-cce">\p</span>aper-toggle-button
+├── iron-checked-element-behavior#1.0.2
+├── paper-behaviors#1.0.3
+├── paper-ripple#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-radio-button#1.0.8 lib<span class="pl-cce">\p</span>aper-radio-button
+├── iron-checked-element-behavior#1.0.2
+├── paper-behaviors#1.0.3
+├── paper-ripple#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-tabs#1.0.2 lib<span class="pl-cce">\p</span>aper-tabs
+├── iron-behaviors#1.0.8
+├── iron-flex-layout#1.0.3
+├── iron-icon#1.0.4
+├── iron-iconset-svg#1.0.4
+├── iron-menu-behavior#1.0.3
+├── iron-resizable-behavior#1.0.2
+├── paper-icon-button#1.0.3
+├── paper-ripple#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+paper-tooltip#1.1.0 lib<span class="pl-cce">\p</span>aper-tooltip
+├── neon-animation#1.0.6
+├── paper-styles#1.0.11
+└── polymer#1.1.3
+
+hydrolysis#1.15.4 lib<span class="pl-cce">\h</span>ydrolysis
+
+iron-checked-element-behavior#1.0.2 lib<span class="pl-cce">\i</span>ron-checked-element-behavior
+├── iron-form-element-behavior#1.0.4
+├── iron-validatable-behavior#1.0.4
+└── polymer#1.1.3
+
+paper-scroll-header-panel#1.0.8 lib<span class="pl-cce">\p</span>aper-scroll-header-panel
+├── iron-resizable-behavior#1.0.2
+├── paper-toolbar#1.0.4
+└── polymer#1.1.3</pre></div>
+        </section>
+
+        <footer>
+          Polymer-cdn is maintained by <a href="https://github.com/Download">Download</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
