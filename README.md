@@ -1,4 +1,4 @@
-# polymer-cdn <sup><sub>v1.1.3</sub></sup>
+# polymer-cdn <sub><sup>v1.1.3</sup></sub>
 **A mirror of Polymer's components so that they can be used directly from CDN**
 
 ## How to use
@@ -6,6 +6,7 @@ In general, given an element named `my-cool-element`, the CDN url for it will be
 ```
 https://cdn.rawgit.com/download/polymer-cdn/1.1.3/lib/my-cool-element/my-cool-element.html
 ```
+To be sure, browse this repo and copy-paste the url to the raw version into [RawGit](https://rawgit.com).
 
 ## Versioning
 As this repo groups a whole set of components, versioning is tricky. For now I've decided to
@@ -21,7 +22,7 @@ have full control over it.
 
 To see available versions and select one, use the `Branch` dropdown menu and select one of
 the `tags`. You can then browse that version of the Repo. Browse to the file you want to include
-and the url to it's `raw` version. Throw that into [RawGit](https://rawgit.com) and you'll
+and copy the url to it's `raw` version. Throw that into [RawGit](https://rawgit.com) and you'll
 have a url to a file on CDN that never expires from cache and is not throttled or limited
 in bandwidth in any way.
 
@@ -34,14 +35,14 @@ missing some (version of) a component, please [create an issue](https://github.c
 explaining what should be changed and I'll do my best to implement it.
 
 Pull requests are of course also always welcome! If you want to try that, here is the rough procedure: 
-1. Create an issue in this repo describing your change and mention you're preparing a pull request
-2. Fork this repo
-3. Clone your forked repo to your own machine
-4. Create and switch to a new Branch
-5. Implement the change
-6. Commit your change, making sure to mention the URL to the issue created in step 1 in the commit comment
-7. Push your change to your fork (make sure to push the right branch)
-8. Create a Pull Request from your change.
+ 1.  Create an issue in this repo describing your change and mention you're preparing a pull request
+ 2.  Fork this repo
+ 3.  Clone your forked repo to your own machine
+ 4.  Create and switch to a new Branch
+ 5.  Implement the change
+ 6.  Commit your change, making sure to mention the URL to the issue created in step 1 in the commit comment
+ 7.  Push your change to your fork (make sure to push the right branch)
+ 8.  Create a Pull Request from your change.
 
 I will review the PR and if it looks good, Merge it and Publish the resulting work as a new Release.
 
