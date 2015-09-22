@@ -36,7 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="vertical-section layout horizontal">
         <gold-cc-cvc-input class="small"></gold-cc-cvc-input>
         <gold-cc-cvc-input class="small" label="AMEX" card-type="amex"></gold-cc-cvc-input>
-        <gold-cc-cvc-input auto-validate label="Auto"></gold-cc-cvc-input>
+        <gold-cc-cvc-input auto-validate required label="Auto"></gold-cc-cvc-input>
     </div>
 
     <h4>Pre-validated</h4>
@@ -46,7 +46,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <gold-cc-cvc-input required auto-validate value="12"></gold-cc-cvc-input>
     </div>
 
-    <h4>Custom error message</h4>
+    <h4>Custom error message, auto-validates on blur</h4>
     <div class="vertical-section">
       <gold-cc-cvc-input required auto-validate error-message="Please enter a valid CVC"></gold-cc-cvc-input>
     </div>

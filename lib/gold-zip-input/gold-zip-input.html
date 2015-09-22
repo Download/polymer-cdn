@@ -125,7 +125,7 @@ style this element.
 
     _computeValue: function(value) {
       var start = this.$.input.selectionStart;
-      var previousCharADash = this.value.charAt(start - 1) == '-';
+      var previousCharADash = this.value ? this.value.charAt(start - 1) == '-' : false;
 
       // Remove any already-applied formatting.
       value = value.replace(/-/g, '');

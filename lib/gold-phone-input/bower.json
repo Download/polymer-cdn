@@ -1,6 +1,6 @@
 {
   "name": "gold-phone-input",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "A validating input for a phone number",
   "authors": [
     "The Polymer Authors"

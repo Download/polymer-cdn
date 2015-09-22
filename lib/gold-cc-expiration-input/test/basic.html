@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="../../test-fixture/test-fixture-mocha.js"></script>
 
   <script src="../../iron-test-helpers/test-helpers.js"></script>
+  <script src="../../iron-test-helpers/mock-interactions.js"></script>
 
   <link rel="import" href="../../test-fixture/test-fixture.html">
   <link rel="import" href="../gold-cc-expiration-input.html">
@@ -47,6 +48,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var container = Polymer.dom(input.root).querySelector('paper-input-container');
         assert.ok(container, 'paper-input-container exists');
         assert.isTrue(container.invalid);
+
+        var error = Polymer.dom(input.root).querySelector('paper-input-error');
+        assert.ok(error, 'paper-input-error exists');
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
       });
 
       test('misformed dates are not ok', function() {
@@ -57,6 +62,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var container = Polymer.dom(input.root).querySelector('paper-input-container');
         assert.ok(container, 'paper-input-container exists');
         assert.isTrue(container.invalid);
+
+        var error = Polymer.dom(input.root).querySelector('paper-input-error');
+        assert.ok(error, 'paper-input-error exists');
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
       });
 
       test('past dates are not ok', function() {
@@ -67,6 +76,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var container = Polymer.dom(input.root).querySelector('paper-input-container');
         assert.ok(container, 'paper-input-container exists');
         assert.isTrue(container.invalid);
+
+        var error = Polymer.dom(input.root).querySelector('paper-input-error');
+        assert.ok(error, 'paper-input-error exists');
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
       });
 
       test('future dates are ok', function() {
@@ -78,7 +91,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var container = Polymer.dom(input.root).querySelector('paper-input-container');
         assert.ok(container, 'paper-input-container exists');
         assert.isFalse(container.invalid);
-        assert.equal(input.value, '11/99')
+        assert.equal(input.value, '11/99');
+
+        var error = Polymer.dom(input.root).querySelector('paper-input-error');
+        assert.ok(error, 'paper-input-error exists');
+        assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
       });
 
       test('value is updated correctly ', function() {
@@ -88,13 +105,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(input.value, '11/15');
       });
 
-      test('empty required input shows error', function() {
+      test('empty required input shows error on blur', function(done) {
         var input = fixture('basic');
         forceXIfStamp(input);
 
         var error = Polymer.dom(input.root).querySelector('paper-input-error');
         assert.ok(error, 'paper-input-error exists');
-        assert.notEqual(getComputedStyle(error).display, 'none', 'error is not display:none');
+
+        assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
+
+        input.addEventListener('blur', function(event) {
+          assert(!input.focused, 'input is blurred');
+          assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
+          done();
+        });
+        MockInteractions.focus(input.inputElement);
+        MockInteractions.blur(input.inputElement);
       });
 
     });

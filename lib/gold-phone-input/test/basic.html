@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="../../test-fixture/test-fixture-mocha.js"></script>
 
   <script src="../../iron-test-helpers/test-helpers.js"></script>
+  <script src="../../iron-test-helpers/mock-interactions.js"></script>
 
   <link rel="import" href="../../test-fixture/test-fixture.html">
   <link rel="import" href="../gold-phone-input.html">
@@ -47,7 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     suite('basic', function() {
       test('input is spaced out correctly', function() {
         var input = fixture('basic');
-        input.value='1231112222';
+        input.value ='1231112222';
         assert.equal(input.value, '123-111-2222');
       });
 
@@ -59,6 +60,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var container = Polymer.dom(input.root).querySelector('paper-input-container');
         assert.ok(container, 'paper-input-container exists');
         assert.isTrue(container.invalid);
+
+        var error = Polymer.dom(input.root).querySelector('paper-input-error');
+        assert.ok(error, 'paper-input-error exists');
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
       });
 
       test('valid input is ok', function() {
@@ -69,24 +74,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var container = Polymer.dom(input.root).querySelector('paper-input-container');
         assert.ok(container, 'paper-input-container exists');
         assert.isFalse(container.invalid);
+
+        var error = Polymer.dom(input.root).querySelector('paper-input-error');
+        assert.ok(error, 'paper-input-error exists');
+        assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
       });
 
-      test('empty required input shows error', function() {
+      test('empty required input shows error on blur', function(done) {
         var input = fixture('required');
         forceXIfStamp(input);
 
         var error = Polymer.dom(input.root).querySelector('paper-input-error');
         assert.ok(error, 'paper-input-error exists');
-        assert.notEqual(getComputedStyle(error).display, 'none', 'error is not display:none');
+
+        assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
+
+        input.addEventListener('blur', function(event) {
+          assert(!input.focused, 'input is blurred');
+          assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
+          done();
+        });
+        MockInteractions.focus(input.inputElement);
+        MockInteractions.blur(input.inputElement);
       });
 
       test('caret position is preserved', function() {
         var input = fixture('required');
         var ironInput = Polymer.dom(input.root).querySelector('input[is="iron-input"]');
-        input.value='111-111-1';
+
+        input.value ='111-111';
         ironInput.selectionStart = 2;
         ironInput.selectionEnd = 2;
-        input._computeValue('112-111-11');
+        input._onValueChanged('111-111-1', '111-111');
 
         assert.equal(ironInput.selectionStart, 2, 'selectionStart is preserved');
         assert.equal(ironInput.selectionEnd, 2, 'selectionEnd is preserved');
@@ -107,7 +126,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
       });
-
 
     });
 

@@ -1,6 +1,6 @@
 {
   "name": "paper-elements",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "homepage": "https://github.com/PolymerElements/paper-elements",
   "authors": [
     "The Polymer Authors"
@@ -33,6 +33,7 @@
     "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#^1.0.0",
     "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^1.0.0",
     "paper-drawer-panel": "PolymerElements/paper-drawer-panel#^1.0.0",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.0.0",
     "paper-fab": "PolymerElements/paper-fab#^1.0.0",
     "paper-header-panel": "PolymerElements/paper-header-panel#^1.0.0",
     "paper-icon-button": "PolymerElements/paper-icon-button#^1.0.0",
@@ -55,11 +56,11 @@
     "paper-tooltip": "PolymerElements/paper-tooltip#^1.0.0",
     "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^1.0.0"
   },
-  "_release": "1.0.3",
+  "_release": "1.0.5",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.3",
-    "commit": "287bcb2bed182825779f25e63853ede3b500cd53"
+    "tag": "v1.0.5",
+    "commit": "45e684cbcef6c886e1bab1c2119e5a24626f30d5"
   },
   "_source": "git://github.com/polymerelements/paper-elements.git",
   "_target": "~1.0.1",

@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="../../test-fixture/test-fixture-mocha.js"></script>
 
   <script src="../../iron-test-helpers/test-helpers.js"></script>
+  <script src="../../iron-test-helpers/mock-interactions.js"></script>
 
   <link rel="import" href="../../test-fixture/test-fixture.html">
   <link rel="import" href="../gold-cc-input.html">
@@ -66,6 +67,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.ok(container, 'paper-input-container exists');
         assert.isTrue(container.invalid);
         assert.equal(input.cardType, '');
+
+        var error = Polymer.dom(input.root).querySelector('paper-input-error');
+        assert.ok(error, 'paper-input-error exists');
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
       });
 
       test('valid input is ok', function() {
@@ -79,13 +84,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(input.cardType, 'visa');
       });
 
-      test('empty required input shows error', function() {
+      test('empty required input shows error on blur', function(done) {
         var input = fixture('required');
         forceXIfStamp(input);
 
         var error = Polymer.dom(input.root).querySelector('paper-input-error');
         assert.ok(error, 'paper-input-error exists');
-        assert.notEqual(getComputedStyle(error).display, 'none', 'error is not display:none');
+
+        assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
+
+        input.addEventListener('blur', function(event) {
+          assert(!input.focused, 'input is blurred');
+          assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
+          done();
+        });
+        MockInteractions.focus(input);
+        MockInteractions.blur(input);
       });
 
       test('invalid input shows error message after manual validation', function() {
@@ -95,18 +109,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.ok(error, 'paper-input-error exists');
 
         // The error message is only displayed after manual validation.
-        assert.equal(getComputedStyle(error).display, 'none', 'error is not display:none');
+        assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
         input.validate();
-        assert.notEqual(getComputedStyle(error).display, 'none', 'error is not display:none');
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
       });
 
       test('caret position is preserved', function() {
         var input = fixture('required');
         var ironInput = Polymer.dom(input.root).querySelector('input[is="iron-input"]');
-        input.value='1111 1111';
+        input.value = '1111 1111';
+
         ironInput.selectionStart = 2;
         ironInput.selectionEnd = 2;
-        input._computeValue('1122 1111 11');
+        input._onValueChanged('1122 1111 11', '1111 1111');
 
         assert.equal(ironInput.selectionStart, 2, 'selectionStart is preserved');
         assert.equal(ironInput.selectionEnd, 2, 'selectionEnd is preserved');

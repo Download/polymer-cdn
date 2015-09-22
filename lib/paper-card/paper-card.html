@@ -10,9 +10,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 
 <!--
-Material Design: <a href="http://www.google.com/design/spec/components/card.html">Cards</a>
+Material Design: <a href="http://www.google.com/design/spec/components/cards.html">Cards</a>
 
 `paper-card` is a container with a drop shadow.
 
@@ -37,6 +38,9 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--paper-card-header-color` | The color of the header text | `#000`
 `--paper-card-header` | Mixin applied to the card header section | `{}`
+`--paper-card-header-text` | Mixin applied to the title in the card header section | `{}`
+`--paper-card-header-image` | Mixin applied to the image in the card header section | `{}`
+`--paper-card-header-image-text` | Mixin applied to the text overlapping the image in the card header section | `{}`
 `--paper-card-content` | Mixin applied to the card content section| `{}`
 `--paper-card-actions` | Mixin applied to the card action section | `{}`
 `--paper-card` | Mixin applied to the card | `{}`
@@ -47,71 +51,75 @@ Custom property | Description | Default
 -->
 
 <dom-module id="paper-card">
-  <style>
-  :host {
-    display: inline-block;
-    position: relative;
-    box-sizing: border-box;
-
-    background: #fff;
-    border-radius: 2px;
-    @apply(--paper-card);
-  }
-
-  /* IE 10 support for HTML5 hidden attr */
-  [hidden] {
-    display: none !important;
-  }
-
-  .header {
-    position: relative;
-    @apply(--paper-card-header);
-  }
-
-  .header img {
-    width: 100%;
-    pointer-events: none;
-  }
-
-  .header .title-text {
-    padding: 16px;
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--paper-card-header-color, #000);
-  }
-
-  .header .title-text.over-image {
-    position: absolute;
-    bottom: 0px;
-  }
-
-  :host ::content.card-content {
-    padding: 16px;
-    position:relative;
-    @apply(--paper-card-content);
-  }
-
-  :host ::content.card-actions {
-    border-top: 1px solid #e8e8e8;
-    padding: 5px 16px;
-    position:relative;
-    @apply(--paper-card-actions);
-  }
-
-  </style>
-
   <template>
+    <style>
+      :host {
+        display: inline-block;
+        position: relative;
+        box-sizing: border-box;
 
-    <paper-material id="shadow" animated$="[[animatedShadow]]" elevation=[[elevation]]>
-      <div class="header">
-        <img hidden$="[[!image]]" src="[[image]]">
-        <div hidden$="[[!heading]]" class$="[[_computeHeadingClass(image)]]">[[heading]]</div>
-      </div>
+        background: #fff;
+        border-radius: 2px;
+        @apply(--paper-card);
+      }
 
-      <content></content>
+      paper-material {
+        border-radius: inherit;
+        @apply(--layout-fit);
+      }
 
-    </paper-material>
+      /* IE 10 support for HTML5 hidden attr */
+      [hidden] {
+        display: none !important;
+      }
 
+      .header {
+        position: relative;
+        @apply(--paper-card-header);
+      }
+
+      .header img {
+        width: 100%;
+        pointer-events: none;
+        @apply(--paper-card-header-image);
+      }
+
+      .header .title-text {
+        padding: 16px;
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--paper-card-header-color, #000);
+        @apply(--paper-card-header-text);
+      }
+
+      .header .title-text.over-image {
+        position: absolute;
+        bottom: 0px;
+        @apply(--paper-card-header-image-text);
+      }
+
+      :host ::content .card-content {
+        padding: 16px;
+        position:relative;
+        @apply(--paper-card-content);
+      }
+
+      :host ::content .card-actions {
+        border-top: 1px solid #e8e8e8;
+        padding: 5px 16px;
+        position:relative;
+        @apply(--paper-card-actions);
+      }
+    </style>
+
+    <paper-material animated$="[[animatedShadow]]" elevation="[[elevation]]"></paper-material>
+
+    <div class="header">
+      <img hidden$="[[!image]]" src="[[image]]">
+      <div hidden$="[[!heading]]" class$="[[_computeHeadingClass(image)]]">[[heading]]</div>
+    </div>
+
+    <content></content>
   </template>
 
 </dom-module>

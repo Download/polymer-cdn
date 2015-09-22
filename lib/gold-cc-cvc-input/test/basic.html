@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="../../test-fixture/test-fixture-mocha.js"></script>
 
   <script src="../../iron-test-helpers/test-helpers.js"></script>
+  <script src="../../iron-test-helpers/mock-interactions.js"></script>
 
   <link rel="import" href="../../test-fixture/test-fixture.html">
   <link rel="import" href="../gold-cc-cvc-input.html">
@@ -65,29 +66,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('valid input is ok', function() {
         var input = fixture('required');
         input.value='123';
-        input._onInput();
         forceXIfStamp(input);
+
         var container = Polymer.dom(input.root).querySelector('paper-input-container');
         assert.ok(container, 'paper-input-container exists');
         assert.isFalse(container.invalid);
+
+        var error = Polymer.dom(input.root).querySelector('paper-input-error');
+        assert.ok(error, 'paper-input-error exists');
+        assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
       });
 
       test('invalid input is not ok', function() {
         var input = fixture('required');
         input.value='13';
-        input._onInput();
         forceXIfStamp(input);
+
         var container = Polymer.dom(input.root).querySelector('paper-input-container');
         assert.ok(container, 'paper-input-container exists');
         assert.isTrue(container.invalid);
-      });
 
-      test('empty required input shows error', function() {
-        var input = fixture('required');
-        forceXIfStamp(input);
         var error = Polymer.dom(input.root).querySelector('paper-input-error');
         assert.ok(error, 'paper-input-error exists');
-        assert.notEqual(getComputedStyle(error).display, 'none', 'error is not display:none');
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
+      });
+
+      test('empty required input shows error on blur', function() {
+        var input = fixture('required');
+        forceXIfStamp(input);
+
+        var error = Polymer.dom(input.root).querySelector('paper-input-error');
+        assert.ok(error, 'paper-input-error exists');
+
+        assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
+        MockInteractions.focus(input);
+        MockInteractions.blur(input);
+
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
       });
 
       test('invalid input shows error message after manual validation', function() {
@@ -97,9 +112,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.ok(error, 'paper-input-error exists');
 
         // The error message is only displayed after manual validation.
-        assert.equal(getComputedStyle(error).display, 'none', 'error is not display:none');
+        assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
         input.validate();
-        assert.notEqual(getComputedStyle(error).display, 'none', 'error is not display:none');
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
       });
     });
 

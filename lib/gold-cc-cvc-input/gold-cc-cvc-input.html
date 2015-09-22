@@ -140,6 +140,10 @@ style this element.
       _amex: {
         type: Boolean,
         computed: '_computeIsAmex(cardType)'
+      },
+
+      value: {
+        observer: '_onValueChanged'
       }
     },
 
@@ -148,18 +152,24 @@ style this element.
       Polymer.IronFormElementBehavior
     ],
 
-    listeners: {
-      'input': '_onInput'
-    },
+    observers: [
+      '_onFocusedChanged(focused)'
+    ],
 
     ready: function() {
-      this._onInput();
+      // If there's an initial input, validate it.
+      if (this.value)
+        this._handleAutoValidate();
     },
 
-    _onInput: function() {
-      if (this.autoValidate) {
-        this.validate();
-      }
+    /**
+     * A handler that is called on input
+     */
+    _onValueChanged: function(value, oldValue) {
+      // The initial property assignment is handled by `ready`.
+      if (oldValue == undefined)
+        return;
+      this._handleAutoValidate();
     },
 
     _computeRequiredLength: function(cardType) {
@@ -170,6 +180,12 @@ style this element.
       return cardType.toLowerCase() == 'amex';
     },
 
+    /**
+     * Returns true if the element has a valid value, and sets the visual
+     * error state.
+     *
+     * @return {boolean} Whether the input is currently valid or not.
+     */
     validate: function() {
       // Empty, non-required input is valid.
       if (!this.required && this.value == '') {
@@ -187,6 +203,15 @@ style this element.
       });
 
       return valid;
+    },
+
+    /**
+     * Overidden from Polymer.IronControlState.
+     */
+    _onFocusedChanged: function(focused) {
+      if (!focused) {
+        this._handleAutoValidate();
+      }
     }
   })
 

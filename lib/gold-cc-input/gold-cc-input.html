@@ -140,17 +140,34 @@ style this element.
         type: String,
         notify: true
       },
+
+      value: {
+        observer: '_onValueChanged'
+      }
     },
 
     observers: [
-      '_computeValue(value)'
+      '_onFocusedChanged(focused)'
     ],
 
-    _computeValue: function(value) {
-      var start = this.$.input.selectionStart;
-      var previousCharASpace = this.value.charAt(start - 1) == ' ';
+    ready: function() {
+      // If there's an initial input, validate it.
+      if (this.value)
+        this._handleAutoValidate();
+    },
 
-      value = value.replace(/\s+/g, '');
+    /**
+     * A handler that is called on input
+     */
+    _onValueChanged: function(value, oldValue) {
+      // The initial property assignment is handled by `ready`.
+      if (oldValue == undefined)
+        return;
+
+      var start = this.$.input.selectionStart;
+      var previousCharASpace = value ? this.value.charAt(start - 1) == ' ' : false;
+
+      var value = value.replace(/\s+/g, '');
       var formattedValue = '';
       for (var i = 0; i < value.length; i++) {
         // Add a space after every 4 characters.
@@ -161,17 +178,22 @@ style this element.
       }
       this.updateValueAndPreserveCaret(formattedValue.trim());
 
-      if (this.autoValidate)
-        this.validate();
-
       // If the character right before the selection is a newly inserted
       // space, we need to advance the selection to maintain the caret position.
       if (!previousCharASpace && this.value.charAt(start - 1) == ' ') {
         this.$.input.selectionStart = start+1;
         this.$.input.selectionEnd = start+1;
       }
+
+      this._handleAutoValidate();
     },
 
+    /**
+     * Returns true if the element has a valid value, and sets the visual
+     * error state.
+     *
+     * @return {boolean} Whether the input is currently valid or not.
+     */
     validate: function() {
       // Empty, non-required input is valid.
       if (!this.required && this.value == '') {
@@ -202,6 +224,15 @@ style this element.
       }
 
       return valid;
+    },
+
+    /**
+     * Overidden from Polymer.IronControlState.
+     */
+    _onFocusedChanged: function(focused) {
+      if (!focused) {
+        this._handleAutoValidate();
+      }
     }
   })
 

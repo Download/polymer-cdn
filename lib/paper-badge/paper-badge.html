@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../paper-styles/default-theme.html">
 
 <!--
@@ -67,12 +68,12 @@ Custom property | Description | Default
       margin-bottom: var(--paper-badge-margin-bottom, 0px);
       width: var(--paper-badge-width, 22px);
       height: var(--paper-badge-height, 22px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background-color: var(--paper-badge-background, --accent-color);
       opacity: var(--paper-badge-opacity, 1.0);
       color: var(--paper-badge-text-color, white);
+      @apply(--layout);
+      @apply(--layout-center-center);
+
       @apply(--paper-badge);
     }
   </style>
@@ -88,7 +89,7 @@ Custom property | Description | Default
       ],
 
       listeners: {
-        'iron-resize': '_onIronResize'
+        'iron-resize': 'updatePosition'
       },
 
       properties: {
@@ -97,7 +98,8 @@ Custom property | Description | Default
          * must be a sibling of the badge.
          */
         for: {
-          type: String
+          type: String,
+          observer: '_forChanged'
         },
 
         /**
@@ -110,6 +112,19 @@ Custom property | Description | Default
       },
 
       attached: function() {
+        this._updateTarget();
+      },
+
+      _forChanged: function() {
+        // The first time the property is set is before the badge is attached,
+        // which means we're not ready to position it yet.
+        if (!this.isAttached) {
+          return;
+        }
+        this._updateTarget();
+      },
+
+      _updateTarget: function() {
         this._target = this.target;
         this.async(this.notifyResize, 1);
       },
@@ -120,27 +135,36 @@ Custom property | Description | Default
        * of the badge.
        */
       get target () {
-        var ownerRoot = Polymer.dom(this).getOwnerRoot();
         var parentNode = Polymer.dom(this).parentNode;
+        // If the parentNode is a document fragment, then we need to use the host.
+        var ownerRoot = Polymer.dom(this).getOwnerRoot();
         var target;
 
         if (this.for) {
-          target = parentNode.querySelector('#' + this.for);
-        } else if (parentNode.nodeType == 11) { // DOCUMENT_FRAGMENT_NODE
-          target = ownerRoot.host;
+          target = Polymer.dom(ownerRoot).querySelector('#' + this.for);
         } else {
-          target = parentNode;
+          target = parentNode.nodeType == Node.DOCUMENT_FRAGMENT_NODE ?
+              ownerRoot.host : parentNode;
         }
 
         return target;
       },
 
-      _onIronResize: function() {
-        this._setPosition();
-      },
-
-      _setPosition: function() {
+      /**
+       * Repositions the badge relative to its anchor element. This is called
+       * automatically when the badge is attached or an `iron-resize` event is
+       * fired (for exmaple if the window has resized, or your target is a
+       * custom element that implements IronResizableBehavior).
+       *
+       * You should call this in all other cases when the achor's position
+       * might have changed (for example, if it's visibility has changed, or
+       * you've manually done a page re-layout).
+       */
+      updatePosition: function() {
         if (!this._target)
+          return;
+
+        if (!this.offsetParent)
           return;
 
         var parentRect = this.offsetParent.getBoundingClientRect();

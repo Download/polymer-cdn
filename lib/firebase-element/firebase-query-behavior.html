@@ -74,6 +74,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     _applyRemoteDataChange: function(applyChange) {
+      if (this._applyingLocalDataChanges) {
+        return;
+      }
       this._receivingRemoteChanges = true;
       applyChange.call(this);
       this._receivingRemoteChanges = false;
@@ -84,7 +87,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return;
       }
 
+      this._applyingLocalDataChanges = true;
       this._applyLocalDataChanges(changes);
+      this._applyingLocalDataChanges = false;
     },
 
     _queryChanged: function(query, oldQuery) {
@@ -144,7 +149,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     _onQueryChildMoved: function(childSnapshot, previousChildName) {
-      this._log('Firebase Event: "child_changed"', childSnapshot, previousChildName);
+      this._log('Firebase Event: "child_moved"', childSnapshot, previousChildName);
       this.fire('firebase-child-moved', {
         childSnapshot: childSnapshot,
         previousChildName: previousChildName

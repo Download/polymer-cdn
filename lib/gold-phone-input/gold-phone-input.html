@@ -69,16 +69,23 @@ style this element.
     width: 40px;
   }
 
+  /* TODO(notwaldorf): The style applied by paper-input-container is more
+   * specific, and we need the important to override it. This will go away
+   * once we can refactor this element to use the paper-input suffix */
+  label {
+    left: 40px !important;
+  }
+
   </style>
 
   <template>
-    <paper-input-container id="container" auto-validate="[[autoValidate]]"
+    <paper-input-container id="container"
         disabled$="[[disabled]]"
         no-label-float="[[noLabelFloat]]"
         always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]"
         invalid="[[invalid]]">
 
-      <label style="left:40px;" hidden$="[[!label]]">[[label]]</label>
+      <label hidden$="[[!label]]">[[label]]</label>
 
       <div class="horizontal layout">
         <span>+<span>[[countryCode]]</span></span>
@@ -99,6 +106,7 @@ style this element.
           inputmode$="[[inputmode]]"
           placeholder$="[[placeholder]]"
           readonly$="[[readonly]]"
+          maxlength$="[[maxlength]]"
           size$="[[size]]">
       </div>
 
@@ -147,12 +155,22 @@ style this element.
         type: String,
         value: 'XXX-XXX-XXXX',
         observer: '_phoneNumberPatternChanged'
+      },
+
+      value: {
+        observer: '_onValueChanged'
       }
     },
 
     observers: [
-      '_computeValue(value)'
+      '_onFocusedChanged(focused)'
     ],
+
+    ready: function() {
+      // If there's an initial input, validate it.
+      if (this.value)
+        this._handleAutoValidate();
+    },
 
     _phoneNumberPatternChanged: function() {
       // Transform the pattern into a regex the iron-input understands.
@@ -161,15 +179,18 @@ style this element.
       regex = regex.replace(/X/gi, '\\d');
       regex = regex.replace(/\+/g, '\\+');
       this.$.input.pattern = regex;
-
-      if (this.autoValidate) {
-        this.$.container.invalid = !this.$.input.validate();
-      }
     },
 
-    _computeValue: function(value) {
+    /**
+     * A handler that is called on input
+     */
+    _onValueChanged: function(value, oldValue) {
+       // The initial property assignment is handled by `ready`.
+       if (oldValue == undefined)
+         return;
+
       var start = this.$.input.selectionStart;
-      var previousCharADash = this.value.charAt(start - 1) == '-';
+      var previousCharADash = value ? this.value.charAt(start - 1) == '-' : false;
 
       // Remove any already-applied formatting.
       value = value.replace(/-/g, '');
@@ -200,8 +221,34 @@ style this element.
         this.$.input.selectionStart = start + 1;
         this.$.input.selectionEnd = start + 1;
       }
-    }
 
+      this._handleAutoValidate();
+    },
+
+    /**
+     * Overidden from Polymer.PaperInputBehavior.
+     */
+    validate: function() {
+      // Update the container and its addons (i.e. the custom error-message).
+      var valid = this.$.input.validate()
+      this.$.container.invalid = !valid;
+      this.$.container.updateAddons({
+        inputElement: this.$.input,
+        value: this.value,
+        invalid: !valid
+      });
+
+      return valid;
+    },
+
+    /**
+     * Overidden from Polymer.IronControlState.
+     */
+    _onFocusedChanged: function(focused) {
+      if (!focused) {
+        this._handleAutoValidate();
+      }
+    }
   })
 
 })();

@@ -28,13 +28,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h4>Standard</h4>
     <div class="vertical-section">
       <gold-phone-input></gold-phone-input>
-      <gold-phone-input auto-validate label="Auto-validating"></gold-phone-input>
+      <gold-phone-input auto-validate required label="Auto-validating"></gold-phone-input>
       <gold-phone-input
           label="France phone number"
           country-code="33"
           phone-number-pattern="X-XX-XX-XX-XX"
-          auto-validate
-          required>
+          auto-validate>
       </gold-phone-input>
     </div>
 
@@ -45,7 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <gold-phone-input label="Invalid US number" value="415-111-111" auto-validate></gold-phone-input>
     </div>
 
-    <h4>Custom error message</h4>
+    <h4>Custom error message, auto-validates on blur</h4>
     <div class="vertical-section">
       <gold-phone-input auto-validate label="Cats only" error-message="needs more cats" required></gold-phone-input>
     </div>

@@ -164,6 +164,8 @@ call the form's `submit` method.
      * custom components and native elements of the form. If there are elements
      * with duplicate names, then their values will get aggregated into an
      * array of values.
+     * 
+     * @return {!Object}
      */
     serialize: function() {
       var json = {};
@@ -238,12 +240,11 @@ call the form's `submit` method.
       // Validate all the custom elements.
       var validatable;
       for (var el, i = 0; el = this._customElements[i], i < this._customElements.length; i++) {
-        if (el.required && this._useValue(el)) {
+        if (el.required && !el.disabled) {
           validatable = /** @type {{validate: (function() : boolean)}} */ (el);
-          // TODO(notwaldorf): IronValidatableBehavior can return undefined if
-          // a validator is not set. It probably shouldn't, but in the meantime
-          // deal with that scenario.
-          valid = !!validatable.validate() && valid;
+          // Some elements may not have correctly defined a validate method.
+          if (validatable.validate)
+            valid = !!validatable.validate() && valid;
         }
       }
 

@@ -1,6 +1,6 @@
 {
   "name": "paper-badge",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Material design status message for elements",
   "authors": [
     "The Polymer Authors"
@@ -34,11 +34,11 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
     "paper-icon-button": "PolymerElements/paper-icon-button#^1.0.0"
   },
-  "_release": "1.0.0",
+  "_release": "1.0.3",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.0",
-    "commit": "3261353fcf9d090f4587f0431510d55f2b93c302"
+    "tag": "v1.0.3",
+    "commit": "f909f6b3b0b2e41ea0bfc70c0b30556b5a826d9b"
   },
   "_source": "git://github.com/PolymerElements/paper-badge.git",
   "_target": "^1.0.0",
