@@ -60,6 +60,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   flex: 1;
 }
 
+@media (max-width: 500px) {
+  #details {
+    margin-left: 0;
+  }
+}
+
 /* Metadata */
 
 #meta {

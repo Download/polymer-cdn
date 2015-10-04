@@ -1,10 +1,10 @@
-# polymer-cdn <sup><sub>v1.1.3</sub></sup>
+# polymer-cdn <sup><sub>v1.1.4</sub></sup>
 **A mirror of Polymer's components so that they can be used directly from CDN**
 
 ## How to use
 In general, given an element named `my-cool-element`, the CDN url for it will be:
 ```
-https://cdn.rawgit.com/download/polymer-cdn/1.1.3/lib/my-cool-element/my-cool-element.html
+https://cdn.rawgit.com/download/polymer-cdn/1.1.4/lib/my-cool-element/my-cool-element.html
 ```
 
 ## Versioning
@@ -51,328 +51,252 @@ but it made updating painful so now I just copy the Bower output. You can browse
 the files manually, or just trust Bower.
 
 ```sh
-└── webcomponentsjs#0.7.12
+polymer#1.1.4 lib\polymer
+└── webcomponentsjs#0.7.14
 
-paper-elements#1.0.5 lib\paper-elements
-├── paper-badge#1.0.3
-├── paper-behaviors#1.0.3
-├── paper-button#1.0.6
-├── paper-card#1.0.5
-├── paper-checkbox#1.0.10
-├── paper-dialog#1.0.1
-├── paper-dialog-behavior#1.0.4
-├── paper-dialog-scrollable#1.0.1
-├── paper-drawer-panel#1.0.3
-├── paper-dropdown-menu#1.0.2
-├── paper-fab#1.0.4
-├── paper-header-panel#1.0.5
-├── paper-icon-button#1.0.3
-├── paper-input#1.0.14
-├── paper-item#1.0.2
-├── paper-material#1.0.2
-├── paper-menu#1.1.0
-├── paper-menu-button#1.0.3
-├── paper-progress#1.0.5
-├── paper-radio-button#1.0.8
-├── paper-radio-group#1.0.4
-├── paper-ripple#1.0.2
-├── paper-scroll-header-panel#1.0.8
-├── paper-slider#1.0.6
-├── paper-spinner#1.0.2
-├── paper-styles#1.0.11
-├── paper-tabs#1.0.2
-├── paper-toast#1.0.0
-├── paper-toggle-button#1.0.8
-├── paper-toolbar#1.0.4
-└── paper-tooltip#1.1.0
-
-iron-autogrow-textarea#1.0.5 lib\iron-autogrow-textarea
+iron-elements#1.0.4 lib\iron-elements
+├── iron-a11y-announcer#1.0.3
+├── iron-a11y-keys#1.0.2
+├── iron-a11y-keys-behavior#1.0.6
+├── iron-ajax#1.0.5
+├── iron-autogrow-textarea#1.0.6
 ├── iron-behaviors#1.0.8
-├── iron-flex-layout#1.0.3
-├── iron-form-element-behavior#1.0.4
-├── iron-validatable-behavior#1.0.4
-└── polymer#1.1.3
-
-google-apis#1.1.0 lib\google-apis
-├── iron-jsonp-library#1.0.3
-└── polymer#1.1.3
-
-iron-collapse#1.0.3 lib\iron-collapse
-└── polymer#1.1.3
-
-firebase-element#1.0.6 lib\firebase-element
-├── firebase#2.2.9
-└── polymer#1.1.3
-
-google-map#1.1.0 lib\google-map
-├── google-apis#1.1.0
-├── iron-resizable-behavior#1.0.2
-└── polymer#1.1.3
-
-iron-behaviors#1.0.8 lib\iron-behaviors
-├── iron-a11y-keys-behavior#1.0.5
-└── polymer#1.1.3
-
-google-analytics#1.2.0 lib\google-analytics
-├── ga-api-utils#0.2.0
-├── google-chart#1.0.2
-├── google-signin#1.0.3
-├── polymer#1.1.3
-└── promise-polyfill#1.0.0
-
-iron-flex-layout#1.0.3 lib\iron-flex-layout
-└── polymer#1.1.3
-
-iron-form-element-behavior#1.0.4 lib\iron-form-element-behavior
-└── polymer#1.1.3
-
-iron-dropdown#1.0.6 lib\iron-dropdown
-├── iron-a11y-keys-behavior#1.0.5
-├── iron-behaviors#1.0.8
-├── iron-overlay-behavior#1.0.6
-├── iron-resizable-behavior#1.0.2
-├── neon-animation#1.0.6
-└── polymer#1.1.3
-
-iron-icon#1.0.4 lib\iron-icon
-├── iron-flex-layout#1.0.3
-├── iron-meta#1.0.3
-└── polymer#1.1.3
-
-iron-input#1.0.6 lib\iron-input
-├── iron-validatable-behavior#1.0.4
-└── polymer#1.1.3
-
-iron-form#1.0.9 lib\iron-form
-├── iron-ajax#1.0.4
-└── polymer#1.1.3
-
-iron-menu-behavior#1.0.3 lib\iron-menu-behavior
-├── iron-a11y-keys-behavior#1.0.5
-├── iron-selector#1.0.3
-└── polymer#1.1.3
-
-iron-overlay-behavior#1.0.6 lib\iron-overlay-behavior
-├── iron-fit-behavior#1.0.3
-├── iron-resizable-behavior#1.0.2
-└── polymer#1.1.3
-
-iron-test-helpers#1.0.3 lib\iron-test-helpers
-└── polymer#1.1.3
-
-iron-validatable-behavior#1.0.4 lib\iron-validatable-behavior
-├── iron-meta#1.0.3
-└── polymer#1.1.3
-
-iron-doc-viewer#1.0.5 lib\iron-doc-viewer
-├── marked-element#1.1.1
-├── paper-button#1.0.6
-├── paper-styles#1.0.11
-├── polymer#1.1.3
-└── prism-element#1.0.2
-
-gold-cc-cvc-input#1.0.4 lib\gold-cc-cvc-input
-├── iron-form-element-behavior#1.0.4
-├── iron-icon#1.0.4
-├── paper-input#1.0.14
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-marked-element#1.1.1 lib\marked-element
-├── marked#0.3.5
-└── polymer#1.1.3
-
-iron-selector#1.0.3 lib\iron-selector
-└── polymer#1.1.3
-
-gold-phone-input#1.0.6 lib\gold-phone-input
-├── iron-form-element-behavior#1.0.4
-├── iron-input#1.0.6
-├── paper-input#1.0.14
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-gold-zip-input#1.0.3 lib\gold-zip-input
-├── iron-form-element-behavior#1.0.4
-├── iron-icon#1.0.4
-├── iron-validator-behavior#1.0.1
-├── paper-input#1.0.14
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-gold-email-input#1.0.4 lib\gold-email-input
-├── iron-form-element-behavior#1.0.4
-├── iron-icon#1.0.4
-├── paper-input#1.0.14
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-gold-cc-expiration-input#1.0.5 lib\gold-cc-expiration-input
-├── iron-form-element-behavior#1.0.4
-├── iron-validatable-behavior#1.0.4
-├── iron-validator-behavior#1.0.1
-├── paper-input#1.0.14
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-paper-material#1.0.2 lib\paper-material
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-platinum-push-messaging#1.0.3 lib\platinum-push-messaging
-├── polymer#1.1.3
-└── promise-polyfill#1.0.0
-
-paper-ripple#1.0.2 lib\paper-ripple
-├── iron-a11y-keys-behavior#1.0.5
-└── polymer#1.1.3
-
-gold-cc-input#1.0.6 lib\gold-cc-input
-├── iron-form-element-behavior#1.0.4
-├── iron-icon#1.0.4
-├── iron-validator-behavior#1.0.1
-├── paper-input#1.0.14
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-paper-header-panel#1.0.5 lib\paper-header-panel
-├── iron-flex-layout#1.0.3
-└── polymer#1.1.3
-
-paper-dropdown-menu#1.0.2 lib\paper-dropdown-menu
-├── iron-a11y-keys-behavior#1.0.5
-├── iron-icon#1.0.4
-├── iron-icons#1.0.3
-├── paper-input#1.0.14
-├── paper-menu-button#1.0.3
-├── paper-ripple#1.0.2
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-paper-badge#1.0.3 lib\paper-badge
-├── iron-resizable-behavior#1.0.2
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-paper-checkbox#1.0.10 lib\paper-checkbox
 ├── iron-checked-element-behavior#1.0.2
-├── paper-behaviors#1.0.3
-├── paper-ripple#1.0.2
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-paper-card#1.0.5 lib\paper-card
-├── iron-flex-layout#1.0.3
-├── paper-material#1.0.2
-└── polymer#1.1.3
-
-promise-polyfill#1.0.0 lib\promise-polyfill
-└── polymer#1.1.3
-
-paper-button#1.0.6 lib\paper-button
-├── iron-flex-layout#1.0.3
-├── paper-behaviors#1.0.3
-├── paper-material#1.0.2
-├── paper-ripple#1.0.2
-└── polymer#1.1.3
-
-iron-list#1.1.1 lib\iron-list
-├── iron-resizable-behavior#1.0.2
-└── polymer#1.1.3
-
-paper-fab#1.0.4 lib\paper-fab
-├── iron-flex-layout#1.0.3
-├── iron-icon#1.0.4
-├── iron-icons#1.0.3
-├── paper-behaviors#1.0.3
-├── paper-material#1.0.2
-├── paper-ripple#1.0.2
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-paper-progress#1.0.5 lib\paper-progress
-├── iron-range-behavior#1.0.2
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-paper-input#1.0.14 lib\paper-input
-├── iron-autogrow-textarea#1.0.5
-├── iron-behaviors#1.0.8
-├── iron-form-element-behavior#1.0.4
-├── iron-input#1.0.6
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-paper-menu-button#1.0.3 lib\paper-menu-button
-├── iron-a11y-keys-behavior#1.0.5
-├── iron-behaviors#1.0.8
+├── iron-collapse#1.0.3
+├── iron-component-page#1.0.5
+├── iron-doc-viewer#1.0.6
 ├── iron-dropdown#1.0.6
-├── neon-animation#1.0.6
-├── paper-material#1.0.2
-├── paper-styles#1.0.11
-└── polymer#1.1.3
+├── iron-fit-behavior#1.0.3
+├── iron-flex-layout#1.0.4
+├── iron-form#1.0.9
+├── iron-form-element-behavior#1.0.4
+├── iron-icon#1.0.5
+├── iron-icons#1.0.4
+├── iron-iconset#1.0.3
+├── iron-iconset-svg#1.0.5
+├── iron-image#1.0.2
+├── iron-input#1.0.6
+├── iron-jsonp-library#1.0.3
+├── iron-list#1.1.2
+├── iron-localstorage#1.0.4
+├── iron-media-query#1.0.2
+├── iron-menu-behavior#1.0.5
+├── iron-meta#1.0.3
+├── iron-overlay-behavior#1.0.9
+├── iron-pages#1.0.3
+├── iron-range-behavior#1.0.3
+├── iron-resizable-behavior#1.0.2
+├── iron-selector#1.0.5
+├── iron-signals#1.0.2
+├── iron-test-helpers#1.0.4
+├── iron-validatable-behavior#1.0.4
+└── iron-validator-behavior#1.0.1
 
-paper-menu#1.1.0 lib\paper-menu
+paper-button#1.0.7 lib\paper-button
+├── iron-flex-layout#1.0.4
+├── paper-behaviors#1.0.4
+├── paper-material#1.0.2
+├── paper-ripple#1.0.2
+└── polymer#1.1.4
+
+paper-card#1.0.6 lib\paper-card
+├── iron-flex-layout#1.0.4
+├── paper-material#1.0.2
+└── polymer#1.1.4
+
+paper-dialog#1.0.2 lib\paper-dialog
+├── neon-animation#1.0.6
+├── paper-dialog-behavior#1.0.6
+├── paper-styles#1.0.11
+└── polymer#1.1.4
+
+paper-dropdown-menu#1.0.4 lib\paper-dropdown-menu
+├── iron-a11y-keys-behavior#1.0.6
+├── iron-icon#1.0.5
+├── iron-icons#1.0.4
+├── paper-input#1.0.15
+├── paper-menu-button#1.0.3
+├── paper-ripple#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.4
+
+paper-behaviors#1.0.4 lib\paper-behaviors
+├── iron-behaviors#1.0.8
+└── polymer#1.1.4
+
+paper-progress#1.0.7 lib\paper-progress
+├── iron-flex-layout#1.0.4
+├── iron-range-behavior#1.0.3
+├── paper-styles#1.0.11
+└── polymer#1.1.4
+
+paper-dialog-behavior#1.0.6 lib\paper-dialog-behavior
+├── iron-overlay-behavior#1.0.9
+├── paper-styles#1.0.11
+└── polymer#1.1.4
+
+paper-item#1.0.3 lib\paper-item
+├── iron-behaviors#1.0.8
+├── paper-styles#1.0.11
+└── polymer#1.1.4
+
+paper-menu#1.1.1 lib\paper-menu
 ├── iron-behaviors#1.0.8
 ├── iron-collapse#1.0.3
-├── iron-menu-behavior#1.0.3
+├── iron-menu-behavior#1.0.5
 ├── paper-styles#1.0.11
-└── polymer#1.1.3
+└── polymer#1.1.4
 
-webcomponentsjs#0.7.12 lib\webcomponentsjs
+paper-toggle-button#1.0.10 lib\paper-toggle-button
+├── iron-checked-element-behavior#1.0.2
+├── paper-behaviors#1.0.4
+├── paper-ripple#1.0.2
+├── paper-styles#1.0.11
+└── polymer#1.1.4
 
-paper-slider#1.0.6 lib\paper-slider
-├── iron-a11y-keys-behavior#1.0.5
-├── iron-behaviors#1.0.8
-├── iron-flex-layout#1.0.3
+gold-email-input#1.0.5 lib\gold-email-input
 ├── iron-form-element-behavior#1.0.4
-├── paper-behaviors#1.0.3
-├── paper-input#1.0.14
-├── paper-progress#1.0.5
-├── paper-ripple#1.0.2
+├── iron-icon#1.0.5
+├── paper-input#1.0.15
 ├── paper-styles#1.0.11
-└── polymer#1.1.3
+└── polymer#1.1.4
 
-paper-toggle-button#1.0.8 lib\paper-toggle-button
-├── iron-checked-element-behavior#1.0.2
-├── paper-behaviors#1.0.3
-├── paper-ripple#1.0.2
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-paper-radio-button#1.0.8 lib\paper-radio-button
-├── iron-checked-element-behavior#1.0.2
-├── paper-behaviors#1.0.3
-├── paper-ripple#1.0.2
-├── paper-styles#1.0.11
-└── polymer#1.1.3
-
-paper-tabs#1.0.2 lib\paper-tabs
+paper-tabs#1.0.3 lib\paper-tabs
 ├── iron-behaviors#1.0.8
-├── iron-flex-layout#1.0.3
-├── iron-icon#1.0.4
-├── iron-iconset-svg#1.0.4
-├── iron-menu-behavior#1.0.3
+├── iron-flex-layout#1.0.4
+├── iron-icon#1.0.5
+├── iron-iconset-svg#1.0.5
+├── iron-menu-behavior#1.0.5
 ├── iron-resizable-behavior#1.0.2
 ├── paper-icon-button#1.0.3
 ├── paper-ripple#1.0.2
 ├── paper-styles#1.0.11
-└── polymer#1.1.3
+└── polymer#1.1.4
 
-paper-tooltip#1.1.0 lib\paper-tooltip
-├── neon-animation#1.0.6
+paper-input#1.0.15 lib\paper-input
+├── iron-autogrow-textarea#1.0.6
+├── iron-behaviors#1.0.8
+├── iron-form-element-behavior#1.0.4
+├── iron-input#1.0.6
 ├── paper-styles#1.0.11
-└── polymer#1.1.3
+└── polymer#1.1.4
 
-hydrolysis#1.15.4 lib\hydrolysis
+promise-polyfill#1.0.0 lib\promise-polyfill
+└── polymer#1.1.4
 
-iron-checked-element-behavior#1.0.2 lib\iron-checked-element-behavior
+iron-flex-layout#1.0.4 lib\iron-flex-layout
+└── polymer#1.1.4
+
+google-streetview-pano#1.0.3 lib\google-streetview-pano
+├── google-apis#1.1.1
+└── polymer#1.1.4
+
+iron-icon#1.0.5 lib\iron-icon
+├── iron-flex-layout#1.0.4
+├── iron-meta#1.0.3
+└── polymer#1.1.4
+
+google-signin#1.1.0 lib\google-signin
+├── font-roboto#1.0.1
+├── google-apis#1.1.1
+├── iron-flex-layout#1.0.4
+├── iron-icon#1.0.5
+├── iron-icons#1.0.4
+├── paper-material#1.0.2
+├── paper-ripple#1.0.2
+└── polymer#1.1.4
+
+iron-a11y-keys-behavior#1.0.6 lib\iron-a11y-keys-behavior
+└── polymer#1.1.4
+
+google-chart#1.0.3 lib\google-chart
+├── google-apis#1.1.1
+├── iron-ajax#1.0.5
+└── polymer#1.1.4
+
+iron-autogrow-textarea#1.0.6 lib\iron-autogrow-textarea
+├── iron-behaviors#1.0.8
+├── iron-flex-layout#1.0.4
 ├── iron-form-element-behavior#1.0.4
 ├── iron-validatable-behavior#1.0.4
-└── polymer#1.1.3
+└── polymer#1.1.4
 
-paper-scroll-header-panel#1.0.8 lib\paper-scroll-header-panel
+iron-dropdown#1.0.6 lib\iron-dropdown
+├── iron-a11y-keys-behavior#1.0.6
+├── iron-behaviors#1.0.8
+├── iron-overlay-behavior#1.0.9
 ├── iron-resizable-behavior#1.0.2
-├── paper-toolbar#1.0.4
-└── polymer#1.1.3
+├── neon-animation#1.0.6
+└── polymer#1.1.4
+
+iron-behaviors#1.0.8 lib\iron-behaviors
+├── iron-a11y-keys-behavior#1.0.6
+└── polymer#1.1.4
+
+iron-a11y-announcer#1.0.3 lib\iron-a11y-announcer
+└── polymer#1.1.4
+
+google-apis#1.1.1 lib\google-apis
+├── iron-jsonp-library#1.0.3
+└── polymer#1.1.4
+
+iron-iconset-svg#1.0.5 lib\iron-iconset-svg
+├── iron-meta#1.0.3
+└── polymer#1.1.4
+
+iron-ajax#1.0.5 lib\iron-ajax
+├── polymer#1.1.4
+└── promise-polyfill#1.0.0
+
+google-map#1.1.3 lib\google-map
+├── google-apis#1.1.1
+├── iron-resizable-behavior#1.0.2
+└── polymer#1.1.4
+
+iron-selector#1.0.5 lib\iron-selector
+└── polymer#1.1.4
+
+iron-iconset#1.0.3 lib\iron-iconset
+├── iron-meta#1.0.3
+└── polymer#1.1.4
+
+iron-menu-behavior#1.0.5 lib\iron-menu-behavior
+├── iron-a11y-keys-behavior#1.0.6
+├── iron-selector#1.0.5
+└── polymer#1.1.4
+
+iron-test-helpers#1.0.4 lib\iron-test-helpers
+└── polymer#1.1.4
+
+iron-overlay-behavior#1.0.9 lib\iron-overlay-behavior
+├── iron-fit-behavior#1.0.3
+├── iron-resizable-behavior#1.0.2
+└── polymer#1.1.4
+
+iron-range-behavior#1.0.3 lib\iron-range-behavior
+└── polymer#1.1.4
+
+iron-doc-viewer#1.0.6 lib\iron-doc-viewer
+├── marked-element#1.1.1
+├── paper-button#1.0.7
+├── paper-styles#1.0.11
+├── polymer#1.1.4
+└── prism-element#1.0.2
+
+iron-icons#1.0.4 lib\iron-icons
+├── iron-icon#1.0.5
+├── iron-iconset-svg#1.0.5
+└── polymer#1.1.4
+
+webcomponentsjs#0.7.14 lib\webcomponentsjs
+
+firebase#2.3.1 lib\firebase
+
+sw-toolbox#2.1.0 lib\sw-toolbox
+
+iron-list#1.1.2 lib\iron-list
+├── iron-resizable-behavior#1.0.2
+└── polymer#1.1.4
+
+hydrolysis#1.19.1 lib\hydrolysis
 ```

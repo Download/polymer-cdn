@@ -62,6 +62,7 @@ style this element.
       <label hidden$="[[!label]]">[[label]]</label>
 
       <input is="iron-input" id="input"
+          type="email"
           required$="[[required]]"
           disabled$="[[disabled]]"
           aria-labelledby$="[[_ariaLabelledBy]]"
@@ -69,6 +70,7 @@ style this element.
           validator="email-validator"
           bind-value="{{value}}"
           autocomplete="email"
+          autocapitalize="none"
           name$="[[name]]"
           invalid="{{invalid}}"
           autofocus$="[[autofocus]]"
@@ -107,13 +109,15 @@ style this element.
       },
 
       /**
-       * The regular expression used to validate the email. Defaults to the
-       * regular expression defined in the spec: http://www.w3.org/TR/html-markup/input.email.html#input.email.attrs.value.single.
-       * If left blank, then no validation will be applied.
+       * The regular expression used to validate the email. By default, the
+       * input is of type=email and uses the native input regex, as defined in
+       * the spec: http://www.w3.org/TR/html-markup/input.email.html#input.email.attrs.value.single.
+       * You can override this if you want your email to be validated against
+       * a custom regex. If the empty string, then no validation will be applied.
        */
       regex: {
         type: String,
-        value: '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$'
+        value: null
       },
 
       value: {
@@ -149,21 +153,32 @@ style this element.
      * @return {boolean} Whether the input is currently valid or not.
      */
     validate: function() {
-      // Empty, non-required input is valid. A blank regex means everything is valid.
-      if ((!this.required && this.value == '') || this.regex == '') {
-        return true;
+
+      var valid;
+
+      // Empty, non-required input is valid.
+      if (!this.required && this.value == '') {
+        valid = true;
+      } else if (this.regex === null) {
+        // If the regex isn't set, then use the native validator.
+        valid = this.$.input.validate();
+      } else {
+        // A blank regex means everything is valid. Else, check value against regex.
+        valid = new RegExp(this.regex, "i").test(this.value);
       }
 
-      // A blank regex mean everything is allowed.
-      var valid = new RegExp(this.regex, "i").test(this.value);
+      // Check if validity has changed
+      if (valid == this.invalid) {
+        // Update `this.invalid` since it's data-bound to container
+        this.invalid = !valid;
 
-      // Update the container and its addons (i.e. the custom error-message).
-      this.$.container.invalid = !valid;
-      this.$.container.updateAddons({
-        inputElement: this.$.input,
-        value: this.value,
-        invalid: !valid
-      });
+        // Update container's addons (i.e. the custom error-message).
+        this.$.container.updateAddons({
+          inputElement: this.$.input,
+          value: this.value,
+          invalid: !valid
+        });
+      }
 
       return valid;
     },

@@ -4,7 +4,7 @@
   "moduleType": [
     "globals"
   ],
-  "license": "Apache-2",
+  "license": "Apache-2.0",
   "ignore": [
     "**/.*",
     "lib",
@@ -12,12 +12,12 @@
     "gulpfile.js"
   ],
   "homepage": "https://github.com/GoogleChrome/sw-toolbox",
-  "version": "2.0.4",
-  "_release": "2.0.4",
+  "version": "2.1.0",
+  "_release": "2.1.0",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.4",
-    "commit": "52f98c18e1baec51a8cee494f0d92ad1f6eac808"
+    "tag": "v2.1.0",
+    "commit": "f4058bc51504ed8ee94f6ff863ac943629ba25ff"
   },
   "_source": "git://github.com/GoogleChrome/sw-toolbox.git",
   "_target": "^2.0.2",

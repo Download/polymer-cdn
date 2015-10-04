@@ -1,33 +1,33 @@
 BUILD LOG
 ---------
-Build Time: 2015-08-20T15:30:06-0700
+Build Time: 2015-09-28T16:50:31-0700
 
 NODEJS INFORMATION
 ==================
-nodejs: v0.12.7
+nodejs: v4.1.1
 gulp: 3.9.0
 gulp-audit: 1.0.0
 gulp-concat: 2.6.0
-gulp-header: 1.5.0
-gulp-uglify: 1.2.0
-run-sequence: 1.1.2
-web-component-tester: 3.3.10
+gulp-header: 1.7.1
+gulp-uglify: 1.4.1
+run-sequence: 1.1.4
+web-component-tester: 3.3.22
 
 REPO REVISIONS
 ==============
-webcomponentsjs: 7c1be4272a2b086d127a6de75ba3c3f1afb4738b
+webcomponentsjs: c469b0002fa265416c83d5c8363071705e345a43
 
 BUILD HASHES
 ============
-CustomElements.js: 6a2286302817c5be1c1a7abae454fb6fd2356b2d
-CustomElements.min.js: 54ad572612b113ad0447fd0a511e6ed6a325fd5d
-HTMLImports.js: fd87b2bc09df49beb357abadbab0873815b1431a
-HTMLImports.min.js: 929f7aba1ffb0d9fc8eb8e46e5ab990f5afdb8cc
-MutationObserver.js: 4d20015dcf0aa06b4629ebe49f15bed6e9015b03
-MutationObserver.min.js: 532e4a1eeb5d76cc30aa17a746de39727f96cf0f
-ShadowDOM.js: 08981892c55c927a0063d2a60b92f598bff37b1b
-ShadowDOM.min.js: eb4a14b222a2f3d2ed36ec0ca4d49a1b71774b2c
-webcomponents-lite.js: 7d4f78d67aacced5391b31e1367620dd7c8a4720
-webcomponents-lite.min.js: 2022103f18119f2416bdd517a37f049d4bdf1e20
-webcomponents.js: e687f0f116af642618b561b7f3dc1b0af320e0c5
-webcomponents.min.js: 6f336e06e06e56574ba3df31798b7de346716996
+CustomElements.js: 0d46b5c2bb7c92b6285d574205ca65e49def0617
+CustomElements.min.js: 2de71b634cd1545c401981c68fc31f0a12dd5f82
+HTMLImports.js: 0ddc177cadf99dd47b36bd74296f9d23dc566f25
+HTMLImports.min.js: 43d3866825148a8d0509da06a1e55550762255a9
+MutationObserver.js: 54ad1e3273edc525d1e4e0b75c42e25af7a0fb20
+MutationObserver.min.js: 36c22670e654ace2e7440c2dc4b012802080424b
+ShadowDOM.js: 089f8e6ea35f4365a2bece6481308d2002975e51
+ShadowDOM.min.js: 9d044a4e4221245adf257b229f9c67968f95f955
+webcomponents-lite.js: 8c326ce2b8e40aa4aefe7469f7cf8587c2c625da
+webcomponents-lite.min.js: ce8cf899652990697eb80703ebacf0ae997f7361
+webcomponents.js: fd409f4fab68b8bcc27a6a54e2ec16555a5eaa47
+webcomponents.min.js: efcdb4322c84f68f8c9e9cfc359505c263814051

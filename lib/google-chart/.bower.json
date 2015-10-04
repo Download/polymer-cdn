@@ -1,6 +1,6 @@
 {
   "name": "google-chart",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Encapsulates Google Charts into a web component",
   "homepage": "https://googlewebcomponents.github.io/google-chart",
   "main": "google-chart.html",
@@ -24,17 +24,17 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
     "google-apis": "GoogleWebComponents/google-apis#^1.0.0",
-    "iron-ajax": "PolymerElements/iron-ajax#1.0.0"
+    "iron-ajax": "PolymerElements/iron-ajax#^1.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.2",
     "web-component-tester": "*"
   },
-  "_release": "1.0.2",
+  "_release": "1.0.3",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.2",
-    "commit": "3f814aaf86913b8fa19e860780e7a14f201f607e"
+    "tag": "1.0.3",
+    "commit": "dabf96156dd26a31da6036a4621689c414a0fa70"
   },
   "_source": "git://github.com/GoogleWebComponents/google-chart.git",
   "_target": "^1.0.0",

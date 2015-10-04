@@ -38,7 +38,7 @@ The `google-map` element renders a Google Map.
 
 <b>Example</b> - with Google directions, using data-binding inside another Polymer element
 
-    <google-map map="{{map}}" libraries="places"></google-map>
+    <google-map map="{{map}}"></google-map>
     <google-map-directions map="{{map}}"
         start-address="San Francisco" end-address="Mountain View">
     </google-map-directions>
@@ -69,7 +69,6 @@ The `google-map` element renders a Google Map.
       api-key="[[apiKey]]"
       client-id="[[clientId]]"
       version="[[version]]"
-      libraries="[[libraries]]"
       signed-in="[[signedIn]]"
       language="[[language]]"
       on-api-load="_mapApiLoaded"></google-maps-api>
@@ -170,16 +169,6 @@ The `google-map` element renders a Google Map.
       },
 
       /**
-       * A comma separated list (e.g. "places,geometry") of libraries to load
-       * with this map. Defaults to "". For more information see
-       * https://developers.google.com/maps/documentation/javascript/libraries.
-       */
-      libraries: {
-        type: String,
-        value: ''
-      },
-
-      /**
        * A longitude to center the map on.
        */
       longitude: {
@@ -204,7 +193,8 @@ The `google-map` element renders a Google Map.
       zoom: {
         type: Number,
         value: 10,
-        observer: '_zoomChanged'
+        observer: '_zoomChanged',
+        notify: true
       },
 
       /**
@@ -221,7 +211,8 @@ The `google-map` element renders a Google Map.
       mapType: {
         type: String,
         value: 'roadmap', // roadmap, satellite, hybrid, terrain,
-        observer: '_mapTypeChanged'
+        observer: '_mapTypeChanged',
+        notify: true
       },
 
       /**
@@ -670,6 +661,10 @@ The `google-map` element renders a Google Map.
 
       google.maps.event.addListener(this.map, 'zoom_changed', function() {
         this.zoom = this.map.getZoom();
+      }.bind(this));
+      
+      google.maps.event.addListener(this.map, 'maptypeid_changed', function() {
+        this.mapType = this.map.getMapTypeId();
       }.bind(this));
 
       this._clickEventsChanged();
