@@ -49,9 +49,17 @@ Pull requests are of course also always welcome! If you want to try that, here i
 I will review the PR and if it looks good, Merge it and Publish the resulting work as a new Release.
 
 ## Contents
-All these libraries can be found in the `lib` subfolder. These used to be links to the actual files, 
-but it made updating painful so now I just copy the Bower output. You can browse the repo to locate
-the files manually, or just trust Bower.
+All the libraries available in polymer-cdn can be found side-by-side in the [lib](https://github.com/Download/polymer-cdn/tree/1.1.4/lib) subfolder. 
+
+Some of the libraries depend on other libraries. We call those other libraries the dependencies of the library.
+These dependencies will also be pulled into your page when you include such a library. 
+If the dependencies themselves depend on yet other libraries, these dependencies of dependencies will also be 
+pulled into your page, et cetera until the full dependency tree has been loaded. We call this transitive 
+dependency resolution and it's built in to the way Web Components work. 
+
+The bower output below lists, for each library included in this CDN, the dependencies of that library. 
+These dependencies are themselves also listed at the top-level, so you can work out the entire dependency
+tree for a library by carefully examining this diagram.
 
 ```sh
 polymer#1.1.4 lib\polymer
