@@ -106,7 +106,16 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
       loading: {
         type: Boolean,
         notify: true
-      }
+      },
+
+      /**
+       * Format the data is returned. json(default)|xml|mixed
+       * Only applies for one feed.
+       */
+       format: {
+         type: String,
+         value: 'json'
+       }
     },
 
     attached: function() {
@@ -126,6 +135,7 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
 
     _fetchFeeds: function() {
       var feed = new google.feeds.Feed(this.feed);
+      feed.setResultFormat(this._format());
       feed.includeHistoricalEntries(); // tell the API we want to have old entries too
       feed.setNumEntries(this.count); // we want this maximum number of entries, if they exist
       feed.load(this._fetchFeedsDone.bind(this));
@@ -137,8 +147,12 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
         this.results = {};
         this.fire('google-feeds-error', {status: results.status});
       } else {
-        this.results = results.feed;
-        this.fire('google-feeds-response', {feed: results.feed});
+        if (results.m === google.feeds.Feed.MIXED_FORMAT) {
+          results.feed.xmlDocument = results.xmlDocument;
+        }
+
+        this.results = results.m === google.feeds.Feed.XML_FORMAT ? results.xmlDocument : results.feed;
+        this.fire('google-feeds-response', {feed: this.results});
       }
     },
 
@@ -214,6 +228,18 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
         if (callback) {
           this._feedsCallbacks.push(callback);
         }
+      }
+    },
+
+    _format: function() {
+      switch(this.format) {
+        case 'xml':
+          return google.feeds.Feed.XML_FORMAT;
+        case 'mixed':
+          return google.feeds.Feed.MIXED_FORMAT;
+        case 'json':
+        default:
+          return google.feeds.Feed.JSON_FORMAT;
       }
     }
 

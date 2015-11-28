@@ -1,6 +1,6 @@
 {
   "name": "gold-cc-input",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A credit card input field",
   "authors": [
     "The Polymer Authors"
@@ -10,9 +10,7 @@
     "polymer",
     "input"
   ],
-  "main": [
-    "gold-cc-input.html"
-  ],
+  "main": "gold-cc-input.html",
   "private": true,
   "repository": {
     "type": "git",
@@ -23,6 +21,7 @@
   "ignore": [],
   "dependencies": {
     "iron-validator-behavior": "PolymerElements/iron-validator-behavior#^1.0.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
     "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#^1.0.0",
     "iron-icon": "PolymerElements/iron-icon#^1.0.0",
     "paper-input": "PolymerElements/paper-input#^1.0.0",
@@ -33,14 +32,14 @@
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
     "test-fixture": "PolymerElements/test-fixture#^1.0.0",
-    "web-component-tester": "*",
+    "web-component-tester": "polymer/web-component-tester#^3.4.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
-  "_release": "1.0.6",
+  "_release": "1.0.7",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.6",
-    "commit": "03e918298633125882153fa942e11952274b4bf3"
+    "tag": "v1.0.7",
+    "commit": "fc6c869daa8dccaa90db5dcd598f6685d95a931a"
   },
   "_source": "git://github.com/PolymerElements/gold-cc-input.git",
   "_target": "^1.0.0",

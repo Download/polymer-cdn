@@ -115,12 +115,25 @@ child of `google-map`.
      * @param {google.maps.MouseEvent} event The mouse event.
      */
 
+    /**
+     * Fired when an infowindow is opened.
+     * @event google-map-marker-open
+     */
+
+    /**
+     * Fired when the close button of the infowindow is pressed.
+     * @event google-map-marker-close
+     */
+
     properties: {
       /**
        * A Google Maps marker object.
        * @type google.maps.Marker
        */
-      marker: Object,
+      marker: {
+        type: Object,
+        notify: true
+      },
 
       /**
        * The Google map object.
@@ -182,7 +195,7 @@ child of `google-map`.
       longitude: {
         type: Number,
         value: null,
-        reflectToAttribute: true
+        notify: true
       },
 
       /**
@@ -191,7 +204,7 @@ child of `google-map`.
       latitude: {
         type: Number,
         value: null,
-        reflectToAttribute: true
+        notify: true
       },
 
       /**
@@ -202,6 +215,15 @@ child of `google-map`.
         type: String,
         value: null,
         observer: '_animationChanged'
+      },
+
+      /**
+       * Specifies whether the InfoWindow is open or not
+       */
+      open: {
+        type: Boolean,
+        value: false,
+        observer: '_openChanged'
       }
     },
 
@@ -211,6 +233,8 @@ child of `google-map`.
 
     detached: function() {
       if (this.marker) {
+        google.maps.event.clearInstanceListeners(this.marker);
+        this._listeners = {};
         this.marker.setMap(null);
       }
       if (this._contentObserver)
@@ -310,16 +334,33 @@ child of `google-map`.
         if (!this.info) {
           // Create a new infowindow
           this.info = new google.maps.InfoWindow();
-          this.infoHandler_ = google.maps.event.addListener(this.marker, 'click', function() {
-            this.info.open(this.map, this.marker);
+          this.openInfoHandler_ = google.maps.event.addListener(this.marker, 'click', function() {
+            this.open = true;
+          }.bind(this));
+
+          this.closeInfoHandler_ = google.maps.event.addListener(this.info, 'closeclick', function() {
+            this.open = false;
           }.bind(this));
         }
         this.info.setContent(content);
       } else {
         if (this.info) {
           // Destroy the existing infowindow.  It doesn't make sense to have an empty one.
-          google.maps.event.removeListener(this.infoHandler_);
+          google.maps.event.removeListener(this.openInfoHandler_);
+          google.maps.event.removeListener(this.closeInfoHandler_);
           this.info = null;
+        }
+      }
+    },
+
+    _openChanged: function() {
+      if (this.info) {
+        if (this.open) {
+          this.info.open(this.map, this.marker);
+          this.fire('google-map-marker-open');
+        } else {
+          this.info.close();
+          this.fire('google-map-marker-close');
         }
       }
     },
@@ -343,6 +384,7 @@ child of `google-map`.
       this._clickEventsChanged();
       this._contentChanged();
       this._mouseEventsChanged();
+      this._openChanged();
       setupDragHandler_.bind(this)();
     },
 

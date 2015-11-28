@@ -19,8 +19,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-selector/iron-selectable.html">
+<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 
 <!--
+Material design: [Dropdown menus](https://www.google.com/design/spec/components/buttons.html#buttons-dropdown-buttons)
+
 `paper-dropdown-menu` is similar to a native browser select element.
 `paper-dropdown-menu` works with selectable content. The currently selected
 item is displayed in the control. If no item is selected, the `label` is
@@ -108,16 +112,17 @@ respectively.
     }
 
     paper-ripple {
-      top: 20px;
-      left: 8px;
-      bottom: 16px;
-      right: 8px;
+      top: 12px;
+      left: 0px;
+      bottom: 8px;
+      right: 0px;
 
       @apply(--paper-dropdown-menu-ripple);
     }
 
     paper-menu-button {
       display: block;
+      padding: 0;
       @apply(--paper-dropdown-menu-button);
     }
 
@@ -133,6 +138,8 @@ respectively.
 
   </style>
   <template>
+    <!-- this div fulfills an a11y requirement for combobox, do not remove -->
+    <div role="button"></div>
     <paper-menu-button
       id="menuButton"
       vertical-align="top"
@@ -145,7 +152,10 @@ respectively.
       opened="{{opened}}">
       <div class="dropdown-trigger">
         <paper-ripple></paper-ripple>
+        <!-- paper-input has type="text" for a11y, do not remove -->
         <paper-input
+          type="text"
+          invalid="[[invalid]]"
           readonly
           disabled="[[disabled]]"
           value="[[selectedItemLabel]]"
@@ -181,7 +191,9 @@ respectively.
 
       behaviors: [
         Polymer.IronControlState,
-        Polymer.IronButtonState
+        Polymer.IronButtonState,
+        Polymer.IronFormElementBehavior,
+        Polymer.IronValidatableBehavior
       ],
 
       properties: {
@@ -193,7 +205,7 @@ respectively.
         selectedItemLabel: {
           type: String,
           notify: true,
-          computed: '_computeSelectedItemLabel(selectedItem)'
+          readOnly: true
         },
 
         /**
@@ -205,6 +217,17 @@ respectively.
          */
         selectedItem: {
           type: Object,
+          notify: true,
+          readOnly: true
+        },
+
+        /**
+         * The value for this element that will be used when submitting in
+         * a form. It is read only, and will always have the same value
+         * as `selectedItemLabel`.
+         */
+        value: {
+          type: String,
           notify: true,
           readOnly: true
         },
@@ -229,7 +252,8 @@ respectively.
         opened: {
           type: Boolean,
           notify: true,
-          value: false
+          value: false,
+          observer: '_openedChanged'
         },
 
         /**
@@ -271,9 +295,14 @@ respectively.
       },
 
       hostAttributes: {
-        role: 'group',
+        role: 'combobox',
+        'aria-autocomplete': 'none',
         'aria-haspopup': 'true'
       },
+
+      observers: [
+        '_selectedItemChanged(selectedItem)'
+      ],
 
       attached: function() {
         // NOTE(cdata): Due to timing, a preselected value in a `IronSelectable`
@@ -342,12 +371,16 @@ respectively.
        * @param {Element} selectedItem A selected Element item, with an
        * optional `label` property.
        */
-      _computeSelectedItemLabel: function(selectedItem) {
+      _selectedItemChanged: function(selectedItem) {
+        var value = '';
         if (!selectedItem) {
-          return '';
+          value = '';
+        } else {
+          value = selectedItem.label || selectedItem.textContent.trim();
         }
 
-        return selectedItem.label || selectedItem.textContent.trim();
+        this._setValue(value);
+        this._setSelectedItemLabel(value);
       },
 
       /**
@@ -362,7 +395,25 @@ respectively.
         // derived from the metrics of elements internal to `paper-input`'s
         // template. The metrics will change depending on whether or not the
         // input has a floating label.
-        return noLabelFloat ? -4 : 16;
+        return noLabelFloat ? -4 : 8;
+      },
+
+      /**
+       * Returns false if the element is required and does not have a selection,
+       * and true otherwise.
+       * @return {boolean} true if `required` is false, or if `required` is true
+       * and the element has a valid selection.
+       */
+      _getValidity: function() {
+        return this.disabled || !this.required || (this.required && this.value);
+      },
+
+      _openedChanged: function() {
+        var openState = this.opened ? 'true' : 'false';
+        var e = this.contentElement;
+        if (e) {
+          e.setAttribute('aria-expanded', openState);
+        }
       }
     });
   })();

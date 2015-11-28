@@ -283,7 +283,7 @@ Instead of listening for the video element's `timeupdate` event please listen fo
                if (el.getAttribute("src").split('/').pop()===this.currentSrc.split('/').pop()) {
                 mediaInfo.contentType = el.getAttribute('type');
                }
-              }
+              }.bind(this)
             );
             var request = new chrome.cast.media.LoadRequest(mediaInfo);
             this._session.loadMedia(request,

@@ -19,28 +19,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../gold-cc-cvc-input.html">
-
-  <link rel="stylesheet" href="../../paper-styles/paper-styles.html">
   <link rel="import" href="../../paper-styles/demo-pages.html">
+  <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
 </head>
-<style>
+<style is="custom-style">
   gold-cc-cvc-input {
     width: 80px;
     margin-left: auto;
     margin-right: auto;
   }
+
+  .vertical-section {
+    @apply(--layout-horizontal);
+  }
 </style>
 <body unresolved>
   <div class="vertical-section-container centered">
     <h4>Standard</h4>
-    <div class="vertical-section layout horizontal">
+    <div class="vertical-section">
         <gold-cc-cvc-input class="small"></gold-cc-cvc-input>
         <gold-cc-cvc-input class="small" label="AMEX" card-type="amex"></gold-cc-cvc-input>
         <gold-cc-cvc-input auto-validate required label="Auto"></gold-cc-cvc-input>
     </div>
 
     <h4>Pre-validated</h4>
-    <div class="vertical-section  layout horizontal">
+    <div class="vertical-section">
       <gold-cc-cvc-input required auto-validate value="123"></gold-cc-cvc-input>
       <gold-cc-cvc-input required auto-validate card-type="amex" value="1234"></gold-cc-cvc-input>
       <gold-cc-cvc-input required auto-validate value="12"></gold-cc-cvc-input>
@@ -52,3 +55,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
   </div>
 </body>
+</html>

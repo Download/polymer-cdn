@@ -14,14 +14,19 @@
 <body>
 
   <!-- Single feed query -->
-  <google-feeds feed="http://www.engadget.com/rss-full.xml">
-  </google-feeds>
+  <google-feeds feed="http://www.engadget.com/rss-full.xml"></google-feeds>
 
   <!-- Find feeds -->
   <google-feeds query="gadgets" id="feedSearch"></google-feeds>
 
   <!-- Multiple feeds query -->
   <google-feeds id="feeder"></google-feeds>
+
+  <!-- format feeds -->
+  <google-feeds id="feedFormat" feed="http://www.engadget.com/rss-full.xml" format="xml"></google-feeds>
+  
+  <!-- format feed not correct then json is retrieved -->
+  <google-feeds id="feedFormat" feed="http://www.engadget.com/rss-full.xml" format="xmls"></google-feeds>
 
   <div></div>
   <script>
@@ -36,8 +41,9 @@
     });
 
     var feeder = document.getElementById("feeder");
+
     feeder.feeds = ['https://news.ycombinator.com/rss',
-    'http://feeds.bbci.co.uk/news/rss.xml'];
+      'http://feeds.bbci.co.uk/news/rss.xml'];
   </script>
 </body>
 </html>

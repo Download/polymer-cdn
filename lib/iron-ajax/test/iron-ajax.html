@@ -13,11 +13,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script src="../../webcomponentsjs/webcomponents.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../test-fixture/test-fixture-mocha.js"></script>
 
   <link rel="import" href="../../polymer/polymer.html">
   <link rel="import" href="../../promise-polyfill/promise-polyfill.html">
-  <link rel="import" href="../../test-fixture/test-fixture.html">
   <link rel="import" href="../iron-ajax.html">
 </head>
 <body>
@@ -55,6 +53,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                  debounce-duration="150"></iron-ajax>
     </template>
   </test-fixture>
+  <test-fixture id='BlankUrl'>
+    <template>
+      <iron-ajax auto handle-as='text'></iron-ajax>
+    </template>
+  </test-fixture>
   <!-- note(rictic):
        This makes us dependent on a third-party server, but we need to be able
        to check what headers the browser actually sends on the wire.
@@ -66,7 +69,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iron-ajax method="POST" url="http://httpbin.org/post"></iron-ajax>
     </template>
   </test-fixture>
+  <test-fixture id="Delay">
+    <template>
+      <iron-ajax url="http://httpbin.org/delay/1"></iron-ajax>
+    </template>
+  </test-fixture>
   <script>
+    'use strict';
     suite('<iron-ajax>', function () {
       var responseHeaders = {
         json: { 'Content-Type': 'application/json' },
@@ -126,6 +135,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           ]
         );
 
+        server.respondWith(
+          'GET',
+          '/responds_to_get_with_502_error_json',
+          [
+            502,
+            responseHeaders.json,
+            '{"message": "an error has occurred"}'
+          ]
+        );
+
         ajax = fixture('TrivialGet');
       });
 
@@ -181,6 +200,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       });
 
+      suite('when url isn\'t set yet', function() {
+        test('we don\'t fire any automatic requests', function() {
+          expect(server.requests.length).to.be.equal(0);
+          ajax = fixture('BlankUrl');
+
+          return timePasses(1).then(function() {
+            // We don't make any requests.
+            expect(server.requests.length).to.be.equal(0);
+
+            // Explicitly asking for the request to fire works.
+            ajax.generateRequest();
+            expect(server.requests.length).to.be.equal(1);
+            server.requests = [];
+
+            // Explicitly setting url to '' works too.
+            ajax = fixture('BlankUrl');
+            ajax.url = '';
+            return timePasses(1);
+          }).then(function() {
+            expect(server.requests.length).to.be.equal(1);
+          });
+        });
+      });
+
       suite('when properties are changed', function() {
         test('generates simple-request elements that reflect the change', function() {
           request = ajax.generateRequest();
@@ -201,6 +244,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var IronRequest = document.createElement('iron-request').constructor;
 
           expect(ajax.generateRequest()).to.be.instanceOf(IronRequest);
+        });
+
+        test('correctly adds params to a URL that already has some', function() {
+          ajax.url += '?a=b';
+          ajax.params = {'c': 'd'};
+          expect(ajax.requestUrl).to.be.equal('/responds_to_get_with_json?a=b&c=d')
+        })
+
+        test('encodes params properly', function() {
+          ajax.params = {'a b,c': 'd e f'};
+
+          expect(ajax.queryString).to.be.equal('a%20b%2Cc=d%20e%20f');
+        });
+
+        test('encodes array params properly', function() {
+          ajax.params = {'a b': ['c','d e', 'f']};
+
+          expect(ajax.queryString).to.be.equal('a%20b=c&a%20b=d%20e&a%20b=f');
         });
 
         test('reflects the loading state in the `loading` property', function() {
@@ -363,18 +424,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             ajax.headers = { 'X-Foo': 'Bar' };
           });
         });
-        
+
         test('automatically generates new request when a sub-property of params is changed', function(done) {
           ajax.addEventListener('request', function() {
             server.respond();
           });
-          
+
           ajax.params = { foo: 'bar' };
           ajax.addEventListener('response', function() {
             ajax.addEventListener('request', function() {
               done();
             });
-            
+
             ajax.set('params.foo', 'xyz');
           });
         });
@@ -556,6 +617,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             expect(typeof(ajax.lastResponse)).to.be.equal('string');
           });
 
+          expect(server.requests.length).to.be.equal(1);
+          expect(server.requests[0].requestHeaders['accept']).to.be.equal(
+            'text/plain');
           server.respond();
 
           return promise;
@@ -565,7 +629,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       suite('when a request fails', function() {
         test('we give an error with useful details', function() {
-          ajax.url = '/responds_to_get_with_text';
+          ajax.url = '/responds_to_get_with_502_error_json';
           ajax.handleAs = 'json';
           var eventFired = false;
           ajax.addEventListener('error', function(event) {
@@ -573,13 +637,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             expect(event.detail.error).to.be.okay;
             eventFired = true;
           });
-          var promise = ajax.generateRequest().completes.then(function() {
+          var request = ajax.generateRequest();
+          var promise = request.completes.then(function() {
             throw new Error('Expected the request to fail!');
           }, function(error) {
             expect(error).to.be.instanceof(Error);
+            expect(request.succeeded).to.be.eq(false);
             return timePasses(100);
           }).then(function() {
             expect(eventFired).to.be.eq(true);
+            expect(ajax.lastError).to.not.be.eq(null);
+          });
+
+          server.respond();
+
+          return promise;
+        });
+
+        test('we give a useful error even when the domain doesn\'t resolve', function() {
+          ajax.url = 'http://nonexistant.example.com/';
+          server.restore();
+          var eventFired = false;
+          ajax.addEventListener('error', function(event) {
+            expect(event.detail.request).to.be.okay;
+            expect(event.detail.error).to.be.okay;
+            eventFired = true;
+          });
+          var request = ajax.generateRequest();
+          var promise = request.completes.then(function() {
+            throw new Error('Expected the request to fail!');
+          }, function(error) {
+            expect(request.succeeded).to.be.eq(false);
+            expect(error).to.not.be.eq(null);
+            return timePasses(100);
+          }).then(function() {
+            expect(eventFired).to.be.eq(true);
+            expect(ajax.lastError).to.not.be.eq(null);
           });
 
           server.respond();
@@ -598,6 +691,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var promise = request.completes.then(function () {
             expect(typeof(ajax.lastResponse)).to.be.equal('object');
           });
+
+          expect(server.requests.length).to.be.equal(1);
+          expect(server.requests[0].requestHeaders['accept']).to.be.equal(
+            'application/json');
 
           server.respond();
 
@@ -668,6 +765,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           });
         });
       });
+
+      suite('when setting timeout', function() {
+        setup(function() {
+          server.restore();
+        });
+
+        test('it is present in the request xhr object', function () {
+          ajax.url = '/responds_to_get_with_json';
+          ajax.timeout = 5000; // 5 Seconds
+
+          request = ajax.generateRequest();
+          expect(request.xhr.timeout).to.be.equal(5000); // 5 Seconds
+        });
+
+        test('it fails once that timeout is reached', function () {
+          var ajax = fixture('Delay');
+          ajax.timeout = 1; // 1 Millisecond
+
+          request = ajax.generateRequest();
+          return request.completes.then(function () {
+            throw new Error('Expected the request to throw an error.');
+          }, function() {
+            expect(request.succeeded).to.be.equal(false);
+            expect(request.xhr.status).to.be.equal(0);
+            expect(request.timedOut).to.be.equal(true);
+            return timePasses(1);
+          }).then(function() {
+            expect(ajax.loading).to.be.equal(false);
+            expect(ajax.lastResponse).to.be.equal(null);
+            expect(ajax.lastError).to.not.be.equal(null);
+          });
+        });
+      });
+
     });
   </script>
 

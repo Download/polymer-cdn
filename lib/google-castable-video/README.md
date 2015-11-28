@@ -1,6 +1,6 @@
 google-castable-video
 ======================
 
-See the [component landing page](http://googlewebcomponents.github.io/google-castable-video) for more information.
+See https://elements.polymer-project.org/elements/google-castable-video
 
 Maintainer: [@tschaeff](http://github.com/tschaeff)

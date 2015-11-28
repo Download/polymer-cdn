@@ -16,8 +16,8 @@ information on the API.
       <google-map-directions map="{{map}}"
           start-address="San Francisco"
           end-address="Mountain View"
-          travel-mode="TRANSIT"
-          waypoints="[{location: 'Palo Alto'}, {location: 'San Mateo'}]"></google-map-directions>
+          travel-mode="BICYCLING"
+          waypoints='[{"location": "Palo Alto"}, {"location": "San Mateo"}]'></google-map-directions>
       <google-map map="{{map}}" latitude="37.779"
                   longitude="-122.3892"></google-map>
     </template>
@@ -47,8 +47,7 @@ information on the API.
 Fired whenever the directions service returns a result.
 
 @event google-map-response
-@param {Object} detail
-@param {object} detail.response The directions service response.
+@param {{response: Object}}} detail
 */
     properties: {
       /**
@@ -121,6 +120,14 @@ Fired whenever the directions service returns a result.
       },
 
       /**
+       * Options for the display of results
+       */
+      rendererOptions: {
+        type: Object,
+        value: function() { return {}; }
+      },
+
+      /**
        * The response from the directions service.
        *
        */
@@ -148,7 +155,7 @@ Fired whenever the directions service returns a result.
     _mapChanged: function() {
       if (this.map && this.map instanceof google.maps.Map) {
         if (!this.directionsRenderer) {
-          this.directionsRenderer = new google.maps.DirectionsRenderer();
+          this.directionsRenderer = new google.maps.DirectionsRenderer(this.rendererOptions);
         }
         this.directionsRenderer.setMap(this.map);
         this._responseChanged();

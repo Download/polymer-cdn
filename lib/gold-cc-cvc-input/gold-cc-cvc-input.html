@@ -14,7 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-input/iron-input.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
-<link rel="import" href="../iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 
 <!--
 `gold-cc-cvc-input` is a single-line text field with Material Design styling
@@ -66,6 +66,14 @@ style this element.
   iron-icon {
     margin-left: 10px;
   }
+
+  .container {
+    @apply(--layout-horizontal);
+  }
+
+  input {
+    @apply(--layout-flex);
+  }
   </style>
 
   <template>
@@ -77,8 +85,8 @@ style this element.
 
       <label hidden$="[[!label]]">[[label]]</label>
 
-      <div class="horizontal layout">
-        <input is="iron-input" id="input" class="flex"
+      <div class="container">
+        <input is="iron-input" id="input"
             aria-labelledby$="[[_ariaLabelledBy]]"
             aria-describedby$="[[_ariaDescribedBy]]"
             bind-value="{{value}}"
