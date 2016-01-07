@@ -29,7 +29,6 @@
     "commit": "d05a324f6d48b626d6d771edcace2fb4d77a2db1"
   },
   "_source": "git://github.com/polymerelements/molecules.git",
-  "_target": "~1.0.0",
-  "_originalSource": "polymerelements/molecules",
-  "_direct": true
+  "_target": "*",
+  "_originalSource": "polymerelements/molecules"
 }

@@ -1,6 +1,6 @@
 {
   "name": "polymer-cdn",
-  "version": "1.2.3",
+  "version": "1.2.3.2",
   "main": "polymer.js",
   "homepage": "https://github.com/Download/polymer-cdn",
   "authors": [
@@ -21,16 +21,13 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#1.2.3",
-    "paper-elements": "polymerelements/paper-elements#~1.0.6",
-    "iron-elements": "polymerelements/iron-elements#~1.0.2",
-    "neon-elements": "polymerelements/neon-elements#~1.0.0",
-    "gold-elements": "polymerelements/gold-elements#~1.0.1",
-    "platinum-elements": "polymerelements/platinum-elements#~1.0.1",
-    "google-web-components": "GoogleWebComponents/google-web-components#~1.0.1",
-    "molecules": "polymerelements/molecules#~1.0.0"
-  },
-  "resolutions": {
-    "polymer": "^1.2.3"
+    "polymer": "Polymer/polymer#latest",
+    "paper-elements": "polymerelements/paper-elements#latest",
+    "iron-elements": "polymerelements/iron-elements#latest",
+    "neon-elements": "polymerelements/neon-elements#latest",
+    "gold-elements": "polymerelements/gold-elements#latest",
+    "platinum-elements": "polymerelements/platinum-elements#latest",
+    "google-web-components": "GoogleWebComponents/google-web-components#latest",
+    "molecules": "polymerelements/molecules#latest"
   }
 }
