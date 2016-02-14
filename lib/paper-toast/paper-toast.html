@@ -29,8 +29,14 @@ Also `open()` or `show()` can be used to show the toast:
 
 Example:
 
-    <paper-toast id="toast0" text="Welcome back!"></paper-toast>
-    <button onclick="document.querySelector('#toast0').open()">Login</button>
+    <paper-button on-click="openToast">Open Toast</paper-button>
+    <paper-toast id="toast" text="Hello world!"></paper-toast>
+
+    ...
+
+    openToast: function() {
+      this.$.toast.open();
+    }
 
 Set `duration` to 0, a negative number or Infinity to persist the toast on screen:
 
@@ -65,7 +71,7 @@ Custom property | Description | Default
         color: var(--paper-toast-color, #f1f1f1);
         min-height: 48px;
         min-width: 288px;
-        padding: 16px 24px 12px;
+        padding: 16px 24px;
         box-sizing: border-box;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
         border-radius: 2px;
@@ -80,6 +86,7 @@ Custom property | Description | Default
         opacity: 0;
         -webkit-transform: translateY(100px);
         transform: translateY(100px);
+        @apply(--paper-font-common-base);
       }
 
       :host(.capsule) {
@@ -165,6 +172,7 @@ Custom property | Description | Default
         },
 
         created: function() {
+          this._autoClose = null;
           Polymer.IronA11yAnnouncer.requestAvailability();
         },
 
@@ -187,6 +195,10 @@ Custom property | Description | Default
          * Called when the value of `opened` changes.
          */
         _openedChanged: function() {
+          if (this._autoClose !== null) {
+            this.cancelAsync(this._autoClose);
+            this._autoClose = null;
+          }
           if (this.opened) {
             if (currentToast && currentToast !== this) {
               currentToast.close();
@@ -196,7 +208,7 @@ Custom property | Description | Default
               text: this.text
             });
             if (this._canAutoClose) {
-              this.debounce('close', this.close, this.duration);
+              this._autoClose = this.async(this.close, this.duration);
             }
           } else if (currentToast === this) {
             currentToast = null;
@@ -235,8 +247,7 @@ Custom property | Description | Default
          * Fired when `paper-toast` is opened.
          *
          * @event 'iron-announce'
-         * @param {Object} detail
-         * @param {String} detail.text The text that will be announced.
+         * @param {{text: string}} detail Contains text that will be announced.
          */
       });
     })();

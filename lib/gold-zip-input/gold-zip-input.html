@@ -49,13 +49,12 @@ style this element.
 -->
 
 <dom-module id="gold-zip-input">
-  <style>
-  :host {
-    display: block;
-  }
-  </style>
-
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
 
     <paper-input-container id="container"
         auto-validate="[[autoValidate]]"
@@ -96,56 +95,56 @@ style this element.
     </paper-input-container>
   </template>
 
+  <script>
+    (function() {
+      Polymer({
+
+        is: 'gold-zip-input',
+
+        behaviors: [
+          Polymer.PaperInputBehavior,
+          Polymer.IronFormElementBehavior
+        ],
+
+        properties: {
+          /**
+           * The label for this input.
+           */
+          label: {
+            type: String,
+            value: "Zip Code"
+          }
+        },
+
+        observers: [
+          '_computeValue(value)'
+        ],
+
+        _computeValue: function(value) {
+          var start = this.$.input.selectionStart;
+          var previousCharADash = this.value ? this.value.charAt(start - 1) == '-' : false;
+
+          // Remove any already-applied formatting.
+          value = value.replace(/-/g, '');
+
+          // Add a dash after the 5th character
+          if (value.length > 5) {
+            value = value.substr(0,5) + '-' + value.substr(5)
+          }
+          this.updateValueAndPreserveCaret(value.trim());
+
+          // If the character right before the selection is a newly inserted
+          // dash, we need to advance the selection to maintain the caret position.
+          if (!previousCharADash && this.value.charAt(start - 1) == '-') {
+            this.$.input.selectionStart = start + 1;
+            this.$.input.selectionEnd = start + 1;
+          }
+        }
+
+      })
+
+    })();
+
+  </script>
+
 </dom-module>
-
-<script>
-(function() {
-  Polymer({
-
-    is: 'gold-zip-input',
-
-    behaviors: [
-      Polymer.PaperInputBehavior,
-      Polymer.IronFormElementBehavior
-    ],
-
-    properties: {
-      /**
-       * The label for this input.
-       */
-      label: {
-        type: String,
-        value: "Zip Code"
-      }
-    },
-
-    observers: [
-      '_computeValue(value)'
-    ],
-
-    _computeValue: function(value) {
-      var start = this.$.input.selectionStart;
-      var previousCharADash = this.value ? this.value.charAt(start - 1) == '-' : false;
-
-      // Remove any already-applied formatting.
-      value = value.replace(/-/g, '');
-
-      // Add a dash after the 5th character
-      if (value.length > 5) {
-        value = value.substr(0,5) + '-' + value.substr(5)
-      }
-      this.updateValueAndPreserveCaret(value.trim());
-
-      // If the character right before the selection is a newly inserted
-      // dash, we need to advance the selection to maintain the caret position.
-      if (!previousCharADash && this.value.charAt(start - 1) == '-') {
-        this.$.input.selectionStart = start + 1;
-        this.$.input.selectionEnd = start + 1;
-      }
-    }
-
-  })
-
-})();
-
-</script>

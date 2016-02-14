@@ -51,13 +51,13 @@ style this element.
 -->
 
 <dom-module id="gold-cc-expiration-input">
-  <style>
-  :host {
-    display: block;
-  }
-  </style>
 
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
 
     <paper-input-container id="container"
         always-float-label
@@ -88,94 +88,94 @@ style this element.
     </paper-input-container>
   </template>
 
+  <script>
+    (function() {
+
+      Polymer({
+
+        is: 'gold-cc-expiration-input',
+
+        behaviors: [
+          Polymer.PaperInputBehavior,
+          Polymer.IronFormElementBehavior
+        ],
+
+        properties: {
+          /**
+           * The label for this input.
+           */
+          label: {
+            type: String,
+            value: "Expiration Date"
+          },
+
+          value: {
+            value: '',
+            observer: '_onValueChanged'
+          }
+        },
+
+        listeners: {
+          'dateChanged': '_dateChanged'
+        },
+
+        observers: [
+          '_onFocusedChanged(focused)'
+        ],
+
+        ready: function() {
+          // If there's an initial input, validate it.
+          if (this.value)
+            this._handleAutoValidate();
+        },
+
+        /**
+         * A handler that is called on input
+         */
+        _onValueChanged: function(value, oldValue) {
+          // The initial property assignment is handled by `ready`.
+          if (oldValue == undefined)
+            return;
+
+          this._handleAutoValidate();
+        },
+
+        _dateChanged: function(event) {
+          if (event.detail.month && event.detail.year) {
+            this.value = event.detail.month + '/' + event.detail.year;
+          }
+        },
+
+        _computeMonth: function(value) {
+          // Date is in MM/YY format.
+          return value.split('/')[0];
+        },
+
+        _computeYear: function(value) {
+          // Date is in MM/YY format.
+          return value.split('/')[1];
+        },
+
+        /**
+         * Overidden from Polymer.PaperInputBehavior.
+         */
+        validate: function() {
+          return this.$.input.validate();
+        },
+
+        /**
+         * Overidden from Polymer.IronControlState.
+         */
+        _onFocusedChanged: function(focused) {
+          if (!focused) {
+            this._handleAutoValidate();
+          }
+        }
+          
+      })
+
+    })();
+
+  </script>
+
 </dom-module>
-
-<script>
-(function() {
-
-  Polymer({
-
-    is: 'gold-cc-expiration-input',
-
-    behaviors: [
-      Polymer.PaperInputBehavior,
-      Polymer.IronFormElementBehavior
-    ],
-
-    properties: {
-      /**
-       * The label for this input.
-       */
-      label: {
-        type: String,
-        value: "Expiration Date"
-      },
-
-      value: {
-        value: '',
-        observer: '_onValueChanged'
-      }
-    },
-
-    listeners: {
-      'dateChanged': '_dateChanged'
-    },
-
-    observers: [
-      '_onFocusedChanged(focused)'
-    ],
-
-    ready: function() {
-      // If there's an initial input, validate it.
-      if (this.value)
-        this._handleAutoValidate();
-    },
-
-    /**
-     * A handler that is called on input
-     */
-    _onValueChanged: function(value, oldValue) {
-      // The initial property assignment is handled by `ready`.
-      if (oldValue == undefined)
-        return;
-
-      this._handleAutoValidate();
-    },
-
-    _dateChanged: function(event) {
-      if (event.detail.month && event.detail.year) {
-        this.value = event.detail.month + '/' + event.detail.year;
-      }
-    },
-
-    _computeMonth: function(value) {
-      // Date is in MM/YY format.
-      return value.split('/')[0];
-    },
-
-    _computeYear: function(value) {
-      // Date is in MM/YY format.
-      return value.split('/')[1];
-    },
-
-    /**
-     * Overidden from Polymer.PaperInputBehavior.
-     */
-    validate: function() {
-      return this.$.input.validate();
-    },
-
-    /**
-     * Overidden from Polymer.IronControlState.
-     */
-    _onFocusedChanged: function(focused) {
-      if (!focused) {
-        this._handleAutoValidate();
-      }
-    }
-      
-  })
-
-})();
-
-</script>

@@ -98,8 +98,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('value is updated correctly ', function() {
         var input = fixture('basic');
-        input.querySelector('.paper-input-input').month = 11;
-        input.querySelector('.paper-input-input').year = 15;
+        input.$$('.paper-input-input').month = 11;
+        input.$$('.paper-input-input').year = 15;
         assert.equal(input.value, '11/15');
       });
 
@@ -127,8 +127,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('has aria-labelledby', function() {
         var input = fixture('basic');
-        var month = input.querySelectorAll('input')[0];
-        var year = input.querySelectorAll('input')[1];
+        var dateInput = input.$$('.paper-input-input');
+        var month = dateInput.$$('input:nth-of-type(1)');
+        var year = dateInput.$$('input:nth-of-type(2)');
         var label = Polymer.dom(input.root).querySelector('label').id;
 
         assert.ok(month);

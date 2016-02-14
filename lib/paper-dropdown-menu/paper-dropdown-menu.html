@@ -160,6 +160,7 @@ respectively.
           disabled="[[disabled]]"
           value="[[selectedItemLabel]]"
           placeholder="[[placeholder]]"
+          error-message="[[errorMessage]]"
           always-float-label="[[alwaysFloatLabel]]"
           no-label-float="[[noLabelFloat]]"
           label="[[label]]">
@@ -244,6 +245,13 @@ respectively.
            */
           placeholder: {
             type: String
+          },
+
+          /**
+           * The error message to display when invalid.
+           */
+          errorMessage: {
+              type: String
           },
 
           /**
