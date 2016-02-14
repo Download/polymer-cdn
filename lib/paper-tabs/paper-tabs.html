@@ -34,7 +34,7 @@ Example:
       <paper-tab>TAB 3</paper-tab>
     </paper-tabs>
 
-See <a href="#paper-tab">paper-tab</a> for more information about
+See <a href="?active=paper-tab">paper-tab</a> for more information about
 `paper-tab`.
 
 A common usage for `paper-tabs` is to use it along with `iron-pages` to switch
@@ -58,25 +58,26 @@ element in `paper-tab`.
 
 Example:
 
-    <style is="custom-style">
-      .link {
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-      }
-    }
-    </style>
+<pre><code>
+&lt;style is="custom-style">
+  .link {
+    &#64;apply(--layout-horizontal);
+    &#64;apply(--layout-center-center);
+  }
+&lt;/style>
 
-    <paper-tabs selected="0">
-      <paper-tab link>
-        <a href="#link1" class="link">TAB ONE</a>
-      </paper-tab>
-      <paper-tab link>
-        <a href="#link2" class="link">TAB TWO</a>
-      </paper-tab>
-      <paper-tab link>
-        <a href="#link3" class="link">TAB THREE</a>
-      </paper-tab>
-    </paper-tabs>
+&lt;paper-tabs selected="0">
+  &lt;paper-tab link>
+    &lt;a href="#link1" class="link">TAB ONE&lt;/a>
+  &lt;/paper-tab>
+  &lt;paper-tab link>
+    &lt;a href="#link2" class="link">TAB TWO&lt;/a>
+  &lt;/paper-tab>
+  &lt;paper-tab link>
+    &lt;a href="#link3" class="link">TAB THREE&lt;/a>
+  &lt;/paper-tab>
+&lt;/paper-tabs>
+</code></pre>
 
 ### Styling
 
@@ -106,7 +107,10 @@ Custom property | Description | Default
           -ms-user-select: none;
           -webkit-user-select: none;
         user-select: none;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+        /* NOTE: Both values are needed, since some phones require the value to be `transparent`. */
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-tap-highlight-color: transparent;
 
         @apply(--paper-tabs);
       }
@@ -120,11 +124,14 @@ Custom property | Description | Default
         height: 100%;
         white-space: nowrap;
         overflow: hidden;
-        @apply(--layout-flex);
+        @apply(--layout-flex-auto);
       }
 
       #tabsContent {
         height: 100%;
+        -moz-flex-basis: auto;
+        -ms-flex-basis: auto;
+        flex-basis: auto;
       }
 
       #tabsContent.scrollable {
@@ -272,14 +279,6 @@ Custom property | Description | Default
           value: false
         },
 
-        /**
-         * Gets or sets the selected element. The default is to use the index of the item.
-         */
-        selected: {
-          type: String,
-          notify: true
-        },
-
         selectable: {
           type: String,
           value: 'paper-tab'
@@ -315,7 +314,8 @@ Custom property | Description | Default
       },
 
       listeners: {
-        'iron-resize': '_onResize',
+        'iron-resize': '_onTabSizingChanged',
+        'iron-items-changed': '_onTabSizingChanged',
         'iron-select': '_onIronSelect',
         'iron-deselect': '_onIronDeselect'
       },
@@ -369,8 +369,8 @@ Custom property | Description | Default
 
       // TODO(cdata): Add `track` response back in when gesture lands.
 
-      _onResize: function() {
-        this.debounce('_onResize', function() {
+      _onTabSizingChanged: function() {
+        this.debounce('_onTabSizingChanged', function() {
           this._scroll();
           this._tabChanged(this.selectedItem);
         }, 10);
@@ -480,7 +480,13 @@ Custom property | Description | Default
         // bar animation: expand
         this.$.selectionBar.classList.add('expand');
 
-        if (oldIndex < index) {
+        var moveRight = oldIndex < index;
+        var isRTL = this._isRTL;
+        if (isRTL) {
+          moveRight = !moveRight;
+        }
+
+        if (moveRight) {
           this._positionBar(this._calcPercent(tabRect.left + tabRect.width - oldRect.left, w) - m,
               this._left);
         } else {
