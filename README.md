@@ -1,4 +1,4 @@
-# polymer-cdn <sup><sub>v1.4.0</sub></sup>
+# polymer-cdn <sup><sub>v1.4.0.2</sub></sup>
 **A mirror of Polymer's components so that they can be used directly from CDN**
 
 ![Polymer CDN is powered by MaxCDN](http://i.imgur.com/9obTXpk.png)
@@ -6,7 +6,7 @@
 ## How to use
 In general, given an element named `my-cool-element`, the CDN url for it will be:
 ```
-https://cdn.rawgit.com/download/polymer-cdn/1.4.0/lib/my-cool-element/my-cool-element.html
+https://cdn.rawgit.com/download/polymer-cdn/1.4.0.2/lib/my-cool-element/my-cool-element.html
 ```
 To be sure, browse this repo and copy-paste the url to the raw version into [RawGit](https://rawgit.com).
 
@@ -49,7 +49,7 @@ Pull requests are of course also always welcome! If you want to try that, here i
 I will review the PR and if it looks good, Merge it and Publish the resulting work as a new Release.
 
 ## Contents
-All the libraries available in polymer-cdn can be found side-by-side in the [lib](https://github.com/Download/polymer-cdn/tree/1.4.0/lib) subfolder.
+All the libraries available in polymer-cdn can be found side-by-side in the [lib](https://github.com/Download/polymer-cdn/tree/1.4.0.2/lib) subfolder.
 
 Some of the libraries depend on other libraries. We call those other libraries the dependencies of the library.
 These dependencies will also be pulled into your page when you include such a library.
@@ -62,7 +62,11 @@ These dependencies are themselves also listed at the top-level, so you can work 
 tree for a library by carefully examining this diagram.
 
 ```sh
-polymer-cdn#1.4.0
+polymer-cdn#1.4.0.2
+├─┬ carbon-elements#0.1.0
+│ └─┬ carbon-route#0.8.5 (latest is 0.9.1)
+│   ├── iron-location#0.8.3
+│   └── polymer#1.4.0
 ├─┬ gold-elements#1.0.1
 │ ├─┬ gold-cc-cvc-input#1.0.9
 │ │ ├─┬ iron-flex-layout#1.3.1
