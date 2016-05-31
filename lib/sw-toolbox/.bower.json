@@ -12,14 +12,14 @@
     "gulpfile.js"
   ],
   "homepage": "https://github.com/GoogleChrome/sw-toolbox",
-  "version": "2.1.0",
-  "_release": "2.1.0",
+  "version": "3.1.1",
+  "_release": "3.1.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.1.0",
-    "commit": "f4058bc51504ed8ee94f6ff863ac943629ba25ff"
+    "tag": "v3.1.1",
+    "commit": "1cdcbdccef51d2726ea74d877e6fd2b97926b09c"
   },
-  "_source": "git://github.com/GoogleChrome/sw-toolbox.git",
-  "_target": "^2.0.4",
+  "_source": "https://github.com/GoogleChrome/sw-toolbox.git",
+  "_target": "^3.1.1",
   "_originalSource": "sw-toolbox"
 }

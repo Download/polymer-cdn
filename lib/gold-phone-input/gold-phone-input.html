@@ -60,40 +60,38 @@ style this element.
 -->
 
 <dom-module id="gold-phone-input">
-  <style>
-  :host {
-    display: block;
-  }
-
-  /* TODO: This should be a dropdown */
-  span {
-    @apply(--paper-font-subhead);
-    @apply(--paper-input-container-input);
-    width: 40px;
-  }
-
-  .country-code {
-    @apply(--gold-phone-input-country-code);
-  }
-
-  .container {
-    @apply(--layout-horizontal);
-  }
-
-  /* TODO(notwaldorf): The style applied by paper-input-container is more
-   * specific, and we need the important to override it. This will go away
-   * once we can refactor this element to use the paper-input suffix */
-  label {
-    left: 40px !important;
-  }
-
-  input {
-    @apply(--layout-flex);
-  }
-
-  </style>
-
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      /* TODO: This should be a dropdown */
+      span {
+        @apply(--paper-font-subhead);
+        @apply(--paper-input-container-input);
+        width: 40px;
+      }
+
+      .country-code {
+        @apply(--gold-phone-input-country-code);
+      }
+
+      .container {
+        @apply(--layout-horizontal);
+      }
+
+      /* TODO(notwaldorf): The style applied by paper-input-container is more
+       * specific, and we need the important to override it. This will go away
+       * once we can refactor this element to use the paper-input suffix */
+      label {
+        left: 40px !important;
+      }
+
+      input {
+        @apply(--layout-flex);
+      }
+    </style>
     <paper-input-container id="container"
         disabled$="[[disabled]]"
         no-label-float="[[noLabelFloat]]"
@@ -132,10 +130,7 @@ style this element.
     </paper-input-container>
   </template>
 
-</dom-module>
-
-<script>
-(function() {
+  <script>
   Polymer({
 
     is: 'gold-phone-input',
@@ -173,6 +168,7 @@ style this element.
       },
 
       value: {
+        type: String,
         observer: '_onValueChanged'
       }
     },
@@ -200,12 +196,18 @@ style this element.
      * A handler that is called on input
      */
     _onValueChanged: function(value, oldValue) {
-       // The initial property assignment is handled by `ready`.
-       if (oldValue == undefined)
-         return;
+      // The initial property assignment is handled by `ready`.
+      if (oldValue == undefined || value === oldValue)
+        return;
 
+      //Ensure value is a string
+      value = value ? value.toString() : '';
+
+      // Keep track of how many dashes the original value has. After
+      // reformatting the value, we might gain or lose some of them, which
+      // means we have to correctly move the caret to account for the difference.
       var start = this.$.input.selectionStart;
-      var previousCharADash = value ? this.value.charAt(start - 1) == '-' : false;
+      var initialDashesBeforeCaret = value.substr(0, start).split('-').length - 1;
 
       // Remove any already-applied formatting.
       value = value.replace(/-/g, '');
@@ -228,14 +230,16 @@ style this element.
 
         formattedValue += value[i];
       }
+
+      var updatedDashesBeforeCaret = formattedValue.substr(0, start).split('-').length - 1;
+      var dashesDifference = updatedDashesBeforeCaret - initialDashesBeforeCaret;
+
+      // Note: this will call _onValueChanged again, which will move the
+      // cursor to the end of the value. Correctly adjust the caret afterwards.
       this.updateValueAndPreserveCaret(formattedValue.trim());
 
-      // If the character right before the selection is a newly inserted
-      // dash, we need to advance the selection to maintain the caret position.
-      if (!previousCharADash && this.value.charAt(start - 1) == '-') {
-        this.$.input.selectionStart = start + 1;
-        this.$.input.selectionEnd = start + 1;
-      }
+      // Advance or back up the caret based on the change that happened before it.
+      this.$.input.selectionStart = this.$.input.selectionEnd = start + dashesDifference;
 
       this._handleAutoValidate();
     },
@@ -264,8 +268,8 @@ style this element.
         this._handleAutoValidate();
       }
     }
-  })
+  });
 
-})();
+  </script>
 
-</script>
+</dom-module>

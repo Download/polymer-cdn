@@ -18,37 +18,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="date-validator.html">
 
 <dom-module id="date-input">
-
-  <style>
-    span {
-      @apply(--paper-input-container-font);
-      opacity: 0.33;
-      text-align: center;
-    }
-
-    input {
-      position: relative; /* to make a stacking context */
-      outline: none;
-      box-shadow: none;
-      padding: 0;
-      width: 100%;
-      background: transparent;
-      border: none;
-      color: var(--paper-input-container-input-color, --primary-text-color);
-      text-align: center;
-
-      @apply(--layout-flex);
-      @apply(--paper-font-subhead);
-      @apply(--paper-input-container-input);
-    }
-
-    .container {
-      @apply(--layout-horizontal);
-    }
-
-  </style>
-
   <template>
+    <style>
+      span {
+        @apply(--paper-input-container-font);
+        opacity: 0.33;
+        text-align: center;
+      }
+
+      input[is="iron-input"] {
+        position: relative; /* to make a stacking context */
+        outline: none;
+        box-shadow: none;
+        padding: 0;
+        width: 100%;
+        background: transparent;
+        border: none;
+        color: var(--paper-input-container-input-color, --primary-text-color);
+        text-align: center;
+
+        @apply(--layout-flex);
+        @apply(--paper-font-subhead);
+        @apply(--paper-input-container-input);
+      }
+
+      .container {
+        @apply(--layout-horizontal);
+      }
+    </style>
+
     <date-validator id="validator"></date-validator>
 
     <span aria-hidden id="monthLabel" hidden>Month</span>
@@ -56,6 +54,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="container">
       <input is="iron-input"
+          id="expirationMonth"
           aria-labelledby$="[[_computeAriaLabel(ariaLabelPrefix,'monthLabel')]]"
           required$="[[required]]"
           maxlength="2"
@@ -69,7 +68,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           invalid="{{invalid}}"
           autofocus$="[[autofocus]]"
           inputmode$="[[inputmode]]"
-          placeholder$="[[placeholder]]"
           readonly$="[[readonly]]">
       <span>/</span>
       <input is="iron-input"
@@ -85,9 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type="tel"
           disabled$="[[disabled]]"
           invalid="{{invalid}}"
-          autofocus$="[[autofocus]]"
           inputmode$="[[inputmode]]"
-          placeholder$="[[placeholder]]"
           readonly$="[[readonly]]">
     </div>
   </template>
@@ -141,8 +137,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ariaLabelPrefix: {
         type:String
-      }
+      },
 
+      /**
+       * Set to true to disable the month and year input elements.
+       */
+      disabled: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Set to true to autofocus the month input element.
+       */
+      autofocus: {
+        type: Boolean
+      },
+
+      /**
+       * Bound to the month and year input elements' `inputmode` property.
+       */
+      inputmode: {
+        type: String
+      },
+
+      /**
+       * Set to true to mark the month and year inputs as not editable.
+       */
+      readonly: {
+        type: Boolean,
+        value: false
+      }
     },
 
     observers: [
@@ -172,6 +197,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     _computeAriaLabel: function(dateLabel, monthLabel) {
       return dateLabel + ' ' + monthLabel;
     }
-
   });
 </script>

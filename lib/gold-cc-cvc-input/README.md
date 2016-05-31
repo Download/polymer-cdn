@@ -7,32 +7,40 @@ gold-cc-cvc-input.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
 
-[![Build Status](https://travis-ci.org/PolymerElements/gold-cc-cvc-input.svg?branch=master)](https://travis-ci.org/PolymerElements/gold-cc-cvc-input)
+[![Build status](https://travis-ci.org/PolymerElements/gold-cc-cvc-input.svg?branch=master)](https://travis-ci.org/PolymerElements/gold-cc-cvc-input)
 
-_[Demo and API Docs](https://elements.polymer-project.org/elements/gold-cc-cvc-input)_
+_[Demo and API docs](https://elements.polymer-project.org/elements/gold-cc-cvc-input)_
 
 
 ##&lt;gold-cc-cvc-input&gt;
-
 
 `gold-cc-cvc-input` is a single-line text field with Material Design styling
 for entering a credit card's CVC (Card Verification Code). It supports both
 4-digit Amex CVCs and non-Amex 3-digit CVCs
 
-    <gold-cc-cvc-input></gold-cc-cvc-input>
+```html
+<gold-cc-cvc-input></gold-cc-cvc-input>
 
-    <gold-cc-cvc-input card-type="amex"></gold-cc-cvc-input>
+<gold-cc-cvc-input card-type="amex"></gold-cc-cvc-input>
+```
 
 It may include an optional label, which by default is "CVC".
 
-    <gold-cc-cvc-input label="Card Verification Value"></gold-cc-cvc-input>
+```html
+<gold-cc-cvc-input label="Card Verification Value"></gold-cc-cvc-input>
+```
 
 It can be used together with a `gold-cc-input` by binding the `cardType` property:
 
-    <gold-cc-input card-type="{{cardType}}"></gold-cc-input>
-    <gold-cc-cvc-input card-type="[[cardType]]"></gold-cc-cvc-input>
+```html
+<gold-cc-input card-type="{{cardType}}"></gold-cc-input>
+<gold-cc-cvc-input card-type="[[cardType]]"></gold-cc-cvc-input>
+```
 
 ### Validation
 

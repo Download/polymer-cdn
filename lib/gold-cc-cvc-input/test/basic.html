@@ -93,6 +93,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var input = fixture('required');
         forceXIfStamp(input);
 
+        var container = Polymer.dom(input.root).querySelector('paper-input-container');
+        assert.ok(container, 'paper-input-container exists');
+        assert.isFalse(container.invalid);
+
         var error = Polymer.dom(input.root).querySelector('paper-input-error');
         assert.ok(error, 'paper-input-error exists');
 
@@ -100,6 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         MockInteractions.focus(input);
         MockInteractions.blur(input);
 
+        assert.isTrue(container.invalid);
         assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
       });
 

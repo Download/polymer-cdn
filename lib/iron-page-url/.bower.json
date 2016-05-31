@@ -1,6 +1,6 @@
 {
   "name": "iron-page-url",
-  "version": "0.7.0",
+  "version": "0.7.3",
   "description": "Bidirectional data binding into the page's URL.",
   "private": true,
   "authors": [
@@ -30,14 +30,14 @@
     "paper-slider": "polymerelements/paper-slider#^1.0.0",
     "paper-styles": "polymerelements/paper-styles#^1.0.0",
     "test-fixture": "polymerelements/test-fixture#^1.0.0",
-    "web-component-tester": "polymer/web-component-tester#^3.4.0",
+    "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
-  "_release": "0.7.0",
+  "_release": "0.7.3",
   "_resolution": {
     "type": "version",
-    "tag": "v0.7.0",
-    "commit": "682480edc3b08db7d150d63713edbfccc52f75a9"
+    "tag": "v0.7.3",
+    "commit": "8b7f5186b66d3b1a9897c204564cc1ae0a1ef65b"
   },
   "_source": "git://github.com/PolymerElements/iron-page-url.git",
   "_target": "~0.7.0",

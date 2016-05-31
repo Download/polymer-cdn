@@ -1,0 +1,11 @@
+{
+  "name": "firebase-sdk",
+  "_cacheHeaders": {
+    "Last-Modified": "Tue, 17 May 2016 15:51:52 GMT",
+    "Content-Type": "text/javascript; charset=UTF-8"
+  },
+  "main": "index.js",
+  "_source": "https://www.gstatic.com/firebasejs/3.0.0/firebase.js",
+  "_target": "*",
+  "_originalSource": "https://www.gstatic.com/firebasejs/3.0.0/firebase.js"
+}

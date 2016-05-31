@@ -7,26 +7,31 @@ date-input.html  date-validator.html  gold-cc-expiration-input.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
 
-[![Build Status](https://travis-ci.org/PolymerElements/gold-cc-expiration-input.svg?branch=master)](https://travis-ci.org/PolymerElements/gold-cc-expiration-input)
+[![Build status](https://travis-ci.org/PolymerElements/gold-cc-expiration-input.svg?branch=master)](https://travis-ci.org/PolymerElements/gold-cc-expiration-input)
 
-_[Demo and API Docs](https://elements.polymer-project.org/elements/gold-cc-expiration-input)_
+_[Demo and API docs](https://elements.polymer-project.org/elements/gold-cc-expiration-input)_
 
 
 ##&lt;gold-cc-expiration-input&gt;
 
-
 `gold-cc-expiration-input` is a  single-line text field with Material Design styling
 for entering a credit card's expiration date
 
-    <gold-cc-expiration-input></gold-cc-expiration-input>
-    <gold-cc-expiration-input value="11/15"></gold-cc-expiration-input>
+```html
+<gold-cc-expiration-input></gold-cc-expiration-input>
+<gold-cc-expiration-input value="11/15"></gold-cc-expiration-input>
+```
 
 It may include an optional label, which by default is "Expiration Date".
 
-    <gold-cc-expiration-input label="Date"></gold-cc-expiration-input>
-
+```html
+<gold-cc-expiration-input label="Date"></gold-cc-expiration-input>
+```
 
 ### Validation
 

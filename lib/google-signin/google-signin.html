@@ -1,17 +1,18 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="google-signin-aware.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../font-roboto/roboto.html">
 <link rel="import" href="../google-apis/google-js-api.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
 <link rel="import" href="../paper-material/paper-material.html">
-<link rel="import" href="../iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="google-icons.html">
 
 <dom-module id="google-signin">
   <link rel="import" type="css" href="google-signin.css">
   <template>
+    <style is="custom-style" include="iron-positioning"></style>
+
     <google-signin-aware id="aware"
       app-package-name="{{appPackageName}}"
       client-id="{{clientId}}"
@@ -21,6 +22,7 @@
       offline="{{offline}}"
       offline-always-prompt="{{offlineAlwaysPrompt}}"
       scopes="{{scopes}}"
+      openid-prompt="{{openidPrompt}}"
       signed-in="{{signedIn}}"
       is-authorized="{{isAuthorized}}"
       need-additional-auth="{{needAdditionalAuth}}"
@@ -33,7 +35,7 @@
 
       <paper-ripple id="ripple" class="fit"></paper-ripple>
       <!-- this div is needed to position the ripple behind text content -->
-      <div relative layout horizontal center-center>
+      <div>
         <template is="dom-if" if="{{_computeButtonIsSignIn(signedIn, needAdditionalAuth)}}">
           <div class="button-content signIn" tabindex="0"
               on-click="signIn" on-keydown="_signInKeyPress">
@@ -371,6 +373,25 @@ any apps you're building. See the Google Developers Console
         },
 
         /**
+         * Space-delimited, case-sensitive list of strings that
+         * specifies whether the the user is prompted for reauthentication
+         * and/or consent. The defined values are:
+         *   none: do not display authentication or consent pages.
+         *     This value is mutually exclusive with the rest.
+         *   login: always prompt the user for reauthentication.
+         *   consent: always show consent screen.
+         *   select_account: always show account selection page.
+         *     This enables a user who has multiple accounts to select amongst
+         *     the multiple accounts that they might have current sessions for.
+         * For more information, see "prompt" parameter description in
+         * https://openid.net/specs/openid-connect-basic-1_0.html#RequestParameters
+         */
+        openidPrompt: {
+          type: String,
+          value: ''
+        },
+
+        /**
          * The theme to use for the button.
          *
          * Available options: light, dark.
@@ -381,7 +402,7 @@ any apps you're building. See the Google Developers Console
          */
         theme: {
           type: String,
-          value: 'dark'
+          value: 'light'
         },
 
         /**
@@ -415,6 +436,7 @@ any apps you're building. See the Google Developers Console
          */
         needAdditionalAuth: {
           type: Boolean,
+          notify: true,
           value: false
         },
 

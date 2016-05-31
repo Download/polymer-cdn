@@ -50,6 +50,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(input.value, '123-111-2222');
       });
 
+      test('setting the value to undefined resets it to the empty string', function() {
+        var input = fixture('basic');
+        input.value = undefined;
+        assert.equal(input.value, '');
+      });
+
       test('invalid input is not ok', function() {
         var input = fixture('required');
         input.value='1234';
@@ -78,53 +84,164 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
       });
 
-      test('empty required input shows error on blur', function(done) {
+      test('empty required input shows error on blur', function() {
         var input = fixture('required');
         forceXIfStamp(input);
 
+        var container = Polymer.dom(input.root).querySelector('paper-input-container');
         var error = Polymer.dom(input.root).querySelector('paper-input-error');
         assert.ok(error, 'paper-input-error exists');
-
         assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
+        assert.isFalse(container.invalid);
 
-        input.addEventListener('blur', function(event) {
-          assert(!input.focused, 'input is blurred');
-          assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
-          done();
-        });
-        MockInteractions.focus(input.inputElement);
-        MockInteractions.blur(input.inputElement);
+        MockInteractions.focus(input);
+        MockInteractions.blur(input);
+
+        assert(!input.focused, 'input is blurred');
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
+        assert.isTrue(container.invalid);
+      });
+    });
+
+    suite('a11y', function() {
+      test('has aria-labelledby', function() {
+        var input = fixture('basic');
+        assert.isTrue(input.inputElement.hasAttribute('aria-labelledby'))
+        assert.equal(input.inputElement.getAttribute('aria-labelledby'), Polymer.dom(input.root).querySelector('label').id, 'aria-labelledby points to the label');
       });
 
-      test('caret position is preserved', function() {
+      test('required and error has aria-labelledby', function() {
         var input = fixture('required');
-        var ironInput = Polymer.dom(input.root).querySelector('input[is="iron-input"]');
+        assert.isTrue(input.inputElement.hasAttribute('aria-labelledby'))
+        assert.equal(input.inputElement.getAttribute('aria-labelledby'), Polymer.dom(input.root).querySelector('label').id, 'aria-labelledby points to the label');
+      });
+    });
 
-        input.value ='111-111';
-        ironInput.selectionStart = 2;
-        ironInput.selectionEnd = 2;
-        input._onValueChanged('111-111-1', '111-111');
+    suite('caret position is preserved', function() {
+      var input, ironInput;
 
-        assert.equal(ironInput.selectionStart, 2, 'selectionStart is preserved');
-        assert.equal(ironInput.selectionEnd, 2, 'selectionEnd is preserved');
+      function pretendToTypeACharacter(input, text, caret) {
+        // When typing a character in an input, the browser natively advances
+        // the caret from its original location.
+        ironInput.value = text;
+        ironInput.selectionStart = ironInput.selectionEnd =  caret + 1;
+
+        // Since imperatively setting the input value does not fire an event.
+        // The user typing the value would, so manually fire the update.
+        input.value = text;
+      }
+
+      function pretendToDeleteACharacter(input, text, caret) {
+        // When typing a character in an input, the browser natively moves back
+        // the caret from its original location.
+        ironInput.value = text;
+        ironInput.selectionStart = ironInput.selectionEnd =  caret - 1;
+
+        // Since imperatively setting the input value does not fire an event.
+        // The user typing the value would, so manually fire the update.
+        input.value = text;
+      }
+
+      setup(function () {
+        input = fixture('basic');
+        ironInput = Polymer.dom(input.root).querySelector('input[is="iron-input"]');
       });
 
-      suite('a11y', function() {
+      test('001-0: adding a character after the 1', function() {
+        input.value ='001-0';
 
-        test('has aria-labelledby', function() {
-          var input = fixture('basic');
-          assert.isTrue(input.inputElement.hasAttribute('aria-labelledby'))
-          assert.equal(input.inputElement.getAttribute('aria-labelledby'), Polymer.dom(input.root).querySelector('label').id, 'aria-labelledby points to the label');
-        });
+        var caret = 3;
+        pretendToTypeACharacter(input, '0012-0', caret);
+        assert.equal(input.value, '001-20');
 
-        test('required and error has aria-labelledby', function() {
-          var input = fixture('required');
-          assert.isTrue(input.inputElement.hasAttribute('aria-labelledby'))
-          assert.equal(input.inputElement.getAttribute('aria-labelledby'), Polymer.dom(input.root).querySelector('label').id, 'aria-labelledby points to the label');
-        });
-
+        // The cursor advaces by the one character you typed, and the one dash.
+        assert.equal(ironInput.selectionStart, caret + 2, 'selectionStart is preserved');
+        assert.equal(ironInput.selectionEnd, caret + 2, 'selectionEnd is preserved');
       });
 
+      test('000-1: adding a character after the 1', function() {
+        input.value ='000-1';
+
+        var caret = 5;
+        pretendToTypeACharacter(input, '000-12', caret);
+        assert.equal(input.value, '000-12');
+
+        // The cursor just advances by the one character you typed.
+        assert.equal(ironInput.selectionStart, caret + 1, 'selectionStart is preserved');
+        assert.equal(ironInput.selectionEnd, caret + 1, 'selectionEnd is preserved');
+      });
+
+      test('000-001: adding a character after the 1', function() {
+        input.value ='000-001';
+
+        var caret = 7;
+        pretendToTypeACharacter(input, '000-0012', caret);
+        assert.equal(input.value, '000-001-2');
+
+        // The cursor advaces by the one character you typed, and the one new dash.
+        assert.equal(ironInput.selectionStart, caret + 2, 'selectionStart is preserved');
+        assert.equal(ironInput.selectionEnd, caret + 2, 'selectionEnd is preserved');
+      });
+
+      test('000-000-0001: adding a character after the 1', function() {
+        input.value ='000-000-0001';
+
+        var caret = 12;
+        pretendToTypeACharacter(input, '000-000-00012', caret);
+        assert.equal(input.value, '00000000012');
+
+        // The cursor advaces by the one character you typed, but you lose 2 dashes
+        assert.equal(ironInput.selectionStart, caret - 1, 'selectionStart is preserved');
+        assert.equal(ironInput.selectionEnd, caret - 1, 'selectionEnd is preserved');
+      });
+
+      test('001-20: removing the 2', function() {
+        input.value ='001-20';
+
+        var caret = 5;
+        pretendToDeleteACharacter(input, '001-0', caret);
+        assert.equal(input.value, '001-0');
+
+        // The cursor goes back by the one character you deleted.
+        assert.equal(ironInput.selectionStart, caret - 1, 'selectionStart is preserved');
+        assert.equal(ironInput.selectionEnd, caret - 1, 'selectionEnd is preserved');
+      });
+
+      test('000-12: removing the 2', function() {
+        input.value ='000-12';
+
+        var caret = 5;
+        pretendToDeleteACharacter(input, '000-1', caret);
+        assert.equal(input.value, '000-1');
+
+        // The cursor goes back by the one character you deleted.
+        assert.equal(ironInput.selectionStart, caret - 1, 'selectionStart is preserved');
+        assert.equal(ironInput.selectionEnd, caret - 1, 'selectionEnd is preserved');
+      });
+
+      test('000-001-2: removing the 2', function() {
+        input.value ='000-001-2';
+
+        var caret = 9;
+        pretendToDeleteACharacter(input, '000-001-', caret);
+        assert.equal(input.value, '000-001');
+
+        // The cursor goes back by the one character you deleted, and the one dash.
+        assert.equal(ironInput.selectionStart, caret - 2, 'selectionStart is preserved');
+        assert.equal(ironInput.selectionEnd, caret - 2, 'selectionEnd is preserved');
+      });
+
+      test('00000000012: removing the 2', function() {
+        input.value ='00000000012';
+
+        var caret = 11;
+        pretendToDeleteACharacter(input, '0000000001', caret);
+        assert.equal(input.value, '000-000-0001');
+
+        // The cursor goes back by the one character you deleted, but gains two dashes.
+        assert.equal(ironInput.selectionStart, caret + 1, 'selectionStart is preserved');
+        assert.equal(ironInput.selectionEnd, caret + 1, 'selectionEnd is preserved');
+      });
     });
 
   </script>

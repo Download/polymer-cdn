@@ -27,6 +27,14 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
 
 The standard set of [YouTube player events](https://developers.google.com/youtube/iframe_api_reference#Events) are exposed, as well as methods for playing, pausing, seeking to a specific time, and loading a new video.
 
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--google-youtube-container`  | Mixin applied to the container div | `{}`
+`--google-youtube-thumbnail`  | Mixin for the video thumbnail      | `{}`
+`--google-youtube-iframe`     | Mixin for the embeded iframe       | `{}`
+
+
 @demo
 -->
 <dom-module id="google-youtube">
@@ -50,23 +58,22 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
       width: 100%;
       height: 100%;
     }
+    
+    iframe {
+      @apply(--google-youtube-iframe);
+    }
 
     #container {
       max-width: 100%;
       max-height: 100%;
+      @apply(--google-youtube-container);
     }
 
     #thumbnail {
       width: 100%;
       height: 100%;
       cursor: pointer;
-    }
-
-    /* Some browsers will refuse to play videos with 'display: none' set, so position the video well offscreen instead. */
-    #playtest {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
+      @apply(--google-youtube-thumbnail);
     }
   </style>
 
@@ -74,14 +81,16 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
     <div id="container" style$="{{_computeContainerStyle(width, height)}}">
       <template is="dom-if" if="{{thumbnail}}">
         <img id="thumbnail"
-           src$="{{thumbnail}}"
-           title="YouTube video thumbnail."
-           alt="YouTube video thumbnail."
-           on-tap="_handleThumbnailTap">
+             src$="{{thumbnail}}"
+             title="YouTube video thumbnail."
+             alt="YouTube video thumbnail."
+             on-tap="_handleThumbnailTap">
       </template>
 
       <template is="dom-if" if="{{!thumbnail}}">
-        <google-youtube-api on-api-load="_apiLoad"></google-youtube-api>
+        <template is="dom-if" if="{{videoId}}">
+          <google-youtube-api on-api-load="_apiLoad"></google-youtube-api>
+        </template>
       </template>
 
       <!-- Use this._playsupportedLocalStorage as the value, since this.playsupported is set to
@@ -130,12 +139,15 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
      * to load a new video into the player (if `this.autoplay` is set to `1` and `playsupported` is true)
      * or cue a new video otherwise.
      *
+     * The underlying YouTube embed will not be added to the page unless this
+     * value is set.
+     *
      * You can [search for videos programmatically](https://developers.google.com/youtube/v3/docs/search/list)
      * using the YouTube Data API, or just hardcode known video ids to display on your page.
      */
       videoId: {
         type: String,
-        value: 'mN7IAaRdi_k',
+        value: '',
         observer: '_videoIdChanged'
       },
 
@@ -346,8 +358,8 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
      *   - Whatever happens, cache the result in localStorage.
      */
     _determinePlaySupported: function() {
-      // If playsupported isn't already being overridden by the page using this component, then attempt
-      // to determine if it's supported.
+      // If playsupported isn't already being overridden by the page using this component,
+      // then attempt to determine if it's supported.
       // This is deliberately checking with ==, to match either undefined or null.
       if (this.playsupported == null) {
         // Run a new playback test.
@@ -356,6 +368,13 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
 
         if ('play' in videoElement) {
           videoElement.id = 'playtest';
+          // Some browsers will refuse to play videos with 'display: none' set,
+          // so position the video well offscreen instead.
+          // Modify the .style property directly instead of using CSS to work around polyfill
+          // issues; see https://github.com/GoogleWebComponents/google-youtube/issues/49
+          videoElement.style.position = 'absolute';
+          videoElement.style.top = '-9999px';
+          videoElement.style.left = '-9999px';
 
           var mp4Source = document.createElement('source');
           mp4Source.src = "data:video/mp4;base64,AAAAFGZ0eXBNU05WAAACAE1TTlYAAAOUbW9vdgAAAGxtdmhkAAAAAM9ghv7PYIb+AAACWAAACu8AAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAnh0cmFrAAAAXHRraGQAAAAHz2CG/s9ghv4AAAABAAAAAAAACu8AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAFAAAAA4AAAAAAHgbWRpYQAAACBtZGhkAAAAAM9ghv7PYIb+AAALuAAANq8AAAAAAAAAIWhkbHIAAAAAbWhscnZpZGVBVlMgAAAAAAABAB4AAAABl21pbmYAAAAUdm1oZAAAAAAAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAVdzdGJsAAAAp3N0c2QAAAAAAAAAAQAAAJdhdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAFAAOABIAAAASAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGP//AAAAEmNvbHJuY2xjAAEAAQABAAAAL2F2Y0MBTUAz/+EAGGdNQDOadCk/LgIgAAADACAAAAMA0eMGVAEABGjuPIAAAAAYc3R0cwAAAAAAAAABAAAADgAAA+gAAAAUc3RzcwAAAAAAAAABAAAAAQAAABxzdHNjAAAAAAAAAAEAAAABAAAADgAAAAEAAABMc3RzegAAAAAAAAAAAAAADgAAAE8AAAAOAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA4AAAAOAAAAFHN0Y28AAAAAAAAAAQAAA7AAAAA0dXVpZFVTTVQh0k/Ou4hpXPrJx0AAAAAcTVREVAABABIAAAAKVcQAAAAAAAEAAAAAAAAAqHV1aWRVU01UIdJPzruIaVz6ycdAAAAAkE1URFQABAAMAAAAC1XEAAACHAAeAAAABBXHAAEAQQBWAFMAIABNAGUAZABpAGEAAAAqAAAAASoOAAEAZABlAHQAZQBjAHQAXwBhAHUAdABvAHAAbABhAHkAAAAyAAAAA1XEAAEAMgAwADAANQBtAGUALwAwADcALwAwADYAMAA2ACAAMwA6ADUAOgAwAAABA21kYXQAAAAYZ01AM5p0KT8uAiAAAAMAIAAAAwDR4wZUAAAABGjuPIAAAAAnZYiAIAAR//eBLT+oL1eA2Nlb/edvwWZflzEVLlhlXtJvSAEGRA3ZAAAACkGaAQCyJ/8AFBAAAAAJQZoCATP/AOmBAAAACUGaAwGz/wDpgAAAAAlBmgQCM/8A6YEAAAAJQZoFArP/AOmBAAAACUGaBgMz/wDpgQAAAAlBmgcDs/8A6YEAAAAJQZoIBDP/AOmAAAAACUGaCQSz/wDpgAAAAAlBmgoFM/8A6YEAAAAJQZoLBbP/AOmAAAAACkGaDAYyJ/8AFBAAAAAKQZoNBrIv/4cMeQ==";
@@ -368,7 +387,8 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
           document.body.appendChild(videoElement);
 
           this.async(function() {
-            // Ideally, we'll get a 'playing' event if we're on a browser that supports programmatic play().
+            // Ideally, we'll get a 'playing' event if we're on a browser that supports
+            // programmatic play().
             videoElement.onplaying = function(e) {
               clearTimeout(timeout);
 
@@ -413,7 +433,7 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
         ratio *= 100;
         this.width = '100%';
         this.height = 'auto';
-        this.style['padding-top'] = ratio + '%';
+        this.$.container.style['padding-top'] = ratio + '%';
       }
     },
 
