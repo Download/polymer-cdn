@@ -16,7 +16,84 @@
       height: 300px;
       width: 400px;
     }
+  </style>
 
+</head>
+<body>
+
+  <p>A simple <code>google-chart</code> looks like this:</p>
+
+  <google-chart
+    cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+    rows='[["Something", 1]]'>
+  </google-chart>
+
+  <p>Charts can be resized with CSS, but you'll need to call the <code>drawChart</code> method when the size changes.</p>
+  <p>Here's a basic responsive example using only CSS and JS (You could also use <code>&lt;iron-media-query&gt;</code>):</p>
+
+  <style>
+    /* Phone and tablet */
+    #resizing-chart {
+      height: 300px;
+      width: 400px;
+    }
+
+    /* Desktop */
+    @media screen and (min-width: 1024px) {
+      #resizing-chart {
+        width: 800px;
+      }
+    }
+  </style>
+
+  <script>
+    var media = window.matchMedia('(min-width: 1024px)');
+
+    media.addListener(function() {
+      document.getElementById('resizing_chart').drawChart();
+    });
+  </script>
+
+  <google-chart
+    id="resizing-chart"
+    type="column"
+    options='{"title": "Responsive chart",
+              "vAxis": {"minValue" : 0, "maxValue": 10}}'
+    cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+    rows='[ ["Col1", 5.0],["Col2", 5.0],["Col3", 5.0] ]'>
+  </google-chart>
+
+  <p>Here's a chart that changes data every 3 seconds:</p>
+
+  <google-chart
+    id="mutating-chart"
+    type="column"
+    options='{"title": "Random data",
+              "vAxis": {"minValue" : 0, "maxValue": 10},
+              "animation": {"duration": "1000"}}'
+    cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+    rows='[ ["Col1", 5.0],["Col2", 5.0],["Col3", 5.0] ]'>
+  </google-chart>
+
+  <script>
+    (function() {
+      function getRandomValue() {
+        return Math.random() * 10;
+      }
+
+      var chart = document.getElementById('mutating-chart');
+
+      window.setInterval(function() {
+        chart.rows = [["Col1", getRandomValue()],
+                      ["Col2", getRandomValue()],
+                      ["Col3", getRandomValue()]];
+      }, 3000);
+    }());
+  </script>
+
+  <p>Here's a pie chart with an area selection:</p>
+
+  <style>
     #selection-demo {
       position: relative;
       height: 300px;
@@ -32,87 +109,14 @@
       top: 50%;
     }
   </style>
-
-</head>
-<body>
-
-  <p>A simple <code>google-chart</code> looks like this:</p>
-
-  <google-chart
-    cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
-    rows='[["Something", 1]]'>
-  </google-chart>
-
-  <p>Charts can be resized with CSS, but you'll need to call the <code>drawChart</code> method when the size changes.</p>
-  <p>Here's a basic responsive example using only CSS and JS. You could also use <code>&lt;iron-media-query&gt;</code>.</p>
-
-  <style>
-    /* Phone and tablet */
-    #resizing_chart {
-      height: 300px;
-      width: 400px;
-    }
-
-    /* Desktop */
-    @media screen and (min-width: 1024px) {
-      #resizing_chart {
-        width: 800px;
-      }
-    }
-  </style>
-
-  <script>
-    var media = window.matchMedia('(min-width: 1024px)');
-
-    media.addListener(function() {
-      document.getElementById('resizing_chart').drawChart();
-    });
-  </script>
-
-  <google-chart
-    id='resizing_chart'
-    type='column'
-    options='{"title": "Responsive chart",
-              "vAxis": {"minValue" : 0, "maxValue": 10}}'
-    cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
-    rows='[["Col1", 5.0],["Col2", 5.0],["Col3", 5.0]]'>
-  </google-chart>
-
-  <p>Here's a chart that changes data every 3 seconds:</p>
-
-  <google-chart
-    id='mutating_chart'
-    type='column'
-    options='{"title": "Random data",
-              "vAxis": {"minValue" : 0, "maxValue": 10},
-              "animation": {"duration": "1000"}}'
-    cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
-    rows='[["Col1", 5.0],["Col2", 5.0],["Col3", 5.0]]'>
-  </google-chart>
-
-  <script>
-    function getRandomValue() {
-      return Math.random() * 10;
-    }
-
-    window.setInterval(function() {
-      var chart = document.getElementById('mutating_chart');
-
-      chart.rows = [["Col1", getRandomValue()],
-                    ["Col2", getRandomValue()],
-                    ["Col3", getRandomValue()]];
-    }, 3000);
-  </script>
-
-  <p>Here's a pie chart with an area selection:</p>
-
   <div id="selection-demo">
     <google-chart
-      type="pie"
       id="selection-chart"
+      type="pie"
       options='{"title": "Distribution of days in 2001H1"}'
       cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
-      rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+      rows='[ ["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30] ]'
+      selection='[{"row": 1}]'>
     </google-chart>
     <div id="selection-display">
       Selected row: <span id="selection-label">None</span>.
@@ -120,26 +124,28 @@
   </div>
 
   <script>
-    document.addEventListener('WebComponentsReady', function() {
-      var chart = document.querySelector('#selection-chart');
-      var label = document.querySelector('#selection-label');
+    (function() {
+      var chart = document.getElementById('selection-chart');
+      var label = document.getElementById('selection-label');
 
-      chart.addEventListener('google-chart-render', function() {
-        chart.selection = [{row: 1, column: null}];
-        label.textContent = chart.selection[0].row;
+      label.textContent = chart.selection[0].row;
+
+      chart.addEventListener('google-chart-select', function(e) {
+        var newSelection = e.detail.selection[0];  // From the event details
+        label.textContent = newSelection ? newSelection.row : 'None';
       });
 
-      document.addEventListener('google-chart-select', function(e) {
-        label.textContent =
-            chart.selection[0] ? chart.selection[0].row : 'None';
+      chart.addEventListener('selection-changed', function(e) {
+        var newSelection = e.detail.value[0];  // From the event details
+        label.textContent = newSelection ? newSelection.row : 'None';
       });
-    });
+    }());
   </script>
 
   <p>Here's a chart defined using <code>data</code>, rather than <code>rows</code> and <code>cols</code>:</p>
 
   <google-chart
-    type='column'
+    type="column"
     options='{"title": "Inventory"}'
     data='[["Year", "Things", "Stuff"],
            ["2004", 1000, 400],
@@ -151,17 +157,17 @@
   <p>And one with some pretty complicated styling, where the data is loaded from an external JSON resource using the <code>data</code> attribute:</p>
 
   <google-chart
-    type='column'
+    type="column"
     options='{"title": "Bar height", "legend": "none"}'
-    data='chart-data.json'>
+    data="chart-data.json">
   </google-chart>
 
   <p>Website traffic data by country from an external JSON resource where the data is in raw DataTable format.</p>
 
   <google-chart
-    type='column'
+    type="column"
     options='{"title": "Visitors by Country", "legend": "none"}'
-    data='country-data.json'>
+    data="country-data.json">
   </google-chart>
 
   <h2>Chart gallery</h2>
@@ -169,7 +175,7 @@
   <p>Here's an area chart:</p>
 
   <google-chart
-    type='area'
+    type="area"
     options='{"title": "Days in a month"}'
     cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
     rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
@@ -178,7 +184,7 @@
   <p>Here's a bar chart:</p>
 
   <google-chart
-    type='bar'
+    type="bar"
     options='{"title": "Days in a month"}'
     cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
     rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
@@ -187,8 +193,7 @@
   <p>Here's a bubble chart:</p>
 
   <google-chart
-    type='bubble'
-    options='{}'
+    type="bubble"
     data='[["ID", "Life Expectancy", "Fertility Rate", "Region", "Population"],
            ["CAN", 80.66, 1.67, "North America", 33739900],
            ["DEU", 79.84, 1.36, "Europe",        81902307],
@@ -205,7 +210,7 @@
   <p>Here's a candlestick chart:</p>
 
   <google-chart
-    type='candlestick'
+    type="candlestick"
     options='{"legend": "none"}'
     data='[["Day", "low", "start", "end", "high"],
            ["Mon", 20, 28, 38, 45],
@@ -218,7 +223,7 @@
   <p>Here's a column chart:</p>
 
   <google-chart
-    type='column'
+    type="column"
     options='{"title": "Days in a month"}'
     cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
     rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
@@ -227,7 +232,7 @@
   <p>Here's a combo chart:</p>
 
   <google-chart
-    type='combo'
+    type="combo"
     options='{"seriesType": "bars", "series": {"2": {"type": "line"}}}'
     data='[["Day", "A", "B", "C"],
            ["Mon", 20, 45, 28],
@@ -240,7 +245,7 @@
   <p>Here's a geo chart:</p>
 
   <google-chart
-    type='geo'
+    type="geo"
     data='[["Country", "Popularity"],
            ["Germany", 200],
            ["United States", 300],
@@ -253,7 +258,7 @@
   <p>Here's a histogram:</p>
 
   <google-chart
-    type='histogram'
+    type="histogram"
     options='{"title": "Days in a month", "legend": "none", "histogram": { "bucketSize": 1 }}'
     cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
     rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
@@ -262,8 +267,8 @@
   <p>Here's a line chart:</p>
 
   <google-chart
-    id='line_chart'
-    type='line'
+    id="line-chart"
+    type="line"
     options='{"title": "Days in a month"}'
     cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
     rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
@@ -272,7 +277,7 @@
   <p>Here's a pie chart:</p>
 
   <google-chart
-    type='pie'
+    type="pie"
     options='{"title": "Distribution of days in 2001H1"}'
     cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
     rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
@@ -281,7 +286,7 @@
   <p>Here's a scatter chart:</p>
 
   <google-chart
-    type='scatter'
+    type="scatter"
     options='{"legend": "none"}'
     data='[["A", "B"],
            [20, 45],
@@ -294,7 +299,7 @@
   <p>Here's a stepped area chart:</p>
 
   <google-chart
-    type='stepped-area'
+    type="stepped-area"
     options='{"title": "Days in a month"}'
     cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
     rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
@@ -304,18 +309,39 @@
 
   <google-chart
     type="table"
-    options='{"title": "Inventory"}'
+    options='{"title": "Inventory", "page": "enable", "pageSize": 4}'
     data='[["Year", "Things", "Stuff"],
            ["2004", 1000, 400],
            ["2005", 1170, 460],
            ["2006", 660, 1120],
-           ["2007", 1030, 540]]'>
-  </google-chart>
+           ["2007", 1030, 540],
+           ["2008", 1000, 400],
+           ["2009", 1170, 460],
+           ["2010", 660, 1120],
+           ["2011", 1030, 540]]'></google-chart>
+
+  <p>Here's a timeline chart:</p>
+
+  <google-chart id="timeline" type="timeline"></google-chart>
+
+  <script>
+    (function() {
+      var chart = document.getElementById('timeline');
+      chart.pkg.then(function(viz) {
+        chart.data = [
+          ['Name', 'Start', 'End'],
+          ['Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
+          ['Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
+          ['Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]
+        ];
+      });
+    }());
+  </script>
 
   <p>Here are three gauges:</p>
 
   <google-chart
-      type='gauge'
+      type="gauge"
       data='[["Label", "Value"],["Memory", 80],["CPU", 55],["Network", 68]]'
       options='{"width": 400,
                 "height": 120,
@@ -329,7 +355,7 @@
   <p>Here are three gauges with random data that change every three seconds:</p>
 
   <google-chart
-      id="mutating_gauge"
+      id="mutating-gauge"
       type="gauge"
       data='[["Label", "Value"],["Memory", 80],["CPU", 55],["Network", 68]]'
       options='{"width": 400,
@@ -342,16 +368,22 @@
   </google-chart>
 
   <script>
-    function getRandomGaugeValue(offset, factor) {
-      return offset + Math.round(factor * Math.random());
-    }
+    (function() {
+      function getRandomGaugeValue(offset, factor) {
+        return offset + Math.round(factor * Math.random());
+      }
 
-    window.setInterval(function() {
-      var gauge = document.getElementById('mutating_gauge');
+      var gauge = document.getElementById('mutating-gauge');
 
-      gauge.data = [["Label", "Value"],["Memory", getRandomGaugeValue(40, 60)],["CPU", getRandomGaugeValue(40, 60)],["Network", getRandomGaugeValue(60, 20)]];
-
-    }, 3000);
+      window.setInterval(function() {
+        gauge.data = [
+          ['Label', 'Value'],
+          ['Memory', getRandomGaugeValue(40, 60)],
+          ['CPU', getRandomGaugeValue(40, 60)],
+          ['Network', getRandomGaugeValue(60, 20)]
+        ];
+      }, 3000);
+    }());
   </script>
 
   <p>Here's a treemap:</p>
@@ -390,21 +422,76 @@
              ["Zaire", "Africa", 8]]'>
   </google-chart>
 
+  <p>Here is a chart using a DataTable as its source:</p>
+
+  <google-chart
+      id="source-datatable"
+      type="bar">
+  </google-chart>
+
+  <script>
+    (function() {
+      var chart = document.getElementById('source-datatable');
+      chart.pkg.then(function(viz) {
+        chart.data = viz.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Memory', 10],
+          ['CPU', 12],
+          ['Network', 14]
+        ]);
+      });
+    }());
+  </script>
+
+  <p>Here is a chart using a filtered DataView as its source:</p>
+
+  <google-chart
+      id="source-dataview"
+      type="bar">
+  </google-chart>
+
+  <p>DataViews can be altered, but you'll need to call the <code>drawChart</code> method afterward.</p>
+
+  <script>
+    (function() {
+      var chart = document.getElementById('source-dataview');
+      chart.pkg.then(function(viz) {
+        var dataTable = viz.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Memory', 10],
+          ['CPU', 12],
+          ['Network', 14]
+        ]);
+        chart.view = new google.visualization.DataView(dataTable);
+        var setRandomRow = function() {
+          var rowCount = dataTable.getNumberOfRows();
+          var row = Math.floor(Math.random() * rowCount);
+          var row2 = (row + 1) % rowCount;
+          chart.view.setRows([row, row2]);
+          chart.drawChart();
+        };
+        setInterval(setRandomRow, 3000);
+      });
+    }());
+  </script>
+
   <p>Here's an image of the line chart:</p>
 
-  <div id='line_chart_div'></div>
+  <div id='line-chart-img-container'></div>
 
-    <script>
-    document.addEventListener('WebComponentsReady', function() {
-      var chart_div = document.querySelector('#line_chart_div');
-      var chart = document.querySelector('#line_chart');
+  <script>
+    (function() {
+      var chart = document.getElementById('line-chart');
+      var imgContainer = document.getElementById('line-chart-img-container');
 
       chart.addEventListener('google-chart-render', function() {
-        chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+        var img = document.createElement('img');
+        img.src = chart.getImageURI();
+        imgContainer.innerHTML = '';
+        imgContainer.appendChild(img);
       });
-
-    });
+    }());
   </script>
-  
+
 </body>
 </html>

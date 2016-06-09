@@ -12,7 +12,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="firebase.html">
 
 <script>
-  /** @polymerBehavior */
+  /** @polymerBehavior
+  **Note: This element is for the older Firebase 2 API**
+  For the latest official Firebase 3.0-compatible component from the Firebase team,
+  see the [polymerfire](https://github.com/firebase/polymerfire) component.
+  */
   Polymer.FirebaseQueryBehavior = {
     properties: {
       /**
@@ -167,6 +171,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.disconnect();
     },
 
+    _fireQueryError: function(error) {
+      this.fire('firebase-query-error', error);
+      this._error(error);
+    },
+
     _log: function() {
       var args;
 
@@ -185,13 +194,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     _warn: function() {
       if (this.log) {
-        Polymer.Base._warn(this._logf.apply(this, arguments));
+        Polymer.Base._warn(this._log.apply(this, arguments));
       }
     },
 
     _error: function() {
       if (this.log) {
-        Polymer.Base._error(this._logf.apply(this, arguments));
+        Polymer.Base._error(this._log.apply(this, arguments));
       }
     }
   };

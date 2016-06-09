@@ -1,6 +1,6 @@
 {
   "name": "polymer-cdn",
-  "version": "1.4.0.2",
+  "version": "1.5.0",
   "main": "polymer.js",
   "homepage": "https://github.com/Download/polymer-cdn",
   "authors": [
@@ -27,7 +27,7 @@
     "neon-elements": "polymerelements/neon-elements#latest",
     "gold-elements": "polymerelements/gold-elements#latest",
     "platinum-elements": "polymerelements/platinum-elements#latest",
-    "carbon-elements": "polymerelements/carbon-elements#latest",
+    "app-elements": "polymerelements/app-elements#latest",
     "google-web-components": "GoogleWebComponents/google-web-components#latest",
     "molecules": "polymerelements/molecules#latest"
   }

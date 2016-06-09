@@ -170,7 +170,7 @@ be available through this element.
            */
           workerUrl: {
             type: String,
-            value() {
+            value: function() {
               return this.resolveUrl('./app-indexeddb-mirror-worker.js');
             }
           },

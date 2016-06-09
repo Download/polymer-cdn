@@ -140,8 +140,20 @@ Custom property | Description | Default
         white-space: nowrap;
       }
 
-      #tabsContent.horizontal {
+      #tabsContent:not(.scrollable),
+      #tabsContent.scrollable.fit-container {
         @apply(--layout-horizontal);
+      }
+
+      #tabsContent.scrollable.fit-container {
+        min-width: 100%;
+      }
+
+      #tabsContent.scrollable.fit-container > ::content > * {
+        /* IE - prevent tabs from compressing when they should scroll. */
+        -ms-flex: 1 0 auto;
+        -webkit-flex: 1 0 auto;
+        flex: 1 0 auto;
       }
 
       .hidden {
@@ -200,7 +212,7 @@ Custom property | Description | Default
     <paper-icon-button icon="paper-tabs:chevron-left" class$="[[_computeScrollButtonClass(_leftHidden, scrollable, hideScrollButtons)]]" on-up="_onScrollButtonUp" on-down="_onLeftScrollButtonDown" tabindex="-1"></paper-icon-button>
 
     <div id="tabsContainer" on-track="_scroll" on-down="_down">
-      <div id="tabsContent" class$="[[_computeTabsContentClass(scrollable)]]">
+      <div id="tabsContent" class$="[[_computeTabsContentClass(scrollable, fitContainer)]]">
         <div id="selectionBar" class$="[[_computeSelectionBarClass(noBar, alignBottom)]]"
             on-transitionend="_onBarTransitionEnd"></div>
         <content select="*"></content>
@@ -252,6 +264,15 @@ Custom property | Description | Default
          * If true, tabs are scrollable and the tab width is based on the label width.
          */
         scrollable: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * If true, tabs expand to fit their container. This currently only applies when
+         * scrollable is true.
+         */
+        fitContainer: {
           type: Boolean,
           value: false
         },
@@ -385,8 +406,8 @@ Custom property | Description | Default
         return '';
       },
 
-      _computeTabsContentClass: function(scrollable) {
-        return scrollable ? 'scrollable' : 'horizontal';
+      _computeTabsContentClass: function(scrollable, fitContainer) {
+        return scrollable ? 'scrollable' + (fitContainer ? ' fit-container' : '') : ' fit-container';
       },
 
       _computeSelectionBarClass: function(noBar, alignBottom) {

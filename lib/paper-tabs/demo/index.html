@@ -124,7 +124,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </demo-snippet>
 
       <h3>
-        Tab layout is effected by the writing direction of the surrounding area.
+        The <code>fit-container</code> attribute causes scrollable tabs to
+        stretch to fit their container if the tabs don't need to scroll.
+      </h3>
+      <demo-snippet>
+        <template>
+          <paper-tabs selected="0" scrollable fit-container>
+            <paper-tab>NUMBER ONE ITEM</paper-tab>
+            <paper-tab>ITEM TWO</paper-tab>
+            <paper-tab>THE THIRD ITEM</paper-tab>
+          </paper-tabs>
+          <br>
+          <paper-tabs selected="0" scrollable fit-container style="width: 50%;">
+            <paper-tab>NUMBER ONE ITEM</paper-tab>
+            <paper-tab>ITEM TWO</paper-tab>
+            <paper-tab>THE THIRD ITEM</paper-tab>
+          </paper-tabs>
+        </template>
+      </demo-snippet>
+
+      <h3>
+        Tab layout is affected by the writing direction of the surrounding area.
       </h3>
       <demo-snippet>
         <template>

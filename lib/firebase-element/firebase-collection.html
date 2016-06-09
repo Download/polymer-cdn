@@ -12,6 +12,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="firebase-query-behavior.html">
 
 <!--
+* **Note: This element is for the older Firebase 2 API**
+
+For the latest official Firebase 3.0-compatible component from the Firebase team,
+see the [polymerfire](https://github.com/firebase/polymerfire) component.
+In this new component, the `firebase-collection` element has been replaced
+with [`firebase-query`](https://github.com/firebase/polymerfire#firebase-query)
+
 An element wrapper for the Firebase API that provides a view into the provided
 Firebase location as an ordered collection.
 
@@ -245,6 +252,8 @@ manipulation of the collection without direct knowledge of Firebase key values.
        * with the item will be created by Firebase, and can be accessed via the
        * Firebase Query instance returned by this method.
        *
+       * If the query is not yet properly defined as it can be the case for bound location, the `query-error` event is fired.
+       *
        * @param {Object} data A value to add to the document.
        * @return {Object} A Firebase Query instance referring to the added item.
        */
@@ -252,6 +261,11 @@ manipulation of the collection without direct knowledge of Firebase key values.
         var query;
 
         this._log('Adding new item to collection with value:', data);
+
+        if (!this.query) {
+          this._fireQueryError('Query does not exist');
+          return;
+        }
 
         query = this.query.ref().push();
         query.set(data);
@@ -326,6 +340,12 @@ manipulation of the collection without direct knowledge of Firebase key values.
       },
 
       _applySubPathChange: function(change) {
+
+        if (!this.query) {
+          this._fireQueryError('Query does not exist');
+          return;
+        }
+
         var key = change.path.split('.')[1];
         var value = Polymer.Collection.get(change.base).getItem(key);
         var firebaseKey = value.__firebaseKey__;
@@ -384,37 +404,47 @@ manipulation of the collection without direct knowledge of Firebase key values.
 
         this._log('Recomputing query.', arguments);
 
-        query = new Firebase(location);
+        try {
+          query = new Firebase(location);
 
-        if (orderByMethodName) {
-          if (orderByMethodName === 'orderByChild') {
-            query = query[orderByMethodName](this.orderByChild);
-          } else {
-            query = query[orderByMethodName]();
+          if (orderByMethodName) {
+            if (orderByMethodName === 'orderByChild') {
+              query = query[orderByMethodName](this.orderByChild);
+            } else {
+              query = query[orderByMethodName]();
+            }
           }
+
+          if (startAt != null) {
+            query = query.startAt(startAt);
+          }
+
+          if (endAt != null) {
+            query = query.endAt(endAt);
+          }
+
+          if (equalTo != null) {
+            query = query.equalTo(equalTo);
+          }
+
+          if (limitToLast != null) {
+            query = query.limitToLast(limitToLast);
+          }
+
+          if (limitToFirst != null) {
+            query = query.limitToFirst(limitToFirst);
+          }
+
+        } catch(e) {
+
+          this._fireQueryError('Query cannot be instantiated with location ' + location + ' (' + e.toString() + ')');
+
+        } finally {
+
+          return query;
+
         }
 
-        if (startAt != null) {
-          query = query.startAt(startAt);
-        }
-
-        if (endAt != null) {
-          query = query.endAt(endAt);
-        }
-
-        if (equalTo != null) {
-          query = query.equalTo(equalTo);
-        }
-
-        if (limitToLast != null) {
-          query = query.limitToLast(limitToLast);
-        }
-
-        if (limitToFirst != null) {
-          query = query.limitToFirst(limitToFirst);
-        }
-
-        return query;
       },
 
       _queryChanged: function() {
@@ -586,7 +616,7 @@ manipulation of the collection without direct knowledge of Firebase key values.
 
           this._valueMap[oldValue.__firebaseKey__] = null;
           this._valueMap[value.__firebaseKey__] = value;
-          this.splice('data', this.data.indexOf(oldValue), 1, value);
+          this.set('data.' + this.data.indexOf(oldValue), value);
         });
       },
 
