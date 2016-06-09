@@ -10,6 +10,9 @@ https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/my-cool-element/my-cool-el
 ```
 To be sure, browse this repo and copy-paste the url to the raw version into [RawGit](https://rawgit.com).
 
+## Try a pen
+Try hacking on this [Codepen](http://codepen.io/StijnDeWitt/pen/EyPyyL).
+
 ## Versioning
 As this repo groups a whole set of components, versioning is tricky. For now I've decided to
 follow the Polymer version number and add an extra number behind it for updates that did not
