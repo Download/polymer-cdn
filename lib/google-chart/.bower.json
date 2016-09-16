@@ -1,6 +1,6 @@
 {
   "name": "google-chart",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Encapsulates Google Charts into a web component",
   "homepage": "https://googlewebcomponents.github.io/google-chart",
   "main": "google-chart.html",
@@ -32,11 +32,11 @@
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.2",
     "web-component-tester": "*"
   },
-  "_release": "1.0.5",
+  "_release": "1.1.0",
   "_resolution": {
     "type": "version",
-    "tag": "1.0.5",
-    "commit": "fff9a06c3bd23c8363d4909046a681dd03983df3"
+    "tag": "v1.1.0",
+    "commit": "7e906acd99619e33e0cd78182c97fe6d9ad494fd"
   },
   "_source": "git://github.com/GoogleWebComponents/google-chart.git",
   "_target": "^1.0.0",

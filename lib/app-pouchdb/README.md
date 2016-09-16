@@ -2,7 +2,7 @@
 <!---
 
 This README is automatically generated from the comments in these files:
-app-pouchdb-conflict-resolution.html  app-pouchdb-document.html  app-pouchdb-index.html  app-pouchdb-query.html  app-pouchdb-sync.html
+app-pouchdb-conflict-resolution.html  app-pouchdb-database-behavior.html  app-pouchdb-document.html  app-pouchdb-index.html  app-pouchdb-query.html  app-pouchdb-sync.html
 
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
@@ -43,7 +43,7 @@ configured strategy.
 
 ##&lt;app-pouchdb-document&gt;
 
-`app-pouchdb-document` is an implementation of `Polymer.CarbonStorageBehavior`
+`app-pouchdb-document` is an implementation of `Polymer.AppStorageBehavior`
 for reading and writing to individual PouchDB documents.
 
 In order to refer to a PouchDB document, provide the name of the database
@@ -173,5 +173,16 @@ and a remote one:
 
 For more information on PouchDB synchronization topics, please refer to the
 documentation [here](https://pouchdb.com/guides/replication.html).
+
+
+
+##Polymer.AppPouchDBDatabaseBehavior
+
+`Polymer.AppPouchDBDatabaseBehavior` is an abstract implementation that
+is intended to be shared by any element that refers to and operates on a
+PouchDB database instance. It includes implementation for creating and
+configuring a PouchDB database instance, and some advanced macro
+operations that might be performed on the database, including "upsert"
+and conflict-aware "put" and "post" operations.
 
 

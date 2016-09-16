@@ -101,6 +101,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
         assert.isTrue(container.invalid);
       });
+
+      test('international value properly computed', function() {
+        var input = fixture('basic');
+        input.countryCode = '33';
+        input.phoneNumberPattern = 'X-XX-XX-XX-XX';
+        input.value = '123456789';
+        assert.equal(input.internationalValue, '+(33)1-23-45-67-89');
+      });
+      
+      test('international value is read only', function() {
+        var input = fixture('basic');
+        input.countryCode = '33';
+        input.phoneNumberPattern = 'X-XX-XX-XX-XX';
+        input.value = '123456789';
+        input.internationalValue = '+(32)2-345-67-89';
+        assert.equal(input.internationalValue, '+(33)1-23-45-67-89');
+      });
+
+      test('gets the value without country code if it is not set', function() {
+        var input = fixture('basic');
+        input.countryCode = '';
+        input.phoneNumberPattern = 'X-XX-XX-XX-XX';
+        input.value = '123456789';
+        assert.equal(input.internationalValue, '1-23-45-67-89');
+      });
     });
 
     suite('a11y', function() {

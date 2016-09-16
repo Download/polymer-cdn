@@ -21,9 +21,10 @@ _[Demo and API docs](https://elements.polymer-project.org/elements/platinum-blue
 
 The `<platinum-bluetooth-characteristic>` element allows you to [read
 and write characteristics on nearby bluetooth devices](https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web) thanks to the
-young [Web Bluetooth API](https://github.com/WebBluetoothCG/web-bluetooth). It is currently only partially implemented
-in Chrome OS 45 and Chrome 49 for Android behind the experimental flag
-`chrome://flags/#enable-web-bluetooth`.
+young [Web Bluetooth API](https://github.com/WebBluetoothCG/web-bluetooth). It is currently partially implemented
+behind the experimental flag `chrome://flags/#enable-web-bluetooth`. It
+is also now available in Chrome 53 as an [origin trial](https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web#available-for-origin-trials) for Chrome
+OS, Android M, and Mac.
 
 `<platinum-bluetooth-characteristic>` needs to be a child of a
 `<platinum-bluetooth-service>` element.
@@ -178,9 +179,9 @@ heartRateCtrlPoint.addEventListener('platinum-bluetooth-auto-write-error',
 
 The `<platinum-bluetooth-device>` element allows you to [discover nearby
 bluetooth devices](https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web) thanks to the young [Web Bluetooth API](https://github.com/WebBluetoothCG/web-bluetooth). It is
-currently only partially implemented in Chrome OS 45 and Chrome 49 for
-Android behind the experimental flag
-`chrome://flags/#enable-web-bluetooth`.
+currently partially implemented behind the experimental flag
+`chrome://flags/#enable-web-bluetooth`. It is also now available in
+Chrome 53 as an [origin trial](https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web#available-for-origin-trials) for Chrome OS, Android M, and Mac.
 
 `<platinum-bluetooth-device>` is used as a parent element for
 `<platinum-bluetooth-service>` child elements.
@@ -249,9 +250,11 @@ disconnectButton.addEventListener('click', function() {
 The `<platinum-bluetooth-service>` element is used in conjuction with
 the `<platinum-bluetooth-characteristic>` element to [read and write
 characteristics on nearby bluetooth devices](https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web) thanks to the young [Web
-Bluetooth API](https://github.com/WebBluetoothCG/web-bluetooth). It is currently only partially implemented
-in Chrome OS 45 and Chrome 49 for Android behind the experimental flag
-`chrome://flags/#enable-web-bluetooth`.
+Bluetooth API](https://github.com/WebBluetoothCG/web-bluetooth). It is currently partially implemented
+behind the experimental flag
+`chrome://flags/#enable-web-bluetooth`. It is also now
+available in Chrome 53 as an [origin trial](https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web#available-for-origin-trials) for Chrome OS,
+Android M, and Mac.
 
 `<platinum-bluetooth-service>` needs to be a child of a
 `<platinum-bluetooth-device>` element.

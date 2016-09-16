@@ -15,7 +15,7 @@ The `google-map` element renders a Google Map.
         height: 600px;
       }
     </style>
-    <google-map latitude="37.77493" longitude="-122.41942"></google-map>
+    <google-map latitude="37.77493" longitude="-122.41942" api-key="1234"></google-map>
 
 <b>Example</b> - add markers to the map and ensure they're in view:
 
@@ -40,9 +40,19 @@ The `google-map` element renders a Google Map.
 <b>Example</b> - with Google directions, using data-binding inside another Polymer element
 
     <google-map map="{{map}}"></google-map>
-    <google-map-directions map="{{map}}"
+    <google-map-directions map="[[map]]"
         start-address="San Francisco" end-address="Mountain View">
     </google-map-directions>
+
+Disable dragging by adding `draggable="false"` on the `google-map` element.
+
+<b>Example</b> - loading the Maps API from another origin (China)
+
+    <google-map maps-url="http://maps.google.cn/maps/api/js?callback=%%callback%%">
+
+###  Tips
+
+If you're seeing the message "You have included the Google Maps API multiple times on this page. This may cause unexpected errors." it probably means you're loading other maps elements on the page (`<google-maps-directions>`). Each maps element must include the same set of configuration options (`apiKey`, `clientId`, `language`, `version`, etc.) so the Maps API is loaded from the same URL.
 
 @demo demo/index.html
 @demo demo/polys.html
@@ -68,13 +78,15 @@ The `google-map` element renders a Google Map.
 
   </style>
   <template>
+
     <google-maps-api id="api"
       api-key="[[apiKey]]"
       client-id="[[clientId]]"
       version="[[version]]"
       signed-in="[[signedIn]]"
       language="[[language]]"
-      on-api-load="_mapApiLoaded"></google-maps-api>
+      on-api-load="_mapApiLoaded"
+      maps-url="[[mapsUrl]]"></google-maps-api>
 
     <div id="map"></div>
 
@@ -142,18 +154,30 @@ The `google-map` element renders a Google Map.
      * @event google-map-rightclick
      * @param {google.maps.MouseEvent} event The mouse event.
      */
+    /**
+     * Fired when the map becomes idle after panning or zooming.
+     * @event google-map-idle
+    */
 
     /**
      * Polymer properties for the google-map custom element.
      */
     properties: {
       /**
-       * A Maps API key. To obtain an API key, see developers.google.com/maps/documentation/javascript/tutorial#api_key.
+       * A Maps API key. To obtain an API key, see https://developers.google.com/maps/documentation/javascript/tutorial#api_key.
        */
       apiKey: String,
 
       /**
-       * A Maps API for Business Client ID. To obtain a Maps API for Business Client ID, see developers.google.com/maps/documentation/business/.
+       * Overrides the origin the Maps API is loaded from. Defaults to `https://maps.googleapis.com`.
+       */
+      mapsUrl: {
+        type: String
+        // Initial value set in google-maps-api.
+      },
+
+      /**
+       * A Maps API for Business Client ID. To obtain a Maps API for Business Client ID, see https://developers.google.com/maps/documentation/business/.
        * If set, a Client ID will take precedence over an API Key.
        */
       clientId: String,
@@ -242,6 +266,15 @@ The `google-map` element renders a Google Map.
       },
 
       /**
+       * If set, removes the map's 'map type' UI controls.
+       */
+      disableMapTypeControl: {
+        type: Boolean,
+        value: false,
+        observer: '_disableMapTypeControlChanged'
+      },
+
+      /**
        * If set, the zoom level is set such that all markers (google-map-marker children) are brought into view.
        */
       fitToMarkers: {
@@ -261,7 +294,7 @@ The `google-map` element renders a Google Map.
 
       /**
        * If set, custom styles can be applied to the map.
-       * For style documentation see developers.google.com/maps/documentation/javascript/reference#MapTypeStyle
+       * For style documentation see https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyle
        */
       styles: {
         type: Object,
@@ -391,9 +424,9 @@ The `google-map` element renders a Google Map.
     },
 
     detached: function() {
-      if (this._mutationObserver) {
-        this._mutationObserver.disconnect();
-        this._mutationObserver = null;
+      if (this._markersChildrenListener) {
+        this.unlisten(this.$.selector, 'items-changed', '_updateMarkers');
+        this._markersChildrenListener = null;
       }
       if (this._objectsMutationObserver) {
         this._objectsMutationObserver.disconnect();
@@ -432,6 +465,7 @@ The `google-map` element renders a Google Map.
         tilt: this.noAutoTilt ? 0 : 45,
         mapTypeId: this.mapType,
         disableDefaultUI: this.disableDefaultUi,
+        mapTypeControl: !this.disableDefaultUi && !this.disableMapTypeControl,
         disableDoubleClickZoom: this.disableZoom,
         scrollwheel: !this.disableZoom,
         styles: this.styles,
@@ -461,13 +495,10 @@ The `google-map` element renders a Google Map.
     // watch for future updates to marker objects
     _observeMarkers: function() {
       // Watch for future updates.
-      if (this._mutationObserver) {
+      if (this._markersChildrenListener) {
         return;
       }
-      this._mutationObserver = new MutationObserver(this._updateMarkers.bind(this));
-      this._mutationObserver.observe(this.$.selector, {
-        childList: true
-      });
+      this._markersChildrenListener = this.listen(this.$.selector, 'items-changed', '_updateMarkers');
     },
 
     _updateMarkers: function() {
@@ -481,7 +512,7 @@ The `google-map` element renders a Google Map.
         }.bind(this));
         if (added.length === 0) {
           // set up observer first time around
-          if (!this._mutationObserver) {
+          if (!this._markersChildrenListener) {
             this._observeMarkers();
           }
           return;
@@ -615,6 +646,14 @@ The `google-map` element renders a Google Map.
       }
     },
 
+    _idleEvent: function() {
+      if (this.map) {
+        this._forwardEvent('idle');
+      } else {
+        this._clearListener('idle');
+      }
+    },
+
     _clickEventsChanged: function() {
       if (this.map) {
         if (this.clickEvents) {
@@ -682,6 +721,13 @@ The `google-map` element renders a Google Map.
       this.map.setOptions({disableDefaultUI: this.disableDefaultUi});
     },
 
+    _disableMapTypeControlChanged: function() {
+      if (!this.map) {
+        return;
+      }
+      this.map.setOptions({disableMapTypeControl: this.disableMapTypeControl});
+    },
+
     _disableZoomChanged: function() {
       if (!this.map) {
         return;
@@ -741,6 +787,7 @@ The `google-map` element renders a Google Map.
       this._clickEventsChanged();
       this._dragEventsChanged();
       this._mouseEventsChanged();
+      this._idleEvent();
     },
 
     _clearListener: function(name) {

@@ -36,6 +36,6 @@
     "commit": "af32ca6b41070266c79acea0f89c7d4c2240e8da"
   },
   "_source": "git://github.com/polymerelements/app-elements.git",
-  "_target": "*",
+  "_target": "0.9.0",
   "_originalSource": "polymerelements/app-elements"
 }

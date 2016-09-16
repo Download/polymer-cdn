@@ -173,6 +173,13 @@ suite('Polymer.IronA11yKeysBehavior', function() {
       expect(keys.keyCount).to.be.equal(1);
     });
 
+    test('keyEventTarget can be null, and disables listeners', function() {
+      keys.keyEventTarget = null;
+      MockInteractions.pressSpace(keys);
+
+      expect(keys.keyCount).to.be.equal(0);
+    });
+
     test('trigger the handler when the specified key is pressed together with a modifier', function() {
       var event = new CustomEvent('keydown');
       event.ctrlKey = true;
@@ -322,8 +329,7 @@ suite('Polymer.IronA11yKeysBehavior', function() {
 
       event.ctrlKey = true;
       event.shiftKey = true;
-      event.key = 'å';
-      event.keyCode = event.code = 65;
+      event.key = 'A';
 
       keys.dispatchEvent(event);
 
@@ -421,6 +427,15 @@ suite('Polymer.IronA11yKeysBehavior', function() {
       expect(keys.keyCount).to.be.equal(1);
       expect(shiftASpy.called).to.be.true;
       expect(aSpy.called).to.be.false;
+    });
+  });
+
+  suite('remove key behavior with null target', function () {
+    test('add and remove a iron-a11y-keys-behavior', function () {
+      var element = document.createElement('x-a11y-basic-keys');
+      element.keyEventTarget = null;
+      document.body.appendChild(element);
+      document.body.removeChild(element);
     });
   });
 
