@@ -48,7 +48,7 @@ JavaScript sign-in calls can then be made to the `firebase-auth` object to
 attempt authentication, e.g.:
 
 ```javascript
-this.$.signInWithPopup()
+this.$.auth.signInWithPopup()
     .then(function(response) {// successful authentication response here})
     .catch(function(error) {// unsuccessful authentication response here});
 ```
@@ -100,7 +100,7 @@ Example usage:
     data="{{data}}">
 </firebase-query>
 
-<template is="dom-repeat" items="{{data}}" as="{{note}}">
+<template is="dom-repeat" items="{{data}}" as="note">
   <sticky-note note-data="{{note}}"></sticky-note>
 </template>
 

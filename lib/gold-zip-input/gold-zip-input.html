@@ -121,8 +121,9 @@ style this element.
         ],
 
         _computeValue: function(value) {
+          value = String(value);
           var start = this.$.input.selectionStart;
-          var previousCharADash = this.value ? this.value.charAt(start - 1) == '-' : false;
+          var previousCharADash = value.charAt(start - 1) === '-';
 
           // Remove any already-applied formatting.
           value = value.replace(/-/g, '');
@@ -135,7 +136,7 @@ style this element.
 
           // If the character right before the selection is a newly inserted
           // dash, we need to advance the selection to maintain the caret position.
-          if (!previousCharADash && this.value.charAt(start - 1) == '-') {
+          if (!previousCharADash && value.charAt(start - 1) === '-') {
             this.$.input.selectionStart = start + 1;
             this.$.input.selectionEnd = start + 1;
           }

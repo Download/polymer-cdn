@@ -1,6 +1,6 @@
 {
   "name": "google-map",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Google Maps web components",
   "homepage": "https://elements.polymer-project.org/elements/google-map",
   "main": [
@@ -37,11 +37,11 @@
     "web-component-tester": "*",
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.2"
   },
-  "_release": "1.1.10",
+  "_release": "1.1.11",
   "_resolution": {
     "type": "version",
-    "tag": "1.1.10",
-    "commit": "182e4571568116202973c3a29bf57a355007abaa"
+    "tag": "1.1.11",
+    "commit": "54940112d458239d7fa2caf86aecb33f60a16a48"
   },
   "_source": "git://github.com/GoogleWebComponents/google-map.git",
   "_target": "^1.0.0",

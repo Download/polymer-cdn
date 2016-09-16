@@ -70,22 +70,11 @@ style this element.
       span {
         @apply(--paper-font-subhead);
         @apply(--paper-input-container-input);
-        width: 40px;
       }
 
       .country-code {
+        width: 40px;
         @apply(--gold-phone-input-country-code);
-      }
-
-      .container {
-        @apply(--layout-horizontal);
-      }
-
-      /* TODO(notwaldorf): The style applied by paper-input-container is more
-       * specific, and we need the important to override it. This will go away
-       * once we can refactor this element to use the paper-input suffix */
-      label {
-        left: 40px !important;
       }
 
       input {
@@ -100,28 +89,26 @@ style this element.
 
       <label hidden$="[[!label]]">[[label]]</label>
 
-      <div class="container">
-         <span class="country-code">+[[countryCode]]</span>
+      <span prefix class="country-code">+[[countryCode]]</span>
 
-        <input is="iron-input" id="input"
-          aria-labelledby$="[[_ariaLabelledBy]]"
-          aria-describedby$="[[_ariaDescribedBy]]"
-          required$="[[required]]"
-          bind-value="{{value}}"
-          name$="[[name]]"
-          allowed-pattern="[0-9\-]"
-          autocomplete="tel"
-          type="tel"
-          prevent-invalid-input
-          disabled$="[[disabled]]"
-          invalid="{{invalid}}"
-          autofocus$="[[autofocus]]"
-          inputmode$="[[inputmode]]"
-          placeholder$="[[placeholder]]"
-          readonly$="[[readonly]]"
-          maxlength$="[[maxlength]]"
-          size$="[[size]]">
-      </div>
+      <input is="iron-input" id="input"
+        aria-labelledby$="[[_ariaLabelledBy]]"
+        aria-describedby$="[[_ariaDescribedBy]]"
+        required$="[[required]]"
+        bind-value="{{value}}"
+        name$="[[name]]"
+        allowed-pattern="[0-9\-]"
+        autocomplete="tel"
+        type="tel"
+        prevent-invalid-input
+        disabled$="[[disabled]]"
+        invalid="{{invalid}}"
+        autofocus$="[[autofocus]]"
+        inputmode$="[[inputmode]]"
+        placeholder$="[[placeholder]]"
+        readonly$="[[readonly]]"
+        maxlength$="[[maxlength]]"
+        size$="[[size]]">
 
       <template is="dom-if" if="[[errorMessage]]">
         <paper-input-error id="error">[[errorMessage]]</paper-input-error>
@@ -170,6 +157,16 @@ style this element.
       value: {
         type: String,
         observer: '_onValueChanged'
+      },
+
+      /**
+       * International format of the input value.
+       *
+       * @type {String}
+       */
+      internationalValue: {
+        type: String,
+        computed: '_computeInternationalValue(countryCode, value)'
       }
     },
 
@@ -267,6 +264,16 @@ style this element.
       if (!focused) {
         this._handleAutoValidate();
       }
+    },
+
+    /**
+     * Returns the phone number value prefixed by the country code or simply
+     * the value if the country code is not set. When	`value` equals
+     * "3-44-55-66-77" and the `countryCode` is "33", the `internationalValue`
+     * equals "+(33)3-44-55-66-77"
+     */
+    _computeInternationalValue: function(countryCode, value) {
+      return countryCode ? '+(' + countryCode + ')' + value : value;
     }
   });
 

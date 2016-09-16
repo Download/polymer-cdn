@@ -19,17 +19,17 @@ http://polymer.github.io/PATENTS.txt
 <title>app-route Demo</title>
 <link rel="import" href="../../polymer/polymer.html">
 
-<link rel="import" href="../../paper-styles/paper-styles.html">
 <link rel="import" href="../../iron-demo-helpers/url-bar.html">
 <link rel="import" href="../../iron-pages/iron-pages.html">
 
 <link rel="import" href="../app-location.html">
 <link rel="import" href="../app-route.html">
 
-<link rel="import" href="youtube-search.html">
-<link rel="import" href="youtube-toolbar.html">
-<link rel="import" href="video-viewer.html">
-<link rel="import" href="search-results.html">
+<link rel="import" href="youtube-demo/youtube-search.html">
+<link rel="import" href="youtube-demo/youtube-toolbar.html">
+<link rel="import" href="youtube-demo/video-viewer.html">
+<link rel="import" href="youtube-demo/search-results.html">
+
 <style>
   body {
     margin: 0;
@@ -54,6 +54,7 @@ http://polymer.github.io/PATENTS.txt
         display: block;
         position: relative;
         height: 100vh;
+        @apply(--paper-font-common-base);
       }
 
       :host([video-page-active]) {
@@ -66,12 +67,6 @@ http://polymer.github.io/PATENTS.txt
 
       iron-pages {
         transition: transform 0.3s;
-      }
-
-      paper-button {
-        @apply(--paper-font-common-base);
-        color: var(--paper-red-500);
-        margin-bottom: 16px;
       }
     </style>
 

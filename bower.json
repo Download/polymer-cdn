@@ -1,10 +1,10 @@
 {
   "name": "polymer-cdn",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "main": "polymer.js",
   "homepage": "https://github.com/Download/polymer-cdn",
   "authors": [
-    "Stijn de Witt <StijnDeWitt@hotmail.com>"
+    "Stijn de Witt <stijndewitt@hotmail.com>"
   ],
   "description": "Mirror for Polymer so it can be used from CDN.",
   "keywords": [
@@ -21,14 +21,17 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#latest",
+    "polymer": "Polymer/polymer#1.6.0",
     "paper-elements": "polymerelements/paper-elements#latest",
     "iron-elements": "polymerelements/iron-elements#latest",
     "neon-elements": "polymerelements/neon-elements#latest",
     "gold-elements": "polymerelements/gold-elements#latest",
     "platinum-elements": "polymerelements/platinum-elements#latest",
-    "app-elements": "polymerelements/app-elements#latest",
+    "app-elements": "polymerelements/app-elements#0.9.0",
     "google-web-components": "GoogleWebComponents/google-web-components#latest",
     "molecules": "polymerelements/molecules#latest"
+  },
+  "resolutions": {
+    "firebase": "^3.0"
   }
 }

@@ -12,9 +12,9 @@ thing! https://github.com/PolymerLabs/tedium/issues
 
 -->
 
-[![Build Status](https://travis-ci.org/PolymerElements/gold-zip-input.svg?branch=master)](https://travis-ci.org/PolymerElements/gold-zip-input)
+[![Build status](https://travis-ci.org/PolymerElements/gold-zip-input.svg?branch=master)](https://travis-ci.org/PolymerElements/gold-zip-input)
 
-_[Demo and API Docs](https://elements.polymer-project.org/elements/gold-zip-input)_
+_[Demo and API docs](https://elements.polymer-project.org/elements/gold-zip-input)_
 
 
 ##&lt;gold-zip-input&gt;

@@ -150,6 +150,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }, 100);
     });
 
+    test('scroll to index while not attached', function() {
+      var tmpList = document.createElement('iron-list');
+      Polymer.dom(tmpList).appendChild(document.createElement('template'));
+      tmpList.items = buildDataSet(100);
+      assert.equal(tmpList._virtualStart, 0);
+      tmpList.scrollToIndex(50);
+      assert.equal(tmpList._virtualStart, 0);
+    });
+
+    test('scroll to item', function(done) {
+      list.items = buildDataSet(100);
+
+      setTimeout(function() {
+        list.scrollToItem(list.items[30]);
+        assert.equal(list.firstVisibleIndex, 30);
+
+        list.scrollToItem(list.items[0]);
+        assert.equal(list.firstVisibleIndex, 0);
+
+        var rowHeight = getFirstItemFromList(list).offsetHeight;
+        var viewportHeight = list.offsetHeight;
+        var itemsPerViewport = Math.floor(viewportHeight/rowHeight);
+
+        list.scrollToItem(list.items[99]);
+        assert.equal(list.firstVisibleIndex, list.items.length - itemsPerViewport);
+
+        // make the height of the viewport same as the height of the row
+        // and scroll to the last item
+        list.style.height = list._physicalItems[0].offsetHeight + 'px';
+
+        setTimeout(function() {
+          list.scrollToItem(list.items[99]);
+          assert.equal(list.firstVisibleIndex, 99);
+          done();
+        }, 100);
+      }, 100);
+    });
+
     test('scroll to top', function(done) {
       list.items = buildDataSet(100);
       Polymer.dom.flush();
@@ -174,24 +212,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }, 100);
     });
 
-    test('reset items', function(done) {
+    test('reset items', function() {
       list.items = buildDataSet(100);
+      Polymer.dom.flush();
+      assert.equal(getFirstItemFromList(list).textContent, '0');
+      list.items = null;
+      Polymer.dom.flush();
+      assert.notEqual(getFirstItemFromList(list).textContent, '0');
+      list.items = buildDataSet(100);
+      Polymer.dom.flush();
+      assert.equal(getFirstItemFromList(list).textContent, '0');
+    });
 
-      flush(function() {
-        assert.equal(getFirstItemFromList(list).textContent, '0');
-
-        list.items = null;
-
-        flush(function() {
-          assert.notEqual(getFirstItemFromList(list).textContent, '0');
-          list.items = buildDataSet(100);
-
-          flush(function() {
-            assert.equal(getFirstItemFromList(list).textContent, '0');
-            done();
-          });
-        });
-      });
+    test('visibility', function() {
+      list.items = buildDataSet(100);
+      Polymer.dom.flush();
+      assert.isTrue(list._isVisible);
+      list.style.display = 'none';
+      assert.isFalse(list._isVisible);
+      // Use main document scrolling
+      list.style.display = '';
+      list.scrollTarget = list.ownerDocument.documentElement;
+      assert.isTrue(list._isVisible);
+      list.style.display = 'none';
+      assert.isFalse(list._isVisible);
+      list.style.display = '';
+      // what if the list is using document scroll, but no template has been stamped.
+      list.style.height = '0px';
+      assert.isTrue(list._isVisible);
     });
 
   });

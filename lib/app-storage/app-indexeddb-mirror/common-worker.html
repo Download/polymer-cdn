@@ -41,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       } else if (HAS_WEB_WORKER) {
         if (!WEB_WORKERS.hasOwnProperty(workerUrl)) {
-          WEB_WORKERS.workerUrl =
+          WEB_WORKERS[workerUrl] =
               new Worker(WORKER_SCOPE_URL + '?' + workerUrl);
         }
 
@@ -52,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       this.channel = new MessageChannel();
-      this.webWorker = WEB_WORKERS.workerUrl;
+      this.webWorker = WEB_WORKERS[workerUrl];
 
       if (this.webWorker) {
         this.webWorker.postMessage({
