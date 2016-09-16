@@ -33,6 +33,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       left: 0;
       width: 100%;
       background: green;
+      transition: none !important;
     }
 
     .content {
@@ -54,7 +55,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div condensed-title>Title</div>
           </app-toolbar>
           <app-toolbar>
-            <div title spacer>Title</div>
+            <div main-title spacer>Title</div>
           </app-toolbar>
         </app-header>
         <div class="content"></div>
@@ -62,12 +63,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <test-fixture id="testPrimaryElement">
+  <test-fixture id="testStickyElement">
     <template>
       <div>
         <app-header fixed condenses reveals class="header">
           <app-toolbar></app-toolbar>
-          <app-toolbar primary></app-toolbar>
+          <app-toolbar sticky></app-toolbar>
         </app-header>
         <div class="content"></div>
       </div>
@@ -97,7 +98,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           else scroller.scrollTop = tests[0].y;
         }
       }
-
       if (tests.length > 0) {
         var scrollTarget = scroller === document.documentElement ? window : scroller;
         scrollTarget.addEventListener('scroll', scrollEventHandler);
@@ -106,19 +106,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     function assertHeaderIsFullSized(header) {
+      header._updateScrollState(header._scrollTop, true);
       var headerClientRect = header.getBoundingClientRect();
-      assert.equal(headerClientRect.top, 0);
-      assert.equal(headerClientRect.bottom, headerClientRect.height);
+      assert.equal(headerClientRect.top, 0, 'full sized at ' + header._scrollTop);
+      assert.equal(headerClientRect.bottom, headerClientRect.height,
+        'full sized ' + header._scrollTop);
     }
 
     function assertHeaderIsCondensed(header) {
+      header._updateScrollState(header._scrollTop, true);
       var headerClientRect = header.getBoundingClientRect();
-      assert.equal(headerClientRect.top + headerClientRect.height, header._primaryEl.offsetHeight);
+      assert.equal(headerClientRect.top + headerClientRect.height, header._stickyEl.offsetHeight,
+          'condensed at ' + header._scrollTop);
     }
 
     function assertHeaderIsHidden(header) {
+      header._updateScrollState(header._scrollTop, true);
       var headerClientRect = header.getBoundingClientRect();
-      assert.isBelow(headerClientRect.bottom, 0);
+      assert.isBelow(headerClientRect.bottom, 0,
+          'hidden at ' + header._scrollTop);
     }
 
     suite('basic features', function() {
@@ -452,25 +458,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('DOM references', function(done) {
         flush(function() {
-           assert.isNotNull(header._getDOMRef('backgroundFrontLayer'));
-           assert.isNotNull(header._getDOMRef('backgroundRearLayer'));
-           assert.isNotNull(header._getDOMRef('title'));
-           assert.isNotNull(header._getDOMRef('condensedTitle'));
-           done();
+          assert.isNotNull(header._getDOMRef('backgroundFrontLayer'));
+          assert.isNotNull(header._getDOMRef('backgroundRearLayer'));
+          assert.isNotNull(header._getDOMRef('mainTitle'));
+          assert.isNotNull(header._getDOMRef('condensedTitle'));
+          done();
         });
       });
     });
 
-    suite('Primary element', function() {
+    suite('Sticky element', function() {
       var container, header;
 
       setup(function() {
-        container = fixture('testPrimaryElement');
+        container = fixture('testStickyElement');
         header = container.querySelector('app-header');
       });
 
-      test('primary element reference', function() {
-        assert.equal(header._getPrimaryEl(), header.querySelector('[primary]'));
+      test('sticky element reference', function() {
+        assert.equal(header._getStickyEl(), header.querySelector('[sticky]'));
       });
 
       test('should reveal the entire header', function(done) {
@@ -494,7 +500,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   done();
                 }, 100);
               }
-            } 
+            }
           ]);
         });
       });

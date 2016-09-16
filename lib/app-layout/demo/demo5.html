@@ -19,7 +19,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
   <link rel="import" href="../../font-roboto/roboto.html">
-  <link rel="import" href="../../paper-styles/paper-styles.html">
   <link rel="import" href="../../iron-icons/iron-icons.html">
   <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
   <link rel="import" href="../../paper-item/paper-icon-item.html">
@@ -70,7 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <app-header class="whiteHeader" waterfall fixed>
             <app-toolbar>
-              <div title>Inbox</div>
+              <div main-title>Inbox</div>
             </app-toolbar>
           </app-header>
 
@@ -88,13 +87,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header class="blueHeader" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div title></div>
+            <div main-title></div>
             <paper-icon-button icon="search"></paper-icon-button>
             <paper-icon-button icon="more-vert"></paper-icon-button>
           </app-toolbar>
           <app-toolbar></app-toolbar>
           <app-toolbar>
-            <div spacer title>My Drive</div>
+            <div spacer main-title>My Drive</div>
           </app-toolbar>
         </app-header>
 
@@ -110,7 +109,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var items = [];
       var icons = ['inbox', 'favorite', 'polymer', 'question-answer', 'send', 'archive', 'backup', 'dashboard'];
 
-      while (items.length < 100) {
+      while (items.length < 10) {
         items.push('Option Name');
       }
 

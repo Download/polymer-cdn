@@ -5,23 +5,23 @@
 
 app-header is container element for app-toolbars at the top of the screen that can have scroll
 effects. By default, an app-header moves away from the viewport when scrolling down and
-if using `reveals`, the header slides back when scrolling back up. For example,
+if using `reveals`, the header slides back when scrolling back up. For example:
 
 ```html
 <app-header reveals>
   <app-toolbar>
-    <div title>App name</div>
+    <div main-title>App name</div>
   </app-toolbar>
 </app-header>
 ```
 
 app-header can also condense when scrolling down. To achieve this behavior, the header
-must have a larger height than the `primary` element in the light DOM. For example:
+must have a larger height than the `sticky` element in the light DOM. For example:
 
 ```html
 <app-header style="height: 96px;" condenses fixed>
   <app-toolbar style="height: 64px;">
-    <div title>App name</div>
+    <div main-title>App name</div>
   </app-toolbar>
 </app-header>
 ```
@@ -29,27 +29,27 @@ must have a larger height than the `primary` element in the light DOM. For examp
 In this case the header is initially `96px` tall, and it shrinks to `64px` when scrolling down.
 That is what is meant by "condensing".
 
-### Primary element
+### Sticky element
 
-As the header condenses, the immediate children of app-header are stacked up.
-In this case, the primary element is the immediate child that would always stayed above
-the others as the header condenses. By default, the `primary` element is the first app-toolbar
-that is an immediate children of app-header.
+The element that is positioned fixed to top of the header's `scrollTarget` when a threshold
+is reached, similar to `position: sticky` in CSS. This element **must** be an immediate
+child of app-header. By default, the `sticky` element is the first `app-toolbar that
+is an immediate child of app-header.
 
 ```html
 <app-header condenses>
-  <app-toolbar> Primary element </app-toolbar>
+  <app-toolbar> Sticky element </app-toolbar>
 </app-header>
 ```
+
+#### Customizing the sticky element
 
 ```html
 <app-header condenses>
   <app-toolbar></app-toolbar>
-  <app-toolbar primary> Primary element </app-toolbar>
+  <app-toolbar sticky> Sticky element </app-toolbar>
 </app-header>
 ```
-
-The primary element must be a direct child of app-header.
 
 ### Scroll target
 
@@ -118,7 +118,6 @@ Upon scrolling past a threshold, this effect will trigger an opacity transition 
 fade in/out the backgrounds. Compared to the `blend-background` effect,
 this effect doesn't interpolate the opacity based on scroll position.
 
-
 * **parallax-background**
 A simple parallax effect that vertically translates the backgrounds based on a fraction
 of the scroll position. For example:
@@ -139,10 +138,9 @@ app-header {
 The fraction determines how far the background moves relative to the scroll position.
 This value can be assigned via the `scalar` config value and it is typically a value
 between 0 and 1 inclusive. If `scalar=0`, the background doesn't move away from the header.
-[More about configuration for scroll effects](/app-scroll-effects#configuring-effects)
 
 * **resize-title**
-Progressively interpolates the size of the title from the element with the `title` attribute
+Progressively interpolates the size of the title from the element with the `main-title` attribute
 to the element with the `condensed-title` attribute as the header condenses. For example:
 
 ```html
@@ -151,14 +149,14 @@ to the element with the `condensed-title` attribute as the header condenses. For
       <h4 condensed-title>App name</h4>
   </app-toolbar>
   <app-toolbar>
-      <h1 title>App name</h1>
+      <h1 main-title>App name</h1>
   </app-toolbar>
 </app-header>
 ```
 
 * **resize-snapped-title**
 Upon scrolling past a threshold, this effect fades in/out the titles using opacity transitions.
-Similarly to `resize-title`, the `title` and `condensed-title` elements must be placed in the
+Similarly to `resize-title`, the `main-title` and `condensed-title` elements must be placed in the
 light DOM.
 
 * **waterfall**
@@ -177,7 +175,7 @@ app-header {
 ```html
 <app-header condenses reveals effects="waterfall">
   <app-toolbar>
-      <h1 title>App name</h1>
+      <h1 main-title>App name</h1>
   </app-toolbar>
 </app-header>
 ```
@@ -189,14 +187,13 @@ Installs the waterfall, resize-title, blend-background and parallax-background e
 
 Attribute | Description         | Default
 ----------|---------------------|----------------------------------------
-`primary` | Element that remains at the top when the header condenses. | The first app-toolbar in the light DOM.
+`sticky` | Element that remains at the top when the header condenses. | The first app-toolbar in the light DOM.
 
 
 ## Styling
 
 Mixin | Description | Default
-----------------|-------------|----------
-`--app-header-background-front-layer` | Applies to the front layer of the background | {}
-`--app-header-background-rear-layer` | Applies to the rear layer of the background | {}
-`--app-header-shadow` | Applies to the shadow | {}
-
+------|-------------|----------
+`--app-header-background-front-layer` | Applies to the front layer of the background. | {}
+`--app-header-background-rear-layer` | Applies to the rear layer of the background. | {}
+`--app-header-shadow` | Applies to the shadow. | {}

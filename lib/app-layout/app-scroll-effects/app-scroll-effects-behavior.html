@@ -46,7 +46,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * based on the scroll position.
    *
    * A scroll effect definition is an object with `setUp()`, `tearDown()` and `run()` functions.
-   * 
+   *
    * To register the effect, you can use `Polymer.AppLayout.registerEffect(effectName, effectDef)`
    * For example, let's define an effect that resizes the header's logo:
    *
@@ -144,6 +144,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         type: Boolean,
         reflectToAttribute: true,
         value: false
+      },
+
+      /**
+       * Allows to set a `scrollTop` threshold. When greater than 0, `thresholdTriggered`
+       * is true only when the scroll target's `scrollTop` has reached this value.
+       *
+       * For example, if `threshold = 100`, `thresholdTriggered` is true when the `scrollTop`
+       * is at least `100`.
+       */
+      threshold: {
+        type: Number,
+        value: 0
+      },
+
+      /**
+       * True if the `scrollTop` threshold (set in `scrollTopThreshold`) has
+       * been reached.
+       */
+      thresholdTriggered: {
+        type: Boolean,
+        notify: true,
+        readOnly: true,
+        reflectToAttribute: true
       }
     },
 
@@ -280,7 +303,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var startsAt = parseFloat(effectsConfig.startsAt || 0);
       var endsAt = parseFloat(effectsConfig.endsAt || 1);
       var deltaS = endsAt - startsAt;
-      var noop = Function();
+      var noop = function() {};
       // fast path if possible
       var runFn = (startsAt === 0 && endsAt === 1) ? effectDef.run :
         function(progress, y) {
@@ -341,10 +364,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      */
     _scrollHandler: function() {
       if (!this.disabled) {
-        this._updateScrollState(this._clampedScrollTop);
+        var scrollTop = this._clampedScrollTop;
+        this._updateScrollState(scrollTop);
+        if (this.threshold > 0) {
+          this._setThresholdTriggered(scrollTop >= this.threshold);
+        }
       }
     },
-    
+
     /**
      * Override this method to return a reference to a node in the local DOM.
      * The node is consumed by a scroll effect.

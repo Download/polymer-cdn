@@ -13,73 +13,78 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title>app-header demo</title>
+
+  <title>app-header-layout demo</title>
 
   <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
 
+  <link rel="import" href="../../../font-roboto/roboto.html">
   <link rel="import" href="../../../iron-icons/iron-icons.html">
   <link rel="import" href="../../../paper-icon-button/paper-icon-button.html">
-  <link rel="import" href="../../app-toolbar/app-toolbar.html">
-  <link rel="import" href="../../../paper-tabs/paper-tabs.html">
+  <link rel="import" href="../../app-header/app-header.html">
   <link rel="import" href="../../app-scroll-effects/app-scroll-effects.html">
+  <link rel="import" href="../../app-toolbar/app-toolbar.html">
   <link rel="import" href="../../demo/sample-content.html">
-  <link rel="import" href="../app-header.html">
+  <link rel="import" href="../app-header-layout.html">
 
   <style is="custom-style">
 
     body {
       margin: 0;
-      font-family: arial;
+      font-family: 'Roboto', 'Noto', sans-serif;
       background-color: #eee;
     }
 
     app-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 132px;
-      color: #fff;
       background-color: #4285f4;
-      --app-header-background-rear-layer: {
-        background-color: #0b8043;
-      };
+      color: #fff;
     }
 
-    paper-icon-button {
+    .content {
+      @apply(--layout-flex);
+    }
+
+    app-header paper-icon-button {
       --paper-icon-button-ink-color: white;
     }
 
-    app-toolbar {
-      margin-bottom: 20px;
-    }
-
-    sample-content {
-      padding-top: 132px;
+    footer {
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      background-color: white;
+      font-size: 14px;
     }
 
   </style>
 
 </head>
-<body unresolved>
+<body>
 
-  <app-header condenses reveals fixed effects="waterfall">
-    <app-toolbar>
-      <paper-icon-button icon="menu"></paper-icon-button>
-      <h1 title></h1>
-      <paper-icon-button icon="search"></paper-icon-button>
-    </app-toolbar>
+  <!-- default to use body scroller -->
+  <app-header-layout fullbleed>
 
-    <paper-tabs selected="0" primary>
-      <paper-tab>TAB 1</paper-tab>
-      <paper-tab>TAB 2</paper-tab>
-      <paper-tab>TAB 3</paper-tab>
-    </paper-tabs>
-  </app-header>
+    <app-header effects="waterfall" condenses reveals>
+      <app-toolbar>
+        <paper-icon-button icon="menu"></paper-icon-button>
+        <div main-title></div>
+        <paper-icon-button icon="search"></paper-icon-button>
+      </app-toolbar>
+      <app-toolbar></app-toolbar>
+      <app-toolbar>
+        <div spacer main-title>My Drive</div>
+      </app-toolbar>
+    </app-header>
 
-  <sample-content size="100"></sample-content>
+    <div class="content">
+      <!-- content goes here -->
+    </div>
+
+    <footer>
+      &copy; Polymer project
+    </footer>
+
+  </app-header-layout>
 
 </body>
 </html>
