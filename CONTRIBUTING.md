@@ -30,10 +30,10 @@ Pull Request. Don't forget this step!
 
 ![Create a branch](https://cdn.rawgit.com/Download/polymer-cdn/1.6.0/doc/branch.png)
 
-**(If you are like me and already started editing before realizing you need a new branch,
+*(If you are like me and already started editing before realizing you need a new branch,
 the easiest thing to do in my experience is to Stash Save your changes. Git will store
 your changes out of sight and restore your workspace. You can then create the branch
-and Stash Pop your changes on top of that. Make sure you include untracked changes)**
+and Stash Pop your changes on top of that. Make sure you include untracked changes)*
 
 ## Edit bower.json
 
@@ -80,7 +80,7 @@ Just copy-paste one of the existing contributor sections and fill in your info.
 ## Bump the version
 Change the version number in a few places. It should match the Polymer version,
 unless there is a second release with the same Polymer version, in which case
-we append a `.2`, or a `.3` for the third release etc. For example: `1.4.0.2`.
+we append a `.2`, or a `.3` for the third release etc. For example: `1.4.0.2`
 
 Use search/replace to change the old version to the new one in these files:
 * package.json
