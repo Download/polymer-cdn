@@ -1,6 +1,6 @@
 {
   "name": "google-castable-video",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "authors": [
     "Thorsten Schaeff <thorsten.schaeff@gmail.com>"
   ],
@@ -12,7 +12,7 @@
     "web-components"
   ],
   "main": "google-castable-video.html",
-  "license": "Apache-2",
+  "license": "Apache-2.0",
   "homepage": "https://github.com/GoogleWebComponents/google-castable-video",
   "ignore": [
     "/.*",

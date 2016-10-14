@@ -1,6 +1,6 @@
 {
   "name": "google-web-components",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage": "https://github.com/GoogleWebComponents/google-web-components",
   "authors": [
     "The Polymer Authors"
@@ -12,9 +12,10 @@
     "sign-in",
     "maps",
     "hangouts",
-    "charts"
+    "charts",
+    "element-collection"
   ],
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "ignore": [
     "**/.*",
     "node_modules",

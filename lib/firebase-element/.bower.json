@@ -1,7 +1,7 @@
 {
   "name": "firebase-element",
   "description": "An element that makes it easy to declaratively use the powerful firebase backend",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "private": true,
   "main": [
     "firebase-collection.html",
@@ -9,6 +9,7 @@
     "firebase-auth.html",
     "firebase-query-behavior.html"
   ],
+  "license": "http://polymer.github.io/LICENSE.txt",
   "dependencies": {
     "polymer": "polymer/polymer#^1.0.0",
     "firebase": "^2.3.1"
@@ -29,11 +30,11 @@
     "web-component-tester": "*"
   },
   "homepage": "https://github.com/GoogleWebComponents/firebase-element",
-  "_release": "1.0.15",
+  "_release": "1.0.16",
   "_resolution": {
     "type": "version",
-    "tag": "1.0.15",
-    "commit": "210a8bbce8ed80fc71a2f57b9ae1fffdd2a12bae"
+    "tag": "v1.0.16",
+    "commit": "3d2495b40868108ca70993b202e899492ae619fb"
   },
   "_source": "git://github.com/GoogleWebComponents/firebase-element.git",
   "_target": "^1.0.0",

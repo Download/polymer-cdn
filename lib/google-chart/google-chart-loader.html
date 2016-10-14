@@ -1,18 +1,18 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="../promise-polyfill/promise-polyfill.html">
 <link rel="import" href="charts-loader.html">
 
 <script>
 (function() {
   "use strict";
 
-  /** @type string Most charts use this package. */
+  /** @type {string} Most charts use this package. */
   var DEFACTO_CHART_PACKAGE = 'corechart';
 
   /**
    * A collection of chart type details.
    *
-   * @type !Object<string, {ctor: string, pkg: (string|undefined)}>
+   * @type {!Object<string, {ctor: string, pkg: (string|undefined)}>}
    */
   var CHART_CONSTRUCTORS = {
     'area': {
@@ -46,11 +46,23 @@
     'line': {
       ctor: 'LineChart',
     },
+    'md-line': {
+      ctor: 'Line',
+      pkg: 'line',
+    },
+    'org': {
+      ctor: 'OrgChart',
+      pkg: 'orgchart',
+    },
     'pie': {
       ctor: 'PieChart',
     },
     'scatter': {
       ctor: 'ScatterChart',
+    },
+    'md-scatter': {
+      ctor: 'Scatter',
+      pkg: 'scatter',
     },
     'stepped-area': {
       ctor: 'SteppedAreaChart',
@@ -71,6 +83,10 @@
       ctor: 'TreeMap',
       pkg: 'treemap',
     },
+    'calendar': {
+      ctor: 'Calendar',
+      pkg: 'calendar',
+    }
   };
 
   /**
@@ -79,14 +95,14 @@
    * @return {!Object} the namespace that contains the chart's constructor
    */
   function namespaceForType(type) {
-    return google[type.startsWith('md-') ? 'charts' : 'visualization'];
+    return google[type.indexOf('md-') === 0 ? 'charts' : 'visualization'];
   }
 
-  /** @type !Object<string, boolean> set-like object of gviz packages to load */
+  /** @type {!Object<string, boolean>} set-like object of gviz packages to load */
   var packagesToLoad = {};
-  /** @type !Object<string, !Promise> promises for the various packages */
+  /** @type {!Object<string, !Promise>} promises for the various packages */
   var promises = {};
-  /** @type !Object<string, function(!Object)> resolves for the package promises */
+  /** @type {!Object<string, function(!Object)>} resolves for the package promises */
   var resolves = {};
 
   Polymer({
@@ -98,7 +114,7 @@
        * This is an array consisting of any Google Visualization package names.
        *
        * @attribute packages
-       * @type !Array<string>
+       * @type {!Array<string>}
        */
       packages: {
         type: Array,
@@ -112,7 +128,7 @@
        * This is mainly used by the `google-chart` element internally.
        *
        * @attribute type
-       * @type string
+       * @type {string}
        */
       type: {
         type: String,
@@ -146,7 +162,10 @@
           return;
         }
         packagesToLoad = {};
-        google.charts.load('current', {'packages': packages});
+        google.charts.load('current', {
+          'packages': packages,
+          'language': document.documentElement.lang || 'en'
+        });
         google.charts.setOnLoadCallback(function() {
           packages.forEach(function(pkg) {
             this.fire('loaded', pkg);
@@ -261,6 +280,8 @@
      *   no arguments.
      * - Anything else
      *
+     * See <a href="https://developers.google.com/chart/interactive/docs/reference#datatable-class">the docs</a> for more details.
+     *
      * @param {Array|{cols: !Array, rows: (!Array<!Array>|undefined)}|undefined} data
      *     the data with which we should use to construct the new DataTable object
      * @return {!Promise<!google.visualization.DataTable>} promise for the created DataTable
@@ -291,6 +312,8 @@
     /**
      * Creates a DataView object from a DataTable for use with a chart.
      *
+     * See <a href="https://developers.google.com/chart/interactive/docs/reference#dataview-class">the docs</a> for more details.
+     *
      * @param {!google.visualization.DataTable} data the DataTable to use
      * @return {!Promise<!google.visualization.DataView>} promise for the created DataView
      */
@@ -299,6 +322,21 @@
         return new viz.DataView(data);
       });
     },
+
+    /**
+     * Creates a Query object to be sent to a DataSource protocol implementation.
+     *
+     * See <a href="https://developers.google.com/chart/interactive/docs/reference#query-classes">the docs</a> for more details.
+     *
+     * @param {string} url the URL of the DataSource protocol implementer
+     * @param {!Object=} opt_options options for the Query object
+     * @return {!Promise<!google.visualization.Query>} promise for the created DataView
+     */
+    query: function(url, opt_options) {
+      return this._corePackage.then(function(viz) {
+        return new viz.Query(url, opt_options);
+      });
+    }
   });
 })();
 </script>

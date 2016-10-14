@@ -1,13 +1,13 @@
 {
   "name": "google-analytics",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Encapsulates Google Analytics dashboard features into web components",
   "homepage": "https://googlewebcomponents.github.io/google-analytics",
   "authors": [
     "Philip Walton <philip@philipwalton.com>"
   ],
   "main": "google-analytics.html",
-  "license": "Apache2",
+  "license": "Apache-2.0",
   "keywords": [
     "google",
     "analytics",
@@ -30,11 +30,11 @@
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.2"
   },
-  "_release": "1.2.2",
+  "_release": "1.2.3",
   "_resolution": {
     "type": "version",
-    "tag": "v1.2.2",
-    "commit": "2e471d658c3a535c76fa7ec7a2c23ae5bbd1865c"
+    "tag": "v1.2.3",
+    "commit": "0e04845b7da3524f929b4322ff3f16bb171c0c64"
   },
   "_source": "git://github.com/GoogleWebComponents/google-analytics.git",
   "_target": "^1.0.0",

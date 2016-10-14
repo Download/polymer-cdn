@@ -19,22 +19,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       window.BluetoothDevice = {};
     }
 
-    // This allows us to use BluetoothGATTRemoteServer related attributes type
+    // This allows us to use BluetoothRemoteGATTServer related attributes type
     // in browsers where it is not defined.
-    if (!('BluetoothGATTRemoteServer' in window)) {
-      window.BluetoothGATTRemoteServer = {};
+    if (!('BluetoothRemoteGATTServer' in window)) {
+      window.BluetoothRemoteGATTServer = {};
     }
 
-    // This allows us to use BluetoothGATTService related attributes type in
+    // This allows us to use BluetoothRemoteGATTService related attributes type in
     // browsers where it is not defined.
-    if (!('BluetoothGATTService' in window)) {
-      window.BluetoothGATTService = {};
+    if (!('BluetoothRemoteGATTService' in window)) {
+      window.BluetoothRemoteGATTService = {};
     }
 
-    // This allows us to use BluetoothGATTCharacteristic related attributes
+    // This allows us to use BluetoothRemoteGATTCharacteristic related attributes
     // type in browsers where it is not defined.
-    if (!('BluetoothGATTCharacteristic' in window)) {
-      window.BluetoothGATTCharacteristic = {};
+    if (!('BluetoothRemoteGATTCharacteristic' in window)) {
+      window.BluetoothRemoteGATTCharacteristic = {};
     }
 
     /**
@@ -165,7 +165,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * <platinum-bluetooth-device services-filter='["heart_rate"]'>
      *   <platinum-bluetooth-service service='heart_rate'>
      *     <platinum-bluetooth-characteristic characteristic='heart_rate_control_point'
-                                              auto-write>
+     *                                        auto-write>
      *     </platinum-bluetooth-characteristic>
      *   </platinum-bluetooth-service>
      * </platinum-bluetooth-device>
@@ -244,7 +244,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          */
         _server: {
           readOnly: true,
-          type: BluetoothGATTRemoteServer
+          type: BluetoothRemoteGATTServer
         },
 
         /**
@@ -252,7 +252,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          */
         _service: {
           readOnly: true,
-          type: BluetoothGATTService
+          type: BluetoothRemoteGATTService
         },
 
         /**
@@ -260,7 +260,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          */
         _characteristic: {
           readOnly: true,
-          type: BluetoothGATTCharacteristic
+          type: BluetoothRemoteGATTCharacteristic
         }
 
       },
@@ -283,13 +283,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        * Returns a promise that will resolve when bluetooth device picked by
        * user is connected.
        *
-       * @return {Promise<BluetoothGATTRemoteServer>}
+       * @return {Promise<BluetoothRemoteGATTServer>}
        */
       _connectToDevice: function() {
-        if (this._server && this._server.connected) {
-          // Resolve promise if device is already connected.
-          return Promise.resolve(this._server);
-        }
         if (!this._device) {
           return Promise.reject(new Error('Bluetooth device is not connected.'));
         }
@@ -305,14 +301,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        * Returns a promise that will resolve when Bluetooth GATT Primary
        * Service is discovered.
        *
-       * @return {Promise<BluetoothGATTService>}
+       * @return {Promise<BluetoothRemoteGATTService>}
        */
       _getPrimaryService: function() {
-        if (this._server && this._server.connected && this._service &&
-            this._service.uuid === BluetoothUUID.getService(this.service)) {
-          // Resolve promise if primary service is already discovered.
-          return Promise.resolve(this._service);
-        }
         if (!this._server || !this._server.connected) {
           return Promise.reject(new Error('Bluetooth GATT Remote server is not connected.'));
         }
@@ -331,14 +322,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        * Returns a promise that will resolve when Bluetooth GATT Characteristic
        * is discovered.
        *
-       * @return {Promise<BluetoothGATTCharacteristic>}
+       * @return {Promise<BluetoothRemoteGATTCharacteristic>}
        */
       _getCharacteristic: function() {
-        if (this._characteristic &&
-            this._characteristic.uuid === BluetoothUUID.getCharacteristic(this.characteristic)) {
-          // Resolve promise if characteristic is already _.
-          return Promise.resolve(this._characteristic);
-        }
         if (!this._service) {
           return Promise.reject(new Error('Bluetooth GATT Primary Service is not connected.'));
         }
@@ -367,8 +353,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var self = this;
         return this._characteristic.readValue()
           .then(function(value) {
-            // In Chrome 50+, a DataView is returned instead of an ArrayBuffer.
-            value = value.buffer ? value : new DataView(value);
             self.value = value;
             return self.value;
           });
@@ -392,8 +376,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         * Save value when characteristic value changed in a notification session.
         **/
       _handleValueChanged: function(event) {
-        // In Chrome 50+, a DataView is returned instead of an ArrayBuffer.
-        this.value = event.target.value.buffer ? event.target.value : new DataView(event.target.value);
+        this.value = event.target.value;
       },
 
       /**

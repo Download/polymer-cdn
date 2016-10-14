@@ -1,5 +1,5 @@
 google-hangout-button
 =====================
 
-See the [component landing page](http://googlewebcomponents.github.io/google-hangout-button) for more information.
+See https://elements.polymer-project.org/elements/google-hangout-button
 

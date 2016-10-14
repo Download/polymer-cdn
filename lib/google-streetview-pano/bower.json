@@ -1,13 +1,13 @@
 {
   "name": "google-streetview-pano",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "homepage": "https://elements.polymer-project.org/elements/google-streetview-pano",
   "description": "Google Maps street view web component",
   "main": "google-streetview-pano.html",
   "authors": [
     "Rob Dodson"
   ],
-  "license": "Apache2",
+  "license": "Apache-2.0",
   "ignore": [
     "bower_components",
     "test",
@@ -23,8 +23,9 @@
     "google"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.1.4",
-    "google-apis": "GoogleWebComponents/google-apis#^1.1.1"
+    "google-apis": "GoogleWebComponents/google-apis#^1.1.1",
+    "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#~1.0.2",
+    "polymer": "Polymer/polymer#^1.1.4"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.2"
