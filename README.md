@@ -6,7 +6,7 @@
 ## How to use
 In general, given an element named `my-cool-element`, the CDN url for it will be:
 ```
-https://cdn.rawgit.com/download/polymer-cdn/1.7.0/lib/my-cool-element/my-cool-element.html
+https://cdn.rawgit.com/download/polymer-cdn/1.7.0.2/lib/my-cool-element/my-cool-element.html
 ```
 To be sure, browse this repo and copy-paste the url to the raw version into [RawGit](https://rawgit.com).
 
@@ -45,7 +45,7 @@ which explains it in more detail.
 
 
 ## Contents
-All the libraries available in polymer-cdn can be found side-by-side in the [lib](https://github.com/Download/polymer-cdn/tree/1.7.0/lib) subfolder.
+All the libraries available in polymer-cdn can be found side-by-side in the [lib](https://github.com/Download/polymer-cdn/tree/1.7.0.2/lib) subfolder.
 
 Some of the libraries depend on other libraries. We call those other libraries the dependencies of the library.
 These dependencies will also be pulled into your page when you include such a library.
