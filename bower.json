@@ -1,6 +1,6 @@
 {
   "name": "polymer-cdn",
-  "version": "1.7.0",
+  "version": "1.7.0.2",
   "main": "polymer.js",
   "homepage": "https://github.com/Download/polymer-cdn",
   "authors": [
@@ -29,6 +29,11 @@
     "platinum-elements": "polymerelements/platinum-elements#latest",
     "app-elements": "polymerelements/app-elements#latest",
     "google-web-components": "GoogleWebComponents/google-web-components#latest",
-    "molecules": "polymerelements/molecules#latest"
+    "molecules": "polymerelements/molecules#latest",
+    "polymerfire": "firebase/polymerfire#0.10.2"
+  },
+  "resolutions": {
+    "polymerfire": "0.10.2",
+    "firebase": ">= 3.5.1 < 4.0"
   }
 }

@@ -1,6 +1,6 @@
 {
 	"name": "polymer-cdn",
-	"version": "1.7.0",
+	"version": "1.7.0.2",
 	"description": "A mirror of Polymer so it can be used from CDN.",
 	"keywords": ["polymer", "cdn"],
 	"homepage": "https://github.com/download/polymer-cdn",

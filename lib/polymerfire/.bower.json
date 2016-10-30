@@ -1,6 +1,6 @@
 {
   "name": "polymerfire",
-  "version": "0.9.7",
+  "version": "0.10.2",
   "authors": [
     "Firebase"
   ],
@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2",
-    "firebase": "^3.0",
+    "firebase": ">= 3.5.1 < 4.0",
     "app-storage": "polymerelements/app-storage#^0.9.0"
   },
   "devDependencies": {
@@ -27,13 +27,13 @@
     "web-component-tester": "^4.0.0",
     "note-app-elements": "polymerlabs/note-app-elements"
   },
-  "_release": "0.9.7",
+  "_release": "0.10.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.7",
-    "commit": "ffe600839bcca47558cef3ac3f1b0bdc8dda33a8"
+    "tag": "v0.10.2",
+    "commit": "18ef3d839974e4e5f2dbcd2a1eecf4428537ad65"
   },
   "_source": "git://github.com/firebase/polymerfire.git",
-  "_target": "~0.9.0",
+  "_target": "0.10.2",
   "_originalSource": "firebase/polymerfire"
 }
