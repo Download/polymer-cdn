@@ -1,4 +1,6 @@
 # polymer-cdn <sup><sub>v1.7.0.2</sub></sup>
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Download/polymer-cdn.svg)](https://greenkeeper.io/)
 **A mirror of Polymer's components so that they can be used directly from CDN**
 
 ![Polymer CDN is powered by MaxCDN](http://i.imgur.com/9obTXpk.png)
