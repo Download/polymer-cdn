@@ -12,9 +12,9 @@ thing! https://github.com/PolymerLabs/tedium/issues
 
 -->
 
-[![Build Status](https://travis-ci.org/PolymerElements/gold-email-input.svg?branch=master)](https://travis-ci.org/PolymerElements/gold-email-input)
+[![Build status](https://travis-ci.org/PolymerElements/gold-email-input.svg?branch=master)](https://travis-ci.org/PolymerElements/gold-email-input)
 
-_[Demo and API Docs](https://elements.polymer-project.org/elements/gold-email-input)_
+_[Demo and API docs](https://elements.polymer-project.org/elements/gold-email-input)_
 
 
 ##&lt;gold-email-input&gt;

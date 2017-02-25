@@ -131,6 +131,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(year.placeholder, 'YY', 'year placeholder is YY');
       });
 
+      test('/ key advances to year input', function() {
+        var input = fixture('basic');
+        forceXIfStamp(input);
+        var dateInput = Polymer.dom(input.root).querySelector('date-input');
+        var year = Polymer.dom(dateInput.root).querySelector('#expirationYear');
+        MockInteractions.pressAndReleaseKeyOn(dateInput, 191, [], '/');
+        assert.equal(Polymer.dom(dateInput.root).activeElement, year, 'year is focused');
+      });
+
     });
 
     suite('a11y', function() {

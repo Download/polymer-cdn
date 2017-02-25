@@ -71,8 +71,6 @@ style this element.
       <date-input class="paper-input-input" id="input"
           aria-label-prefix="[[_ariaLabelledBy]]"
           required$="[[required]]"
-          month="[[_computeMonth(value)]]"
-          year="[[_computeYear(value)]]"
           autocomplete$="[[autocomplete]]"
           disabled$="[[disabled]]"
           invalid="{{invalid}}"
@@ -144,13 +142,17 @@ style this element.
           if (oldValue == undefined)
             return;
 
+          this.$.input.month = this._computeMonth(value);
+          this.$.input.year = this._computeYear(value);
           this._handleAutoValidate();
         },
 
         _dateChanged: function(event) {
-          if (event.detail.month && event.detail.year) {
-            this.value = event.detail.month + '/' + event.detail.year;
-          }
+          var month = event.detail.month || '';
+          var year = event.detail.year || '';
+          var value = year ? (month + '/' + year) : month;
+
+          this.value = String(value);
         },
 
         _computeMonth: function(value) {
@@ -160,7 +162,7 @@ style this element.
 
         _computeYear: function(value) {
           // Date is in MM/YY format.
-          return value.split('/')[1];
+          return value.split('/')[1] || '';
         },
 
         /**

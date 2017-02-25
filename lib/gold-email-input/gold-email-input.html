@@ -52,6 +52,11 @@ style this element.
     :host {
       display: block;
     }
+
+    :host([hidden]) {
+      display: none !important;
+    }
+
     </style>
 
     <paper-input-container id="container"
@@ -72,6 +77,8 @@ style this element.
           bind-value="{{value}}"
           autocomplete="email"
           autocapitalize="none"
+          minlength$="[[minlength]]"
+          maxlength$="[[maxlength]]"
           name$="[[name]]"
           invalid="{{invalid}}"
           autofocus$="[[autofocus]]"
@@ -120,6 +127,7 @@ style this element.
         },
 
         value: {
+          type: String,
           observer: '_onValueChanged'
         }
       },
