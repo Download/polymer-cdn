@@ -78,22 +78,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
       });
 
-      test('empty required input shows error on blur', function(done) {
+      test('empty required input shows error on blur', function() {
         var input = fixture('basic');
         forceXIfStamp(input);
 
+        var container = Polymer.dom(input.root).querySelector('paper-input-container');
         var error = Polymer.dom(input.root).querySelector('paper-input-error');
         assert.ok(error, 'paper-input-error exists');
-
         assert.equal(getComputedStyle(error).visibility, 'hidden', 'error is visibility:hidden');
+        assert.isFalse(container.invalid);
 
-        input.addEventListener('blur', function(event) {
-          assert(!input.focused, 'input is blurred');
-          assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
-          done();
-        });
         MockInteractions.focus(input);
         MockInteractions.blur(input);
+
+        assert(!input.focused, 'input is blurred');
+        assert.notEqual(getComputedStyle(error).visibility, 'hidden', 'error is not visibility:hidden');
+        assert.isTrue(container.invalid);
       });
 
     });

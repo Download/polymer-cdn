@@ -1,12 +1,13 @@
-/*! @license Firebase v3.5.2
-    Build: 3.5.2-rc.1
-    Terms: https://developers.google.com/terms */
+/*! @license Firebase v3.6.10
+    Build: 3.6.10-rc.1
+    Terms: https://firebase.google.com/terms/ */
 declare namespace firebase {
   interface FirebaseError {
     code: string;
     message: string;
     name: string;
     stack: string;
+    toJSON(): Object;
   }
 
   class Promise<T> extends Promise_Instance<T> {
@@ -16,9 +17,8 @@ declare namespace firebase {
   }
   class Promise_Instance<T> implements firebase.Thenable<any> {
     constructor(
-        resolver:
-            (a?: (a: T) => undefined, b?: (a: Error) => undefined) => any);
-    catch (onReject?: (a: Error) => any): firebase.Thenable<any>;
+        resolver: (a: (a: T) => undefined, b: (a: Error) => undefined) => any);
+    catch(onReject?: (a: Error) => any): firebase.Thenable<any>;
     then(onResolve?: (a: T) => any, onReject?: (a: Error) => any):
         firebase.Promise<any>;
   }
@@ -26,15 +26,15 @@ declare namespace firebase {
   var SDK_VERSION: string;
 
   interface Thenable<T> {
-    catch (onReject?: (a: Error) => any): any;
+    catch(onReject?: (a: Error) => any): any;
     then(onResolve?: (a: T) => any, onReject?: (a: Error) => any):
         firebase.Thenable<any>;
   }
 
   interface User extends firebase.UserInfo {
-    delete (): firebase.Promise<any>;
+    delete(): firebase.Promise<any>;
     emailVerified: boolean;
-    getToken(opt_forceRefresh?: boolean): firebase.Promise<any>;
+    getToken(forceRefresh?: boolean): firebase.Promise<any>;
     isAnonymous: boolean;
     link(credential: firebase.auth.AuthCredential): firebase.Promise<any>;
     linkWithPopup(provider: firebase.auth.AuthProvider): firebase.Promise<any>;
@@ -46,6 +46,7 @@ declare namespace firebase {
     refreshToken: string;
     reload(): firebase.Promise<any>;
     sendEmailVerification(): firebase.Promise<any>;
+    toJSON(): Object;
     unlink(providerId: string): firebase.Promise<any>;
     updateEmail(newEmail: string): firebase.Promise<any>;
     updatePassword(newPassword: string): firebase.Promise<any>;
@@ -61,7 +62,7 @@ declare namespace firebase {
     uid: string;
   }
 
-  function app(name: string): firebase.app.App;
+  function app(name?: string): firebase.app.App;
 
   var apps: (firebase.app.App|null)[];
 
@@ -80,7 +81,8 @@ declare namespace firebase.app {
   interface App {
     auth(): firebase.auth.Auth;
     database(): firebase.database.Database;
-    delete (): firebase.Promise<any>;
+    delete(): firebase.Promise<any>;
+    messaging(): firebase.messaging.Messaging;
     name: string;
     options: Object;
     storage(): firebase.storage.Storage;
@@ -103,8 +105,8 @@ declare namespace firebase.auth {
     fetchProvidersForEmail(email: string): firebase.Promise<any>;
     getRedirectResult(): firebase.Promise<any>;
     onAuthStateChanged(
-        nextOrObserver: Object, opt_error?: (a: firebase.auth.Error) => any,
-        opt_completed?: () => any): () => any;
+        nextOrObserver: Object, error?: (a: firebase.auth.Error) => any,
+        completed?: () => any): () => any;
     sendPasswordResetEmail(email: string): firebase.Promise<any>;
     signInAnonymously(): firebase.Promise<any>;
     signInWithCredential(credential: firebase.auth.AuthCredential):
@@ -150,6 +152,7 @@ declare namespace firebase.auth {
   class FacebookAuthProvider_Instance implements firebase.auth.AuthProvider {
     addScope(scope: string): any;
     providerId: string;
+    setCustomParameters(customOAuthParameters: Object): any;
   }
 
   class GithubAuthProvider extends GithubAuthProvider_Instance {
@@ -159,6 +162,7 @@ declare namespace firebase.auth {
   class GithubAuthProvider_Instance implements firebase.auth.AuthProvider {
     addScope(scope: string): any;
     providerId: string;
+    setCustomParameters(customOAuthParameters: Object): any;
   }
 
   class GoogleAuthProvider extends GoogleAuthProvider_Instance {
@@ -169,6 +173,7 @@ declare namespace firebase.auth {
   class GoogleAuthProvider_Instance implements firebase.auth.AuthProvider {
     addScope(scope: string): any;
     providerId: string;
+    setCustomParameters(customOAuthParameters: Object): any;
   }
 
   class TwitterAuthProvider extends TwitterAuthProvider_Instance {
@@ -178,6 +183,7 @@ declare namespace firebase.auth {
   }
   class TwitterAuthProvider_Instance implements firebase.auth.AuthProvider {
     providerId: string;
+    setCustomParameters(customOAuthParameters: Object): any;
   }
 
   type UserCredential = {
@@ -280,17 +286,20 @@ declare namespace firebase.database {
   interface ThenableReference extends firebase.database.Reference,
                                       firebase.Thenable<any> {}
 
-  function enableLogging(logger?: any, persistent?: boolean): any;
+  function enableLogging(
+      logger?: boolean|((a: string) => any), persistent?: boolean): any;
 }
 
-declare namespace firebase.database.ServerValue {}
+declare namespace firebase.database.ServerValue {
+  var TIMESTAMP: Object;
+}
 
 declare namespace firebase.messaging {
   interface Messaging {
     deleteToken(token: string): firebase.Promise<any>|null;
     getToken(): firebase.Promise<any>|null;
-    onMessage(subscriber: any): any|null;
-    onTokenRefresh(subscriber: any): any|null;
+    onMessage(nextOrObserver: Object): () => any;
+    onTokenRefresh(nextOrObserver: Object): () => any;
     requestPermission(): firebase.Promise<any>|null;
     setBackgroundMessageHandler(callback: (a: Object) => any): any;
     useServiceWorker(registration: any): any;
@@ -313,10 +322,10 @@ declare namespace firebase.storage {
   interface Reference {
     bucket: string;
     child(path: string): firebase.storage.Reference;
-    delete (): Promise<any>;
+    delete(): firebase.Promise<any>;
     fullPath: string;
-    getDownloadURL(): Promise<any>;
-    getMetadata(): Promise<any>;
+    getDownloadURL(): firebase.Promise<any>;
+    getMetadata(): firebase.Promise<any>;
     name: string;
     parent: firebase.storage.Reference|null;
     put(data: any|Uint8Array|ArrayBuffer,
@@ -329,7 +338,8 @@ declare namespace firebase.storage {
     root: firebase.storage.Reference;
     storage: firebase.storage.Storage;
     toString(): string;
-    updateMetadata(metadata: firebase.storage.SettableMetadata): Promise<any>;
+    updateMetadata(metadata: firebase.storage.SettableMetadata):
+        firebase.Promise<any>;
   }
 
   interface SettableMetadata {
@@ -379,7 +389,7 @@ declare namespace firebase.storage {
 
   interface UploadTask {
     cancel(): boolean;
-    catch (onRejected: (a: Error) => any): Promise<any>;
+    catch(onRejected: (a: Error) => any): firebase.Promise<any>;
     on(event: firebase.storage.TaskEvent, nextOrObserver?: null|Object,
        error?: ((a: Error) => any)|null, complete?: (() => any)|null): Function;
     pause(): boolean;
@@ -387,7 +397,7 @@ declare namespace firebase.storage {
     snapshot: firebase.storage.UploadTaskSnapshot;
     then(
         onFulfilled?: ((a: firebase.storage.UploadTaskSnapshot) => any)|null,
-        onRejected?: ((a: Error) => any)|null): Promise<any>;
+        onRejected?: ((a: Error) => any)|null): firebase.Promise<any>;
   }
 
   interface UploadTaskSnapshot {

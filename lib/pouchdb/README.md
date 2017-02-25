@@ -1,7 +1,7 @@
 [PouchDB](http://pouchdb.com/) – The Database that Syncs!
 =========
 
-[![Build Status](https://travis-ci.org/pouchdb/pouchdb.svg)](https://travis-ci.org/pouchdb/pouchdb) [![Coverage Status](https://coveralls.io/repos/pouchdb/pouchdb/badge.svg?branch=master&service=github)](https://coveralls.io/github/pouchdb/pouchdb?branch=master)
+[![Build Status](https://travis-ci.org/pouchdb/pouchdb.svg)](https://travis-ci.org/pouchdb/pouchdb) [![Coverage Status](https://s3.amazonaws.com/assets.coveralls.io/badges/coveralls_100.svg)](https://coveralls.io/github/pouchdb/pouchdb?branch=master)
 
 PouchDB is an open-source JavaScript database inspired by [Apache CouchDB](http://couchdb.apache.org/) that is designed to run well within the browser.
 
@@ -19,10 +19,16 @@ The PouchDB community is active [on Freenode IRC](https://www.irccloud.com/invit
 
 If you think you've found a bug in PouchDB, please write a reproducible test case and file [a Github issue](https://github.com/pouchdb/pouchdb/issues). We recommend [bl.ocks.org](http://bl.ocks.org/) for code snippets, because some iframe-based services like JSFiddle and JSBin do not support IndexedDB in all browsers. You can start with [this template](https://gist.github.com/nolanlawson/816f138a51b86785d3e6).
 
-Nightly Build
+Prerelease builds
 ----
 
-If you like to live on the bleeding edge, you can find the PouchDB nightly builds at [pouchtest.com/nightly](http://pouchtest.com/nightly).
+If you like to live on the bleeding edge, you can build PouchDB from source using these steps:
+
+    git clone https://github.com/pouchdb/pouchdb.git
+    cd pouchdb
+    npm install
+
+After running these steps, the browser build can be found in `packages/node_modules/pouchdb/dist/pouchdb.js`.
 
 Changelog
 ----
