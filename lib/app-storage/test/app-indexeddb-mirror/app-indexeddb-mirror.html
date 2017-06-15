@@ -68,6 +68,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     suite('<app-indexeddb-mirror>', function() {
+      // skips tests due to async bug in mocha
+      this.ctx.skip = function() {
+        this.pending = true;
+      }.bind(this);
+
+      setup(function(done) {
+        var featureDetect = new Worker('../feature-detect.js');
+
+        var timeout = window.setTimeout(function() {
+          this.skip();
+        }.bind(this), 3000);
+
+        featureDetect.onmessage = function(e) {
+          window.clearTimeout(timeout);
+          var error;
+          if (e.data !== 'pass') {
+            this.skip();
+          }
+          done();
+        }.bind(this);
+
+        featureDetect.postMessage('featureDetect');
+      });
+
       teardown(function() {
         appStorageTestHelpers.restoreNavigatorOnLine();
         return appStorageTestHelpers.deleteIdbDatabase('app-mirror');

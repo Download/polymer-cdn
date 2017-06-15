@@ -61,6 +61,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(input.inputElement.maxLength, 4);
       });
 
+      test('invalid property is not ok', function() {
+        var input = fixture('required');
+        input.value='13';
+        forceXIfStamp(input);
+
+        assert.isTrue(input.invalid);
+      });
+
+      test('invalid property is ok', function() {
+        var input = fixture('required');
+        input.value='134';
+        forceXIfStamp(input);
+
+        assert.isFalse(input.invalid);
+      });
+
       test('valid input is ok', function() {
         var input = fixture('required');
         input.value='123';

@@ -7,6 +7,7 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
+
 <script>
 (function() {
   'use strict';
@@ -33,7 +34,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
     }
 
-    Object.assign(context, extendedContext);
+    if (extendedContext) {
+      for (var key in extendedContext) {
+        context[key] = extendedContext[key];
+      }
+    }
 
     suite('app storage compatibility: <' + context.tagName + '>', function() {
       suite('basic storage scenarios', function() {

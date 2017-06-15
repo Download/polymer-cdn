@@ -51,6 +51,10 @@ See `Polymer.PaperInputBehavior` for more API docs.
 See `Polymer.PaperInputContainer` for a list of custom properties used to
 style this element.
 
+Custom property | Description | Default
+----------------|-------------|----------
+`--gold-cc-cvc-input-icon` | Mixin applied to the icon | `{}`
+
 @group Gold Elements
 @hero hero.svg
 @demo demo/index.html
@@ -65,6 +69,7 @@ style this element.
 
       iron-icon {
         margin-left: 10px;
+        @apply(--gold-cc-cvc-input-icon);
       }
 
       iron-icon[hidden] {
@@ -100,7 +105,7 @@ style this element.
             autocomplete="cc-csc"
             name$="[[name]]"
             disabled$="[[disabled]]"
-            invalid="{{invalid}}"
+            invalid="[[invalid]]"
             autofocus$="[[autofocus]]"
             inputmode$="[[inputmode]]"
             placeholder$="[[placeholder]]"
@@ -204,6 +209,7 @@ style this element.
               this.value.length == this._requiredLength) ||
               !this.required && this.value == '';
 
+          this.invalid = !valid;
           // Update the container and its addons (i.e. the custom error-message).
           this.$.container.invalid = !valid;
           this.$.container.updateAddons({
@@ -226,6 +232,5 @@ style this element.
       })
 
     })();
-
   </script>
 </dom-module>

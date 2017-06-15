@@ -47,6 +47,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         /**
          * Defines the logical location to store the data.
+         *
+         * @type{String}
          */
         key: {
           type: String,
@@ -93,9 +95,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             '__onAppLocalStorageChanged');
       },
 
-      /**
-       * @override
-       */
       get isNew() {
         return !this.key;
       },
@@ -103,32 +102,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       /**
        * Stores a value at the given key, and if successful, updates this.key.
        *
-       * @override
-       * @param {string} key The new key to use.
+       * @param {*} key The new key to use.
+       * @return {Promise}
        */
-      save: function(key) {
+      saveValue: function(key) {
         try {
-          this.__setStorageValue(key, this.data);
+          this.__setStorageValue(/*{@type if (key ty){String}}*/key, this.data);
         } catch(e) {
           return Promise.reject(e);
         }
 
-        this.key = key;
+        this.key = /** @type {String} */ (key);
 
         return Promise.resolve();
       },
 
-      /**
-       * @override
-       */
       reset: function() {
         this.key = null;
         this.data = this.zeroValue;
       },
 
-      /**
-       * @override
-       */
       destroy: function() {
         try {
           this.storage.removeItem(this.key);
@@ -140,9 +133,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return Promise.resolve();
       },
 
-      /**
-       * @override
-       */
       getStoredValue: function(path) {
         var value;
 
@@ -165,9 +155,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return Promise.resolve(value);
       },
 
-      /**
-       * @override
-       */
       setStoredValue: function(path, value) {
         if (this.key != null) {
           try {
