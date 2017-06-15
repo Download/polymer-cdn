@@ -4,7 +4,7 @@
 ![Polymer CDN is powered by MaxCDN](http://i.imgur.com/9obTXpk.png)
 
 ```
-❗  Polymer CDN now supports Polymer 2! Please [report](https://github.com/download/polymer-cdn/issues) any issues you may find.
+❗  Polymer CDN now supports Polymer 2! Please report any issues you may find.
 ```
 
 ## How to use
