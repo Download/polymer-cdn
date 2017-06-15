@@ -1,6 +1,6 @@
 {
   "name": "gold-cc-cvc-input",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Provides an input field for a credit card cvc number",
   "authors": [
     "The Polymer Authors"

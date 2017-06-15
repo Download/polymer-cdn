@@ -181,7 +181,7 @@ be available through this element.
            * Worker spawned from `workerUrl`.
            */
           client: {
-            type: Polymer.AppIndexedDBMirrorClient,
+            type: Object,
             computed: '__computeClient(workerUrl)',
             observer: '__clientChanged'
           },
@@ -204,17 +204,14 @@ be available through this element.
           '__updatePersistedData(data.*)',
         ],
 
-        /** @override */
         get isNew() {
           return false;
         },
 
-        /** @override */
         destroy: function() {
           return this.client.transaction('set', this.key, null);
         },
 
-        /** @override */
         setStoredValue: function(path, value) {
           if (this.online) {
             return this.client.transaction('set', this.key, this.data);
@@ -223,12 +220,10 @@ be available through this element.
           return Promise.resolve();
         },
 
-        /** @override */
         getStoredValue: function(path) {
           return this.client.transaction('get', this.key);
         },
 
-        /** @override */
         initializeStoredValue: function() {
           return Promise.resolve();
         },
@@ -253,7 +248,7 @@ be available through this element.
             this.persistedData = this.data;
             this.linkPaths('data', 'persistedData');
           } else {
-            this.unlinkPaths('data', 'persistedData');
+            this.unlinkPaths('data');
             this._enqueueTransaction(function() {
               return this.getStoredValue().then(function(value) {
                 // We may have gone online since retrieving the persisted value..

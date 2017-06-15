@@ -18,8 +18,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
   <script>
     WCT.loadSuites([
-      './app-localstorage/app-localstorage-document.html',
-      './app-indexeddb-mirror/app-indexeddb-mirror.html'
+      './app-localstorage/app-localstorage-document.html?dom=shadow',
+      './app-indexeddb-mirror/app-indexeddb-mirror.html?dom=shadow',
+      './app-localstorage/app-localstorage-document.html?wc-shadydom=true&wc-ce=true',
+      './app-indexeddb-mirror/app-indexeddb-mirror.html?wc-shadydom=true&wc-ce=true'
     ]);
   </script>
 </body>

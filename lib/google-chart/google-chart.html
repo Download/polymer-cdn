@@ -2,6 +2,7 @@
 <link rel="import" href="../iron-ajax/iron-request.html">
 <link rel="import" href="../promise-polyfill/promise-polyfill-lite.html">
 <link rel="import" href="google-chart-loader.html">
+<link rel="import" href="google-chart-styles.html">
 
 <!--
 `google-chart` encapsulates Google Charts as a web component, allowing you to easily visualize
@@ -57,8 +58,8 @@ on the `html` tag of your document.
 @demo
 -->
 <dom-module id="google-chart">
-  <link rel="import" type="css" href="google-chart.css">
   <template>
+    <style include="google-chart-styles"></style>
     <google-chart-loader id="loader" type="[[type]]"></google-chart-loader>
     <div id="chartdiv"></div>
   </template>
@@ -91,8 +92,26 @@ on the `html` tag of your document.
        * Sets the type of the chart.
        *
        * Should be one of:
-       * - `area`, `bar`, `bubble`, `candlestick`, `column`, `combo`, `geo`,
-       *   `histogram`, `line`, `pie`, `scatter`, `stepped-area`, `treemap`
+       * - `area`
+       * - `(md-)bar`
+       * - `bubble`
+       * - `calendar`
+       * - `candlestick`
+       * - `column`
+       * - `combo`
+       * - `gauge`
+       * - `geo`
+       * - `histogram`
+       * - `(md-)line`
+       * - `org`
+       * - `pie`
+       * - `sankey`
+       * - `(md-)scatter`
+       * - `stepped-area`
+       * - `table`
+       * - `timeline`
+       * - `treemap`
+       * - `wordtree`
        *
        * See <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery">Google Visualization API reference (Chart Gallery)</a>
        * for details.

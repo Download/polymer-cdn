@@ -97,15 +97,13 @@ Polymer.AppLocalizeBehavior = {
   },
 
   /**
-   * If the element is using `pathToResources` to load an external resources
-   * file, fired when the file has been loaded.
+   * Fired after the resources have been loaded.
    *
    * @event app-localize-resources-loaded
    */
 
   /**
-   * If the element is using `pathToResources` to load an external resources
-   * file, fired when the file cannot be loaded due to an error.
+   * Fired when the resources cannot be loaded due to an error.
    *
    * @event app-localize-resources-error
    */
@@ -130,16 +128,6 @@ Polymer.AppLocalizeBehavior = {
      */
     resources: {
       type: Object
-    },
-
-    /**
-     * The path to the dictionary of localized messages. The format is the
-     * same as the `resources` array, only saved as an external json file.
-     * Note that using a path will populate the `resources` property, and override
-     * the previous data.
-     */
-    pathToResources: {
-      type: String
     },
 
     /**
@@ -173,11 +161,22 @@ Polymer.AppLocalizeBehavior = {
     localize: {
       type: Function,
       computed: '__computeLocalize(language, resources, formats)'
+    },
+
+    /**
+    * If true, will bubble up the event to the parents
+    */
+    bubbleEvent: {
+      type: Boolean,
+      value: false
     }
   },
 
   loadResources: function(path) {
     var proto = this.constructor.prototype;
+
+    // Check if localCache exist just in case.
+    this.__checkLocalizationCache(proto);
 
     // If the global ajax object has not been initialized, initialize and cache it.
     var ajax = proto.__localizationCache.ajax;
@@ -208,6 +207,9 @@ Polymer.AppLocalizeBehavior = {
    */
   __computeLocalize: function(language, resources, formats) {
     var proto = this.constructor.prototype;
+
+    // Check if localCache exist just in case.
+    this.__checkLocalizationCache(proto);
 
     // Everytime any of the parameters change, invalidate the strings cache.
     proto.__localizationCache.messages = {};
@@ -244,11 +246,21 @@ Polymer.AppLocalizeBehavior = {
 
   __onRequestResponse: function(event) {
     this.resources = event.response;
-    this.fire('app-localize-resources-loaded');
+    this.fire('app-localize-resources-loaded', event, { bubbles: this.bubbleEvent});
   },
 
   __onRequestError: function(event) {
     this.fire('app-localize-resources-error');
+  },
+
+  __checkLocalizationCache: function(proto) {
+    // do nothing if proto is undefined.
+    if(proto === undefined) return;
+
+    // In the event proto not have __localizationCache object, create it.
+    if(proto['__localizationCache'] === undefined) {
+      proto['__localizationCache'] = {requests: {}, messages: {}, ajax: null};
+    }
   }
 }
 

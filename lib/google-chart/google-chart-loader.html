@@ -9,6 +9,12 @@
   /** @type {string} Most charts use this package. */
   var DEFACTO_CHART_PACKAGE = 'corechart';
 
+  /** @enum {string} Namespaces that contain chart constructors. */
+  var Namespace = {
+    CHARTS: 'charts',
+    VIS: 'visualization'
+  };
+
   /**
    * A collection of chart type details.
    *
@@ -28,6 +34,10 @@
     'bubble': {
       ctor: 'BubbleChart',
     },
+    'calendar': {
+      ctor: 'Calendar',
+      pkg: 'calendar',
+    },
     'candlestick': {
       ctor: 'CandlestickChart',
     },
@@ -36,6 +46,10 @@
     },
     'combo': {
       ctor: 'ComboChart',
+    },
+    'gauge': {
+      ctor: 'Gauge',
+      pkg: 'gauge',
     },
     'geo': {
       ctor: 'GeoChart',
@@ -57,6 +71,10 @@
     'pie': {
       ctor: 'PieChart',
     },
+    'sankey': {
+      ctor: 'Sankey',
+      pkg: 'sankey',
+    },
     'scatter': {
       ctor: 'ScatterChart',
     },
@@ -75,27 +93,24 @@
       ctor: 'Timeline',
       pkg: 'timeline',
     },
-    'gauge': {
-      ctor: 'Gauge',
-      pkg: 'gauge',
-    },
     'treemap': {
       ctor: 'TreeMap',
       pkg: 'treemap',
     },
-    'calendar': {
-      ctor: 'Calendar',
-      pkg: 'calendar',
+    'wordtree': {
+      ctor: 'WordTree',
+      namespace: Namespace.VIS,
+      pkg: 'wordtree',
     }
   };
 
   /**
-   * Returns the namespace for the given chart type.
+   * The Google Charts constructor namespace inferred from the given chart type.
    * @param {string} type the type of the chart
    * @return {!Object} the namespace that contains the chart's constructor
    */
   function namespaceForType(type) {
-    return google[type.indexOf('md-') === 0 ? 'charts' : 'visualization'];
+    return google[type.indexOf('md-') === 0 ? Namespace.CHARTS : Namespace.VIS];
   }
 
   /** @type {!Object<string, boolean>} set-like object of gviz packages to load */
@@ -206,9 +221,14 @@
      */
     _loadPackageForType: function(type) {
       var chartData = CHART_CONSTRUCTORS[type];
+      if (!chartData) {
+        return Promise.reject(
+            'This chart type is not yet supported: ' + type);
+      }
       return this._loadPackages([chartData.pkg || DEFACTO_CHART_PACKAGE])
         .then(function() {
-          return namespaceForType(type)[chartData.ctor];
+          var namespace = google[chartData.namespace] || namespaceForType(type);
+          return namespace[chartData.ctor];
         });
     },
 

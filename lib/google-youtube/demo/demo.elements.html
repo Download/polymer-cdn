@@ -20,12 +20,18 @@
                     duration="{{duration}}"
                     durationformatted="{{durationFormatted}}"
                     fractionloaded="{{fractionLoaded}}"
+                    volume="{{volume}}"
+                    playbackrate="{{playbackRate}}"
+                    playbackquality="{{playbackQuality}}"
                     on-google-youtube-state-change="handleStateChange"
                     on-google-youtube-error="handleYouTubeError">
     </google-youtube>
 
     <div>
       <p>Playback Progress: <span>{{currentTimeFormatted}}</span> / <span>{{durationFormatted}}</span> <progress max="1" value="{{computeProgress(currentTime, duration)}}"></progress></p>
+      <p>Volume: <span>{{volume}}</span></p>
+      <p>Playback Rate: <span>{{playbackRate}}</span></p>
+      <p>Playback Quality: <span>{{playbackQuality}}</span></p>
     </div>
 
     <div>
@@ -60,6 +66,13 @@
                     height="480px"
                     thumbnail="//www.polymer-project.org/images/logos/p-logo.svg">
     </google-youtube>
+
+    <h3>Playlist Demo</h3>
+    <google-youtube list="PLNYkxOF6rcICc687SxHQRuo9TVNOJelSZ"
+                    list-type="playlist"
+                    width="640px"
+                    height="480px">
+    </google-youtube>
   </template>
 </dom-module>
 <script>
@@ -67,12 +80,15 @@
     is: 'demo-element',
     properties: {
       playSupported: Boolean,
-      state: String,
+      state: Number,
       currentTime: Number,
       currentTimeFormatted: String,
       duration: Number,
       durationFormatted: String,
       fractionLoaded: Number,
+      volume: Number,
+      playbackRate: Number,
+      playbackQuality: String,
       events: {
         type: Array,
         value: []
@@ -105,4 +121,3 @@
   });
 
 </script>
-

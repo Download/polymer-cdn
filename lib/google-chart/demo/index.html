@@ -360,6 +360,21 @@
     rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
   </google-chart>
 
+  <p>Here's a sankey diagram:</p>
+
+  <google-chart
+    type="sankey"
+    cols='[{"label": "From", "type": "string"},
+           {"label": "To", "type": "string"},
+           {"label": "Weight", "type": "number"}]'
+    rows='[[ "A", "X", 5 ],
+           [ "A", "Y", 7 ],
+           [ "A", "Z", 6 ],
+           [ "B", "X", 2 ],
+           [ "B", "Y", 9 ],
+           [ "B", "Z", 4 ]]'>
+  </google-chart>
+
   <p>Here's a scatter chart:</p>
 
   <google-chart
@@ -427,6 +442,31 @@
       });
     }());
   </script>
+
+  <p>Here's a wordtree:</p>
+
+  <google-chart
+      type="wordtree"
+      data='[["Phrases"],
+             ["cats are better than dogs"],
+             ["cats eat kibble"],
+             ["cats are better than hamsters"],
+             ["cats are awesome"],
+             ["cats are people too"],
+             ["cats eat mice"],
+             ["cats meowing"],
+             ["cats in the cradle"],
+             ["cats eat mice"],
+             ["cats in the cradle lyrics"],
+             ["cats eat kibble"],
+             ["cats for adoption"],
+             ["cats are family"],
+             ["cats eat mice"],
+             ["cats are better than kittens"],
+             ["cats are evil"],
+             ["cats are weird"],
+             ["cats eat mice"]
+          ]'></google-chart>
 
   <p>Here are three gauges:</p>
 
