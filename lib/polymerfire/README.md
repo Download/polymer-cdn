@@ -14,15 +14,13 @@ thing! https://github.com/PolymerLabs/tedium/issues
 
 [![Build status](https://travis-ci.org/firebase/polymerfire.svg?branch=master)](https://travis-ci.org/firebase/polymerfire)
 
-
-##&lt;firebase-app&gt;
+## &lt;firebase-app&gt;
 
 The firebase-app element is used for initializing and configuring your
 connection to firebase.
 
 
-
-##&lt;firebase-auth&gt;
+## &lt;firebase-auth&gt;
 
 `firebase-auth` is a wrapper around the Firebase authentication API. It notifies
 successful authentication, provides user information, and handles different
@@ -32,9 +30,12 @@ workflows.
 Example Usage:
 
 ```html
-<firebase-app auth-domain="polymerfire-test.firebaseapp.com"
+<firebase-app
+  auth-domain="polymerfire-test.firebaseapp.com"
   database-url="https://polymerfire-test.firebaseio.com/"
-  api-key="AIzaSyDTP-eiQezleFsV2WddFBAhF_WEzx_8v_g">
+  api-key="AIzaSyDTP-eiQezleFsV2WddFBAhF_WEzx_8v_g"
+  storage-bucket="polymerfire-test.appspot.com"
+  messaging-sender-id="544817973908">
 </firebase-app>
 <firebase-auth id="auth" user="{{user}}" provider="google" on-error="handleError">
 </firebase-auth>
@@ -59,7 +60,7 @@ defined as the default provider.
 
 
 
-##&lt;firebase-document&gt;
+## &lt;firebase-document&gt;
 
 The firebase-document element is an easy way to interact with a firebase
 location as an object and expose it to the Polymer databinding system.
@@ -84,7 +85,7 @@ app.
 
 
 
-##&lt;firebase-query&gt;
+## &lt;firebase-query&gt;
 
 `firebase-query` combines the given properties into query options that generate
 a query, a request for a filtered, ordered, immutable set of Firebase data. The

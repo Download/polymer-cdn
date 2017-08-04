@@ -1,23 +1,9 @@
-
-<!---
-
-This README is automatically generated from the comments in these files:
-paper-listbox.html
-
-Edit those files, and our readme bot will duplicate them over here!
-Edit this file, and the bot will squash your changes :)
-
-The bot does some handling of markdown. Please file a bug if it does the wrong
-thing! https://github.com/PolymerLabs/tedium/issues
-
--->
-
 [![Build status](https://travis-ci.org/PolymerElements/paper-listbox.svg?branch=master)](https://travis-ci.org/PolymerElements/paper-listbox)
 
 _[Demo and API docs](https://elements.polymer-project.org/elements/paper-listbox)_
 
 
-##&lt;paper-listbox&gt;
+## &lt;paper-listbox&gt;
 
 Material design: [Menus](https://www.google.com/design/spec/components/menus.html)
 
@@ -67,4 +53,8 @@ The following custom properties and mixins are available for styling:
 down arrow keys, esc to exit the listbox, and enter to activate a listbox item. Typing the first letter
 of a listbox item will also focus it.
 
+### Notable breaking changes between 1.x and 2.x (hybrid):
 
+IronSelectableBehavior and IronMultiSelectableBehavior, which are used by
+paper-listbox, introduce multiple breaking changes. Please see the README for those
+behaviors for more detail.

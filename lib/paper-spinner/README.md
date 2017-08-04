@@ -1,6 +1,6 @@
 [![Build status](https://travis-ci.org/PolymerElements/paper-spinner.svg?branch=master)](https://travis-ci.org/PolymerElements/paper-spinner)
 
-##&lt;paper-spinner&gt;
+## &lt;paper-spinner&gt;
 
 Material design: [Progress & activity](https://www.google.com/design/spec/components/progress-activity.html)
 

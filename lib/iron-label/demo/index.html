@@ -21,177 +21,68 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
     <link rel="import" href="../../paper-slider/paper-slider.html">
     <link rel="import" href="../../paper-button/paper-button.html">
-    <link rel="import" href="../../paper-styles/demo-pages.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        label, iron-label {
+          line-height: 2;
+        }
+        paper-button {
+          display: inline;
+        }
+      </style>
+    </custom-style>
   </head>
   <body>
-    <style>
-      .vertical-section {
-        text-align: center;
-      }
-    </style>
+    <div class="vertical-section-container centered">
+      <h3>Native label element</h3>
+      <demo-snippet>
+        <template>
+          <label>native label wrapping a checkbox<input type="checkbox"></label><br>
+          <label>native label wrapping an input<input></label><br>
+          <label>native label wrapping an input with before <input> after</label><br>
+          <label>native label wrapping a button with before <button>Hello</button> after</label><br>
+          <label for="native">label for a target element</label>
+          <button id="native">hello</button><br>
 
-    <div class="vertical-center-justified layout">
-      <div class="vertical-section">
-        <h4>native label element</h4>
-
-        <div class="center horizontal layout">
-          <label>regular label<input type="checkbox"></label>
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <label>regular label 2<input></label>
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <label>
-            a
-            <input>
-            b
-          </label>
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <label for="native">
-            hi
-          </label>
-
-          <button id="native">hello</button>
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <label>
-            a
-            <button>b</button>
-            c
-          </label>
-        </div>
-      </div>
-
-      <div class="vertical-section">
-        <h4>iron-label element</h4>
-
-        <div class="center horizontal layout">
-          <iron-label>
-            label next to checkbox
-            <input type="checkbox">
-            something
-          </iron-label>
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <iron-label for="quux">
-            label for checkbox
-          </iron-label>
-          <input id="quux" type="checkbox">
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <iron-label for="foo">
-            <div class="center vertical layout">
-              <img src="http://placehold.it/200x200" alt="200x200 placeholder image">
-              image (with alt attribute) label
-            </div>
-          </iron-label>
-
-          <input id="foo" type="checkbox">
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <iron-label for="bar">
-            label for a class .bar
-          </iron-label>
-          <input id="bar" type="checkbox">
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <iron-label>
-            input label
-            <input>
-          </iron-label>
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <iron-label>
-            paper checkbox
+          <label>native label wrapping a paper-checkbox (should not work)
             <paper-checkbox></paper-checkbox>
-          </iron-label>
-        </div>
+          </label><br>
 
-        <br>
+          <label>native label wrapping a paper-button (should not work)
+            <paper-button raised>Button</paper-button>
+          </label>
+        </template>
+      </demo-snippet>
 
-        <div class="center horizontal layout">
-          <iron-label>
-            paper slider
-            <paper-slider min="0" max="100" value="50"></paper-slider>
-          </iron-label>
-        </div>
+      <h3>iron-label element</h3>
+      <demo-snippet>
+        <template>
+          <iron-label>iron-label wrapping a checkbox<input type="checkbox"></iron-label><br>
+          <iron-label>iron-label wrapping an input<input></iron-label><br>
 
-        <br>
+          <iron-label for="quux">iron-label for a target element</iron-label>
+          <input id="quux" type="checkbox"><br>
 
-        <div class="center horizontal layout">
-          <iron-label>
-            input type range
-            <input type="range">
-          </iron-label>
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <iron-label>
-            a
-            <input type="text">
-            b
-          </iron-label>
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <iron-label>
-            c
-            <button>hi</button>
-            d
-          </iron-label>
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <iron-label>
-            label this button
-            <paper-button>labelled by parent</paper-button>
-          </iron-label>
-        </div>
-
-        <br>
-
-        <div class="center horizontal layout">
-          <iron-label for="two">
-            Hi!
+          <iron-label for="foo">
+            iron-label with an image, for a target element
+            <img src="http://placehold.it/200x200" alt="200x200 placeholder image">
           </iron-label>
 
-          <button id="one">sup</button>
-          <button id="two">whazzup</button>
-        </div>
-      </div>
-    </body>
-  </html>
+          <input id="foo" type="checkbox"><br>
+          <iron-label>iron-label wrapping an input with before <input> after</iron-label><br>
+          <iron-label>iron-label wrapping a button with before <button>Hello</button> after</iron-label><br>
+
+          <iron-label>iron-label wrapping a paper-checkbox
+            <paper-checkbox></paper-checkbox>
+          </iron-label><br>
+
+          <iron-label>iron-label wrapping a paper-button
+            <paper-button raised>Button</paper-button>
+          </iron-label>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

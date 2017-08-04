@@ -17,10 +17,11 @@ thing! https://github.com/PolymerLabs/tedium/issues
 _[Demo and API docs](https://elements.polymer-project.org/elements/iron-validator-behavior)_
 
 
-##Polymer.IronValidatorBehavior
+## Polymer.IronValidatorBehavior
 
 Use `Polymer.IronValidatorBehavior` to implement a custom input/form validator. Element
 instances implementing this behavior will be registered for use in elements that implement
 `Polymer.IronValidatableBehavior`.
 
-
+### Changes in 2.0
+- `validatorType` and `validatorName` were unused and have been removed

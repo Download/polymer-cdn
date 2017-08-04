@@ -11,7 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>Tests</title>
 
-    <script src="../../webcomponentsjs/webcomponents.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
   </head>
 
@@ -19,7 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script>
       // Load and run all tests (.html, .js) as one suite:
       WCT.loadSuites([
-        'basic-test.html',
+        'basic-test.html?wc-shadydom=true&wc-ce=true',
         'basic-test.html?dom=shadow'
       ]);
     </script>

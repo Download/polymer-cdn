@@ -41,7 +41,7 @@
     "tag": "v1.0.6",
     "commit": "cf9d7d170cababd24a2922558a7c87d9e99fe5ed"
   },
-  "_source": "git://github.com/PolymerElements/gold-zip-input.git",
+  "_source": "https://github.com/PolymerElements/gold-zip-input.git",
   "_target": "^1.0.0",
   "_originalSource": "PolymerElements/gold-zip-input"
 }

@@ -21,6 +21,6 @@
     "commit": "e396f436d64ac80d8780f620174e7273ea7fd056"
   },
   "_source": "https://github.com/GoogleChrome/sw-toolbox.git",
-  "_target": "^3.1.1",
+  "_target": "^3.6.1",
   "_originalSource": "sw-toolbox"
 }

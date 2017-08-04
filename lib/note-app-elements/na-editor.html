@@ -1,0 +1,200 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-button/paper-button.html">
+
+<link rel="import" href="./na-note.html">
+
+<dom-module id="na-editor">
+  <template>
+    <style>
+      :host {
+        display: none;
+        position: absolute;
+        overflow: hidden;
+        top: 46px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+      }
+
+      :host([opened]) {
+        display: block;
+      }
+
+      :host(.open) {
+        background-color: var(--paper-purple-500);
+      }
+
+      paper-button {
+        color: var(--paper-purple-50);
+      }
+
+      #background {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 512px;
+        width: 256px;
+        height: 256px;
+        background-color: var(--paper-purple-500);
+        transform-origin: 128px 128px;
+      }
+
+      na-note {
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+
+      :host(.open) na-note {
+        position: relative;
+        margin: auto;
+        width: calc(100vw - 20px);
+        max-width: 480px;
+      }
+
+      .controls {
+        display: block;
+        position: relative;
+        margin: 10px auto;
+        width: calc(100vw - 20px);
+        max-width: 480px;
+        @apply --layout-horizontal;
+        @apply --layout-center;
+        justify-content: space-between;
+        transition: opacity 0.3s;
+        opacity: 0;
+      }
+
+      :host(.open) .controls {
+        opacity: 1;
+      }
+    </style>
+    <div id="background"></div>
+    <na-note id="note" title="{{note.title}}" body="{{note.body}}" editable></na-note>
+    <div class="controls">
+      <paper-button on-tap="delete">Delete</paper-button>
+      <paper-button on-tap="save">Done</paper-button>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'na-editor',
+
+      properties: {
+        note: {
+          type: Object,
+          notify: true
+        },
+
+        opened: {
+          type: Boolean,
+          reflectToAttribute: true,
+          readOnly: true,
+          value: false
+        },
+      },
+
+      open: function(noteElement) {
+        this._setOpened(true);
+        this.__editedNoteElement = noteElement;
+        if (noteElement) {
+          noteElement.style.opacity = 0;
+          this.transitionInFrom(noteElement.getBoundingClientRect());
+        } else {
+          this.create();
+        }
+      },
+
+      create: function() {
+        this._setOpened(true);
+        this.note = { title: '', body: '' };
+        this.transitionInFrom(this.getBoundingClientRect());
+      },
+
+      save: function() {
+        this.close('save');
+      },
+
+      delete: function() {
+        this.close('delete');
+      },
+
+      close: function(detail) {
+        if (this.__editedNoteElement) {
+          this.__editedNoteElement.style.opacity = 1;
+          this.__editedNoteElement = null;
+        }
+
+        this.fire('close', detail, { bubbles: false });
+        this.transitionOut().then(function() {
+          Polymer.dom(this).classList.remove('open');
+          this._setOpened(false);
+        }.bind(this));
+      },
+
+      transitionInFrom: function(rect) {
+        var targetRect = this.getBoundingClientRect();
+        var targetLeft = targetRect.width > 500 ?
+            targetRect.width / 2 - 240 : 10;
+        var targetWidth = targetRect.width > 500 ?
+            '480px' : 'calc(100vw - 20px)'
+        var noteAnimation = this.$.note.animate([{
+          transform: `translate(${rect.left}px,${rect.top - 46}px)`,
+          width: `${rect.width}px`,
+          easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+        }, {
+          transform: `translate(${targetLeft}px, 0px)`,
+          width: targetWidth
+        }], 500);
+
+        var backgroundAnimation = this.$.background.animate([{
+          transform: `translate(${rect.left + rect.width / 2 - 128}px, ${rect.top - 46 + rect.height / 2 - 128}px) scale(0.1)`,
+          easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+        }, {
+          transform: `scale(${targetRect.width / 256 * 4})`
+        }], 800);
+
+        noteAnimation.addEventListener('finish', function() {
+          Polymer.dom(this).classList.add('open');
+        }.bind(this));
+      },
+
+      transitionOut: function() {
+        var animation = this.animate([{
+          opacity: 1,
+          easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+        }, {
+          opacity: 0
+        }], 300);
+
+        this.$.note.animate([{
+          transform: 'translateY(0) scale(1)',
+          opacity: 1,
+          easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+        }, {
+          transform: 'translateY(10px) scale(0.9)',
+          opacity: 0
+        }], 500);
+
+        return new Promise(function(resolve) {
+          animation.addEventListener('finish', resolve);
+        }.bind(this));
+      }
+    });
+  </script>
+</dom-module>

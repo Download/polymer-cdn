@@ -108,7 +108,7 @@ PouchDB document:
       },
 
       /** @override */
-      save: function() {
+      saveValue: function() {
         if (!this.db) {
           return Promise.reject('No PouchDB instance available!');
         }
@@ -181,7 +181,7 @@ PouchDB document:
 
       __computeChanges: function(db, docId) {
         if (this.changes) {
-          this.changes.removeAllListeners();
+          this.changes.cancel();
         }
 
         if (db == null || docId == null) {

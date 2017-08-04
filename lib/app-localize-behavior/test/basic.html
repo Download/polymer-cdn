@@ -130,8 +130,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // behave differently - in not-edge, the result is "10 $US", in Edge
         // it's just 10$. This isn't something we control, so check the string
         // is mostly right.
-        assert.equal(app.$.output.innerHTML.indexOf('Tout est à 10,00&nbsp;$'), 0);
-        
+
+        // It gets better: on IE11 Win8.1, format.js returns a " " in between
+        // the 10,00 and the $. On every other browser, including IE11 on Win10,
+        // it returns an &nbsp;. Yes, this took an hour to find.
+        var translation = app.$.output.textContent.replace('\u00a0', ' ');
+        assert.equal(translation.indexOf('Tout est à 10,00 $'), 0);
+
         app.language = 'en';
         assert.equal(app.$.output.innerHTML, 'Everything is $10.00');
 

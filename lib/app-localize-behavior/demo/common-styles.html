@@ -9,21 +9,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-styles/shadow.html">
+<link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
 <dom-module id="common-styles">
   <template>
     <style include="demo-snippet">
       :host {
-        @apply(--shadow-none);
-        @apply(--paper-font-common-base);
+        @apply --shadow-none;
+        @apply --paper-font-common-base;
         display: block;
         max-width: 600px;
         margin: 40px auto;
       }
 
       .snippet {
-        @apply(--shadow-elevation-2dp);
+        @apply --shadow-elevation-2dp;
       }
 
       paper-toggle-button {
@@ -40,7 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .demo div {
-        @apply(--paper-font-body1);
+        @apply --paper-font-body1;
         line-height: 1.5;
       }
     </style>

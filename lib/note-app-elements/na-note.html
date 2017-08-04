@@ -1,0 +1,162 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-styles/shadow.html">
+<link rel="import" href="../paper-styles/typography.html">
+<link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../iron-autogrow-textarea/iron-autogrow-textarea.html">
+
+<dom-module id="na-note">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        background-color: #fafafa;
+        color: #212121;
+        padding: 1em;
+        @apply --paper-font-common-base;
+        @apply --shadow-elevation-2dp;
+        border-radius: 2px;
+
+        --iron-autogrow-textarea: {
+          margin: 0;
+          padding: 0;
+          font-family: 'Roboto Slab', Times New Roman, serif;
+          white-space: pre-wrap;
+        }
+      }
+
+      iron-autogrow-textarea {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        border: 0;
+        margin: 1em 0 0;
+        padding: 0;
+        font-size: 0.9em;
+        font-family: 'Roboto Slab', Times New Roman, serif;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      h1 {
+        font-size: 1.15em;
+        margin: 0;
+        white-space: pre-wrap;
+      }
+
+      h1:not(.hidden)+p {
+        margin-top: 1em;
+      }
+
+      p {
+        margin: 0;
+        font-family: 'Roboto Slab', Times New Roman, serif;
+        font-size: 0.9em;
+        white-space: pre-wrap;
+      }
+
+      .placeholder:after {
+        content: 'Tap to edit';
+        opacity: 0.5;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .empty {
+        font-style: italic;
+        color: #737373;
+        line-height: 0;
+        pointer-events: none;
+      }
+
+      input {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        margin: 0;
+        outline: none;
+        border: 0;
+        background: transparent;
+        white-space: pre-wrap;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        font-size: 1.15em;
+        font-weight: bold;
+        color: #212121;
+      }
+    </style>
+    <template is="dom-if" if="[[editable]]">
+      <iron-input bind-value="{{title}}">
+        <input is="iron-input"
+            placeholder="Title"
+            bind-value="{{title}}">
+        </input>
+      </iron-input>
+      <iron-autogrow-textarea
+          placeholder="Note"
+          bind-value="{{body}}">
+      </iron-autogrow-textarea>
+    </template>
+    <template is="dom-if" if="[[!editable]]">
+      <h1 class$="[[emptyClass(title)]]">[[title]]</h1>
+      <p class$="[[emptyClass(body)]]">[[body]]</p>
+    </template>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'na-note',
+
+      properties: {
+        editable: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: false
+        },
+
+        title: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+
+        body: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+
+        lastUpdated: {
+          type: Number,
+          value: 0
+        }
+      },
+
+      emptyClass: function(content) {
+        return !content ? 'hidden' : '';
+      },
+
+      propertiesAreEmpty: function() {
+        for (var i = 0; i < arguments.length; ++i) {
+          if (arguments[i]) {
+            return false;
+          }
+        }
+        return true;
+      }
+    })
+  </script>
+</dom-module>

@@ -14,11 +14,19 @@
 * limitations under the License.
 */
 declare namespace firebase {
+  type CompleteFn = ( ) => undefined ;
+
   interface FirebaseError {
     code : string ;
     message : string ;
     name : string ;
     stack ? : string ;
+  }
+
+  interface Observer < V , E > {
+    complete ( ) : any ;
+    error (error : E ) : any ;
+    next (value : V | null ) : any ;
   }
 
   class Promise < T > extends Promise_Instance < T > {
@@ -38,6 +46,8 @@ declare namespace firebase {
     catch (onReject ? : (a : Error ) => any ) : any ;
     then (onResolve ? : (a : T ) => any , onReject ? : (a : Error ) => any ) : firebase.Thenable < any > ;
   }
+
+  type Unsubscribe = ( ) => undefined ;
 
   interface User extends firebase.UserInfo {
     delete ( ) : firebase.Promise < any > ;
@@ -71,6 +81,7 @@ declare namespace firebase {
   interface UserInfo {
     displayName : string | null ;
     email : string | null ;
+    phoneNumber : string | null ;
     photoURL : string | null ;
     providerId : string ;
     uid : string ;
@@ -123,9 +134,10 @@ declare namespace firebase.auth {
     currentUser : firebase.User | null ;
     fetchProvidersForEmail (email : string ) : firebase.Promise < any > ;
     getRedirectResult ( ) : firebase.Promise < any > ;
-    onAuthStateChanged (nextOrObserver : Object , error ? : (a : firebase.auth.Error ) => any , completed ? : ( ) => any ) : ( ) => any ;
-    onIdTokenChanged (nextOrObserver : Object , error ? : (a : firebase.auth.Error ) => any , completed ? : ( ) => any ) : ( ) => any ;
+    onAuthStateChanged (nextOrObserver : firebase.Observer < any , any > | ( (a : firebase.User | null ) => any ) , error ? : (a : firebase.auth.Error ) => any , completed ? : firebase.Unsubscribe ) : firebase.Unsubscribe ;
+    onIdTokenChanged (nextOrObserver : firebase.Observer < any , any > | ( (a : firebase.User | null ) => any ) , error ? : (a : firebase.auth.Error ) => any , completed ? : firebase.Unsubscribe ) : firebase.Unsubscribe ;
     sendPasswordResetEmail (email : string ) : firebase.Promise < any > ;
+    setPersistence (persistence : firebase.auth.Auth.Persistence ) : firebase.Promise < any > ;
     signInAndRetrieveDataWithCredential (credential : firebase.auth.AuthCredential ) : firebase.Promise < any > ;
     signInAnonymously ( ) : firebase.Promise < any > ;
     signInWithCredential (credential : firebase.auth.AuthCredential ) : firebase.Promise < any > ;
@@ -196,7 +208,7 @@ declare namespace firebase.auth {
 
   class PhoneAuthProvider extends PhoneAuthProvider_Instance {
     static PROVIDER_ID : string ;
-    static credential (verificationId : string , verificationCode : string ) : firebase.Promise < any > ;
+    static credential (verificationId : string , verificationCode : string ) : firebase.auth.AuthCredential ;
   }
   class PhoneAuthProvider_Instance implements firebase.auth.AuthProvider {
     constructor (auth ? : firebase.auth.Auth | null ) ;
@@ -224,6 +236,15 @@ declare namespace firebase.auth {
   }
 
   type UserCredential = { additionalUserInfo ? : firebase.auth.AdditionalUserInfo | null , credential : firebase.auth.AuthCredential | null , operationType ? : string | null , user : firebase.User | null } ;
+}
+
+declare namespace firebase.auth.Auth {
+  type Persistence = string ;
+  var Persistence : {
+    LOCAL : Persistence ,
+    NONE : Persistence ,
+    SESSION : Persistence ,
+  };
 }
 
 declare namespace firebase.database {
@@ -282,6 +303,7 @@ declare namespace firebase.database {
     key : string | null ;
     onDisconnect ( ) : firebase.database.OnDisconnect ;
     parent : firebase.database.Reference | null ;
+    path : string ;
     push (value ? : any , onComplete ? : (a : Error | null ) => any ) : firebase.database.ThenableReference ;
     remove (onComplete ? : (a : Error | null ) => any ) : firebase.Promise < any > ;
     root : firebase.database.Reference ;
@@ -306,8 +328,8 @@ declare namespace firebase.messaging {
   interface Messaging {
     deleteToken (token : string ) : firebase.Promise < any > | null ;
     getToken ( ) : firebase.Promise < any > | null ;
-    onMessage (nextOrObserver : Object ) : ( ) => any ;
-    onTokenRefresh (nextOrObserver : Object ) : ( ) => any ;
+    onMessage (nextOrObserver : firebase.Observer < any , any > | ( (a : Object ) => any ) ) : firebase.Unsubscribe ;
+    onTokenRefresh (nextOrObserver : firebase.Observer < any , any > | ( (a : Object ) => any ) ) : firebase.Unsubscribe ;
     requestPermission ( ) : firebase.Promise < any > | null ;
     setBackgroundMessageHandler (callback : (a : Object ) => any ) : any ;
     useServiceWorker (registration : any ) : any ;
@@ -392,7 +414,7 @@ declare namespace firebase.storage {
   interface UploadTask {
     cancel ( ) : boolean ;
     catch (onRejected : (a : Error ) => any ) : firebase.Promise < any > ;
-    on (event : firebase.storage.TaskEvent , nextOrObserver ? : null | Object , error ? : ( (a : Error ) => any ) | null , complete ? : ( ( ) => any ) | null ) : Function ;
+    on (event : firebase.storage.TaskEvent , nextOrObserver ? : firebase.Observer < any , any > | null | ( (a : Object ) => any ) , error ? : ( (a : Error ) => any ) | null , complete ? : ( firebase.Unsubscribe ) | null ) : Function ;
     pause ( ) : boolean ;
     resume ( ) : boolean ;
     snapshot : firebase.storage.UploadTaskSnapshot ;

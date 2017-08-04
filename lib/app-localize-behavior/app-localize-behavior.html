@@ -212,6 +212,9 @@ Polymer.AppLocalizeBehavior = {
     this.__checkLocalizationCache(proto);
 
     // Everytime any of the parameters change, invalidate the strings cache.
+    if (!proto.__localizationCache) {
+      proto['__localizationCache'] = {requests: {}, messages: {}, ajax: null};
+    }
     proto.__localizationCache.messages = {};
 
     return function() {

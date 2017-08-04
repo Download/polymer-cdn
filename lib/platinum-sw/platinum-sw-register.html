@@ -1,4 +1,5 @@
 <!--
+@license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
@@ -107,7 +108,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Fallback to './' as a default, though current browsers that don't support
         // document.currentScript also don't support service workers.
         value: document._currentScript ? document._currentScript.baseURI :
-          (document.currentScript ? document.currentScript.baseURI : './')
+          (HTMLImports.importForElement ? HTMLImports.importForElement(document.currentScript).baseURI :
+          (document.currentScript ? document.currentScript.baseURI : './'))
       },
 
       /**
@@ -185,7 +187,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        * ```
        *
        * So by default, registering `/root/service-worker.js` will cause the service worker's scope
-       * to cover `/root/index.html`, `/root/subdir1/index.html`, and /root/subdir2/index.html`.
+       * to cover `/root/index.html`, `/root/subdir1/index.html`, and `/root/subdir2/index.html`.
        *
        * If, for some reason, you need to register `/root/service-worker.js` from within
        * `/root/subdir1/index.html`, *and* you want that registration to only cover
@@ -250,9 +252,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._constructServiceWorkerUrl().then(function(serviceWorkerUrl) {
           this._registerServiceWorker(serviceWorkerUrl);
         }.bind(this));
-      } else {
-        this._setState('unsupported');
-        this.fire('service-worker-error', 'Service workers are not available in the current browser.');
       }
     },
 
@@ -367,7 +366,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.fire('service-worker-error', error.toString());
         if (error.name === 'NetworkError') {
           var location = serviceWorkerUrl.origin + serviceWorkerUrl.pathname;
-          console.error('A valid service worker script was not found at ' + location + '\n' +
+          Polymer.Base._error('A valid service worker script was not found at ' + location + '\n' +
             'To learn how to fix this, please see\n' +
             'https://github.com/PolymerElements/platinum-sw#top-level-sw-importjs');
         }
@@ -375,8 +374,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     attached: function() {
+      var isSupported = 'serviceWorker' in navigator;
+
+      if (!isSupported) {
+        this._setState('unsupported');
+        return;
+      }
+
       if (this.autoRegister) {
-        this.async(this.register);
+        /**
+          * Register requires all elements in the light dom to be upgraded. This
+          * behavior was expected in Polymer 1 but no longer in Polymer 2.
+          * Elements that are imported synchronously should be upgraded after
+          * the document's readyState is interactive and a
+          * requestAnimationFrame.
+          */
+        if (document.readyState !== 'complete' &&
+            document.readyState !== 'interactive') {
+
+          document.onreadystatechange = function() {
+            if (document.readyState === 'interactive') {
+              window.requestAnimationFrame(this.register.bind(this));
+            }
+          }.bind(this);
+
+        } else {
+          window.requestAnimationFrame(this.register.bind(this));
+        }
       }
     }
   });

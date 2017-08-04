@@ -13,7 +13,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
 -->
 
 
-##&lt;app-pouchdb-conflict-resolution&gt;
+## &lt;app-pouchdb-conflict-resolution&gt;
 
 `app-pouchdb-conflict-resolution` enables declarative configuration of conflict
 resolution strategies ordered by logical relationships in the DOM. Currently
@@ -41,7 +41,7 @@ configured strategy.
 
 
 
-##&lt;app-pouchdb-document&gt;
+## &lt;app-pouchdb-document&gt;
 
 `app-pouchdb-document` is an implementation of `Polymer.AppStorageBehavior`
 for reading and writing to individual PouchDB documents.
@@ -82,7 +82,7 @@ PouchDB document:
 
 
 
-##&lt;app-pouchdb-index&gt;
+## &lt;app-pouchdb-index&gt;
 
 `app-pouchdb-index` enables declarative, idempotent configuration of database
 indexes. The semantics map to those of the pouchdb-find plugin. For more
@@ -95,7 +95,7 @@ work.
 
 
 
-##&lt;app-pouchdb-query&gt;
+## &lt;app-pouchdb-query&gt;
 
 `app-pouchdb-query` allows for declarative, read-only querying into a PouchDB
 database. The semantics for querying match those of the
@@ -153,7 +153,7 @@ documentation on pouchdb-find selectors, please check out the docs
 
 
 
-##&lt;app-pouchdb-sync&gt;
+## &lt;app-pouchdb-sync&gt;
 
 `app-pouchdb-sync` arranges for one-directional or bi-directional
 synchronization between two PouchDB databases. For one-directional
@@ -176,7 +176,7 @@ documentation [here](https://pouchdb.com/guides/replication.html).
 
 
 
-##Polymer.AppPouchDBDatabaseBehavior
+## Polymer.AppPouchDBDatabaseBehavior
 
 `Polymer.AppPouchDBDatabaseBehavior` is an abstract implementation that
 is intended to be shared by any element that refers to and operates on a

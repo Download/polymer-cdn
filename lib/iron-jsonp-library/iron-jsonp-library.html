@@ -91,7 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._setLibraryErrorMessage(null);
         this._setLibraryLoaded(true);
         if (this.notifyEvent)
-          this.fire(this.notifyEvent, result);
+          this.fire(this.notifyEvent, result, {composed: true});
       }
     },
 

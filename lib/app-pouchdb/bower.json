@@ -1,6 +1,6 @@
 {
   "name": "app-pouchdb",
-  "version": "1.0.0",
+  "version": "2.1.1",
   "authors": [
     "The Polymer Authors"
   ],
@@ -17,24 +17,55 @@
   "private": true,
   "ignore": [],
   "dependencies": {
-    "polymer": "polymer/polymer#^v1.2.0",
     "pouchdb": "^6.1.1",
+    "polymer": "Polymer/polymer#1.9 - 2",
     "pouchdb-find": "^0.10.0",
-    "promise-polyfill": "polymerlabs/promise-polyfill#^1.0.0",
-    "app-storage": "polymerelements/app-storage#~1.0.0"
+    "app-storage": "polymerelements/app-storage#1 - 2"
   },
   "devDependencies": {
-    "web-component-tester": "^4.0.0",
-    "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
-    "paper-input": "polymerelements/paper-input#^1.0.0",
-    "paper-styles": "polymerelements/paper-styles#^1.0.0",
+    "iron-component-page": "polymerelements/iron-component-page#1 - 2",
+    "paper-input": "polymerelements/paper-input#1 - 2",
+    "paper-styles": "polymerelements/paper-styles#1 - 2",
     "font-roboto": "polymerelements/font-roboto#^1.0.0",
-    "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
-    "iron-icon": "polymerelements/iron-icon#^1.0.0",
-    "paper-fab": "polymerelements/paper-fab#^1.0.0",
-    "iron-icons": "polymerelements/iron-icons#^1.0.0",
-    "paper-button": "polymerelements/paper-button#^1.0.0",
-    "platinum-sw": "polymerelements/platinum-sw#^1.3.0",
-    "note-app-elements": "polymerlabs/note-app-elements"
+    "iron-flex-layout": "polymerelements/iron-flex-layout#1 - 2",
+    "iron-icon": "polymerelements/iron-icon#1 - 2",
+    "note-app-elements": "polymerlabs/note-app-elements#1 - 2",
+    "paper-fab": "polymerelements/paper-fab#1 - 2",
+    "iron-icons": "polymerelements/iron-icons#1 - 2",
+    "paper-button": "polymerelements/paper-button#1 - 2",
+    "promise-polyfill": "polymerlabs/promise-polyfill#1 - 2",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
+    "web-component-tester": "^6.0.0"
+  },
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "pouchdb": "^6.1.1",
+        "polymer": "Polymer/polymer#^1.9",
+        "pouchdb-find": "^0.10.0",
+        "app-storage": "polymerelements/app-storage#^1.0.0"
+      },
+      "devDependencies": {
+        "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
+        "paper-input": "polymerelements/paper-input#^1.0.0",
+        "paper-styles": "polymerelements/paper-styles#^1.0.0",
+        "font-roboto": "polymerelements/font-roboto#^1.0.0",
+        "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
+        "iron-icon": "polymerelements/iron-icon#^1.0.0",
+        "paper-fab": "polymerelements/paper-fab#^1.0.0",
+        "iron-icons": "polymerelements/iron-icons#^1.0.0",
+        "paper-button": "polymerelements/paper-button#^1.0.0",
+        "promise-polyfill": "polymerlabs/promise-polyfill#^1.0.0",
+        "note-app-elements": "polymerlabs/note-app-elements#1.x",
+        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+        "web-component-tester": "^4.0.0"
+      },
+      "resolutions": {
+        "webcomponentsjs": "^0.7"
+      }
+    }
+  },
+  "resolutions": {
+    "webcomponentsjs": "^1.0.0"
   }
 }

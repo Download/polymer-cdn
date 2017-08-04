@@ -21,36 +21,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../iron-icons/iron-icons.html">
   <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
   <link rel="import" href="../../paper-styles/color.html">
+  <link rel="import" href="../../neon-animation/web-animations.html">
   <link rel="import" href="../paper-tooltip.html">
   <link rel="import" href="test-button.html">
 
-  <style is="custom-style" include="demo-pages-shared-styles">
-    paper-icon-button, input, .avatar {
-      margin: 0 10px;
-    }
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+      paper-icon-button, input, .avatar {
+        margin: 0 10px;
+      }
 
-    .avatar {
-      box-sizing: border-box;
-      width: 40px;
-      height: 40px;
-      padding: 8px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
+      .avatar {
+        box-sizing: border-box;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
 
-    .blue {
-      background-color: var(--paper-light-blue-300);
-    }
-    .orange {
-      background-color: var(--paper-amber-500);
-    }
-    .green {
-      background-color: var(--paper-green-500);
-    }
-    .red {
-      background-color: var(--paper-pink-500);
-    }
-  </style>
+      .blue {
+        background-color: var(--paper-light-blue-300);
+      }
+      .orange {
+        background-color: var(--paper-amber-500);
+      }
+      .green {
+        background-color: var(--paper-green-500);
+      }
+      .red {
+        background-color: var(--paper-pink-500);
+      }
+    </style>
+  </custom-style>
 </head>
 <body unresolved>
   <div class="vertical-section-container centered">
@@ -108,22 +111,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h3>Tooltips can contain rich text (though against the Material Design spec)</h3>
     <demo-snippet class="centered-demo">
       <template>
-        <style is="custom-style">
-          paper-tooltip.custom img {
-            width: 40px;
-            padding-right: 10px;
-            padding-bottom: 10px;
-            float: left;
-          }
-          .custom {
-            --paper-tooltip-background: black;
-            --paper-tooltip-text-color: var(--paper-pink-100);
-            width: 160px;
-          }
-        </style>
+        <custom-style>
+          <style is="custom-style">
+            paper-tooltip.custom img {
+              width: 80px;
+              padding-right: 10px;
+              float: left;
+            }
+            .custom {
+              --paper-tooltip-background: black;
+              --paper-tooltip-text-color: var(--paper-pink-100);
+              width: 190px;
+            }
+          </style>
+        </custom-style>
         <paper-icon-button id="demo4_icon1" icon="favorite" alt="heart"></paper-icon-button>
         <paper-tooltip for="demo4_icon1" class="custom" animation-delay="0">
-          <img src="https://placekitten.com/50/50">
+          <img src="./donuts.png">
           Rich-text tooltips are doable but against the Material Design spec.
         </paper-tooltip>
       </template>

@@ -17,7 +17,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
 _[Demo and API docs](https://elements.polymer-project.org/elements/paper-tooltip)_
 
 
-##&lt;paper-tooltip&gt;
+## &lt;paper-tooltip&gt;
 
 Material design: [Tooltips](https://www.google.com/design/spec/components/tooltips.html)
 

@@ -1,0 +1,63 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../font-roboto/roboto.html">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="note-app-shared-styles">
+  <template>
+    <style>
+      :host {
+        display: block;
+        background-color: #e8e8e8;
+        height: 100vh;
+        @apply --paper-font-common-base;
+
+        --paper-fab-background: var(--paper-teal-500);
+      }
+
+
+      .notes {
+        position: relative;
+        box-sizing: border-box;
+        padding: 1em;
+        max-height: calc(100vh - 46px);
+        overflow: auto;
+      }
+
+      na-note {
+        margin-bottom: 1em;
+      }
+
+      paper-fab {
+        position: absolute;
+        bottom: 1em;
+        right: 1em;
+      }
+
+      @media (min-width: 640px) {
+        na-note {
+          max-width: 320px;
+          margin: 0 0.5em 1em;
+        }
+
+        .notes {
+          @apply --layout-horizontal;
+          @apply --layout-wrap;
+          justify-content: center;
+          align-content: space-around;
+        }
+      }
+    </style>
+  </template>
+</dom-module>

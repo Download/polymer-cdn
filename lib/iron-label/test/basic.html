@@ -75,7 +75,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('id generated on creation', function() {
         var e = document.createElement('iron-label');
+        document.body.appendChild(e);
         assert(e.id, 'iron-label-0');
+        document.body.removeChild(e);
       });
 
       test('id not overwritten if given', function() {

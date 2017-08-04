@@ -18,84 +18,117 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>iron-validator-behavior demo</title>
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-
-  <link rel="import" href="../../iron-meta/iron-meta.html">
-  <link rel="import" href="../../paper-styles/demo-pages.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../paper-styles/color.html">
   <link rel="import" href="cats-only.html">
 
-  <style is="custom-style">
-
-    h1 {
-      margin-left: 30px;
-    }
-
-    .centered {
-      padding: 0;
-    }
-
-    .valid {
-      color: var(--google-green-500);
-    }
-
-    .invalid {
-      color: var(--google-red-500);
-    }
-
-    fieldset {
-      background-color: var(--google-grey-100);
-      border: none;
-      margin: 10px 0;
-      padding: 10px 30px;
-    }
-
-    legend {
-      float: left;
-      width: 100%;
-    }
-
-    input, select {
-      padding: 0.4em;
-      font-size: 16px;
-      margin: 5px;
-    }
-
-  </style>
-
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+      input, select {
+        padding: 0.4em;
+        font-size: 16px;
+        margin: 5px;
+      }
+    </style>
+  </custom-style>
 </head>
 <body unresolved>
+  <div class="vertical-section-container centered">
+    <h3>The <code>cats-only</code> validator only accepts the string "cats" and
+    its suffixes ("c", "ca", "cat").</h3>
+    <demo-snippet class="centered-demo">
+      <template>
+        <custom-style>
+          <style is="custom-style">
+            #simpleInput[invalid] {
+              color: var(--google-red-500);
+              border: 2px solid var(--google-red-500);
+            }
+            #simpleInput:not([invalid]) {
+              color: var(--google-green-500);
+              border: 2px solid var(--google-green-500);
+            }
+          </style>
+        </custom-style>
+        <cats-only id="simpleCats"></cats-only>
+        <input id="simpleInput">
 
-  <div class="vertical-section vertical-section-container centered">
-    <h1>&lt;iron-validator-behavior&gt;</h1>
-    <template is="dom-bind">
+        <script>
+          simpleInput.addEventListener('input', _onSimpleInput.bind(simpleInput));
+          function _onSimpleInput() {
+            var valid = simpleCats.validate(this.value);
+            if (valid)
+              this.removeAttribute('invalid');
+            else
+              this.setAttribute('invalid', true);
+          };
+        </script>
+      </template>
+    </demo-snippet>
 
-      <cats-only></cats-only>
+    <h3>Validators can be used with multiple elements</h3>
+    <demo-snippet class="centered-demo">
+      <template>
+        <custom-style>
+          <style is="custom-style">
+            #multiInput[invalid] input {
+              color: var(--google-red-500);
+              border: 2px solid var(--google-red-500);
+            }
+            #multiInput:not([invalid]) input {
+              color: var(--google-green-500);
+              border: 2px solid var(--google-green-500);
+            }
+          </style>
+        </custom-style>
 
-      <fieldset>
-        <legend>Only type <code>cats</code></legend>
-        <input on-input="_onInput">
-        <span class="valid" hidden$="[[!valid]]">valid</span>
-        <span class="invalid" hidden$="[[valid]]">invalid</span>
-      </fieldset>
-
-      <fieldset>
-        <legend>Only type <code>cats</code> across both input fields</legend>
-
-        <span on-input="_onInputMulti">
+        <p>Type "cats" in both inputs to make everything valid</p>
+        <cats-only id="multiCats"></cats-only>
+        <span id="multiInput">
           <input>
           <input>
         </span>
 
-        <span class="valid" hidden$="[[!validMulti]]">valid</span>
-        <span class="invalid" hidden$="[[validMulti]]">invalid</span>
-      </fieldset>
+        <script>
+          multiInput.addEventListener('input', _onMultiInput.bind(multiInput));
+          function _onMultiInput() {
+            var values = [];
+            var nodes = Polymer.dom(this).querySelectorAll('input');
+            for (var node, i = 0; node = nodes[i]; i++) {
+              values.push(node.value);
+            }
 
-      <section>
-      <form on-submit="_onSubmit">
-        <fieldset>
-          <legend>Only type <code>cats</code> in the form</legend>
-          <label>
-            Type something: <input name="something">
-          </label>
+            var valid = multiCats.validate(values);
+            if (valid)
+              this.removeAttribute('invalid');
+            else
+              this.setAttribute('invalid', true);
+          };
+        </script>
+      </template>
+    </demo-snippet>
+
+    <h3>Validators can be used with forms</h3>
+    <demo-snippet class="centered-demo">
+      <template>
+        <custom-style>
+          <style is="custom-style">
+            #form[invalid] {
+              border: 2px solid var(--google-red-500);
+            }
+            #form:not([invalid]) {
+              border: 2px solid var(--google-green-500);
+            }
+          </style>
+        </custom-style>
+
+        <p>The form is validated when the button is pressed. Type "cats" in the
+          input and select "cats" from the dropdown to make everything valid.</p>
+        <cats-only id="formCats"></cats-only>
+
+        <form id="form">
+          <label>Type something: <input name="something"></label>
           <br>
           <label>
             Your favorite pet:
@@ -107,52 +140,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </label>
           <br>
           <button type="submit">submit!</button>
-          <span class="valid" hidden$="[[!validForm]]">valid</span>
-          <span class="invalid" hidden$="[[validForm]]">invalid</span>
-        </fieldset>
-      </form>
-      </section>
+        </form>
 
-    </template>
+        <script>
+          form.addEventListener('submit', _onSubmit.bind(form));
 
+          function _onSubmit(event) {
+            event.preventDefault();
+
+            var data = {};
+            for (var el, i = 0; el = this.elements[i]; i++) {
+              if (el.name) {
+                data[el.name] = el.value;
+              }
+            }
+
+            var valid = formCats.validate(data);
+            if (valid)
+              this.removeAttribute('invalid');
+            else
+              this.setAttribute('invalid', true);
+          };
+        </script>
+      </template>
+    </demo-snippet>
   </div>
-
-  <script>
-
-    document.addEventListener('WebComponentsReady', function() {
-
-      var validator = new Polymer.IronMeta({type: 'validator'}).byKey('cats-only');
-
-      var scope = document.querySelector('template[is=dom-bind]');
-      scope.valid = scope.validMulti = scope.validForm = true;
-
-      scope._onInput = function(event) {
-        this.valid = validator.validate(event.target.value);
-      };
-
-      scope._onInputMulti = function(event) {
-        var values = [];
-        var nodes = Polymer.dom(event.currentTarget).querySelectorAll('input');
-        for (var node, i = 0; node = nodes[i]; i++) {
-          values.push(node.value);
-        }
-        this.validMulti = validator.validate(values);
-      };
-
-      scope._onSubmit = function(event) {
-        event.preventDefault();
-
-        var data = {};
-        for (var el, i = 0; el = event.target.elements[i]; i++) {
-          if (el.name) {
-            data[el.name] = el.value;
-          }
-        }
-        this.validForm = validator.validate(data);
-      };
-
-    });
-
-  </script>
-
 </body>

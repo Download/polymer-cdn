@@ -177,13 +177,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return true;
         }
 
-        contentElements = Polymer.dom(element).querySelectorAll('content');
+        contentElements = Polymer.dom(element).querySelectorAll('content,slot');
 
         for (contentIndex = 0; contentIndex < contentElements.length; ++contentIndex) {
 
           distributedNodes = Polymer.dom(contentElements[contentIndex]).getDistributedNodes();
 
           for (nodeIndex = 0; nodeIndex < distributedNodes.length; ++nodeIndex) {
+            // Polymer 2.x returns slot.assignedNodes which can contain text nodes.
+            if (distributedNodes[nodeIndex].nodeType !== Node.ELEMENT_NODE) continue;
 
             if (this._composedTreeContains(distributedNodes[nodeIndex], child)) {
               return true;

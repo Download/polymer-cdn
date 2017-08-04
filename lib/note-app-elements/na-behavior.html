@@ -1,0 +1,116 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../app-storage/app-network-status-behavior.html">
+
+<script>
+  (function() {
+    'use strict';
+
+    /**
+     * @polymerBehavior Polymer.NoteAppBehaviorImpl
+     */
+    Polymer.NoteAppBehaviorImpl = {
+      properties: {
+        editableNoteId: {
+          type: String,
+          notify: true
+        }
+      },
+
+      get notesPath() {
+        return '';
+      },
+
+      get isEditable() {
+        return true;
+      },
+
+      toEditableId: function(noteId) {
+        return noteId;
+      },
+
+      edit: function(event) {
+        if (this.isEditable) {
+          var noteElement = Polymer.dom(event).localTarget;
+          this.editableNoteId = this.toEditableId(noteElement.id);
+
+          this.$.document.transactionsComplete.then(function() {
+            this.$.editor.open(noteElement);
+          }.bind(this));
+        }
+      },
+
+      create: function() {
+        if (this.isEditable) {
+          this.editableNoteId = null;
+          this.$.editor.open();
+        }
+      },
+
+      commitChange: function(event) {
+        var changeCommits;
+
+        switch (event.detail) {
+          case 'save':
+            changeCommits = this.save();
+            break;
+          case 'delete':
+            changeCommits = this.delete();
+            break;
+          default:
+            changeCommits = Promise.resolve();
+            break;
+        }
+
+        if (this.$.query && this.$.query.refresh) {
+          changeCommits.then(function() {
+            this.$.query.refresh();
+          }.bind(this));
+        }
+      },
+
+      save: function() {
+        if (this.$.document.isNew &&
+            (this.editableNote.title ||
+             this.editableNote.body)) {
+          return this.$.document.saveValue(this.notesPath).then(function() {
+            this.$.document.reset();
+          }.bind(this));
+        }
+
+        return Promise.resolve();
+      },
+
+      delete: function() {
+        if (!this.$.document.isNew) {
+          this.$.document.destroy();
+        }
+
+        return Promise.resolve();
+      },
+
+      signOut: function() {
+        if (this.$.auth) {
+          this.$.auth.signOut();
+        }
+      }
+    };
+
+    /**
+     * @polymerBehavior Polymer.NoteAppBehavior
+     */
+    Polymer.NoteAppBehavior = [
+      Polymer.AppNetworkStatusBehavior,
+      Polymer.NoteAppBehaviorImpl
+    ];
+  })();
+</script>

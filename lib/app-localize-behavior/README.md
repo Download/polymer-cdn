@@ -15,7 +15,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
 [![Build status](https://travis-ci.org/PolymerElements/app-localize-behavior.svg?branch=master)](https://travis-ci.org/PolymerElements/app-localize-behavior)
 
 
-##Polymer.AppLocalizeBehavior
+## Polymer.AppLocalizeBehavior
 
 `Polymer.AppLocalizeBehavior` wraps the [format.js](http://formatjs.io/) library to
 help you internationalize your application. Note that if you're on a browser that

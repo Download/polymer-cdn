@@ -69,9 +69,9 @@ Custom property | Description | Default
   <template strip-whitespace>
     <style>
       :host {
-        @apply(--layout);
-        @apply(--layout-justified);
-        @apply(--layout-center);
+        @apply --layout;
+        @apply --layout-justified;
+        @apply --layout-center;
         width: 200px;
         cursor: default;
         -webkit-user-select: none;
@@ -79,10 +79,10 @@ Custom property | Description | Default
         -ms-user-select: none;
         user-select: none;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        --paper-progress-active-color: var(--paper-slider-active-color, --google-blue-700);
-        --paper-progress-secondary-color: var(--paper-slider-secondary-color, --google-blue-300);
-        --paper-progress-disabled-active-color: var(--paper-slider-disabled-active-color, --paper-grey-400);
-        --paper-progress-disabled-secondary-color: var(--paper-slider-disabled-secondary-color, --paper-grey-400);
+        --paper-progress-active-color: var(--paper-slider-active-color, var(--google-blue-700));
+        --paper-progress-secondary-color: var(--paper-slider-secondary-color, var(--google-blue-300));
+        --paper-progress-disabled-active-color: var(--paper-slider-disabled-active-color, var(--paper-grey-400));
+        --paper-progress-disabled-secondary-color: var(--paper-slider-disabled-secondary-color, var(--paper-grey-400));
         --calculated-paper-slider-height: var(--paper-slider-height, 2px);
       }
 
@@ -90,10 +90,33 @@ Custom property | Description | Default
       :host(:focus) {
         outline: none;
       }
-        
+
+      /** 
+       * NOTE(keanulee): Though :host-context is not universally supported, some pages
+       * still rely on paper-slider being flipped when dir="rtl" is set on body. For full
+       * compatability, dir="rtl" must be explicitly set on paper-slider.
+       */
       :host-context([dir="rtl"]) #sliderContainer {
         -webkit-transform: scaleX(-1);
         transform: scaleX(-1);
+      }
+
+      /** 
+       * NOTE(keanulee): This is separate from the rule above because :host-context may
+       * not be recognized.
+       */
+      :host([dir="rtl"]) #sliderContainer {
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+      }
+
+      /** 
+       * NOTE(keanulee): Needed to override the :host-context rule (where supported)
+       * to support LTR sliders in RTL pages.
+       */
+      :host([dir="ltr"]) #sliderContainer {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
       }
 
       #sliderContainer {
@@ -139,7 +162,7 @@ Custom property | Description | Default
         padding: 15px 0;
         width: 100%;
         background-color: var(--paper-slider-bar-color, transparent);
-        --paper-progress-container-color: var(--paper-slider-container-color, --paper-grey-400);
+        --paper-progress-container-color: var(--paper-slider-container-color, var(--paper-grey-400));
         --paper-progress-height: var(--calculated-paper-slider-height);
       }
 
@@ -151,11 +174,11 @@ Custom property | Description | Default
         right: -1px;
         box-sizing: border-box;
         pointer-events: none;
-        @apply(--layout-horizontal);
+        @apply --layout-horizontal;
       }
 
       .slider-marker {
-        @apply(--layout-flex);
+        @apply --layout-flex;
       }
       .slider-markers::after,
       .slider-marker::after {
@@ -198,8 +221,8 @@ Custom property | Description | Default
         margin: 10px;
         width: calc(100% - 20px);
         height: calc(100% - 20px);
-        background-color: var(--paper-slider-knob-color, --google-blue-700);
-        border: 2px solid var(--paper-slider-knob-color, --google-blue-700);
+        background-color: var(--paper-slider-knob-color, var(--google-blue-700));
+        border: 2px solid var(--paper-slider-knob-color, var(--google-blue-700));
         border-radius: 50%;
 
         -moz-box-sizing: border-box;
@@ -218,11 +241,11 @@ Custom property | Description | Default
 
       .ring > .slider-knob > .slider-knob-inner {
         background-color: var(--paper-slider-knob-start-color, transparent);
-        border: 2px solid var(--paper-slider-knob-start-border-color, --paper-grey-400);
+        border: 2px solid var(--paper-slider-knob-start-border-color, var(--paper-grey-400));
       }
 
       .slider-knob-inner::before {
-        background-color: var(--paper-slider-pin-color, --google-blue-700);
+        background-color: var(--paper-slider-pin-color, var(--google-blue-700));
       }
 
       .pin > .slider-knob > .slider-knob-inner::before {
@@ -246,7 +269,7 @@ Custom property | Description | Default
       }
 
       .pin.ring > .slider-knob > .slider-knob-inner::before {
-        background-color: var(--paper-slider-pin-start-color, --paper-grey-400);
+        background-color: var(--paper-slider-pin-start-color, var(--paper-grey-400));
       }
 
       .pin.expand > .slider-knob > .slider-knob-inner::before {
@@ -282,7 +305,7 @@ Custom property | Description | Default
         --paper-input-container-input: {
           text-align: center;
         };
-        @apply(--paper-slider-input);
+        @apply --paper-slider-input;
       }
 
       /* disabled state */
@@ -291,19 +314,19 @@ Custom property | Description | Default
       }
 
       .disabled > .slider-knob > .slider-knob-inner {
-        background-color: var(--paper-slider-disabled-knob-color, --paper-grey-400);
-        border: 2px solid var(--paper-slider-disabled-knob-color, --paper-grey-400);
+        background-color: var(--paper-slider-disabled-knob-color, var(--paper-grey-400));
+        border: 2px solid var(--paper-slider-disabled-knob-color, var(--paper-grey-400));
         -webkit-transform: scale3d(0.75, 0.75, 1);
         transform: scale3d(0.75, 0.75, 1);
       }
 
       .disabled.ring > .slider-knob > .slider-knob-inner {
         background-color: var(--paper-slider-knob-start-color, transparent);
-        border: 2px solid var(--paper-slider-knob-start-border-color, --paper-grey-400);
+        border: 2px solid var(--paper-slider-knob-start-border-color, var(--paper-grey-400));
       }
 
       paper-ripple {
-        color: var(--paper-slider-knob-color, --google-blue-700);
+        color: var(--paper-slider-knob-color, var(--google-blue-700));
       }
     </style>
 
@@ -504,16 +527,16 @@ Custom property | Description | Default
         this.setAttribute('aria-valuemax', max);
         this.setAttribute('aria-valuenow', value);
 
-        this._positionKnob(this._calcRatio(value));
+        this._positionKnob(this._calcRatio(value) * 100);
       },
 
       _valueChanged: function() {
-        this.fire('value-change');
+        this.fire('value-change', {composed: true});
       },
 
       _immediateValueChanged: function() {
         if (this.dragging) {
-          this.fire('immediate-value-change');
+          this.fire('immediate-value-change', {composed: true});
         } else {
           this.value = this.immediateValue;
         }
@@ -534,17 +557,17 @@ Custom property | Description | Default
 
       _positionKnob: function(ratio) {
         this._setImmediateValue(this._calcStep(this._calcKnobPosition(ratio)));
-        this._setRatio(this._calcRatio(this.immediateValue));
+        this._setRatio(this._calcRatio(this.immediateValue) * 100);
 
-        this.$.sliderKnob.style.left = (this.ratio * 100) + '%';
+        this.$.sliderKnob.style.left = this.ratio + '%';
         if (this.dragging) {
-          this._knobstartx = this.ratio * this._w;
+          this._knobstartx = (this.ratio * this._w) / 100;
           this.translate3d(0, 0, 0, this.$.sliderKnob);
         }
       },
 
       _calcKnobPosition: function(ratio) {
-        return (this.max - this.min) * ratio + this.min;
+        return (this.max - this.min) * ratio / 100 + this.min;
       },
 
       _onTrack: function(event) {
@@ -563,8 +586,9 @@ Custom property | Description | Default
       },
 
       _trackStart: function(event) {
+        this._setTransiting(false);
         this._w = this.$.sliderBar.offsetWidth;
-        this._x = this.ratio * this._w;
+        this._x = this.ratio * this._w / 100;
         this._startx = this._x;
         this._knobstartx = this._startx;
         this._minx = - this._startx;
@@ -583,7 +607,7 @@ Custom property | Description | Default
             this._maxx, Math.max(this._minx, event.detail.dx * direction));
         this._x = this._startx + dx;
 
-        var immediateValue = this._calcStep(this._calcKnobPosition(this._x / this._w));
+        var immediateValue = this._calcStep(this._calcKnobPosition(this._x / this._w * 100));
         this._setImmediateValue(immediateValue);
 
         // update knob's position
@@ -601,7 +625,7 @@ Custom property | Description | Default
 
         s.transform = s.webkitTransform = '';
 
-        this.fire('change');
+        this.fire('change', {composed: true});
       },
 
       _knobdown: function(event) {
@@ -617,9 +641,9 @@ Custom property | Description | Default
       _bardown: function(event) {
         this._w = this.$.sliderBar.offsetWidth;
         var rect = this.$.sliderBar.getBoundingClientRect();
-        var ratio = (event.detail.x - rect.left) / this._w;
+        var ratio = (event.detail.x - rect.left) / this._w * 100;
         if (this._isRTL) {
-          ratio = 1 - ratio;
+          ratio = 100 - ratio;
         }
         var prevRatio = this.ratio;
 
@@ -638,7 +662,7 @@ Custom property | Description | Default
         }
 
         this.async(function() {
-          this.fire('change');
+          this.fire('change', {composed: true});
         });
 
         // cancel selection
@@ -735,7 +759,7 @@ Custom property | Description | Default
 
       _changeValue: function(event) {
         this.value = event.target.value;
-        this.fire('change');
+        this.fire('change', {composed: true});
       },
 
       _inputKeyDown: function(event) {
