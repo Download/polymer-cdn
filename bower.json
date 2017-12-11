@@ -107,22 +107,5 @@
     "prism-element": "PolymerElements/prism-element#^2.0.1",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.20",
     "web-component-tester": "^6.4.1"
-  },
-  "resolutions": {
-    "webcomponentsjs": "^v1.0.2",
-    "iron-a11y-announcer": "^2.3.1",
-    "iron-a11y-keys-behavior": "^2.0.0",
-    "iron-autogrow-textarea": "^2.3.1",
-    "iron-behaviors": "^2.3.1",
-    "iron-form-element-behavior": "^2.3.1",
-    "iron-flex-layout": "^2.3.1",
-    "iron-icon": "^2.3.1",
-    "iron-input": "^2.3.1",
-    "iron-meta": "^2.3.1",
-    "iron-validatable-behavior": "^2.3.1",
-    "iron-validator-behavior": "^2.3.1",
-    "paper-input": "^2.3.1",
-    "paper-styles": "^2.3.1",
-    "polymer": "^2.3.1"
   }
 }
