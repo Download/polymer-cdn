@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+    <title>Iron Label Demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../iron-label.html">
+    <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+    <link rel="import" href="../../paper-slider/paper-slider.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        label, iron-label {
+          line-height: 2;
+        }
+        paper-button {
+          display: inline;
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Native label element</h3>
+      <demo-snippet>
+        <template>
+          <label>native label wrapping a checkbox<input type="checkbox"></label><br>
+          <label>native label wrapping an input<input></label><br>
+          <label>native label wrapping an input with before <input> after</label><br>
+          <label>native label wrapping a button with before <button>Hello</button> after</label><br>
+          <label for="native">label for a target element</label>
+          <button id="native">hello</button><br>
+
+          <label>native label wrapping a paper-checkbox (should not work)
+            <paper-checkbox></paper-checkbox>
+          </label><br>
+
+          <label>native label wrapping a paper-button (should not work)
+            <paper-button raised>Button</paper-button>
+          </label>
+        </template>
+      </demo-snippet>
+
+      <h3>iron-label element</h3>
+      <demo-snippet>
+        <template>
+          <iron-label>iron-label wrapping a checkbox<input type="checkbox"></iron-label><br>
+          <iron-label>iron-label wrapping an input<input></iron-label><br>
+
+          <iron-label for="quux">iron-label for a target element</iron-label>
+          <input id="quux" type="checkbox"><br>
+
+          <iron-label for="foo">
+            iron-label with an image, for a target element
+            <img src="http://placehold.it/200x200" alt="200x200 placeholder image">
+          </iron-label>
+
+          <input id="foo" type="checkbox"><br>
+          <iron-label>iron-label wrapping an input with before <input> after</iron-label><br>
+          <iron-label>iron-label wrapping a button with before <button>Hello</button> after</iron-label><br>
+
+          <iron-label>iron-label wrapping a paper-checkbox
+            <paper-checkbox></paper-checkbox>
+          </iron-label><br>
+
+          <iron-label>iron-label wrapping a paper-button
+            <paper-button raised>Button</paper-button>
+          </iron-label>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
