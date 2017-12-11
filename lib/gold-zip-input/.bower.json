@@ -1,6 +1,6 @@
 {
   "name": "gold-zip-input",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "description": "An input field for a zip code",
   "authors": [
     "The Polymer Authors"
@@ -21,27 +21,46 @@
   "homepage": "https://github.com/PolymerElements/gold-zip-input",
   "ignore": [],
   "dependencies": {
-    "iron-validator-behavior": "PolymerElements/iron-validator-behavior#^1.0.0",
-    "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#^1.0.0",
-    "iron-icon": "PolymerElements/iron-icon#^1.0.0",
-    "paper-input": "PolymerElements/paper-input#^1.0.0",
-    "paper-styles": "PolymerElements/paper-styles#^1.0.0",
-    "polymer": "Polymer/polymer#^1.1.0"
+    "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#1 - 2",
+    "iron-icon": "PolymerElements/iron-icon#1 - 2",
+    "iron-validator-behavior": "PolymerElements/iron-validator-behavior#1 - 2",
+    "paper-input": "PolymerElements/paper-input#1 - 2",
+    "paper-styles": "PolymerElements/paper-styles#1 - 2",
+    "polymer": "Polymer/polymer#1.9 - 2"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
-    "test-fixture": "PolymerElements/test-fixture#^1.0.0",
-    "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+    "iron-component-page": "PolymerElements/iron-component-page#1 - 2",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#1 - 2",
+    "test-fixture": "PolymerElements/test-fixture#^3.0.0-rc.1",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
-  "_release": "1.0.6",
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#^1.0.0",
+        "iron-icon": "PolymerElements/iron-icon#^1.0.0",
+        "iron-validator-behavior": "PolymerElements/iron-validator-behavior#^1.0.0",
+        "paper-input": "PolymerElements/paper-input#^1.0.0",
+        "paper-styles": "PolymerElements/paper-styles#^1.0.0",
+        "polymer": "Polymer/polymer#^1.1.0"
+      },
+      "devDependencies": {
+        "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+        "iron-test-helpers": "PolymerElements/iron-test-helpers#^1.0.0",
+        "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+        "web-component-tester": "^4.0.0",
+        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+      }
+    }
+  },
+  "_release": "2.0.0",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.6",
-    "commit": "cf9d7d170cababd24a2922558a7c87d9e99fe5ed"
+    "tag": "v2.0.0",
+    "commit": "4a91d23e9fca9b625a1caf9bde5cf96e794c91b0"
   },
   "_source": "https://github.com/PolymerElements/gold-zip-input.git",
-  "_target": "^1.0.0",
+  "_target": "^2.0.0",
   "_originalSource": "PolymerElements/gold-zip-input"
 }

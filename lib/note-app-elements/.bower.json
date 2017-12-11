@@ -55,6 +55,6 @@
     "commit": "296c9e7549f1cfd146391fb4a6c8e44b283c4135"
   },
   "_source": "https://github.com/PolymerLabs/note-app-elements.git",
-  "_target": "^2.0.0",
+  "_target": "^2.1.2",
   "_originalSource": "PolymerLabs/note-app-elements"
 }

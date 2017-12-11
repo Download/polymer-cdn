@@ -1,8 +1,11 @@
 {
 	"name": "polymer-cdn",
-	"version": "2.0.2",
+	"version": "2.3.1",
 	"description": "A mirror of Polymer so it can be used from CDN.",
-	"keywords": ["polymer", "cdn"],
+	"keywords": [
+		"polymer",
+		"cdn"
+	],
 	"homepage": "https://github.com/download/polymer-cdn",
 	"bugs": "https://github.com/download/polymer-cdn/issues",
 	"author": {
@@ -12,16 +15,19 @@
 	},
 	"contributors": [
 		{
-		  "name": "",
-		  "e-mail": "",
-		  "website": ""
+			"name": "",
+			"e-mail": "",
+			"website": ""
 		}
 	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/download/polymer-cdn.git"
 	},
-	"licenses": [{"type": "BSD"}],
-	"devDependencies": {
-	}
+	"licenses": [
+		{
+			"type": "BSD"
+		}
+	],
+	"devDependencies": {}
 }

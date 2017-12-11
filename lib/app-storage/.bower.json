@@ -66,6 +66,6 @@
     "commit": "120d8872839c7a3c798cda7e2f7ea86a8a739d43"
   },
   "_source": "https://github.com/PolymerElements/app-storage.git",
-  "_target": "^2.0.0",
+  "_target": "^2.0.2",
   "_originalSource": "PolymerElements/app-storage"
 }

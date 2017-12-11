@@ -1,6 +1,6 @@
 {
   "name": "polymerfire",
-  "version": "2.1.0",
+  "version": "2.2.1",
   "authors": [
     "Firebase"
   ],
@@ -18,26 +18,30 @@
     "/test/"
   ],
   "dependencies": {
-    "polymer": "polymer/polymer#1.9 - 2",
+    "polymer": "Polymer/polymer#1.9 - 2",
     "firebase": "^4.1.1",
     "app-storage": "PolymerElements/app-storage#1 - 2"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#1 - 2",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
-    "web-component-tester": "Polymer/web-component-tester#^6.0.0"
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "paper-progress": "PolymerElements/paper-progress#1 - 2",
+    "paper-toast": "PolymerElements/paper-toast#1 - 2"
   },
   "variants": {
     "1.x": {
       "dependencies": {
         "polymer": "Polymer/polymer#^1.9",
         "firebase": "^4.1.1",
-        "app-storage": "polymerelements/app-storage#^0.9.0"
+        "app-storage": "PolymerElements/app-storage#^0.9.0"
       },
       "devDependencies": {
         "iron-component-page": "PolymerElements/iron-component-page#^1.0",
         "web-component-tester": "^4.0.0",
-        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+        "paper-progress": "PolymerElements/paper-progress#^1.0",
+        "paper-toast": "PolymerElements/paper-toast#^1.0"
       },
       "resolutions": {
         "webcomponentsjs": "^0.7"
@@ -47,13 +51,13 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "_release": "2.1.0",
+  "_release": "2.2.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.1.0",
-    "commit": "7d774b4186c69f08020c006647ed564a1beabdca"
+    "tag": "v2.2.1",
+    "commit": "5b4011f203a6abf177dc371933068484577d0b56"
   },
   "_source": "https://github.com/firebase/polymerfire.git",
-  "_target": "^2.0.0",
+  "_target": "^2.2.1",
   "_originalSource": "firebase/polymerfire"
 }
