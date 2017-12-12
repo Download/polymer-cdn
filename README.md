@@ -1,4 +1,4 @@
-# polymer-cdn <sup><sub>v2.0.2</sub></sup>
+# polymer-cdn <sup><sub>v2.3.1</sub></sup>
 **A mirror of Polymer's components so that they can be used directly from CDN**
 
 ![Polymer CDN is powered by MaxCDN](http://i.imgur.com/9obTXpk.png)
@@ -10,7 +10,7 @@
 ## How to use
 In general, given an element named `my-cool-element`, the CDN url for it will be:
 ```
-https://cdn.rawgit.com/download/polymer-cdn/2.0.2/lib/my-cool-element/my-cool-element.html
+https://cdn.rawgit.com/download/polymer-cdn/2.3.1/lib/my-cool-element/my-cool-element.html
 ```
 To be sure, browse this repo and copy-paste the url to the raw version into [RawGit](https://rawgit.com).
 
@@ -49,7 +49,7 @@ which explains it in more detail.
 
 
 ## Contents
-All the libraries available in polymer-cdn can be found side-by-side in the [lib](https://github.com/Download/polymer-cdn/tree/2.0.2/lib) subfolder. Contained therein are all elements [listed as compatible with Polymer 2](https://www.polymer-project.org/2.0/docs/about_20#elements).
+All the libraries available in polymer-cdn can be found side-by-side in the [lib](https://github.com/Download/polymer-cdn/tree/2.3.1/lib) subfolder. Contained therein are all elements [listed as compatible with Polymer 2](https://www.polymer-project.org/2.0/docs/about_20#elements).
 
 > It looks like `gold-zip-input` wasn't actually ported to Polymer 2 yet at the time of writing this, despite being listed as compatible, as witnessed by incompatibility warnings concerning this element in the Bower output at the bottom of this page. Your mileage with this element may vary.
 
@@ -316,7 +316,7 @@ polymer-cdn#2.3.1
 │ ├── iron-resizable-behavior#2.0.1
 │ ├── iron-selector#2.0.1
 │ └── polymer#2.3.1
-├─┬ paper-dropdown-menu#2.0.0
+├─┬ paper-dropdown-menu#2.0.1
 │ ├── iron-a11y-keys-behavior#2.0.1
 │ ├── iron-form-element-behavior#2.0.0
 │ ├── iron-icon#2.0.1
