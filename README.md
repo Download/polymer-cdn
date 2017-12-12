@@ -64,7 +64,7 @@ These dependencies are themselves also listed at the top-level, so you can work 
 tree for a library by carefully examining this diagram.
 
 ```sh
-polymer-cdn#2.3.1 /mnt/c/Users/levi/projects/levi/polymer-cdn
+polymer-cdn#2.3.1
 ├─┬ app-layout#2.0.4
 │ ├─┬ iron-flex-layout#2.0.1
 │ │ └─┬ polymer#2.3.1
@@ -316,7 +316,7 @@ polymer-cdn#2.3.1 /mnt/c/Users/levi/projects/levi/polymer-cdn
 │ ├── iron-resizable-behavior#2.0.1
 │ ├── iron-selector#2.0.1
 │ └── polymer#2.3.1
-├─┬ paper-dropdown-menu#2.0.0
+├─┬ paper-dropdown-menu#2.0.1
 │ ├── iron-a11y-keys-behavior#2.0.1
 │ ├── iron-form-element-behavior#2.0.0
 │ ├── iron-icon#2.0.1
