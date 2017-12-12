@@ -75,6 +75,6 @@
     "commit": "bdcfb530a31eb8807bfb8eade45b1e2baee78af9"
   },
   "_source": "https://github.com/PolymerElements/app-pouchdb.git",
-  "_target": "^2.0.0",
+  "_target": "^2.1.1",
   "_originalSource": "PolymerElements/app-pouchdb"
 }
