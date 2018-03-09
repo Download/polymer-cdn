@@ -1,0 +1,63 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+helicarrier-dataset/
+# Package Files #
+*.war
+*.ear
+*.apk
+*.ap_
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
+.DS_Store
+
+# Eclipse project files
+.classpath
+.project
+
+# Android Studio
+*.iml
+.idea
+.gradle
+build/
+/helicarrier/build/
+
+/*/out
+/*/*/build
+/*/*/.iml
+/*/*/production
+*.iws
+*.ipr
+*~
+*.swp
+
+bower_components/
+node_modules/
+classes/
+.awspublish-*

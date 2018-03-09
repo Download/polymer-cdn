@@ -1,0 +1,1392 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "`paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of\n   items, key value pair and 2-way binding on value.\n\n  Values can be bound using `value` attribute.\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\">\n         <paper-item>Apple</paper-item>\n         <paper-item>Banana</paper-item>\n         <paper-item>Mango</paper-item>\n         <paper-item>Orange</paper-item>\n         <paper-item>Tomato</paper-item>\n     </paper-dropdown>\n\n  Each item can have a key-label pair where key is what stored in the model but\n  label is what user sees. This can be done using `value` attribute for `paper-item`\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\">\n         <paper-item value=\"apple\">Apple</paper-item>\n         <paper-item value=\"banana\">Banana</paper-item>\n         <paper-item value=\"mango\">Mango</paper-item>\n         <paper-item value=\"orange\">Orange</paper-item>\n         <paper-item value=\"tomato\">Tomato</paper-item>\n     </paper-dropdown>\n\n  It also has an optional parameter named `searchable`, which when set to true\n  will add a text field at the start of the dropdown which users can use to filter\n  out the items in the dropdown.\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\" searchable=\"true\">\n         <paper-item value=\"apple\">Apple</paper-item>\n         <paper-item value=\"banana\">Banana</paper-item>\n         <paper-item value=\"mango\">Mango</paper-item>\n         <paper-item value=\"orange\">Orange</paper-item>\n         <paper-item value=\"tomato\">Tomato</paper-item>\n     </paper-dropdown>\n\n  For multi-select, set `mutli` parameter to true. In this case however, paper-item's\n  `value` attribute must be set.\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\" multi=\"true\" searchable=\"true\">\n         <paper-item value=\"apple\">Apple</paper-item>\n         <paper-item value=\"banana\">Banana</paper-item>\n         <paper-item value=\"mango\">Mango</paper-item>\n         <paper-item value=\"orange\">Orange</paper-item>\n         <paper-item value=\"tomato\">Tomato</paper-item>\n     </paper-dropdown>\n  \n  **Styling**\n\n  Since `paper-dropdown` is wrapper around `paper-dropdown-menu`, you can use any of the \n  `paper-dropdown-menu`, `paper-input-container` and `paper-menu-button` style mixins and \n  custom properties to style the internal input and menu button respectively.",
+      "summary": "",
+      "path": "paper-dropdown.html",
+      "properties": [
+        {
+          "name": "maxLength",
+          "type": "number",
+          "description": "Maximum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "paper-dropdown-element-behavior.html",
+            "start": {
+              "line": 40,
+              "column": 12
+            },
+            "end": {
+              "line": 42,
+              "column": 13
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.PaperDropdownBehavior"
+        },
+        {
+          "name": "minLength",
+          "type": "number",
+          "description": "Minimum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "paper-dropdown-element-behavior.html",
+            "start": {
+              "line": 48,
+              "column": 12
+            },
+            "end": {
+              "line": 50,
+              "column": 13
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "inheritedFrom": "Polymer.PaperDropdownBehavior"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Label shown against the dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 176,
+              "column": 16
+            },
+            "end": {
+              "line": 178,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "If true, dropdown will be disabled.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 183,
+              "column": 16
+            },
+            "end": {
+              "line": 186,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "value",
+          "type": "Object",
+          "description": "Value of the dropdown",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 191,
+              "column": 16
+            },
+            "end": {
+              "line": 195,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_updateSelected\""
+            }
+          }
+        },
+        {
+          "name": "selected",
+          "type": "number",
+          "description": "Index of the selected item.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 200,
+              "column": 16
+            },
+            "end": {
+              "line": 204,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_updateValue\""
+            }
+          }
+        },
+        {
+          "name": "opened",
+          "type": "boolean",
+          "description": "This is true if the dropdown is in open state",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 209,
+              "column": 16
+            },
+            "end": {
+              "line": 214,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true,
+              "observer": "\"_onOpenedChanged\""
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "description": "If true, a text field is shown at the top of dropdown which\nuser can use to search/filter for an item.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 220,
+              "column": 16
+            },
+            "end": {
+              "line": 223,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "description": "The error message to display when invalid.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 228,
+              "column": 16
+            },
+            "end": {
+              "line": 230,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "allowOutsideScroll",
+          "type": "boolean",
+          "description": "By default, the dropdown will constrain scrolling on the page\nto itself when opened.\nSet to true in order to prevent scroll from being constrained\nto the dropdown when it opens.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 238,
+              "column": 16
+            },
+            "end": {
+              "line": 241,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "noLabelFloat",
+          "type": "boolean",
+          "description": "Set to true to disable the floating label. Bind this to the\n`<paper-input-container>`'s `noLabelFloat` property.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 247,
+              "column": 16
+            },
+            "end": {
+              "line": 251,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "alwaysFloatLabel",
+          "type": "boolean",
+          "description": "Set to true to always float the label. Bind this to the\n`<paper-input-container>`'s `alwaysFloatLabel` property.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 257,
+              "column": 16
+            },
+            "end": {
+              "line": 260,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "noAnimations",
+          "type": "boolean",
+          "description": "Set to true to disable animations when opening and closing the\ndropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 266,
+              "column": 16
+            },
+            "end": {
+              "line": 269,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "horizontalAlign",
+          "type": "string",
+          "description": "The orientation against which to align the menu dropdown\nhorizontally relative to the dropdown trigger.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 275,
+              "column": 16
+            },
+            "end": {
+              "line": 278,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"right\""
+        },
+        {
+          "name": "verticalAlign",
+          "type": "string",
+          "description": "The orientation against which to align the menu dropdown\nvertically relative to the dropdown trigger.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 284,
+              "column": 16
+            },
+            "end": {
+              "line": 287,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"top\""
+        },
+        {
+          "name": "dynamicAlign",
+          "type": "boolean",
+          "description": "If true, the `horizontalAlign` and `verticalAlign` properties will\nbe considered preferences instead of strict requirements when\npositioning the dropdown and may be changed if doing so reduces\nthe area of the dropdown falling outside of `fitInto`.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 295,
+              "column": 16
+            },
+            "end": {
+              "line": 297,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "restoreFocusOnClose",
+          "type": "boolean",
+          "description": "Whether focus should be restored to the dropdown when the menu closes.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 302,
+              "column": 16
+            },
+            "end": {
+              "line": 305,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "true"
+        },
+        {
+          "name": "multi",
+          "type": "boolean",
+          "description": "If true, multiple options can be selected.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 310,
+              "column": 16
+            },
+            "end": {
+              "line": 314,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "observer": "\"_multiChanged\""
+            }
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "multiLabel",
+          "type": "string",
+          "description": "Can be used to use a different language when displaying\nthat more than one item is selected. \nDefault: 'items selected'",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 320,
+              "column": 16
+            },
+            "end": {
+              "line": 323,
+              "column": 17
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"items selected\""
+        },
+        {
+          "name": "UP_KEY_CODE",
+          "type": "number",
+          "description": "Key code for UP Arrow.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 344,
+              "column": 12
+            },
+            "end": {
+              "line": 344,
+              "column": 27
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "DOWN_KEY_CODE",
+          "type": "number",
+          "description": "Key code for DOWN Arrow.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 352,
+              "column": 12
+            },
+            "end": {
+              "line": 352,
+              "column": 29
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "_filterCheck",
+          "description": "Checks if item satisfies the filter condition.\nIf it satisfies and has to be shown to the user,\ntrue is returned, else false is returned.\n\nOverride this method to implement your own custom filter\ncondition.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "paper-dropdown-element-behavior.html",
+            "start": {
+              "line": 66,
+              "column": 8
+            },
+            "end": {
+              "line": 78,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "searchText",
+              "description": "Text user entered in search field"
+            },
+            {
+              "name": "item",
+              "description": "Current Item"
+            }
+          ],
+          "return": {
+            "type": "boolean"
+          },
+          "inheritedFrom": "Polymer.PaperDropdownBehavior"
+        },
+        {
+          "name": "_getValidity",
+          "description": "Returns false if the element is required and don't have any value, and true otherwise.",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "paper-dropdown-element-behavior.html",
+            "start": {
+              "line": 86,
+              "column": 8
+            },
+            "end": {
+              "line": 115,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ],
+          "return": {
+            "type": "boolean",
+            "desc": "true if required is true and has atleast one value OR values selected\n                     is greater than minLenght but less than max length."
+          },
+          "inheritedFrom": "Polymer.PaperDropdownBehavior"
+        },
+        {
+          "name": "ready",
+          "description": "This method is automatically called when paper-dropdown is\nstamped to DOM. ITs main purpose is to initialize the\ncomponent's variables.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 361,
+              "column": 12
+            },
+            "end": {
+              "line": 364,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "open",
+          "description": "Opens the dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 371,
+              "column": 12
+            },
+            "end": {
+              "line": 373,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "close",
+          "description": "Closes the dropdown.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 380,
+              "column": 12
+            },
+            "end": {
+              "line": 382,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_multiChanged",
+          "description": "If multi is true, it updates dropdown's menu button\nnot to close on item select so that user can select\nmultiple options.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 392,
+              "column": 12
+            },
+            "end": {
+              "line": 400,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "multi"
+            }
+          ]
+        },
+        {
+          "name": "_selectedItemsChanged",
+          "description": "Updates value and selected on _selectedItems change.\n<b>Note:</b> This function only executes in case of multi select enabled.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 409,
+              "column": 12
+            },
+            "end": {
+              "line": 420,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "selectedItems"
+            }
+          ]
+        },
+        {
+          "name": "_updateSelectedItemLabel",
+          "description": "Updates selected item's label to customize value shown in\npaper-drodown-menu's paper-input.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 429,
+              "column": 12
+            },
+            "end": {
+              "line": 439,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "label"
+            }
+          ]
+        },
+        {
+          "name": "_getItemValue",
+          "description": "Returns value of given Item.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 448,
+              "column": 12
+            },
+            "end": {
+              "line": 455,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "item"
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Label/Value of the item."
+          }
+        },
+        {
+          "name": "_itemsChanged",
+          "description": "Updates selected & _attrForSelected on items change.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 463,
+              "column": 12
+            },
+            "end": {
+              "line": 476,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "items"
+            }
+          ]
+        },
+        {
+          "name": "_getItemValueFromItems",
+          "description": "Returns the value of the item for given index.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 485,
+              "column": 12
+            },
+            "end": {
+              "line": 487,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "index",
+              "description": "Index of the item"
+            },
+            {
+              "name": "items",
+              "description": "Items in the listbox"
+            }
+          ]
+        },
+        {
+          "name": "_getItemLabel",
+          "description": "Returns the Label for the given Item.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 496,
+              "column": 12
+            },
+            "end": {
+              "line": 498,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "item"
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Label of the item."
+          }
+        },
+        {
+          "name": "_getItemLabelFromItems",
+          "description": "Returns the Label shown to user for the item at the\ngiven index.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 509,
+              "column": 12
+            },
+            "end": {
+              "line": 511,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "index",
+              "description": "Index of the item."
+            },
+            {
+              "name": "items",
+              "description": "Items in listbox."
+            }
+          ],
+          "return": {
+            "type": "string",
+            "desc": "Label of the item."
+          }
+        },
+        {
+          "name": "_updateSelected",
+          "description": "Updates `selected` property according to `value` property.\nSets selected to -1 if value is not found.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 520,
+              "column": 12
+            },
+            "end": {
+              "line": 537,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "value"
+            }
+          ]
+        },
+        {
+          "name": "_updateValue",
+          "description": "Updates `value` property according to `selected` property.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 545,
+              "column": 12
+            },
+            "end": {
+              "line": 555,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "selected"
+            }
+          ]
+        },
+        {
+          "name": "_onOpenedChanged",
+          "description": "Called whenever `opened` changes.\nFires `opened` or `closed` events.\nAlso, clears `_searchText` variable on close.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 565,
+              "column": 12
+            },
+            "end": {
+              "line": 572,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "opened"
+            }
+          ]
+        },
+        {
+          "name": "_stopEventPropagation",
+          "description": "Stops event propagation if up/down keys is not pressed.",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 580,
+              "column": 12
+            },
+            "end": {
+              "line": 584,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e",
+              "description": "Event"
+            }
+          ]
+        },
+        {
+          "name": "_filter",
+          "description": "Shows/Hides listbox items based on searchText",
+          "privacy": "private",
+          "sourceRange": {
+            "start": {
+              "line": 592,
+              "column": 12
+            },
+            "end": {
+              "line": 603,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "searchText",
+              "description": "Text to be matched in item's label."
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 161,
+          "column": 16
+        },
+        "end": {
+          "line": 604,
+          "column": 9
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "max-length",
+          "description": "Maximum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+          "sourceRange": {
+            "file": "paper-dropdown-element-behavior.html",
+            "start": {
+              "line": 40,
+              "column": 12
+            },
+            "end": {
+              "line": 42,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "Polymer.PaperDropdownBehavior"
+        },
+        {
+          "name": "min-length",
+          "description": "Minimum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+          "sourceRange": {
+            "file": "paper-dropdown-element-behavior.html",
+            "start": {
+              "line": 48,
+              "column": 12
+            },
+            "end": {
+              "line": 50,
+              "column": 13
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "Polymer.PaperDropdownBehavior"
+        },
+        {
+          "name": "label",
+          "description": "Label shown against the dropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 176,
+              "column": 16
+            },
+            "end": {
+              "line": 178,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "description": "If true, dropdown will be disabled.",
+          "sourceRange": {
+            "start": {
+              "line": 183,
+              "column": 16
+            },
+            "end": {
+              "line": 186,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "value",
+          "description": "Value of the dropdown",
+          "sourceRange": {
+            "start": {
+              "line": 191,
+              "column": 16
+            },
+            "end": {
+              "line": 195,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "selected",
+          "description": "Index of the selected item.",
+          "sourceRange": {
+            "start": {
+              "line": 200,
+              "column": 16
+            },
+            "end": {
+              "line": 204,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        },
+        {
+          "name": "opened",
+          "description": "This is true if the dropdown is in open state",
+          "sourceRange": {
+            "start": {
+              "line": 209,
+              "column": 16
+            },
+            "end": {
+              "line": 214,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "searchable",
+          "description": "If true, a text field is shown at the top of dropdown which\nuser can use to search/filter for an item.",
+          "sourceRange": {
+            "start": {
+              "line": 220,
+              "column": 16
+            },
+            "end": {
+              "line": 223,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "error-message",
+          "description": "The error message to display when invalid.",
+          "sourceRange": {
+            "start": {
+              "line": 228,
+              "column": 16
+            },
+            "end": {
+              "line": 230,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "allow-outside-scroll",
+          "description": "By default, the dropdown will constrain scrolling on the page\nto itself when opened.\nSet to true in order to prevent scroll from being constrained\nto the dropdown when it opens.",
+          "sourceRange": {
+            "start": {
+              "line": 238,
+              "column": 16
+            },
+            "end": {
+              "line": 241,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "no-label-float",
+          "description": "Set to true to disable the floating label. Bind this to the\n`<paper-input-container>`'s `noLabelFloat` property.",
+          "sourceRange": {
+            "start": {
+              "line": 247,
+              "column": 16
+            },
+            "end": {
+              "line": 251,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "always-float-label",
+          "description": "Set to true to always float the label. Bind this to the\n`<paper-input-container>`'s `alwaysFloatLabel` property.",
+          "sourceRange": {
+            "start": {
+              "line": 257,
+              "column": 16
+            },
+            "end": {
+              "line": 260,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "no-animations",
+          "description": "Set to true to disable animations when opening and closing the\ndropdown.",
+          "sourceRange": {
+            "start": {
+              "line": 266,
+              "column": 16
+            },
+            "end": {
+              "line": 269,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "horizontal-align",
+          "description": "The orientation against which to align the menu dropdown\nhorizontally relative to the dropdown trigger.",
+          "sourceRange": {
+            "start": {
+              "line": 275,
+              "column": 16
+            },
+            "end": {
+              "line": 278,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "vertical-align",
+          "description": "The orientation against which to align the menu dropdown\nvertically relative to the dropdown trigger.",
+          "sourceRange": {
+            "start": {
+              "line": 284,
+              "column": 16
+            },
+            "end": {
+              "line": 287,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "dynamic-align",
+          "description": "If true, the `horizontalAlign` and `verticalAlign` properties will\nbe considered preferences instead of strict requirements when\npositioning the dropdown and may be changed if doing so reduces\nthe area of the dropdown falling outside of `fitInto`.",
+          "sourceRange": {
+            "start": {
+              "line": 295,
+              "column": 16
+            },
+            "end": {
+              "line": 297,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "restore-focus-on-close",
+          "description": "Whether focus should be restored to the dropdown when the menu closes.",
+          "sourceRange": {
+            "start": {
+              "line": 302,
+              "column": 16
+            },
+            "end": {
+              "line": 305,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "multi",
+          "description": "If true, multiple options can be selected.",
+          "sourceRange": {
+            "start": {
+              "line": 310,
+              "column": 16
+            },
+            "end": {
+              "line": 314,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "multi-label",
+          "description": "Can be used to use a different language when displaying\nthat more than one item is selected. \nDefault: 'items selected'",
+          "sourceRange": {
+            "start": {
+              "line": 320,
+              "column": 16
+            },
+            "end": {
+              "line": 323,
+              "column": 17
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "close",
+          "description": "close is fired when `paper-dropdown` closes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "open",
+          "description": "open is fired when `paper-dropdown` opens.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "value-changed",
+          "description": "Fired when the `value` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "selected-changed",
+          "description": "Fired when the `selected` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "opened-changed",
+          "description": "Fired when the `opened` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [
+        {
+          "description": "",
+          "name": "",
+          "range": {
+            "file": "paper-dropdown.html",
+            "start": {
+              "line": 99,
+              "column": 16
+            },
+            "end": {
+              "line": 99,
+              "column": 29
+            }
+          }
+        }
+      ],
+      "tagname": "paper-dropdown"
+    }
+  ],
+  "metadata": {
+    "polymer": {
+      "behaviors": [
+        {
+          "description": "Use `Polymer.PaperDropdownBehavior` to implement a custom validation\nand filter methods.",
+          "summary": "",
+          "path": "paper-dropdown-element-behavior.html",
+          "properties": [
+            {
+              "name": "maxLength",
+              "type": "number",
+              "description": "Maximum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+              "privacy": "public",
+              "sourceRange": {
+                "start": {
+                  "line": 40,
+                  "column": 12
+                },
+                "end": {
+                  "line": 42,
+                  "column": 13
+                }
+              },
+              "metadata": {
+                "polymer": {}
+              }
+            },
+            {
+              "name": "minLength",
+              "type": "number",
+              "description": "Minimum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+              "privacy": "public",
+              "sourceRange": {
+                "start": {
+                  "line": 48,
+                  "column": 12
+                },
+                "end": {
+                  "line": 50,
+                  "column": 13
+                }
+              },
+              "metadata": {
+                "polymer": {}
+              }
+            }
+          ],
+          "methods": [
+            {
+              "name": "_filterCheck",
+              "description": "Checks if item satisfies the filter condition.\nIf it satisfies and has to be shown to the user,\ntrue is returned, else false is returned.\n\nOverride this method to implement your own custom filter\ncondition.",
+              "privacy": "protected",
+              "sourceRange": {
+                "start": {
+                  "line": 66,
+                  "column": 8
+                },
+                "end": {
+                  "line": 78,
+                  "column": 9
+                }
+              },
+              "metadata": {},
+              "params": [
+                {
+                  "name": "searchText",
+                  "description": "Text user entered in search field"
+                },
+                {
+                  "name": "item",
+                  "description": "Current Item"
+                }
+              ],
+              "return": {
+                "type": "boolean"
+              }
+            },
+            {
+              "name": "_getValidity",
+              "description": "Returns false if the element is required and don't have any value, and true otherwise.",
+              "privacy": "protected",
+              "sourceRange": {
+                "start": {
+                  "line": 86,
+                  "column": 8
+                },
+                "end": {
+                  "line": 115,
+                  "column": 9
+                }
+              },
+              "metadata": {},
+              "params": [
+                {
+                  "name": "value"
+                }
+              ],
+              "return": {
+                "type": "boolean",
+                "desc": "true if required is true and has atleast one value OR values selected\n                     is greater than minLenght but less than max length."
+              }
+            }
+          ],
+          "staticMethods": [],
+          "demos": [],
+          "metadata": {},
+          "sourceRange": {
+            "start": {
+              "line": 34,
+              "column": 4
+            },
+            "end": {
+              "line": 116,
+              "column": 6
+            }
+          },
+          "privacy": "public",
+          "name": "Polymer.PaperDropdownBehavior",
+          "attributes": [
+            {
+              "name": "max-length",
+              "description": "Maximum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+              "sourceRange": {
+                "start": {
+                  "line": 40,
+                  "column": 12
+                },
+                "end": {
+                  "line": 42,
+                  "column": 13
+                }
+              },
+              "metadata": {},
+              "type": "number"
+            },
+            {
+              "name": "min-length",
+              "description": "Minimum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+              "sourceRange": {
+                "start": {
+                  "line": 48,
+                  "column": 12
+                },
+                "end": {
+                  "line": 50,
+                  "column": 13
+                }
+              },
+              "metadata": {},
+              "type": "number"
+            }
+          ],
+          "events": [],
+          "styling": {
+            "cssVariables": [],
+            "selectors": []
+          },
+          "slots": []
+        }
+      ]
+    }
+  }
+}
