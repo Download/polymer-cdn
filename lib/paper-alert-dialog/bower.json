@@ -1,0 +1,51 @@
+{
+  "name": "paper-alert-dialog",
+  "authors": [
+    "collaborne"
+  ],
+  "description": "Web component that renders a material design dialog to alert user (Polymer)",
+  "main": "paper-alert-dialog.html",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "alert",
+    "dialog",
+    "paper",
+    "material design"
+  ],
+  "license": "Apache 2",
+  "homepage": "https://github.com/collaborne/paper-alert-dialog",
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0 || ^2.0.0",
+    "iron-icon": "PolymerElements/iron-icon#^2.0.0",
+    "paper-button": "PolymerElements/paper-button#^2.0.0",
+    "paper-dialog": "PolymerElements/paper-dialog#^2.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^2.0.0",
+    "web-component-tester": "*",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0 || ^1.0.0"
+  },
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "polymer": "Polymer/polymer#^1.0.0",
+        "iron-icon": "PolymerElements/iron-icon#^1.0.0",
+        "paper-button": "PolymerElements/paper-button#^1.0.0",
+        "paper-dialog": "PolymerElements/paper-dialog#^1.0.0"
+      },
+      "devDependencies": {
+        "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+        "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+        "iron-icons": "PolymerElements/iron-icons#^1.0.0",
+        "web-component-tester": "*",
+        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+      }
+    }
+  }
+}

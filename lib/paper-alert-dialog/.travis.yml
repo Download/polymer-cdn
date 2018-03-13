@@ -1,0 +1,21 @@
+dist: trusty
+sudo: false
+group: beta
+
+language: node_js
+node_js:
+- node
+addons:
+  firefox: '49.0.2'
+cache:
+  directories:
+  - node_modules
+  - "$HOME/.cache/bower"
+before_install:
+- "[ x$(cat node_modules/.last-node-version 2>/dev/null) = x$(node -e 'console.log(process.version)') ] || (npm rebuild && node -e 'console.log(process.version)' > node_modules/.last-node-version)"
+before_script:
+- npm install web-component-tester bower@1.7.9 polylint
+- $(npm bin)/bower install
+- $(npm bin)/polylint --no-recursion
+script:
+- xvfb-run $(npm bin)/wct

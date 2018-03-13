@@ -1,0 +1,136 @@
+<!doctype html>
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-button/paper-button.html">
+
+<!--
+`paper-alert-dialog` renders a material design dialog to alert users.
+
+Specification: [Material Design](http://www.google.es/design/spec/components/dialogs.html#dialogs-alerts)
+
+### Example
+
+```html
+<paper-alert-dialog
+  title="Congratulations"
+  confirm-button="Agree"
+  dismiss-button="Disagree"
+  on-confirm="handleConfirm">
+  It works!
+</paper-alert-dialog>
+```
+
+@demo demo/index.html
+-->
+<dom-module id="paper-alert-dialog">
+
+	<template>
+		<paper-dialog id="dialog" opened="{{opened}}" modal>
+			<h2 hidden$="[[!title]]">[[title]]</h2>
+			<p><slot></slot></p>
+			<div class="buttons">
+				<paper-button dismiss hidden$="[[!dismissButton]]" on-tap="_tapDismiss">[[dismissButton]]</paper-button>
+				<paper-button confirm autofocus on-tap="_tapConfirm">[[confirmButton]]</paper-button>
+			</div>
+		</paper-dialog>
+	</template>
+
+</dom-module>
+
+<script>
+
+(function() {
+
+	PaperAlertDialog = Polymer({
+		is: 'paper-alert-dialog',
+
+		/**
+		 * Fired when the user clicks on the confirm button
+		 *
+		 * @event confirm
+		 */
+
+		/**
+		 * Fired when the user clicks on the dismiss button
+		 *
+		 * @event dismiss
+		 */
+
+		properties: {
+			/**
+			 * Title of the alert dialog
+			 */
+			// XXX: This one conflicts with the HTML5 attribute of the same name, confusing polylint
+			title: {
+				type: String,
+				value: null
+			},
+
+			/**
+			 * Text of the confirm button
+			 */
+			confirmButton: {
+				type: String,
+				value: 'Confirm'
+			},
+
+			/**
+			 * Text of the dismiss button. The button is not shown if the
+			 * property is empty.
+			 */
+			dismissButton: String,
+
+			/**
+			 * True if the dialog is currently opened
+			 */
+			opened: {
+				true: Boolean,
+				notify: true
+			}
+		},
+
+		// Public methods
+
+		/**
+		 * Opens the alert dialog
+		 */
+		open: function() {
+			// Attach dialog to the body to ensure it's on top of all existing
+			// overlays
+			Polymer.dom(document.body).appendChild(this);
+
+			// Wait until dialog is added to the DOM (required for Safari)
+			setTimeout(function() {
+				this.$.dialog.open();
+			}.bind(this), 1);
+		},
+
+		/**
+		 * Closes the alert dialog
+		 */
+		close: function() {
+			this.$.dialog.close();
+
+			// Remove the dialog from the DOM
+			if (this.parentNode) {
+				Polymer.dom(this.parentNode).removeChild(this);
+			}
+		},
+
+		// Private methods
+		_tapDismiss: function() {
+			this.close();
+
+			this.fire('dismiss');
+		},
+
+		_tapConfirm: function() {
+			this.close();
+
+			this.fire('confirm');
+		}
+	});
+
+})();
+
+</script>
