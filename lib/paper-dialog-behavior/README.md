@@ -12,7 +12,7 @@ For example, if `<paper-dialog-impl>` implements this behavior:
 <paper-dialog-impl>
     <h2>Header</h2>
     <div>Dialog body</div>
-    <div class="buttons">
+    <div class="paper-dialog-buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
         <paper-button dialog-confirm>Accept</paper-button>
     </div>
@@ -20,7 +20,7 @@ For example, if `<paper-dialog-impl>` implements this behavior:
 ```
 
 `paper-dialog-shared-styles.html` provide styles for a header, content area, and an action area for buttons.
-Use the `<h2>` tag for the header and the `buttons` class for the action area. You can use the
+Use the `<h2>` tag for the header and the `paper-dialog-buttons` or `buttons` class for the action area. You can use the
 `paper-dialog-scrollable` element (in its own repository) if you need a scrolling content area.
 
 Use the `dialog-dismiss` and `dialog-confirm` attributes on interactive controls to close the

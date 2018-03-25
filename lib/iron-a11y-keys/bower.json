@@ -1,6 +1,6 @@
 {
   "name": "iron-a11y-keys",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "description": "A basic element implementation of iron-a11y-keys-behavior, matching the legacy core-a11y-keys.",
   "keywords": [
     "web-components",

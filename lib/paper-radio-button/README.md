@@ -1,7 +1,5 @@
 [![Build status](https://travis-ci.org/PolymerElements/paper-radio-button.svg?branch=master)](https://travis-ci.org/PolymerElements/paper-radio-button)
-
-_[Demo and API docs](https://elements.polymer-project.org/elements/paper-radio-button)_
-
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/PolymerElements/paper-radio-button)
 
 ## &lt;paper-radio-button&gt;
 

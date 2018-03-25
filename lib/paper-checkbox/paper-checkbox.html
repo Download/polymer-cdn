@@ -277,7 +277,7 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
             var checkboxSizeText = this.getComputedStyleValue('--calculated-paper-checkbox-size').trim();
 
             var units = checkboxSizeText.match(/[A-Za-z]+$/)[0] || 'px';
-            var checkboxSize = parseFloat(checkboxSizeText, 10);
+            var checkboxSize = parseFloat(checkboxSizeText);
             var defaultInkSize = (8 / 3) * checkboxSize;
 
             if (units === 'px') {

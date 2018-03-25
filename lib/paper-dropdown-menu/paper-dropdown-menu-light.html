@@ -280,7 +280,7 @@ To style it:
       id="menuButton"
       vertical-align="[[verticalAlign]]"
       horizontal-align="[[horizontalAlign]]"
-      vertical-offset="[[_computeMenuVerticalOffset(noLabelFloat)]]"
+      vertical-offset="[[_computeMenuVerticalOffset(noLabelFloat, verticalOffset)]]"
       disabled="[[disabled]]"
       no-animations="[[noAnimations]]"
       on-iron-select="_onIronSelect"
@@ -343,13 +343,12 @@ To style it:
 
           /**
            * The value for this element that will be used when submitting in
-           * a form. It is read only, and will always have the same value
-           * as `selectedItemLabel`.
+           * a form. It reflects the value of `selectedItemLabel`. If set directly,
+           * it will not update the `selectedItemLabel` value.
            */
           value: {
             type: String,
             notify: true,
-            readOnly: true,
             observer: '_valueChanged',
           },
 
@@ -434,6 +433,12 @@ To style it:
             value: 'top'
           },
 
+          /**
+           * Overrides the vertical offset computed in
+           * _computeMenuVerticalOffset.
+           */
+          verticalOffset: Number,
+
           hasContent: {
             type: Boolean,
             readOnly: true
@@ -444,6 +449,9 @@ To style it:
           'tap': '_onTap'
         },
 
+        /**
+         * @type {!Object}
+         */
         keyBindings: {
           'up down': 'open',
           'esc': 'close'
@@ -541,7 +549,7 @@ To style it:
             value = selectedItem.label || selectedItem.getAttribute('label') || selectedItem.textContent.trim();
           }
 
-          this._setValue(value);
+          this.value = value;
           this._setSelectedItemLabel(value);
         },
 
@@ -550,9 +558,13 @@ To style it:
          * `noLabelFloat`.
          *
          * @param {boolean} noLabelFloat True if the label should not float
+         * @param {number=} opt_verticalOffset Optional offset from the user
          * above the input, otherwise false.
          */
-        _computeMenuVerticalOffset: function(noLabelFloat) {
+         _computeMenuVerticalOffset: function(noLabelFloat, opt_verticalOffset) {
+          // Override offset if it's passed from the user.
+          if (opt_verticalOffset) { return opt_verticalOffset; }
+
           // NOTE(cdata): These numbers are somewhat magical because they are
           // derived from the metrics of elements internal to `paper-input`'s
           // template. The metrics will change depending on whether or not the

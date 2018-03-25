@@ -23,13 +23,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    */
   Polymer.IronValidatorBehavior = {
     ready: function() {
-      new Polymer.IronMeta({type: 'validator', key: this.is, value: this});
+      new Polymer.IronMeta({type: 'validator', key: this.is || this.constructor.is, value: this});
     },
 
     /**
      * Implement custom validation logic in this function.
      * @param {Object} values The value to validate. May be any type depending on the validation logic.
-     * @return {Boolean} true if `values` is valid.
+     * @return {boolean} true if `values` is valid.
      */
     validate: function(values) {
     }
