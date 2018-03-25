@@ -200,6 +200,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </demo-snippet>
 
+    <h4>You can override the vertical offset to position it below the button</h4>
+    <demo-snippet class="centered-demo">
+      <template>
+        <paper-dropdown-menu label="Dinosaurs" vertical-offset="60">
+          <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+            <paper-item>allosaurus</paper-item>
+            <paper-item>brontosaurus</paper-item>
+            <paper-item>carcharodontosaurus</paper-item>
+            <paper-item>diplodocus</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+
+        <paper-dropdown-menu-light label="Dinosaurs (light)" vertical-offset="60">
+          <paper-listbox slot="dropdown-content" class="dropdown-content" selected="1">
+            <paper-item>allosaurus</paper-item>
+            <paper-item>brontosaurus</paper-item>
+            <paper-item>carcharodontosaurus</paper-item>
+            <paper-item>diplodocus</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu-light>
+      </template>
+    </demo-snippet>
+
     <h4>You can style a paper-dropdown-menu using custom properties</h4>
     <demo-snippet class="centered-demo">
       <template>
@@ -216,7 +239,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               font-style: normal;
               font-family: serif;
               text-transform: uppercase;
-            }
+            };
             /* no underline */
             --paper-input-container-underline: {
               display: none;
@@ -237,7 +260,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               text-transform: uppercase;
               /* no underline */
               border-bottom: none;
-            }
+            };
           }
         </style>
         <paper-dropdown-menu class="custom" label="Custom" no-label-float>

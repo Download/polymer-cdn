@@ -11,7 +11,7 @@ The bot does some handling of markdown. Please file a bug if it does the wrong
 thing! https://github.com/PolymerLabs/tedium/issues
 
 -->
-![status](https://travis-ci.org/PolymerElements/app-storage.svg?branch=2.0-preview)
+![status](https://travis-ci.org/PolymerElements/app-storage.svg?branch=master)
 ## Changes in 2.0
 * Promise polyfill is no longer shipped with the element. It is now a dev dependency.
 

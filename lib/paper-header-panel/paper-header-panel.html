@@ -383,9 +383,7 @@ Custom property | Description | Default
 
         /**
          * Returns the header element
-         *
-         * @property header
-         * @type Object
+         * @return {!Element|undefined}
          */
         get header() {
           return Polymer.dom(this.$.headerSlot).getDistributedNodes()[0];
@@ -393,9 +391,7 @@ Custom property | Description | Default
 
         /**
          * Returns the scrollable element.
-         *
-         * @property scroller
-         * @type Object
+         * @return {!HTMLElement}
          */
         get scroller() {
           return this._getScrollerForMode(this.mode);
@@ -403,9 +399,7 @@ Custom property | Description | Default
 
         /**
          * Returns true if the scroller has a visible shadow.
-         *
-         * @property visibleShadow
-         * @type Boolean
+         * @return {boolean}
          */
         get visibleShadow() {
           return this.$.dropShadow.classList.contains('has-shadow');

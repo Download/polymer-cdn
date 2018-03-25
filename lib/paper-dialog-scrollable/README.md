@@ -1,7 +1,5 @@
 [![Build status](https://travis-ci.org/PolymerElements/paper-dialog-scrollable.svg?branch=master)](https://travis-ci.org/PolymerElements/paper-dialog-scrollable)
-
-_[Demo and API docs](https://elements.polymer-project.org/elements/paper-dialog-scrollable)_
-
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/PolymerElements/paper-dialog-scrollable)
 
 ## &lt;paper-dialog-scrollable&gt;
 

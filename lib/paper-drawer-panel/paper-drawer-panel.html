@@ -263,12 +263,12 @@ Custom property | Description | Default
         activate-event=""
         selected="[[selected]]">
 
-      <div id="main" style$="[[_computeMainStyle(narrow, rightDrawer, drawerWidth)]]">
+      <div id="main">
         <slot name="main"></slot>
         <div id="scrim" on-tap="closeDrawer"></div>
       </div>
 
-      <div id="drawer" style$="[[_computeDrawerStyle(drawerWidth)]]">
+      <div id="drawer">
         <slot id="drawerSlot" name="drawer"></slot>
       </div>
 
@@ -500,7 +500,9 @@ Custom property | Description | Default
 
         observers: [
           '_forceNarrowChanged(forceNarrow, defaultSelected)',
-          '_toggleFocusListener(selected)'
+          '_toggleFocusListener(selected)',
+          '_setMainStyle(narrow, rightDrawer, drawerWidth)',
+          '_setDrawerStyle(drawerWidth)'
         ],
 
         ready: function() {
@@ -580,20 +582,16 @@ Custom property | Description | Default
           });
         },
 
-        _computeDrawerStyle: function(drawerWidth) {
-          return 'width:' + drawerWidth + ';';
+        _setDrawerStyle: function(drawerWidth) {
+          this.$.drawer.style.width = drawerWidth;
         },
 
-        _computeMainStyle: function(narrow, rightDrawer, drawerWidth) {
-          var style = '';
-
-          style += 'left:' + ((narrow || rightDrawer) ? '0' : drawerWidth) + ';';
+        _setMainStyle: function(narrow, rightDrawer, drawerWidth) {
+          this.$.main.style.left = (narrow || rightDrawer) ? '0' : drawerWidth;
 
           if (rightDrawer) {
-            style += 'right:' + (narrow ? '' : drawerWidth) + ';';
+            this.$.main.style.right = narrow ? '' : drawerWidth;
           }
-
-          return style;
         },
 
         _computeMediaQuery: function(forceNarrow, responsiveWidth) {

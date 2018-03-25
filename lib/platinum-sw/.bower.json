@@ -1,7 +1,7 @@
 {
   "name": "platinum-sw",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "http://polymer.github.io/LICENSE.txt",
   "authors": [
     "The Polymer Authors"
@@ -55,11 +55,11 @@
     "webcomponentsjs": "^1.0.0"
   },
   "homepage": "https://github.com/PolymerElements/platinum-sw",
-  "_release": "2.0.0",
+  "_release": "2.1.0",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.0",
-    "commit": "a2380085b149c0025d38df0d0f717ebaaff95338"
+    "tag": "v2.1.0",
+    "commit": "d3716e112688820a84dd3f1c986f141992273445"
   },
   "_source": "https://github.com/PolymerElements/platinum-sw.git",
   "_target": "^2.0.0",

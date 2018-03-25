@@ -1,6 +1,6 @@
 {
   "name": "paper-tooltip",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "description": "Material design tooltip popup for content",
   "authors": [
     "The Polymer Authors"
@@ -21,9 +21,7 @@
   "ignore": [],
   "dependencies": {
     "polymer": "Polymer/polymer#1.9 - 2",
-    "paper-styles": "PolymerElements/paper-styles#1 - 2",
-    "neon-animation": "PolymerElements/neon-animation#1 - 2",
-    "web-animations-js": "web-animations/web-animations-js#^2.2.0"
+    "paper-styles": "PolymerElements/paper-styles#1 - 2"
   },
   "devDependencies": {
     "web-component-tester": "^6.0.0",
@@ -56,11 +54,11 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "_release": "2.0.1",
+  "_release": "2.1.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.1",
-    "commit": "725dd342e43e7ad47bedfca4eeed85adc4ce44ae"
+    "tag": "v2.1.1",
+    "commit": "8507ec69ec4c943da4ce7ea859f55db9ab9d28f5"
   },
   "_source": "https://github.com/PolymerElements/paper-tooltip.git",
   "_target": "^2.0.1",
