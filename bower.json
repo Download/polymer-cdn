@@ -106,6 +106,8 @@
     "polymerfire": "firebase/polymerfire#^2.2.1",
     "prism-element": "PolymerElements/prism-element#^2.0.1",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.20",
-    "web-component-tester": "^6.4.1"
+    "web-component-tester": "^6.4.1",
+    "iron-form": "PolymerElements/iron-form#^2.2.1",
+    "paper-alert-dialog": "Collaborne/paper-alert-dialog#^2.0.1"
   }
 }

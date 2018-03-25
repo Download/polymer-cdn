@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+	<head>
+		<title>paper-alert-dialog</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../web-component-tester/browser.js"></script>
+		<script src="../../test-fixture/test-fixture-mocha.js"></script>
+		
+		<link rel="import" href="../paper-alert-dialog.html">
+		<link rel="import" href="../../test-fixture/test-fixture.html">
+	</head>
+	<body>
+	
+		<test-fixture id="TrivialElement">
+			<template>
+				<paper-alert-dialog title="Congratulations" confirm-button="OK" dismiss-button="Dismiss">
+				</paper-alert-dialog>
+			</template>
+		</test-fixture>
+	
+		<script>
+			window.addEventListener('WebComponentsReady', function() {
+				suite('<paper-alert-dialog>', function() {
+					suite('set content behavior', function() {
+						var element;
+		
+						setup(function() {
+							element = fixture('TrivialElement');
+						});
+						
+						test('sets title based on title attribute', function() {
+							var title = Polymer.dom(element.root).querySelector("h2");
+							expect(title.textContent).to.be.eql("Congratulations");
+						});
+
+						test('sets confirm-button based on confirm-button attribute', function() {
+							var button = Polymer.dom(element.root).querySelector("paper-button[confirm]");
+							expect(button.textContent.trim()).to.be.eql("OK");
+						});
+						test('sets dismiss-button based on dismiss-button attribute', function() {
+							var button = Polymer.dom(element.root).querySelector("paper-button[dismiss]");
+							expect(button.textContent.trim()).to.be.eql("Dismiss");
+						});
+					});
+
+					suite('open/close behavior', function() {
+						var element;
+		
+						setup(function() {
+							element = fixture('TrivialElement');
+						});
+						
+						test('is closed by default', function() {
+							expect(element.opened).to.be.eql(false);
+						});
+
+						test('opens when calling method open()', function(done) {
+							element.open();
+							setTimeout(function() {
+								expect(element.opened).to.be.eql(true);
+								done();
+							}, 10);
+						});
+
+						test('closes when clicking on dismiss button', function() {
+							var button = Polymer.dom(element.root).querySelector("paper-button[dismiss]");
+							button.click();
+							
+							expect(element.opened).to.be.eql(false);
+						});
+						test('closes when clicking on confirm button', function() {
+							var button = Polymer.dom(element.root).querySelector("paper-button[confirm]");
+							button.click();
+							
+							expect(element.opened).to.be.eql(false);
+						});
+						test('fires confirm event when clicking on confirm button', function(done) {
+							element.addEventListener('confirm', function() {
+								done();
+							});
+
+							var button = Polymer.dom(element.root).querySelector("paper-button[confirm]");
+							button.click();
+						});
+					});
+				});
+			});
+		</script>
+	
+	</body>
+</html>
