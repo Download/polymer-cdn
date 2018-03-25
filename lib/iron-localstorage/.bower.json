@@ -1,6 +1,6 @@
 {
   "name": "iron-localstorage",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "description": "Provides access to local storage",
   "keywords": [
     "web-component",
@@ -47,11 +47,11 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "_release": "2.0.0",
+  "_release": "2.1.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.0",
-    "commit": "b6a91f55fc904150f4d6d792052a9577f8a3806a"
+    "tag": "v2.1.1",
+    "commit": "43219ad500ba70ddaf6aced24c2cd8b63a730d02"
   },
   "_source": "https://github.com/PolymerElements/iron-localstorage.git",
   "_target": "^2.0.0",

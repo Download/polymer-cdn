@@ -1,7 +1,6 @@
 {
   "name": "neon-animation",
   "description": "A system for animating Polymer-based web components",
-  "version": "2.0.2",
   "authors": [
     "The Polymer Authors"
   ],
@@ -29,6 +28,9 @@
   "license": "http://polymer.github.io/LICENSE.txt",
   "homepage": "https://github.com/PolymerElements/neon-animation",
   "ignore": [],
+  "demos": {
+    "Demo": "demo/index.html"
+  },
   "dependencies": {
     "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#1 - 2",
     "iron-selector": "PolymerElements/iron-selector#1 - 2",
@@ -75,11 +77,12 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "_release": "2.0.2",
+  "version": "2.2.1",
+  "_release": "2.2.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.2",
-    "commit": "4711ddfdd982833ff922f1b1cb6f45a637aeeca3"
+    "tag": "v2.2.1",
+    "commit": "e7508084d0a99cc9fedad1964efb4e69c8527629"
   },
   "_source": "https://github.com/PolymerElements/neon-animation.git",
   "_target": "^2.0.2",

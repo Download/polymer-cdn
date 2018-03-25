@@ -1,6 +1,6 @@
 {
 	"name": "polymer-cdn",
-	"version": "2.3.1",
+	"version": "2.6.0",
 	"description": "A mirror of Polymer so it can be used from CDN.",
 	"keywords": [
 		"polymer",
@@ -15,9 +15,12 @@
 	},
 	"contributors": [
 		{
-			"name": "",
-			"e-mail": "",
-			"website": ""
+			"name": "Levi Tomes",
+			"url": "https://github.com/agosto-levitomes"
+		},
+		{
+			"name": "FuriosoJack",
+			"url": "https://github.com/FuriosoJack"
 		}
 	],
 	"repository": {

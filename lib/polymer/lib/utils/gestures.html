@@ -80,22 +80,70 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   let IS_TOUCH_ONLY = navigator.userAgent.match(/iP(?:[oa]d|hone)|Android/);
 
   let GestureRecognizer = function(){}; // eslint-disable-line no-unused-vars
-  /** @type {function()} */
+  /** @type {function(): void} */
   GestureRecognizer.prototype.reset;
-  /** @type {function(MouseEvent) | undefined} */
+  /** @type {function(MouseEvent): void | undefined} */
   GestureRecognizer.prototype.mousedown;
-  /** @type {(function(MouseEvent) | undefined)} */
+  /** @type {(function(MouseEvent): void | undefined)} */
   GestureRecognizer.prototype.mousemove;
-  /** @type {(function(MouseEvent) | undefined)} */
+  /** @type {(function(MouseEvent): void | undefined)} */
   GestureRecognizer.prototype.mouseup;
-  /** @type {(function(TouchEvent) | undefined)} */
+  /** @type {(function(TouchEvent): void | undefined)} */
   GestureRecognizer.prototype.touchstart;
-  /** @type {(function(TouchEvent) | undefined)} */
+  /** @type {(function(TouchEvent): void | undefined)} */
   GestureRecognizer.prototype.touchmove;
-  /** @type {(function(TouchEvent) | undefined)} */
+  /** @type {(function(TouchEvent): void | undefined)} */
   GestureRecognizer.prototype.touchend;
-  /** @type {(function(MouseEvent) | undefined)} */
+  /** @type {(function(MouseEvent): void | undefined)} */
   GestureRecognizer.prototype.click;
+
+  // keep track of any labels hit by the mouseCanceller
+  /** @type {!Array<!HTMLLabelElement>} */
+  const clickedLabels = [];
+
+  /** @type {!Object<boolean>} */
+  const labellable = {
+    'button': true,
+    'input': true,
+    'keygen': true,
+    'meter': true,
+    'output': true,
+    'textarea': true,
+    'progress': true,
+    'select': true
+  };
+
+  /**
+   * @param {HTMLElement} el Element to check labelling status
+   * @return {boolean} element can have labels
+   */
+  function canBeLabelled(el) {
+    return labellable[el.localName] || false;
+  }
+
+  /**
+   * @param {HTMLElement} el Element that may be labelled.
+   * @return {!Array<!HTMLLabelElement>} Relevant label for `el`
+   */
+  function matchingLabels(el) {
+    let labels = [...(/** @type {HTMLInputElement} */(el).labels || [])];
+    // IE doesn't have `labels` and Safari doesn't populate `labels`
+    // if element is in a shadowroot.
+    // In this instance, finding the non-ancestor labels is enough,
+    // as the mouseCancellor code will handle ancstor labels
+    if (!labels.length) {
+      labels = [];
+      let root = el.getRootNode();
+      // if there is an id on `el`, check for all labels with a matching `for` attribute
+      if (el.id) {
+        let matching = root.querySelectorAll(`label[for = ${el.id}]`);
+        for (let i = 0; i < matching.length; i++) {
+          labels.push(/** @type {!HTMLLabelElement} */(matching[i]));
+        }
+      }
+    }
+    return labels;
+  }
 
   // touch will make synthetic mouse events
   // `preventDefault` on touchend will cancel them,
@@ -115,13 +163,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     mouseEvent[HANDLED_OBJ] = {skip: true};
     // disable "ghost clicks"
     if (mouseEvent.type === 'click') {
+      let clickFromLabel = false;
       let path = mouseEvent.composedPath && mouseEvent.composedPath();
       if (path) {
         for (let i = 0; i < path.length; i++) {
+          if (path[i].nodeType === Node.ELEMENT_NODE) {
+            if (path[i].localName === 'label') {
+              clickedLabels.push(path[i]);
+            } else if (canBeLabelled(path[i])) {
+              let ownerLabels = matchingLabels(path[i]);
+              // check if one of the clicked labels is labelling this element
+              for (let j = 0; j < ownerLabels.length; j++) {
+                clickFromLabel = clickFromLabel || clickedLabels.indexOf(ownerLabels[j]) > -1;
+              }
+            }
+          }
           if (path[i] === POINTERSTATE.mouse.target) {
             return;
           }
         }
+      }
+      // if one of the clicked labels was labelling the target element,
+      // this is not a ghost click
+      if (clickFromLabel) {
+        return;
       }
       mouseEvent.preventDefault();
       mouseEvent.stopPropagation();
@@ -137,6 +202,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     for (let i = 0, en; i < events.length; i++) {
       en = events[i];
       if (setup) {
+        // reset clickLabels array
+        clickedLabels.length = 0;
         document.addEventListener(en, mouseCanceller, true);
       } else {
         document.removeEventListener(en, mouseCanceller, true);
@@ -316,8 +383,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     _findOriginalTarget: function(ev) {
       // shadowdom
       if (ev.composedPath) {
-        const target = /** @type {EventTarget} */(ev.composedPath()[0]);
-        return target;
+        const targets = /** @type {!Array<!EventTarget>} */(ev.composedPath());
+        // It shouldn't be, but sometimes targets is empty (window on Safari).
+        return targets.length > 0 ? targets[0] : ev.target;
       }
       // shadydom
       return ev.target;
@@ -427,9 +495,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * Adds an event listener to a node for the given gesture type.
      *
      * @memberof Polymer.Gestures
-     * @param {Node} node Node to add listener on
+     * @param {!Node} node Node to add listener on
      * @param {string} evType Gesture type: `down`, `up`, `track`, or `tap`
-     * @param {Function} handler Event listener function to call
+     * @param {!function(!Event):void} handler Event listener function to call
      * @return {boolean} Returns true if a gesture event listener was added.
      * @this {Gestures}
      */
@@ -445,9 +513,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * Removes an event listener from a node for the given gesture type.
      *
      * @memberof Polymer.Gestures
-     * @param {Node} node Node to remove listener from
+     * @param {!Node} node Node to remove listener from
      * @param {string} evType Gesture type: `down`, `up`, `track`, or `tap`
-     * @param {Function} handler Event listener function previously passed to
+     * @param {!function(!Event):void} handler Event listener function previously passed to
      *  `addListener`.
      * @return {boolean} Returns true if a gesture event listener was removed.
      * @this {Gestures}
@@ -464,9 +532,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * automate the event listeners for the native events
      *
      * @private
-     * @param {HTMLElement} node Node on which to add the event.
+     * @param {!HTMLElement} node Node on which to add the event.
      * @param {string} evType Event type to add.
-     * @param {function(Event?)} handler Event handler function.
+     * @param {function(!Event)} handler Event handler function.
      * @return {void}
      * @this {Gestures}
      */
@@ -504,7 +572,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * automate event listener removal for native events
      *
      * @private
-     * @param {HTMLElement} node Node on which to remove the event.
+     * @param {!HTMLElement} node Node on which to remove the event.
      * @param {string} evType Event type to remove.
      * @param {function(Event?)} handler Event handler function.
      * @return {void}
@@ -536,7 +604,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * gesture event types.
      *
      * @memberof Polymer.Gestures
-     * @param {GestureRecognizer} recog Gesture recognizer descriptor
+     * @param {!GestureRecognizer} recog Gesture recognizer descriptor
      * @return {void}
      * @this {Gestures}
      */
@@ -573,13 +641,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * adding event listeners.
      *
      * @memberof Polymer.Gestures
-     * @param {Element} node Node to set touch action setting on
+     * @param {!Element} node Node to set touch action setting on
      * @param {string} value Touch action value
      * @return {void}
      */
     setTouchAction: function(node, value) {
       if (HAS_NATIVE_TA) {
-        node.style.touchAction = value;
+        // NOTE: add touchAction async so that events can be added in
+        // custom element constructors. Otherwise we run afoul of custom
+        // elements restriction against settings attributes (style) in the
+        // constructor.
+        Polymer.Async.microTask.run(() => {
+          node.style.touchAction = value;
+        });
       }
       node[TOUCH_ACTION] = value;
     },
@@ -588,9 +662,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * Dispatches an event on the `target` element of `type` with the given
      * `detail`.
      * @private
-     * @param {EventTarget} target The element on which to fire an event.
+     * @param {!EventTarget} target The element on which to fire an event.
      * @param {string} type The type of event to fire.
-     * @param {Object=} detail The detail object to populate on the event.
+     * @param {!Object=} detail The detail object to populate on the event.
      * @return {void}
      */
     _fire: function(target, type, detail) {
@@ -706,7 +780,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
     /**
      * @param {string} type
-     * @param {EventTarget} target
+     * @param {!EventTarget} target
      * @param {Event} event
      * @param {Function} preventer
      * @return {void}
@@ -875,7 +949,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     /**
      * @this {GestureRecognizer}
-     * @param {EventTarget} target
+     * @param {!EventTarget} target
      * @param {Touch} touch
      * @return {void}
      */
@@ -984,6 +1058,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       let dy = Math.abs(e.clientY - this.info.y);
       // find original target from `preventer` for TouchEvents, or `e` for MouseEvents
       let t = Gestures._findOriginalTarget(/** @type {Event} */(preventer || e));
+      if (!t || t.disabled) {
+        return;
+      }
       // dx,dy can be NaN if `click` has been simulated and there was no `down` for `start`
       if (isNaN(dx) || isNaN(dy) || (dx <= TAP_DISTANCE && dy <= TAP_DISTANCE) || isSyntheticClick(e)) {
         // prevent taps from being generated if an event has canceled them

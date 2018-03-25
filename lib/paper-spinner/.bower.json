@@ -1,6 +1,6 @@
 {
   "name": "paper-spinner",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A material design spinner",
   "authors": [
     "The Polymer Authors"
@@ -53,11 +53,11 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "_release": "2.0.0",
+  "_release": "2.1.0",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.0",
-    "commit": "9667b7c6ae44986e4faa6c8c6ebed035fb2daaa5"
+    "tag": "v2.1.0",
+    "commit": "253acc5c24f206cea80762dfb1e38be2e5177b7e"
   },
   "_source": "https://github.com/PolymerElements/paper-spinner.git",
   "_target": "^2.0.0",
