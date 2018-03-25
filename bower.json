@@ -41,6 +41,7 @@
     "iron-dropdown": "PolymerElements/iron-dropdown#^2.1.0",
     "iron-fit-behavior": "PolymerElements/iron-fit-behavior#^2.0.1",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.1",
+    "iron-form": "PolymerElements/iron-form#^2.2.1",
     "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#^2.0.0",
     "iron-icon": "PolymerElements/iron-icon#^2.0.1",
     "iron-icons": "PolymerElements/iron-icons#^2.0.1",
@@ -69,6 +70,7 @@
     "marked-element": "PolymerElements/marked-element#^2.3.2",
     "neon-animation": "PolymerElements/neon-animation#^2.0.2",
     "note-app-elements": "PolymerLabs/note-app-elements#^2.1.2",
+    "paper-alert-dialog": "Collaborne/paper-alert-dialog#^2.0.1",
     "paper-badge": "PolymerElements/paper-badge#^2.0.0",
     "paper-behaviors": "PolymerElements/paper-behaviors#^2.0.1",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
@@ -106,8 +108,6 @@
     "polymerfire": "firebase/polymerfire#^2.2.1",
     "prism-element": "PolymerElements/prism-element#^2.0.1",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.20",
-    "web-component-tester": "^6.4.1",
-    "iron-form": "PolymerElements/iron-form#^2.2.1",
-    "paper-alert-dialog": "Collaborne/paper-alert-dialog#^2.0.1"
+    "web-component-tester": "^6.4.1"
   }
 }
