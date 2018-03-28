@@ -53,13 +53,13 @@ Custom property | Description | Default
       }
 
       /* In 1.x, this selector was `:host > ::content h2`. In 2.x <slot> allows
-      to only select only direct children, which increases the weight of this
+      to select direct children only, which increases the weight of this
       selector, so we have to move it before first-child/last-child selectors */
       :host > ::slotted(h2) {
         position: relative;
         margin: 0;
-        @apply --paper-font-title;
 
+        @apply --paper-font-title;
         @apply --paper-dialog-title;
       }
 
@@ -71,6 +71,7 @@ Custom property | Description | Default
         margin-bottom: 24px;
       }
 
+      :host > ::slotted(.paper-dialog-buttons),
       :host > ::slotted(.buttons) {
         position: relative;
         padding: 8px 8px 8px 24px;

@@ -53,6 +53,11 @@ element.
      * Fired when a request is sent.
      *
      * @event request
+     */
+
+    /**
+     * Fired when a request is sent.
+     *
      * @event iron-ajax-request
      */
 
@@ -60,6 +65,11 @@ element.
      * Fired when a response is received.
      *
      * @event response
+     */
+
+    /**
+     * Fired when a response is received.
+     *
      * @event iron-ajax-response
      */
 
@@ -67,6 +77,11 @@ element.
      * Fired when an error is received.
      *
      * @event error
+     */
+
+    /**
+     * Fired when an error is received.
+     *
      * @event iron-ajax-error
      */
 
@@ -228,8 +243,21 @@ element.
 
       /**
        * The most recent request made by this iron-ajax element.
+       *
+       * @type {Object|undefined}
        */
       lastRequest: {
+        type: Object,
+        notify: true,
+        readOnly: true
+      },
+
+      /**
+       * The `progress` property of this element's `lastRequest`.
+       *
+       * @type {Object|undefined}
+       */
+      lastProgress: {
         type: Object,
         notify: true,
         readOnly: true
@@ -348,6 +376,10 @@ element.
           'body, sync, handleAs, jsonPrefix, withCredentials, timeout, auto)'
     ],
 
+    created: function() {
+      this._boundOnProgressChanged = this._onProgressChanged.bind(this);
+    },
+
     /**
      * The query string that should be appended to the `url`, serialized from
      * the current value of `params`.
@@ -422,6 +454,10 @@ element.
       return headers;
     },
 
+    _onProgressChanged: function(event) {
+      this._setLastProgress(event.detail.value);
+    },
+
     /**
      * Request options suitable for generating an `iron-request` instance based
      * on the current state of the `iron-ajax` instance's properties.
@@ -481,8 +517,16 @@ element.
         return request;
       }
 
-      request.send(requestOptions);
+      if (this.lastRequest) {
+        this.lastRequest.removeEventListener('iron-request-progress-changed',
+                this._boundOnProgressChanged);
+      }
 
+      request.addEventListener('iron-request-progress-changed',
+          this._boundOnProgressChanged);
+
+      request.send(requestOptions);
+      this._setLastProgress(null);
       this._setLastRequest(request);
       this._setLoading(true);
 

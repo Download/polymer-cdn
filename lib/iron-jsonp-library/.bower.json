@@ -1,6 +1,6 @@
 {
   "name": "iron-jsonp-library",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Loads jsonp libraries",
   "authors": [
     "Aleks Totic <a@totic.org>",
@@ -54,11 +54,11 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "_release": "2.0.0",
+  "_release": "2.1.0",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.0",
-    "commit": "61d47ed327b76bd597d1e1800d3040b2279ae329"
+    "tag": "v2.1.0",
+    "commit": "107e718aad5868ee3d409502c2772b54d95ce395"
   },
   "_source": "https://github.com/PolymerElements/iron-jsonp-library.git",
   "_target": "^2.0.0",
