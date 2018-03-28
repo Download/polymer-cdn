@@ -1,0 +1,607 @@
+<!--
+@license
+    paper-dropdown: Wrapper for paper-dropdown-menu
+    Copyright (c) 2017 Pushkar Anand
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="paper-dropdown-element-behavior.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../neon-animation/web-animations.html">
+
+<dom-module id="paper-dropdown">
+    <template>
+        <style>
+            #search-box {
+                box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+                padding: 0 2px 0 16px;
+                border: none;
+                width: 100%;
+                height: 48px;
+                line-height: 48px;
+            }
+    
+            :host * {
+                outline: none;
+            }
+    
+            paper-listbox {
+                overflow-x: hidden;
+            }
+    
+            :host([multi]) ::slotted(paper-item) {
+                background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDV2MTRINVY1aDE0bTAtMkg1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6Jy8+PC9zdmc+") no-repeat;
+                background-position: 7px 12px;
+                padding-left: 40px;
+            }
+    
+            :host([multi]) ::slotted(paper-item.iron-selected) {
+                background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDNINWMtMS4xMSAwLTIgLjktMiAydjE0YzAgMS4xLjg5IDIgMiAyaDE0YzEuMTEgMCAyLS45IDItMlY1YzAtMS4xLS44OS0yLTItMnptLTkgMTRsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXonLz48L3N2Zz4=") no-repeat;
+                background-position: 7px 12px;
+            }
+        </style>
+        <paper-dropdown-menu
+                id="dropdownMenu"
+                label="{{label}}"
+                opened="{{opened}}"
+                error-message="{{errorMessage}}"
+                allow-outside-scroll="{{allowOutsideScroll}}"
+                no-label-float="{{noLabelFloat}}"
+                always-float-label="{{alwaysFloatLabel}}"
+                no-animations="{{noAnimations}}"
+                horizontal-align="{{horizontalAlign}}"
+                vertical-align="{{verticalAlign}}"
+                dynamic-align="{{dynamicAlign}}"
+                restore-focus-on-close="{{restoreFocusOnClose}}"
+                disabled="{{disabled}}"
+                selected-item="{{_selectedItem}}"
+                selected-item-label="{{_selectedItemLabel}}"
+                invalid="[[invalid]]">
+            <paper-listbox
+                    id="list"
+                    items="{{_items}}"
+                    slot="dropdown-content"
+                    attr-for-selected="{{_attrForSelected}}"
+                    selected="{{_selected}}"
+                    selected-items="{{_selectedItems}}"
+                    multi="{{multi}}">
+                <template is="dom-if" if="{{searchable}}">
+                    <iron-input 
+                        bind-value="{{_searchText}}">
+                        <input
+                            id="search-box"
+                            placeholder="Search..."
+                            type="text"
+                            on-tap="_stopEventPropagation"
+                            on-keydown="_stopEventPropagation"
+                            on-keyup="_stopEventPropagation"/>
+                    </iron-input>
+                </template>
+                <slot></slot>
+            </paper-listbox>
+        </paper-dropdown-menu>
+    </template>
+    <script>
+        /**
+         *   `paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of
+         *    items, key value pair and 2-way binding on value.
+         *
+         *   Values can be bound using `value` attribute.
+         *
+         *      <paper-dropdown label="Fruit" value="{{value}}">
+         *          <paper-item>Apple</paper-item>
+         *          <paper-item>Banana</paper-item>
+         *          <paper-item>Mango</paper-item>
+         *          <paper-item>Orange</paper-item>
+         *          <paper-item>Tomato</paper-item>
+         *      </paper-dropdown>
+         *
+         *   Each item can have a key-label pair where key is what stored in the model but
+         *   label is what user sees. This can be done using `value` attribute for `paper-item`
+         *
+         *      <paper-dropdown label="Fruit" value="{{value}}">
+         *          <paper-item value="apple">Apple</paper-item>
+         *          <paper-item value="banana">Banana</paper-item>
+         *          <paper-item value="mango">Mango</paper-item>
+         *          <paper-item value="orange">Orange</paper-item>
+         *          <paper-item value="tomato">Tomato</paper-item>
+         *      </paper-dropdown>
+         *
+         *   It also has an optional parameter named `searchable`, which when set to true
+         *   will add a text field at the start of the dropdown which users can use to filter
+         *   out the items in the dropdown.
+         *
+         *      <paper-dropdown label="Fruit" value="{{value}}" searchable="true">
+         *          <paper-item value="apple">Apple</paper-item>
+         *          <paper-item value="banana">Banana</paper-item>
+         *          <paper-item value="mango">Mango</paper-item>
+         *          <paper-item value="orange">Orange</paper-item>
+         *          <paper-item value="tomato">Tomato</paper-item>
+         *      </paper-dropdown>
+         *
+         *   For multi-select, set `mutli` parameter to true. In this case however, paper-item's
+         *   `value` attribute must be set.
+         *
+         *      <paper-dropdown label="Fruit" value="{{value}}" multi="true" searchable="true">
+         *          <paper-item value="apple">Apple</paper-item>
+         *          <paper-item value="banana">Banana</paper-item>
+         *          <paper-item value="mango">Mango</paper-item>
+         *          <paper-item value="orange">Orange</paper-item>
+         *          <paper-item value="tomato">Tomato</paper-item>
+         *      </paper-dropdown>
+         *   
+         *   **Styling**
+         *
+         *   Since `paper-dropdown` is wrapper around `paper-dropdown-menu`, you can use any of the 
+         *   `paper-dropdown-menu`, `paper-input-container` and `paper-menu-button` style mixins and 
+         *   custom properties to style the internal input and menu button respectively.
+         *
+         * @element paper-dropdown
+         * @demo demo/index.html
+         */
+        Polymer({
+            is: 'paper-dropdown',
+
+            /**
+             * @event open is fired when `paper-dropdown` opens.
+             */
+
+            /**
+             * @event close is fired when `paper-dropdown` closes.
+             */
+
+            properties: {
+                /**
+                 * Label shown against the dropdown.
+                 */
+                label: {
+                    type: String
+                },
+
+                /**
+                 * If true, dropdown will be disabled.
+                 */
+                disabled: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * Value of the dropdown
+                 */
+                value: {
+                    type: Object,
+                    observer: '_updateSelected',
+                    notify: true
+                },
+
+                /**
+                 * Index of the selected item.
+                 */
+                selected: {
+                    type: Number,
+                    observer: '_updateValue',
+                    notify: true
+                },
+
+                /**
+                 * This is true if the dropdown is in open state
+                 */
+                opened: {
+                    type: Boolean,
+                    notify: true,
+                    value: false,
+                    observer: '_onOpenedChanged'
+                },
+
+                /**
+                 * If true, a text field is shown at the top of dropdown which
+                 * user can use to search/filter for an item.
+                 */
+                searchable: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * The error message to display when invalid.
+                 */
+                errorMessage: {
+                    type: String
+                },
+
+                /**
+                 * By default, the dropdown will constrain scrolling on the page
+                 * to itself when opened.
+                 * Set to true in order to prevent scroll from being constrained
+                 * to the dropdown when it opens.
+                 */
+                allowOutsideScroll: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * Set to true to disable the floating label. Bind this to the
+                 * `<paper-input-container>`'s `noLabelFloat` property.
+                 */
+                noLabelFloat: {
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                },
+
+                /**
+                 * Set to true to always float the label. Bind this to the
+                 * `<paper-input-container>`'s `alwaysFloatLabel` property.
+                 */
+                alwaysFloatLabel: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * Set to true to disable animations when opening and closing the
+                 * dropdown.
+                 */
+                noAnimations: {
+                    type: Boolean,
+                    value: false
+                },
+
+                /**
+                 * The orientation against which to align the menu dropdown
+                 * horizontally relative to the dropdown trigger.
+                 */
+                horizontalAlign: {
+                    type: String,
+                    value: 'right'
+                },
+
+                /**
+                 * The orientation against which to align the menu dropdown
+                 * vertically relative to the dropdown trigger.
+                 */
+                verticalAlign: {
+                    type: String,
+                    value: 'top'
+                },
+
+                /**
+                 * If true, the `horizontalAlign` and `verticalAlign` properties will
+                 * be considered preferences instead of strict requirements when
+                 * positioning the dropdown and may be changed if doing so reduces
+                 * the area of the dropdown falling outside of `fitInto`.
+                 */
+                dynamicAlign: {
+                    type: Boolean
+                },
+
+                /**
+                 * Whether focus should be restored to the dropdown when the menu closes.
+                 */
+                restoreFocusOnClose: {
+                    type: Boolean,
+                    value: true
+                },
+
+                /**
+                 * If true, multiple options can be selected.
+                 */
+                multi: {
+                    type: Boolean,
+                    value: false,
+                    observer: '_multiChanged'
+                },
+                /**
+                 * Can be used to use a different language when displaying
+                 * that more than one item is selected. 
+                 * Default: 'items selected' 
+                 */
+                multiLabel: {
+                    type: String,
+                    value: 'items selected'
+                }
+            },
+            observers: [
+                '_filter(_searchText)',
+                '_itemsChanged(_items)',
+                '_updateValue(_selected)',
+                '_selectedItemsChanged(_selectedItems)',
+                '_updateSelectedItemLabel(_selectedItemLabel)',
+                '_updateSelectedItemLabel(_selectedItems)'
+            ],
+
+            behaviors: [
+                Polymer.PaperDropdownBehavior
+            ],
+
+            /**
+             * Key code for UP Arrow.
+             *
+             * @constant
+             * @private
+             */
+            UP_KEY_CODE: 38,
+
+            /**
+             * Key code for DOWN Arrow.
+             *
+             * @constant
+             * @private
+             */
+            DOWN_KEY_CODE: 40,
+
+            /**
+             * This method is automatically called when paper-dropdown is
+             * stamped to DOM. ITs main purpose is to initialize the
+             * component's variables.
+             *
+             * @private
+             */
+            ready: function () {
+                this.set('_searchText', '');
+                this.set('_attrForSelected', null);
+            },
+
+            /**
+             * Opens the dropdown.
+             *
+             * @public
+             */
+            open: function () {
+                this.$.dropdownMenu.open();
+            },
+
+            /**
+             * Closes the dropdown.
+             *
+             * @public
+             */
+            close: function () {
+                this.$.dropdownMenu.close();
+            },
+
+            /**
+             * If multi is true, it updates dropdown's menu button
+             * not to close on item select so that user can select
+             * multiple options.
+             *
+             * @param multi
+             * @private
+             */
+            _multiChanged: function (multi) {
+                if (multi) {
+                    this.$.dropdownMenu.$.menuButton.set('closeOnActivate', false);
+                    this.$.dropdownMenu.$.menuButton.set('ignoreSelect', true);
+                } else {
+                    this.$.dropdownMenu.$.menuButton.set('closeOnActivate', true);
+                    this.$.dropdownMenu.$.menuButton.set('ignoreSelect', false);
+                }
+            },
+
+            /**
+             * Updates value and selected on _selectedItems change.
+             * <b>Note:</b> This function only executes in case of multi select enabled.
+             *
+             * @param selectedItems
+             * @private
+             */
+            _selectedItemsChanged: function (selectedItems) {
+                if (this.multi) {
+                    this.set('value', selectedItems.map((function(item) {
+                        return this._getItemValue(item);
+                    }).bind(this)));
+
+                    var items = this.$.list.items;
+                    this.set('selected', selectedItems.map(function(item) {
+                        return items.indexOf(item);
+                    }));
+                }
+            },
+
+            /**
+             * Updates selected item's label to customize value shown in
+             * paper-drodown-menu's paper-input.
+             *
+             * @param label
+             * @private
+             */
+            _updateSelectedItemLabel: function(label) {
+                if (this.multi) {
+                    if (this._selectedItems.length > 1) {
+                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' ' + this.multiLabel);
+                    } else if (this._selectedItems.length == 1) {
+                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems[0].textContent.trim());
+                    } else {
+                        this.$.dropdownMenu._setSelectedItemLabel(null);
+                    }
+                }
+            },
+
+            /**
+             * Returns value of given Item.
+             *
+             * @param item
+             * @returns {string} Label/Value of the item.
+             * @private
+             */
+            _getItemValue: function (item) {
+                if (item) {
+                    if (item.getAttribute('value'))
+                        return item.getAttribute('value');
+                    else
+                        return item.textContent.trim();
+                }
+            },
+
+            /**
+             * Updates selected & _attrForSelected on items change.
+             *
+             * @param items
+             * @private
+             */
+            _itemsChanged: function (items) {
+                if (items.length > 0) {
+                    this._updateSelected(this.value);
+                    if (this.multi) {
+                        for (var i in items) {
+                            if (items[i].getAttribute('value')) {
+                                this.set('_attrForSelected', 'value');
+                                return;
+                            }
+                        }
+                        this.set('_attrForSelected', null);
+                    }
+                }
+            },
+
+            /**
+             * Returns the value of the item for given index.
+             *
+             * @param index Index of the item
+             * @param items Items in the listbox
+             * @private
+             */
+            _getItemValueFromItems: function (index, items) {
+                return this._getItemValue(items[index]);
+            },
+
+            /**
+             * Returns the Label for the given Item.
+             *
+             * @param item
+             * @return {string} Label of the item.
+             * @private
+             */
+            _getItemLabel: function (item) {
+                return item.textContent.trim();
+            },
+
+            /**
+             * Returns the Label shown to user for the item at the
+             * given index.
+             *
+             * @param index Index of the item.
+             * @param items Items in listbox.
+             * @returns {string} Label of the item.
+             * @private
+             */
+            _getItemLabelFromItems: function (index, items) {
+                return this._getItemLabel(items[index]);
+            },
+
+            /**
+             * Updates `selected` property according to `value` property.
+             * Sets selected to -1 if value is not found.
+             *
+             * @param value
+             * @private
+             */
+            _updateSelected: function (value) {
+                var items = this.$.list.items;
+                if (items.length > 0) {
+                    if (this.multi) {
+                        this.$.list.set('selectedValues', value);
+                    } else {
+                        for (var i = 0; i < items.length; i++) {
+                            if (this._getItemValueFromItems(i, items) == value) {
+                                this.set('selected', i);
+                                this.set('_selected', i);
+                                return;
+                            }
+                        }
+                        this.set('_selected', -1);
+                        this.set('selected', -1);
+                    }
+                }
+            },
+
+            /**
+             * Updates `value` property according to `selected` property.
+             *
+             * @param selected
+             * @private
+             */
+            _updateValue: function (selected) {
+                var items = this.$.list.items;
+                if (items.length > 0 && !this.multi) {
+                    if (selected > -1) {
+                        this.set('value', this._getItemValueFromItems(selected, items));
+                        return;
+                    } else {
+                        this.set('value', null);
+                    }
+                }
+            },
+
+            /**
+             * Called whenever `opened` changes.
+             * Fires `opened` or `closed` events.
+             * Also, clears `_searchText` variable on close.
+             *
+             * @param opened
+             * @private
+             */
+            _onOpenedChanged: function (opened) {
+                if (opened) {
+                    this.fire('open');
+                } else {
+                    this.set('_searchText', '');
+                    this.fire('close');
+                }
+            },
+
+            /**
+             * Stops event propagation if up/down keys is not pressed.
+             *
+             * @param e Event
+             * @private
+             */
+            _stopEventPropagation: function (e) {
+                if (e.keyCode != this.UP_KEY_CODE && e.keyCode != this.DOWN_KEY_CODE) {
+                    e.stopPropagation();
+                }
+            },
+
+            /**
+             * Shows/Hides listbox items based on searchText
+             *
+             * @param searchText Text to be matched in item's label.
+             * @private
+             */
+            _filter: function (searchText) {
+                var items = this.$.list.items;
+                for (var i in items) {
+                    var display;
+                    if (this._filterCheck(searchText, items[i])) {
+                        display = 'flex';
+                    } else {
+                        display = 'none';
+                    }
+                    items[i].style.display = display;
+                }
+            },
+        })
+    </script>
+</dom-module>
