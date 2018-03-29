@@ -10,7 +10,7 @@
 ## How to use
 In general, given an element named `my-cool-element`, the CDN url for it will be:
 ```
-https://cdn.rawgit.com/download/polymer-cdn/2.6.0/lib/my-cool-element/my-cool-element.html
+https://cdn.rawgit.com/download/polymer-cdn/2.6.0.2/lib/my-cool-element/my-cool-element.html
 ```
 To be sure, browse this repo and copy-paste the url to the raw version into [RawGit](https://rawgit.com).
 
@@ -64,7 +64,7 @@ These dependencies are themselves also listed at the top-level, so you can work 
 tree for a library by carefully examining this diagram.
 
 ```sh
-polymer-cdn#2.6.0
+polymer-cdn#2.6.0.2
 ├─┬ app-layout#2.1.0
 │ ├─┬ iron-flex-layout#2.0.3
 │ │ └─┬ polymer#2.6.0
@@ -151,7 +151,7 @@ polymer-cdn#2.6.0
 │ ├─┬ iron-doc-viewer#3.2.0
 │ │ ├── iron-location#2.2.0
 │ │ ├─┬ marked-element#2.4.0
-│ │ │ ├── marked#0.3.18
+│ │ │ ├── marked#0.3.18 (0.3.19 available)
 │ │ │ └── polymer#2.6.0
 │ │ ├── paper-styles#2.1.0
 │ │ ├── polymer#2.6.0
@@ -449,7 +449,7 @@ polymer-cdn#2.6.0
 │ ├── accessibility-developer-tools#2.12.0
 │ ├── async#1.5.2 (latest is 2.6.0)
 │ ├── chai#3.5.0 (latest is 4.1.2)
-│ ├── lodash#3.10.1 (3.11.0-npm-packages available, latest is 4.17.7-es)
+│ ├── lodash#3.10.1 (3.11.0-npm-packages available, latest is 4.17.8-es)
 │ ├── mocha#3.5.3 (latest is 5.0.5)
 │ ├── sinon-chai#2.14.0 (latest is 3.0.0)
 │ ├── sinonjs#1.17.1
