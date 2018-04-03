@@ -109,6 +109,7 @@
     "web-component-tester": "^6.4.1",
     "iron-form": "PolymerElements/iron-form#^2.2.1",
     "paper-alert-dialog": "Collaborne/paper-alert-dialog#^2.0.1",
-    "paper-dropdown": "pushkar8723/paper-dropdown#^2.0.1"
+    "paper-dropdown": "pushkar8723/paper-dropdown#^2.0.1",
+    "highcharts-polymer": "anthfran/highcharts-polymer#^1.0.3"
   }
 }

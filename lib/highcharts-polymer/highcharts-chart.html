@@ -1,0 +1,104 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<script src="./highchartsjs/highstock.js"></script>
+<script src="./highchartsjs/exporting.js"></script>
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+
+<dom-module id="highcharts-chart">
+  <template>
+    <style>
+    :host {
+      display: block;
+      --container-width: 100%;
+      --container-height: 400px;
+    }
+    .container {
+      min-height: 300px;
+      width: var(--container-width);
+      height: var(--container-height);
+    }
+    </style>
+    <iron-ajax
+      auto
+      url="[[dataUrl]]"
+      last-response="{{series}}"
+      debounce-duration="300">
+    </iron-ajax>
+    <div id="container" class="container"></div>
+  </template>
+
+  <script>
+  /**
+  * `highcharts-chart`
+  * Polymer wrapper for highcharts
+  *
+  * @customElement
+  * @polymer
+  * @demo demo/index.html
+  */
+  class HighchartsChart extends Polymer.Element {
+    static get is() { return 'highcharts-chart'; }
+    static get properties() {
+      return {
+        dataUrl: {
+          type: String
+        },
+        height: {
+          type: String,
+          observer: '_cssHeightSet'
+        },
+        width: {
+          type: String,
+          observer: '_cssWidthSet'
+        },
+        title: {
+          type: String
+        },
+        subtitle: {
+          type: String
+        },
+        series: {
+          type: Array,
+          observer: '_computeOptions'
+        },
+        valueDecimals: {
+          type: Number,
+          value: 2
+        },
+        _options: {
+          type: Object,
+          observer: '_drawChart'
+        }
+      };
+    }
+    _computeOptions(series) {
+      let options = {
+        chart: {
+          renderTo: this.$.container
+        },
+        rangeSelector: {
+          selected: 1
+        },
+        title: {
+          text: this.title
+        },
+        subtitle: {
+          text: this.subtitle
+        },
+        series: series
+      };
+      this.set('_options', options)
+    }
+
+    _drawChart(options) {
+      Highcharts.chart(options);
+    }
+
+    _cssHeightSet(height) { this.updateStyles({'--container-height': height}); }
+    _cssWidthSet(width) { this.updateStyles({'--container-width': width}); }
+    connectedCallback() {
+      super.connectedCallback();
+    }
+  }
+  customElements.define(HighchartsChart.is, HighchartsChart);
+  </script>
+</dom-module>

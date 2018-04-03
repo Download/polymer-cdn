@@ -1,0 +1,29 @@
+{
+  "name": "highcharts-polymer",
+  "description": "Polymer wrapper for highcharts",
+  "main": "highcharts-chart.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "iron-ajax": "PolymerElements/iron-ajax#^2.1.0"
+  },
+  "devDependencies": {
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "resolutions": {
+    "polymer": "^2.0.0"
+  },
+  "homepage": "https://github.com/anthfran/highcharts-polymer",
+  "version": "1.0.3",
+  "_release": "1.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.3",
+    "commit": "7d11c7de697c1c37cc8fd9a082b0753ebb5a18dc"
+  },
+  "_source": "https://github.com/anthfran/highcharts-polymer.git",
+  "_target": "^1.0.3",
+  "_originalSource": "anthfran/highcharts-polymer",
+  "_direct": true
+}
