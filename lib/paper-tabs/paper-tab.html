@@ -123,29 +123,20 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
          * If true, the tab will forward keyboard clicks (enter/space) to
          * the first anchor element found in its descendants
          */
-        link: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
-        }
+        link: {type: Boolean, value: false, reflectToAttribute: true}
 
       },
 
       /** @private */
-      hostAttributes: {
-        role: 'tab'
-      },
+      hostAttributes: {role: 'tab'},
 
-      listeners: {
-        down: '_updateNoink',
-        tap: '_onTap'
-      },
+      listeners: {down: '_updateNoink', tap: '_onTap'},
 
       attached: function() {
         this._updateNoink();
       },
 
-      get _parentNoink () {
+      get _parentNoink() {
         var parent = Polymer.dom(this).parentNode;
         return !!parent && !!parent.noink;
       },

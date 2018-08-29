@@ -35,40 +35,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fixture>
 
     <script>
-
       suite('nested', function() {
         var pages;
-        
+
         suite('0 is selected', function() {
           setup(function(done) {
             pages = fixture('nested');
-            pages.addEventListener('iron-items-changed', function onIronItemsChanged() {
-              pages.removeEventListener('iron-items-changed', onIronItemsChanged);
-              done();
-            });
+            pages.addEventListener(
+                'iron-items-changed', function onIronItemsChanged() {
+                  pages.removeEventListener('iron-items-changed', onIronItemsChanged);
+                  done();
+                });
           });
 
-          test('selected item is display:block and all others are display:none', function(done) {
-            Polymer.Base.async(function() {
-              var p = pages.selectedItem;
-              assert.equal(getComputedStyle(p).display, 'block');
-              assert.isAbove(p.clientHeight, 0);
-              assert.isAbove(p.offsetHeight, 0);
-              assert.isAbove(p.scrollHeight, 0);
-              pages.items.forEach(function(p) {
-                if (p != pages.selectedItem)  {
-                  assert.equal(getComputedStyle(p).display, 'none');
-                  assert.equal(p.clientHeight, 0);
-                  assert.equal(p.offsetHeight, 0);
-                  assert.equal(p.scrollHeight, 0);
-                }
+          test(
+              'selected item is display:block and all others are display:none',
+              function(done) {
+                Polymer.Base.async(function() {
+                  var p = pages.selectedItem;
+                  assert.equal(getComputedStyle(p).display, 'block');
+                  assert.isAbove(p.clientHeight, 0);
+                  assert.isAbove(p.offsetHeight, 0);
+                  assert.isAbove(p.scrollHeight, 0);
+                  pages.items.forEach(function(p) {
+                    if (p != pages.selectedItem) {
+                      assert.equal(getComputedStyle(p).display, 'none');
+                      assert.equal(p.clientHeight, 0);
+                      assert.equal(p.offsetHeight, 0);
+                      assert.equal(p.scrollHeight, 0);
+                    }
+                  });
+                  done();
+                }, 1);
               });
-              done();
-            }, 1);
-          });
         });
       });
-
     </script>
 
   </body>

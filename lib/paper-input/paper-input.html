@@ -89,25 +89,25 @@ Custom property | Description | Default
       }
 
       input {
-        position: relative; /* to make a stacking context */
-        outline: none;
-        box-shadow: none;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        max-width: 100%;
-        background: transparent;
-        border: none;
-        color: var(--paper-input-container-input-color, var(--primary-text-color));
-        -webkit-appearance: none;
-        text-align: inherit;
-        vertical-align: bottom;
-
         /* Firefox sets a min-width on the input, which can cause layout issues */
         min-width: 0;
+      }
 
-        @apply --paper-font-subhead;
-        @apply --paper-input-container-input;
+      /* In 1.x, the <input> is distributed to paper-input-container, which styles it.
+      In 2.x the <iron-input> is distributed to paper-input-container, which styles
+      it, but in order for this to work correctly, we need to reset some
+      of the native input's properties to inherit (from the iron-input) */
+      iron-input > input {
+        @apply --paper-input-container-shared-input-style;
+        font-family: inherit;
+        font-weight: inherit;
+        font-size: inherit;
+        letter-spacing: inherit;
+        word-spacing: inherit;
+        line-height: inherit;
+        text-shadow: inherit;
+        color: inherit;
+        cursor: inherit;
       }
 
       input:disabled {
@@ -272,10 +272,14 @@ Custom property | Description | Default
   Polymer({
     is: 'paper-input',
 
-    behaviors: [
-      Polymer.PaperInputBehavior,
-      Polymer.IronFormElementBehavior
-    ],
+    behaviors: [Polymer.PaperInputBehavior, Polymer.IronFormElementBehavior],
+
+    properties: {
+      value: {
+        // Required for the correct TypeScript type-generation
+        type: String
+      }
+    },
 
     beforeRegister: function() {
       // We need to tell which kind of of template to stamp based on
@@ -284,32 +288,35 @@ Custom property | Description | Default
       // to check a particular method we know the iron-input#2.x can have.
       // If it doesn't have it, then it's an iron-input#1.x.
       var ironInput = document.createElement('iron-input');
-      var version = typeof ironInput._initSlottedInput == 'function' ? 'v1' : 'v0';
+      var version =
+          typeof ironInput._initSlottedInput == 'function' ? 'v1' : 'v0';
       var template = Polymer.DomModule.import('paper-input', 'template');
-      var inputTemplate = Polymer.DomModule.import('paper-input', 'template#' + version);
-      var inputPlaceholder = template.content.querySelector('#template-placeholder');
+      var inputTemplate =
+          Polymer.DomModule.import('paper-input', 'template#' + version);
+      var inputPlaceholder =
+          template.content.querySelector('#template-placeholder');
       if (inputPlaceholder) {
-        inputPlaceholder.parentNode.replaceChild(inputTemplate.content, inputPlaceholder);
+        inputPlaceholder.parentNode.replaceChild(
+            inputTemplate.content, inputPlaceholder);
       }
       // else it's already been processed, probably in superclass
     },
 
     /**
-     * Returns a reference to the focusable element. Overridden from PaperInputBehavior
-     * to correctly focus the native input.
+     * Returns a reference to the focusable element. Overridden from
+     * PaperInputBehavior to correctly focus the native input.
      *
      * @return {!HTMLElement}
      */
     get _focusableElement() {
-      return Polymer.Element ? this.inputElement._inputElement : this.inputElement;
+      return Polymer.Element ? this.inputElement._inputElement :
+                               this.inputElement;
     },
 
     // Note: This event is only available in the 1.0 version of this element.
     // In 2.0, the functionality of `_onIronInputReady` is done in
     // PaperInputBehavior::attached.
-    listeners: {
-      'iron-input-ready': '_onIronInputReady'
-    },
+    listeners: {'iron-input-ready': '_onIronInputReady'},
 
     _onIronInputReady: function() {
       // Even though this is only used in the next line, save this for

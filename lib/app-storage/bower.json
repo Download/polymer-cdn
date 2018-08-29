@@ -3,7 +3,6 @@
   "authors": [
     "The Polymer Authors"
   ],
-  "version": "2.0.4",
   "description": "Web Components for managing user data in web apps",
   "main": [
     "app-storage-behavior.html",
@@ -28,7 +27,7 @@
     "paper-input": "polymerelements/paper-input#1 - 2",
     "paper-styles": "polymerelements/paper-styles#1 - 2",
     "promise-polyfill": "polymerlabs/promise-polyfill#1 - 2",
-    "web-component-tester": "^4.0.0",
+    "web-component-tester": "^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
   "variants": {
@@ -46,7 +45,7 @@
         "paper-input": "polymerelements/paper-input#^1.0.0",
         "paper-styles": "polymerelements/paper-styles#^1.0.0",
         "promise-polyfill": "polymerlabs/promise-polyfill#^1.0.0",
-        "web-component-tester": "Polymer/web-component-tester#^4.0.0",
+        "web-component-tester": "Polymer/web-component-tester#^6.0.0",
         "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.24"
       },
       "resolutions": {
@@ -57,5 +56,6 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "ignore": []
+  "ignore": [],
+  "version": "2.1.2"
 }

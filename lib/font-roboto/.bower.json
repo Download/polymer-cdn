@@ -25,7 +25,7 @@
     "tag": "v1.1.0",
     "commit": "014b084ae51314648053e792cf6c870946942953"
   },
-  "_source": "https://github.com/polymerelements/font-roboto.git",
-  "_target": "^1.0.0",
-  "_originalSource": "polymerelements/font-roboto"
+  "_source": "https://github.com/PolymerElements/font-roboto.git",
+  "_target": "^1",
+  "_originalSource": "PolymerElements/font-roboto"
 }

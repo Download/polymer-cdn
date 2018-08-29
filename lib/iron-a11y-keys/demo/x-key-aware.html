@@ -57,15 +57,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     is: 'x-key-aware',
 
     properties: {
-      pressed: {
-        type: String,
-        readOnly: true,
-        value: ''
-      },
+      pressed: {type: String, readOnly: true, value: ''},
 
-      boundKeys: {
-        type: Array
-      },
+      boundKeys: {type: Array},
 
       target: {
         type: Object,
@@ -82,9 +76,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     _updatePressed: function(event) {
       console.log(event.detail);
 
-      this._setPressed(
-        this.pressed + event.detail.combo + ' pressed!\n'
-      );
+      this._setPressed(this.pressed + event.detail.combo + ' pressed!\n');
     }
   });
 </script>

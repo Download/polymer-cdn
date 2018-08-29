@@ -5,7 +5,7 @@
     <title>paper-dropdown demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
-    <link rel="import" href="../../polymer/polymer.html" />
+    <link rel="import" href="../../polymer/polymer-element.html" />
     <link rel="import" href="../paper-dropdown.html" />
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
@@ -172,7 +172,9 @@
         <demo-snippet>
             <dom-bind>
                 <template>
-                    <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true">
+                    <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true"
+                        search-placeholder="Search for a fruit."
+                    >
                         <paper-item value="apple">Apple</paper-item>
                         <paper-item value="banana">Banana</paper-item>
                         <paper-item value="mango">Mango</paper-item>
@@ -180,7 +182,9 @@
                         <paper-item value="tomato">Tomato</paper-item>
                     </paper-dropdown>
     
-                    <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true">
+                    <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true"
+                        selected-placeholder="fruits selected"
+                    >
                         <paper-item value="apple">Apple</paper-item>
                         <paper-item value="banana">Banana</paper-item>
                         <paper-item value="mango">Mango</paper-item>
@@ -194,7 +198,9 @@
                 </template>
             </dom-bind>
             <template is="dom-bind">
-                <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true">
+                <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true"
+                    search-placeholder="Search for a fruit."
+                >
                     <paper-item value="apple">Apple</paper-item>
                     <paper-item value="banana">Banana</paper-item>
                     <paper-item value="mango">Mango</paper-item>
@@ -202,7 +208,9 @@
                     <paper-item value="tomato">Tomato</paper-item>
                 </paper-dropdown>
 
-                <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true">
+                <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true"
+                    selected-placeholder="fruits selected"
+                >
                     <paper-item value="apple">Apple</paper-item>
                     <paper-item value="banana">Banana</paper-item>
                     <paper-item value="mango">Mango</paper-item>
@@ -235,14 +243,14 @@
                             <paper-item value="orange">Orange</paper-item>
                             <paper-item value="tomato">Tomato</paper-item>
                         </paper-dropdown><br/>
-                        <paper-dropdown multi label="Fruit" name="fruits" min-length="2" error-message="Please select at least 2 fruits">
+                        <paper-dropdown multi label="Fruit" name="fruits_min2" min-length="2" error-message="Please select at least 2 fruits">
                             <paper-item value="apple">Apple</paper-item>
                             <paper-item value="banana">Banana</paper-item>
                             <paper-item value="mango">Mango</paper-item>
                             <paper-item value="orange">Orange</paper-item>
                             <paper-item value="tomato">Tomato</paper-item>
                         </paper-dropdown><br/>
-                        <paper-dropdown multi label="Fruit" name="fruits" min-length="2" max-length="4" error-message="You can select 2-4 fruits">
+                        <paper-dropdown multi label="Fruit" name="fruits_min2_max2" min-length="2" max-length="4" error-message="You can select 2-4 fruits">
                             <paper-item value="apple">Apple</paper-item>
                             <paper-item value="banana">Banana</paper-item>
                             <paper-item value="mango">Mango</paper-item>
@@ -252,6 +260,17 @@
                         <button type="submit">Submit</button>
                     </form>
                 </iron-form>
+                <script>
+                    (function() {
+                        var form = document.getElementById('form1');
+                        form.addEventListener('submit', function() {
+                            var valid = form.validate();
+                            if (valid) {
+                                console.log(form.serializeForm());
+                            }
+                        });
+                    })()
+                </script>
             </template>
         </demo-snippet>
     </div>

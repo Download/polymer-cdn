@@ -52,9 +52,18 @@ Custom property | Description | Default
         padding: 0;
       }
 
+      
+      :host > ::slotted(*:first-child) {
+        margin-top: 24px;
+      }
+
+      :host > ::slotted(*:last-child) {
+        margin-bottom: 24px;
+      }
+
       /* In 1.x, this selector was `:host > ::content h2`. In 2.x <slot> allows
       to select direct children only, which increases the weight of this
-      selector, so we have to move it before first-child/last-child selectors */
+      selector, so we have to re-define first-child/last-child margins below. */
       :host > ::slotted(h2) {
         position: relative;
         margin: 0;
@@ -63,12 +72,16 @@ Custom property | Description | Default
         @apply --paper-dialog-title;
       }
 
-      :host > ::slotted(*:first-child) {
+      /* Apply mixin again, in case it sets margin-top. */
+      :host > ::slotted(h2:first-child) {
         margin-top: 24px;
+        @apply --paper-dialog-title;
       }
 
-      :host > ::slotted(*:last-child) {
+      /* Apply mixin again, in case it sets margin-bottom. */
+      :host > ::slotted(h2:last-child) {
         margin-bottom: 24px;
+        @apply --paper-dialog-title;
       }
 
       :host > ::slotted(.paper-dialog-buttons),

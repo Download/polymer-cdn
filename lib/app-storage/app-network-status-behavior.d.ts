@@ -14,8 +14,8 @@ declare namespace Polymer {
 
   /**
    * `Polymer.AppNetworkStatusBehavior` tracks the status of whether the browser
-   * is online or offline. True if the browser is online, and false if the browser is
-   * offline matching the HTML browser state spec.
+   * is online or offline. True if the browser is online, and false if the browser
+   * is offline matching the HTML browser state spec.
    */
   interface AppNetworkStatusBehavior {
 

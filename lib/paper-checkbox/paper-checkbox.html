@@ -108,7 +108,7 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
         pointer-events: none;
       }
 
-      :host-context([dir="rtl"]) #ink {
+      #ink:dir(rtl) {
         right: calc(0px - (var(--calculated-paper-checkbox-ink-size) - var(--calculated-paper-checkbox-size)) / 2);
         left: auto;
       }
@@ -173,7 +173,7 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
         box-sizing: content-box; /* protect against page-level box-sizing */
       }
 
-      :host-context([dir="rtl"]) #checkmark {
+      #checkmark:dir(rtl) {
         -webkit-transform-origin: 50% 14%;
         transform-origin: 50% 14%;
       }
@@ -195,7 +195,7 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
         @apply --paper-checkbox-label-checked;
       }
 
-      :host-context([dir="rtl"]) #checkboxLabel {
+      #checkboxLabel:dir(rtl) {
         padding-right: var(--paper-checkbox-label-spacing, 8px);
         padding-left: 0;
       }
@@ -239,15 +239,10 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
     Polymer({
       is: 'paper-checkbox',
 
-      behaviors: [
-        Polymer.PaperCheckedElementBehavior
-      ],
+      behaviors: [Polymer.PaperCheckedElementBehavior],
 
-      hostAttributes: {
-        role: 'checkbox',
-        'aria-checked': false,
-        tabindex: 0
-      },
+      /** @private */
+      hostAttributes: {role: 'checkbox', 'aria-checked': false, tabindex: 0},
 
       properties: {
         /**
@@ -261,22 +256,28 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
          *
          * @event iron-change
          */
-        ariaActiveAttribute: {
-          type: String,
-          value: 'aria-checked'
-        }
+        ariaActiveAttribute: {type: String, value: 'aria-checked'}
       },
 
       attached: function() {
         // Wait until styles have resolved to check for the default sentinel.
         // See polymer#4009 for more details.
         Polymer.RenderStatus.afterNextRender(this, function() {
-          var inkSize = this.getComputedStyleValue('--calculated-paper-checkbox-ink-size').trim();
+          var inkSize =
+              this.getComputedStyleValue('--calculated-paper-checkbox-ink-size')
+                  .trim();
           // If unset, compute and set the default `--paper-checkbox-ink-size`.
           if (inkSize === '-1px') {
-            var checkboxSizeText = this.getComputedStyleValue('--calculated-paper-checkbox-size').trim();
+            var checkboxSizeText =
+                this.getComputedStyleValue('--calculated-paper-checkbox-size')
+                    .trim();
 
-            var units = checkboxSizeText.match(/[A-Za-z]+$/)[0] || 'px';
+            var units = 'px';
+            var unitsMatches = checkboxSizeText.match(/[A-Za-z]+$/);
+            if (unitsMatches !== null) {
+              units = unitsMatches[0];
+            }
+
             var checkboxSize = parseFloat(checkboxSizeText);
             var defaultInkSize = (8 / 3) * checkboxSize;
 

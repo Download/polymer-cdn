@@ -78,7 +78,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           expect(input.disabled).to.be.true;
 
           var markdownElement = element.$.marked;
-          expect(markdownElement.markdown).to.be.equal('```\n\n<input disabled>\n\n```');
+          expect(markdownElement.markdown)
+              .to.be.equal('```\n\n<input disabled>\n\n```');
           done();
         }, 1);
       });
@@ -99,7 +100,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           expect(button.value).to.be.equal('batman');
 
           var markdownElement = element.$.marked;
-          expect(markdownElement.markdown).to.be.equal('```\n\n<simple-button value="batman"></simple-button>\n\n```');
+          expect(markdownElement.markdown)
+              .to.be.equal(
+                  '```\n\n<simple-button value="batman"></simple-button>\n\n```');
           done();
         }, 1);
       });
@@ -111,7 +114,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var element = document.getElementById('demoWithAttributes');
 
           var markdownElement = element.$.marked;
-          expect(markdownElement.markdown).to.be.equal('```\n\n<input disabled type="date">\n\n```');
+          expect(markdownElement.markdown)
+              .to.be.equal('```\n\n<input disabled type="date">\n\n```');
           done();
         }, 1);
       });

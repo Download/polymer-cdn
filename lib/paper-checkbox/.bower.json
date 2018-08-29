@@ -1,6 +1,6 @@
 {
   "name": "paper-checkbox",
-  "version": "2.0.2",
+  "version": "2.0.4",
   "description": "A material design checkbox",
   "authors": [
     "The Polymer Authors"
@@ -63,11 +63,11 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "_release": "2.0.2",
+  "_release": "2.0.4",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.2",
-    "commit": "8404761baae76f5229dd31f0ffe22ae400a67ee2"
+    "tag": "v2.0.4",
+    "commit": "22cc667efc908916146bff8f4466544f82cb4cd3"
   },
   "_source": "https://github.com/PolymerElements/paper-checkbox.git",
   "_target": "^2.0.1",

@@ -2,51 +2,49 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "`paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of\n   items, key value pair and 2-way binding on value.\n\n  Values can be bound using `value` attribute.\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\">\n         <paper-item>Apple</paper-item>\n         <paper-item>Banana</paper-item>\n         <paper-item>Mango</paper-item>\n         <paper-item>Orange</paper-item>\n         <paper-item>Tomato</paper-item>\n     </paper-dropdown>\n\n  Each item can have a key-label pair where key is what stored in the model but\n  label is what user sees. This can be done using `value` attribute for `paper-item`\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\">\n         <paper-item value=\"apple\">Apple</paper-item>\n         <paper-item value=\"banana\">Banana</paper-item>\n         <paper-item value=\"mango\">Mango</paper-item>\n         <paper-item value=\"orange\">Orange</paper-item>\n         <paper-item value=\"tomato\">Tomato</paper-item>\n     </paper-dropdown>\n\n  It also has an optional parameter named `searchable`, which when set to true\n  will add a text field at the start of the dropdown which users can use to filter\n  out the items in the dropdown.\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\" searchable=\"true\">\n         <paper-item value=\"apple\">Apple</paper-item>\n         <paper-item value=\"banana\">Banana</paper-item>\n         <paper-item value=\"mango\">Mango</paper-item>\n         <paper-item value=\"orange\">Orange</paper-item>\n         <paper-item value=\"tomato\">Tomato</paper-item>\n     </paper-dropdown>\n\n  For multi-select, set `mutli` parameter to true. In this case however, paper-item's\n  `value` attribute must be set.\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\" multi=\"true\" searchable=\"true\">\n         <paper-item value=\"apple\">Apple</paper-item>\n         <paper-item value=\"banana\">Banana</paper-item>\n         <paper-item value=\"mango\">Mango</paper-item>\n         <paper-item value=\"orange\">Orange</paper-item>\n         <paper-item value=\"tomato\">Tomato</paper-item>\n     </paper-dropdown>\n  \n  **Styling**\n\n  Since `paper-dropdown` is wrapper around `paper-dropdown-menu`, you can use any of the \n  `paper-dropdown-menu`, `paper-input-container` and `paper-menu-button` style mixins and \n  custom properties to style the internal input and menu button respectively.",
+      "description": "`paper-dropdown` is a wrapper for `paper-dropdown-menu` to enable various features like multi-select, search / filter of\n   items, key value pair and 2-way binding on value.\n\n  Values can be bound using `value` attribute.\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\">\n         <paper-item>Apple</paper-item>\n         <paper-item>Banana</paper-item>\n         <paper-item>Mango</paper-item>\n         <paper-item>Orange</paper-item>\n         <paper-item>Tomato</paper-item>\n     </paper-dropdown>\n\n  Each item can have a key-label pair where key is what stored in the model but\n  label is what user sees. This can be done using `value` attribute for `paper-item`\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\">\n         <paper-item value=\"apple\">Apple</paper-item>\n         <paper-item value=\"banana\">Banana</paper-item>\n         <paper-item value=\"mango\">Mango</paper-item>\n         <paper-item value=\"orange\">Orange</paper-item>\n         <paper-item value=\"tomato\">Tomato</paper-item>\n     </paper-dropdown>\n\n  It also has an optional parameter named `searchable`, which when set to true\n  will add a text field at the start of the dropdown which users can use to filter\n  out the items in the dropdown.\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\" searchable=\"true\">\n         <paper-item value=\"apple\">Apple</paper-item>\n         <paper-item value=\"banana\">Banana</paper-item>\n         <paper-item value=\"mango\">Mango</paper-item>\n         <paper-item value=\"orange\">Orange</paper-item>\n         <paper-item value=\"tomato\">Tomato</paper-item>\n     </paper-dropdown>\n\n  For multi-select, set `mutli` parameter to true. In this case however, paper-item's\n  `value` attribute must be set.\n\n     <paper-dropdown label=\"Fruit\" value=\"{{value}}\" multi=\"true\" searchable=\"true\">\n         <paper-item value=\"apple\">Apple</paper-item>\n         <paper-item value=\"banana\">Banana</paper-item>\n         <paper-item value=\"mango\">Mango</paper-item>\n         <paper-item value=\"orange\">Orange</paper-item>\n         <paper-item value=\"tomato\">Tomato</paper-item>\n     </paper-dropdown>\n\n  **Styling**\n\n  Since `paper-dropdown` is wrapper around `paper-dropdown-menu`, you can use any of the\n  `paper-dropdown-menu`, `paper-input-container` and `paper-menu-button` style mixins and\n  custom properties to style the internal input and menu button respectively.",
       "summary": "",
       "path": "paper-dropdown.html",
       "properties": [
         {
-          "name": "maxLength",
-          "type": "number",
-          "description": "Maximum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+          "name": "searchPlaceholder",
+          "type": "string",
+          "description": "search placeholder text if searchable is True",
           "privacy": "public",
           "sourceRange": {
-            "file": "paper-dropdown-element-behavior.html",
             "start": {
-              "line": 40,
-              "column": 12
+              "line": 178,
+              "column": 20
             },
             "end": {
-              "line": 42,
-              "column": 13
+              "line": 181,
+              "column": 21
             }
           },
           "metadata": {
             "polymer": {}
           },
-          "inheritedFrom": "Polymer.PaperDropdownBehavior"
+          "defaultValue": "\"Search...\""
         },
         {
-          "name": "minLength",
-          "type": "number",
-          "description": "Minimum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+          "name": "selectedPlaceholder",
+          "type": "string",
+          "description": "Text to be shown if more than one item is selected.",
           "privacy": "public",
           "sourceRange": {
-            "file": "paper-dropdown-element-behavior.html",
             "start": {
-              "line": 48,
-              "column": 12
+              "line": 186,
+              "column": 20
             },
             "end": {
-              "line": 50,
-              "column": 13
+              "line": 189,
+              "column": 21
             }
           },
           "metadata": {
             "polymer": {}
           },
-          "inheritedFrom": "Polymer.PaperDropdownBehavior"
+          "defaultValue": "\"items selected\""
         },
         {
           "name": "label",
@@ -55,12 +53,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 176,
-              "column": 16
+              "line": 194,
+              "column": 20
             },
             "end": {
-              "line": 178,
-              "column": 17
+              "line": 196,
+              "column": 21
             }
           },
           "metadata": {
@@ -74,12 +72,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 183,
-              "column": 16
+              "line": 201,
+              "column": 20
             },
             "end": {
-              "line": 186,
-              "column": 17
+              "line": 204,
+              "column": 21
             }
           },
           "metadata": {
@@ -94,12 +92,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 191,
-              "column": 16
+              "line": 209,
+              "column": 20
             },
             "end": {
-              "line": 195,
-              "column": 17
+              "line": 213,
+              "column": 21
             }
           },
           "metadata": {
@@ -116,12 +114,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 200,
-              "column": 16
+              "line": 218,
+              "column": 20
             },
             "end": {
-              "line": 204,
-              "column": 17
+              "line": 222,
+              "column": 21
             }
           },
           "metadata": {
@@ -138,12 +136,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 209,
-              "column": 16
+              "line": 227,
+              "column": 20
             },
             "end": {
-              "line": 214,
-              "column": 17
+              "line": 232,
+              "column": 21
             }
           },
           "metadata": {
@@ -161,12 +159,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 220,
-              "column": 16
+              "line": 238,
+              "column": 20
             },
             "end": {
-              "line": 223,
-              "column": 17
+              "line": 241,
+              "column": 21
             }
           },
           "metadata": {
@@ -181,12 +179,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 228,
-              "column": 16
+              "line": 246,
+              "column": 20
             },
             "end": {
-              "line": 230,
-              "column": 17
+              "line": 248,
+              "column": 21
             }
           },
           "metadata": {
@@ -200,12 +198,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 238,
-              "column": 16
+              "line": 256,
+              "column": 20
             },
             "end": {
-              "line": 241,
-              "column": 17
+              "line": 259,
+              "column": 21
             }
           },
           "metadata": {
@@ -220,12 +218,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 247,
-              "column": 16
+              "line": 265,
+              "column": 20
             },
             "end": {
-              "line": 251,
-              "column": 17
+              "line": 269,
+              "column": 21
             }
           },
           "metadata": {
@@ -240,12 +238,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 257,
-              "column": 16
+              "line": 275,
+              "column": 20
             },
             "end": {
-              "line": 260,
-              "column": 17
+              "line": 278,
+              "column": 21
             }
           },
           "metadata": {
@@ -260,12 +258,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 266,
-              "column": 16
+              "line": 284,
+              "column": 20
             },
             "end": {
-              "line": 269,
-              "column": 17
+              "line": 287,
+              "column": 21
             }
           },
           "metadata": {
@@ -280,12 +278,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 275,
-              "column": 16
+              "line": 293,
+              "column": 20
             },
             "end": {
-              "line": 278,
-              "column": 17
+              "line": 296,
+              "column": 21
             }
           },
           "metadata": {
@@ -300,12 +298,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 284,
-              "column": 16
+              "line": 302,
+              "column": 20
             },
             "end": {
-              "line": 287,
-              "column": 17
+              "line": 305,
+              "column": 21
             }
           },
           "metadata": {
@@ -320,12 +318,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 295,
-              "column": 16
+              "line": 313,
+              "column": 20
             },
             "end": {
-              "line": 297,
-              "column": 17
+              "line": 315,
+              "column": 21
             }
           },
           "metadata": {
@@ -339,12 +337,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 302,
-              "column": 16
+              "line": 320,
+              "column": 20
             },
             "end": {
-              "line": 305,
-              "column": 17
+              "line": 323,
+              "column": 21
             }
           },
           "metadata": {
@@ -359,12 +357,12 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 310,
-              "column": 16
+              "line": 328,
+              "column": 20
             },
             "end": {
-              "line": 314,
-              "column": 17
+              "line": 332,
+              "column": 21
             }
           },
           "metadata": {
@@ -375,43 +373,24 @@
           "defaultValue": "false"
         },
         {
-          "name": "multiLabel",
-          "type": "string",
-          "description": "Can be used to use a different language when displaying\nthat more than one item is selected. \nDefault: 'items selected'",
-          "privacy": "public",
-          "sourceRange": {
-            "start": {
-              "line": 320,
-              "column": 16
-            },
-            "end": {
-              "line": 323,
-              "column": 17
-            }
-          },
-          "metadata": {
-            "polymer": {}
-          },
-          "defaultValue": "\"items selected\""
-        },
-        {
           "name": "UP_KEY_CODE",
           "type": "number",
           "description": "Key code for UP Arrow.",
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 344,
-              "column": 12
+              "line": 339,
+              "column": 20
             },
             "end": {
-              "line": 344,
-              "column": 27
+              "line": 342,
+              "column": 21
             }
           },
           "metadata": {
             "polymer": {}
-          }
+          },
+          "defaultValue": "38"
         },
         {
           "name": "DOWN_KEY_CODE",
@@ -420,89 +399,32 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 352,
-              "column": 12
+              "line": 349,
+              "column": 20
             },
             "end": {
               "line": 352,
-              "column": 29
+              "column": 21
             }
           },
           "metadata": {
             "polymer": {}
-          }
+          },
+          "defaultValue": "40"
         }
       ],
       "methods": [
-        {
-          "name": "_filterCheck",
-          "description": "Checks if item satisfies the filter condition.\nIf it satisfies and has to be shown to the user,\ntrue is returned, else false is returned.\n\nOverride this method to implement your own custom filter\ncondition.",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "paper-dropdown-element-behavior.html",
-            "start": {
-              "line": 66,
-              "column": 8
-            },
-            "end": {
-              "line": 78,
-              "column": 9
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "searchText",
-              "description": "Text user entered in search field"
-            },
-            {
-              "name": "item",
-              "description": "Current Item"
-            }
-          ],
-          "return": {
-            "type": "boolean"
-          },
-          "inheritedFrom": "Polymer.PaperDropdownBehavior"
-        },
-        {
-          "name": "_getValidity",
-          "description": "Returns false if the element is required and don't have any value, and true otherwise.",
-          "privacy": "protected",
-          "sourceRange": {
-            "file": "paper-dropdown-element-behavior.html",
-            "start": {
-              "line": 86,
-              "column": 8
-            },
-            "end": {
-              "line": 115,
-              "column": 9
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "value"
-            }
-          ],
-          "return": {
-            "type": "boolean",
-            "desc": "true if required is true and has atleast one value OR values selected\n                     is greater than minLenght but less than max length."
-          },
-          "inheritedFrom": "Polymer.PaperDropdownBehavior"
-        },
         {
           "name": "ready",
           "description": "This method is automatically called when paper-dropdown is\nstamped to DOM. ITs main purpose is to initialize the\ncomponent's variables.",
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 361,
+              "line": 374,
               "column": 12
             },
             "end": {
-              "line": 364,
+              "line": 378,
               "column": 13
             }
           },
@@ -515,11 +437,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 371,
+              "line": 385,
               "column": 12
             },
             "end": {
-              "line": 373,
+              "line": 387,
               "column": 13
             }
           },
@@ -532,11 +454,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 380,
+              "line": 394,
               "column": 12
             },
             "end": {
-              "line": 382,
+              "line": 396,
               "column": 13
             }
           },
@@ -549,11 +471,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 392,
+              "line": 406,
               "column": 12
             },
             "end": {
-              "line": 400,
+              "line": 414,
               "column": 13
             }
           },
@@ -570,11 +492,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 409,
+              "line": 423,
               "column": 12
             },
             "end": {
-              "line": 420,
+              "line": 434,
               "column": 13
             }
           },
@@ -591,11 +513,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 429,
+              "line": 443,
               "column": 12
             },
             "end": {
-              "line": 439,
+              "line": 453,
               "column": 13
             }
           },
@@ -612,11 +534,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 448,
+              "line": 462,
               "column": 12
             },
             "end": {
-              "line": 455,
+              "line": 469,
               "column": 13
             }
           },
@@ -637,11 +559,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 463,
+              "line": 477,
               "column": 12
             },
             "end": {
-              "line": 476,
+              "line": 490,
               "column": 13
             }
           },
@@ -653,42 +575,16 @@
           ]
         },
         {
-          "name": "_getItemValueFromItems",
-          "description": "Returns the value of the item for given index.",
-          "privacy": "private",
-          "sourceRange": {
-            "start": {
-              "line": 485,
-              "column": 12
-            },
-            "end": {
-              "line": 487,
-              "column": 13
-            }
-          },
-          "metadata": {},
-          "params": [
-            {
-              "name": "index",
-              "description": "Index of the item"
-            },
-            {
-              "name": "items",
-              "description": "Items in the listbox"
-            }
-          ]
-        },
-        {
           "name": "_getItemLabel",
           "description": "Returns the Label for the given Item.",
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 496,
+              "line": 499,
               "column": 12
             },
             "end": {
-              "line": 498,
+              "line": 501,
               "column": 13
             }
           },
@@ -709,11 +605,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 509,
+              "line": 512,
               "column": 12
             },
             "end": {
-              "line": 511,
+              "line": 514,
               "column": 13
             }
           },
@@ -739,11 +635,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 520,
+              "line": 523,
               "column": 12
             },
             "end": {
-              "line": 537,
+              "line": 540,
               "column": 13
             }
           },
@@ -760,11 +656,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 545,
+              "line": 548,
               "column": 12
             },
             "end": {
-              "line": 555,
+              "line": 558,
               "column": 13
             }
           },
@@ -781,11 +677,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 565,
+              "line": 568,
               "column": 12
             },
             "end": {
-              "line": 572,
+              "line": 575,
               "column": 13
             }
           },
@@ -802,11 +698,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 580,
+              "line": 583,
               "column": 12
             },
             "end": {
-              "line": 584,
+              "line": 587,
               "column": 13
             }
           },
@@ -824,11 +720,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 592,
+              "line": 595,
               "column": 12
             },
             "end": {
-              "line": 603,
+              "line": 606,
               "column": 13
             }
           },
@@ -852,63 +748,60 @@
       "sourceRange": {
         "start": {
           "line": 161,
-          "column": 16
+          "column": 8
         },
         "end": {
-          "line": 604,
+          "line": 607,
           "column": 9
         }
       },
       "privacy": "public",
       "superclass": "HTMLElement",
+      "name": "PaperDropDown",
       "attributes": [
         {
-          "name": "max-length",
-          "description": "Maximum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+          "name": "search-placeholder",
+          "description": "search placeholder text if searchable is True",
           "sourceRange": {
-            "file": "paper-dropdown-element-behavior.html",
             "start": {
-              "line": 40,
-              "column": 12
+              "line": 178,
+              "column": 20
             },
             "end": {
-              "line": 42,
-              "column": 13
+              "line": 181,
+              "column": 21
             }
           },
           "metadata": {},
-          "type": "number",
-          "inheritedFrom": "Polymer.PaperDropdownBehavior"
+          "type": "string"
         },
         {
-          "name": "min-length",
-          "description": "Minimum number of items to be selected if item is required and\nmultiple items can be selected, ignored otherwise.",
+          "name": "selected-placeholder",
+          "description": "Text to be shown if more than one item is selected.",
           "sourceRange": {
-            "file": "paper-dropdown-element-behavior.html",
             "start": {
-              "line": 48,
-              "column": 12
+              "line": 186,
+              "column": 20
             },
             "end": {
-              "line": 50,
-              "column": 13
+              "line": 189,
+              "column": 21
             }
           },
           "metadata": {},
-          "type": "number",
-          "inheritedFrom": "Polymer.PaperDropdownBehavior"
+          "type": "string"
         },
         {
           "name": "label",
           "description": "Label shown against the dropdown.",
           "sourceRange": {
             "start": {
-              "line": 176,
-              "column": 16
+              "line": 194,
+              "column": 20
             },
             "end": {
-              "line": 178,
-              "column": 17
+              "line": 196,
+              "column": 21
             }
           },
           "metadata": {},
@@ -919,12 +812,12 @@
           "description": "If true, dropdown will be disabled.",
           "sourceRange": {
             "start": {
-              "line": 183,
-              "column": 16
+              "line": 201,
+              "column": 20
             },
             "end": {
-              "line": 186,
-              "column": 17
+              "line": 204,
+              "column": 21
             }
           },
           "metadata": {},
@@ -935,12 +828,12 @@
           "description": "Value of the dropdown",
           "sourceRange": {
             "start": {
-              "line": 191,
-              "column": 16
+              "line": 209,
+              "column": 20
             },
             "end": {
-              "line": 195,
-              "column": 17
+              "line": 213,
+              "column": 21
             }
           },
           "metadata": {},
@@ -951,12 +844,12 @@
           "description": "Index of the selected item.",
           "sourceRange": {
             "start": {
-              "line": 200,
-              "column": 16
+              "line": 218,
+              "column": 20
             },
             "end": {
-              "line": 204,
-              "column": 17
+              "line": 222,
+              "column": 21
             }
           },
           "metadata": {},
@@ -967,12 +860,12 @@
           "description": "This is true if the dropdown is in open state",
           "sourceRange": {
             "start": {
-              "line": 209,
-              "column": 16
+              "line": 227,
+              "column": 20
             },
             "end": {
-              "line": 214,
-              "column": 17
+              "line": 232,
+              "column": 21
             }
           },
           "metadata": {},
@@ -983,12 +876,12 @@
           "description": "If true, a text field is shown at the top of dropdown which\nuser can use to search/filter for an item.",
           "sourceRange": {
             "start": {
-              "line": 220,
-              "column": 16
+              "line": 238,
+              "column": 20
             },
             "end": {
-              "line": 223,
-              "column": 17
+              "line": 241,
+              "column": 21
             }
           },
           "metadata": {},
@@ -999,12 +892,12 @@
           "description": "The error message to display when invalid.",
           "sourceRange": {
             "start": {
-              "line": 228,
-              "column": 16
+              "line": 246,
+              "column": 20
             },
             "end": {
-              "line": 230,
-              "column": 17
+              "line": 248,
+              "column": 21
             }
           },
           "metadata": {},
@@ -1015,12 +908,12 @@
           "description": "By default, the dropdown will constrain scrolling on the page\nto itself when opened.\nSet to true in order to prevent scroll from being constrained\nto the dropdown when it opens.",
           "sourceRange": {
             "start": {
-              "line": 238,
-              "column": 16
+              "line": 256,
+              "column": 20
             },
             "end": {
-              "line": 241,
-              "column": 17
+              "line": 259,
+              "column": 21
             }
           },
           "metadata": {},
@@ -1031,12 +924,12 @@
           "description": "Set to true to disable the floating label. Bind this to the\n`<paper-input-container>`'s `noLabelFloat` property.",
           "sourceRange": {
             "start": {
-              "line": 247,
-              "column": 16
+              "line": 265,
+              "column": 20
             },
             "end": {
-              "line": 251,
-              "column": 17
+              "line": 269,
+              "column": 21
             }
           },
           "metadata": {},
@@ -1047,12 +940,12 @@
           "description": "Set to true to always float the label. Bind this to the\n`<paper-input-container>`'s `alwaysFloatLabel` property.",
           "sourceRange": {
             "start": {
-              "line": 257,
-              "column": 16
+              "line": 275,
+              "column": 20
             },
             "end": {
-              "line": 260,
-              "column": 17
+              "line": 278,
+              "column": 21
             }
           },
           "metadata": {},
@@ -1063,12 +956,12 @@
           "description": "Set to true to disable animations when opening and closing the\ndropdown.",
           "sourceRange": {
             "start": {
-              "line": 266,
-              "column": 16
+              "line": 284,
+              "column": 20
             },
             "end": {
-              "line": 269,
-              "column": 17
+              "line": 287,
+              "column": 21
             }
           },
           "metadata": {},
@@ -1079,12 +972,12 @@
           "description": "The orientation against which to align the menu dropdown\nhorizontally relative to the dropdown trigger.",
           "sourceRange": {
             "start": {
-              "line": 275,
-              "column": 16
+              "line": 293,
+              "column": 20
             },
             "end": {
-              "line": 278,
-              "column": 17
+              "line": 296,
+              "column": 21
             }
           },
           "metadata": {},
@@ -1095,12 +988,12 @@
           "description": "The orientation against which to align the menu dropdown\nvertically relative to the dropdown trigger.",
           "sourceRange": {
             "start": {
-              "line": 284,
-              "column": 16
+              "line": 302,
+              "column": 20
             },
             "end": {
-              "line": 287,
-              "column": 17
+              "line": 305,
+              "column": 21
             }
           },
           "metadata": {},
@@ -1111,12 +1004,12 @@
           "description": "If true, the `horizontalAlign` and `verticalAlign` properties will\nbe considered preferences instead of strict requirements when\npositioning the dropdown and may be changed if doing so reduces\nthe area of the dropdown falling outside of `fitInto`.",
           "sourceRange": {
             "start": {
-              "line": 295,
-              "column": 16
+              "line": 313,
+              "column": 20
             },
             "end": {
-              "line": 297,
-              "column": 17
+              "line": 315,
+              "column": 21
             }
           },
           "metadata": {},
@@ -1127,12 +1020,12 @@
           "description": "Whether focus should be restored to the dropdown when the menu closes.",
           "sourceRange": {
             "start": {
-              "line": 302,
-              "column": 16
+              "line": 320,
+              "column": 20
             },
             "end": {
-              "line": 305,
-              "column": 17
+              "line": 323,
+              "column": 21
             }
           },
           "metadata": {},
@@ -1143,32 +1036,16 @@
           "description": "If true, multiple options can be selected.",
           "sourceRange": {
             "start": {
-              "line": 310,
-              "column": 16
+              "line": 328,
+              "column": 20
             },
             "end": {
-              "line": 314,
-              "column": 17
+              "line": 332,
+              "column": 21
             }
           },
           "metadata": {},
           "type": "boolean"
-        },
-        {
-          "name": "multi-label",
-          "description": "Can be used to use a different language when displaying\nthat more than one item is selected. \nDefault: 'items selected'",
-          "sourceRange": {
-            "start": {
-              "line": 320,
-              "column": 16
-            },
-            "end": {
-              "line": 323,
-              "column": 17
-            }
-          },
-          "metadata": {},
-          "type": "string"
         }
       ],
       "events": [

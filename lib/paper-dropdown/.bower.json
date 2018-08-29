@@ -25,7 +25,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.0",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.3",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "paper-item": "PolymerElements/paper-item#^2.0.0",
     "iron-input": "PolymerElements/iron-input#^2.0.0",
@@ -62,15 +62,14 @@
   "resolutions": {
     "iron-doc-viewer": "^3.0.0"
   },
-  "version": "2.0.1",
-  "_release": "2.0.1",
+  "version": "2.0.2",
+  "_release": "2.0.2",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.1",
-    "commit": "ca696d612e044e44c9ee679bf666769700586b8d"
+    "tag": "v2.0.2",
+    "commit": "783e545738aec5056786cc2d9e08eb1d4e681e9a"
   },
   "_source": "https://github.com/pushkar8723/paper-dropdown.git",
   "_target": "^2.0.1",
-  "_originalSource": "pushkar8723/paper-dropdown",
-  "_direct": true
+  "_originalSource": "pushkar8723/paper-dropdown"
 }

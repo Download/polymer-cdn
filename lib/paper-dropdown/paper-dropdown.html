@@ -22,7 +22,7 @@
     SOFTWARE.
 -->
 
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="paper-dropdown-element-behavior.html">
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
@@ -40,21 +40,21 @@
                 height: 48px;
                 line-height: 48px;
             }
-    
+
             :host * {
                 outline: none;
             }
-    
+
             paper-listbox {
                 overflow-x: hidden;
             }
-    
+
             :host([multi]) ::slotted(paper-item) {
                 background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDV2MTRINVY1aDE0bTAtMkg1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6Jy8+PC9zdmc+") no-repeat;
                 background-position: 7px 12px;
                 padding-left: 40px;
             }
-    
+
             :host([multi]) ::slotted(paper-item.iron-selected) {
                 background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDNINWMtMS4xMSAwLTIgLjktMiAydjE0YzAgMS4xLjg5IDIgMiAyaDE0YzEuMTEgMCAyLS45IDItMlY1YzAtMS4xLS44OS0yLTItMnptLTkgMTRsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXonLz48L3N2Zz4=") no-repeat;
                 background-position: 7px 12px;
@@ -86,11 +86,11 @@
                     selected-items="{{_selectedItems}}"
                     multi="{{multi}}">
                 <template is="dom-if" if="{{searchable}}">
-                    <iron-input 
-                        bind-value="{{_searchText}}">
+                    <iron-input
+                            bind-value="{{_searchText}}">
                         <input
                             id="search-box"
-                            placeholder="Search..."
+                            placeholder="[[searchPlaceholder]]"
                             type="text"
                             on-tap="_stopEventPropagation"
                             on-keydown="_stopEventPropagation"
@@ -149,18 +149,20 @@
          *          <paper-item value="orange">Orange</paper-item>
          *          <paper-item value="tomato">Tomato</paper-item>
          *      </paper-dropdown>
-         *   
+         *
          *   **Styling**
          *
-         *   Since `paper-dropdown` is wrapper around `paper-dropdown-menu`, you can use any of the 
-         *   `paper-dropdown-menu`, `paper-input-container` and `paper-menu-button` style mixins and 
+         *   Since `paper-dropdown` is wrapper around `paper-dropdown-menu`, you can use any of the
+         *   `paper-dropdown-menu`, `paper-input-container` and `paper-menu-button` style mixins and
          *   custom properties to style the internal input and menu button respectively.
          *
          * @element paper-dropdown
          * @demo demo/index.html
          */
-        Polymer({
-            is: 'paper-dropdown',
+        class PaperDropDown extends Polymer.mixinBehaviors([Polymer.PaperDropdownBehavior], Polymer.Element) {
+            static get is() {
+                return 'paper-dropdown'
+            }
 
             /**
              * @event open is fired when `paper-dropdown` opens.
@@ -169,188 +171,199 @@
             /**
              * @event close is fired when `paper-dropdown` closes.
              */
+            static get properties() {
+                return {
+                    /**
+                     * search placeholder text if searchable is True
+                     */
+                    searchPlaceholder: {
+                        type: String,
+                        value: "Search..."
+                    },
 
-            properties: {
-                /**
-                 * Label shown against the dropdown.
-                 */
-                label: {
-                    type: String
-                },
+                    /**
+                     * Text to be shown if more than one item is selected.
+                     */
+                    selectedPlaceholder: {
+                        type: String,
+                        value: "items selected"
+                    },
 
-                /**
-                 * If true, dropdown will be disabled.
-                 */
-                disabled: {
-                    type: Boolean,
-                    value: false
-                },
+                    /**
+                     * Label shown against the dropdown.
+                     */
+                    label: {
+                        type: String
+                    },
 
-                /**
-                 * Value of the dropdown
-                 */
-                value: {
-                    type: Object,
-                    observer: '_updateSelected',
-                    notify: true
-                },
+                    /**
+                     * If true, dropdown will be disabled.
+                     */
+                    disabled: {
+                        type: Boolean,
+                        value: false
+                    },
 
-                /**
-                 * Index of the selected item.
-                 */
-                selected: {
-                    type: Number,
-                    observer: '_updateValue',
-                    notify: true
-                },
+                    /**
+                     * Value of the dropdown
+                     */
+                    value: {
+                        type: Object,
+                        observer: '_updateSelected',
+                        notify: true
+                    },
 
-                /**
-                 * This is true if the dropdown is in open state
-                 */
-                opened: {
-                    type: Boolean,
-                    notify: true,
-                    value: false,
-                    observer: '_onOpenedChanged'
-                },
+                    /**
+                     * Index of the selected item.
+                     */
+                    selected: {
+                        type: Number,
+                        observer: '_updateValue',
+                        notify: true
+                    },
 
-                /**
-                 * If true, a text field is shown at the top of dropdown which
-                 * user can use to search/filter for an item.
-                 */
-                searchable: {
-                    type: Boolean,
-                    value: false
-                },
+                    /**
+                     * This is true if the dropdown is in open state
+                     */
+                    opened: {
+                        type: Boolean,
+                        notify: true,
+                        value: false,
+                        observer: '_onOpenedChanged'
+                    },
 
-                /**
-                 * The error message to display when invalid.
-                 */
-                errorMessage: {
-                    type: String
-                },
+                    /**
+                     * If true, a text field is shown at the top of dropdown which
+                     * user can use to search/filter for an item.
+                     */
+                    searchable: {
+                        type: Boolean,
+                        value: false
+                    },
 
-                /**
-                 * By default, the dropdown will constrain scrolling on the page
-                 * to itself when opened.
-                 * Set to true in order to prevent scroll from being constrained
-                 * to the dropdown when it opens.
-                 */
-                allowOutsideScroll: {
-                    type: Boolean,
-                    value: false
-                },
+                    /**
+                     * The error message to display when invalid.
+                     */
+                    errorMessage: {
+                        type: String
+                    },
 
-                /**
-                 * Set to true to disable the floating label. Bind this to the
-                 * `<paper-input-container>`'s `noLabelFloat` property.
-                 */
-                noLabelFloat: {
-                    type: Boolean,
-                    value: false,
-                    reflectToAttribute: true
-                },
+                    /**
+                     * By default, the dropdown will constrain scrolling on the page
+                     * to itself when opened.
+                     * Set to true in order to prevent scroll from being constrained
+                     * to the dropdown when it opens.
+                     */
+                    allowOutsideScroll: {
+                        type: Boolean,
+                        value: false
+                    },
 
-                /**
-                 * Set to true to always float the label. Bind this to the
-                 * `<paper-input-container>`'s `alwaysFloatLabel` property.
-                 */
-                alwaysFloatLabel: {
-                    type: Boolean,
-                    value: false
-                },
+                    /**
+                     * Set to true to disable the floating label. Bind this to the
+                     * `<paper-input-container>`'s `noLabelFloat` property.
+                     */
+                    noLabelFloat: {
+                        type: Boolean,
+                        value: false,
+                        reflectToAttribute: true
+                    },
 
-                /**
-                 * Set to true to disable animations when opening and closing the
-                 * dropdown.
-                 */
-                noAnimations: {
-                    type: Boolean,
-                    value: false
-                },
+                    /**
+                     * Set to true to always float the label. Bind this to the
+                     * `<paper-input-container>`'s `alwaysFloatLabel` property.
+                     */
+                    alwaysFloatLabel: {
+                        type: Boolean,
+                        value: false
+                    },
 
-                /**
-                 * The orientation against which to align the menu dropdown
-                 * horizontally relative to the dropdown trigger.
-                 */
-                horizontalAlign: {
-                    type: String,
-                    value: 'right'
-                },
+                    /**
+                     * Set to true to disable animations when opening and closing the
+                     * dropdown.
+                     */
+                    noAnimations: {
+                        type: Boolean,
+                        value: false
+                    },
 
-                /**
-                 * The orientation against which to align the menu dropdown
-                 * vertically relative to the dropdown trigger.
-                 */
-                verticalAlign: {
-                    type: String,
-                    value: 'top'
-                },
+                    /**
+                     * The orientation against which to align the menu dropdown
+                     * horizontally relative to the dropdown trigger.
+                     */
+                    horizontalAlign: {
+                        type: String,
+                        value: 'right'
+                    },
 
-                /**
-                 * If true, the `horizontalAlign` and `verticalAlign` properties will
-                 * be considered preferences instead of strict requirements when
-                 * positioning the dropdown and may be changed if doing so reduces
-                 * the area of the dropdown falling outside of `fitInto`.
-                 */
-                dynamicAlign: {
-                    type: Boolean
-                },
+                    /**
+                     * The orientation against which to align the menu dropdown
+                     * vertically relative to the dropdown trigger.
+                     */
+                    verticalAlign: {
+                        type: String,
+                        value: 'top'
+                    },
 
-                /**
-                 * Whether focus should be restored to the dropdown when the menu closes.
-                 */
-                restoreFocusOnClose: {
-                    type: Boolean,
-                    value: true
-                },
+                    /**
+                     * If true, the `horizontalAlign` and `verticalAlign` properties will
+                     * be considered preferences instead of strict requirements when
+                     * positioning the dropdown and may be changed if doing so reduces
+                     * the area of the dropdown falling outside of `fitInto`.
+                     */
+                    dynamicAlign: {
+                        type: Boolean
+                    },
 
-                /**
-                 * If true, multiple options can be selected.
-                 */
-                multi: {
-                    type: Boolean,
-                    value: false,
-                    observer: '_multiChanged'
-                },
-                /**
-                 * Can be used to use a different language when displaying
-                 * that more than one item is selected. 
-                 * Default: 'items selected' 
-                 */
-                multiLabel: {
-                    type: String,
-                    value: 'items selected'
+                    /**
+                     * Whether focus should be restored to the dropdown when the menu closes.
+                     */
+                    restoreFocusOnClose: {
+                        type: Boolean,
+                        value: true
+                    },
+
+                    /**
+                     * If true, multiple options can be selected.
+                     */
+                    multi: {
+                        type: Boolean,
+                        value: false,
+                        observer: '_multiChanged'
+                    },
+                    /**
+                     * Key code for UP Arrow.
+                     *
+                     * @constant
+                     * @private
+                     */
+                    UP_KEY_CODE: {
+                        type: Number,
+                        value: 38
+                    },
+                    /**
+                     * Key code for DOWN Arrow.
+                     *
+                     * @constant
+                     * @private
+                     */
+                    DOWN_KEY_CODE:{
+                        type: Number,
+                        value: 40
+                    }
                 }
-            },
-            observers: [
-                '_filter(_searchText)',
-                '_itemsChanged(_items)',
-                '_updateValue(_selected)',
-                '_selectedItemsChanged(_selectedItems)',
-                '_updateSelectedItemLabel(_selectedItemLabel)',
-                '_updateSelectedItemLabel(_selectedItems)'
-            ],
+            }
 
-            behaviors: [
-                Polymer.PaperDropdownBehavior
-            ],
-
-            /**
-             * Key code for UP Arrow.
-             *
-             * @constant
-             * @private
-             */
-            UP_KEY_CODE: 38,
-
-            /**
-             * Key code for DOWN Arrow.
-             *
-             * @constant
-             * @private
-             */
-            DOWN_KEY_CODE: 40,
+            static get observers() {
+                return [
+                    '_filter(_searchText)',
+                    '_itemsChanged(_items)',
+                    '_updateValue(_selected)',
+                    '_selectedItemsChanged(_selectedItems)',
+                    '_updateSelectedItemLabel(_selectedItemLabel)',
+                    '_updateSelectedItemLabel(_selectedItems)'
+                ]
+            }
 
             /**
              * This method is automatically called when paper-dropdown is
@@ -359,28 +372,29 @@
              *
              * @private
              */
-            ready: function () {
+            ready() {
+                super.ready();
                 this.set('_searchText', '');
                 this.set('_attrForSelected', null);
-            },
+            }
 
             /**
              * Opens the dropdown.
              *
              * @public
              */
-            open: function () {
+            open() {
                 this.$.dropdownMenu.open();
-            },
+            }
 
             /**
              * Closes the dropdown.
              *
              * @public
              */
-            close: function () {
+            close() {
                 this.$.dropdownMenu.close();
-            },
+            }
 
             /**
              * If multi is true, it updates dropdown's menu button
@@ -390,7 +404,7 @@
              * @param multi
              * @private
              */
-            _multiChanged: function (multi) {
+            _multiChanged(multi) {
                 if (multi) {
                     this.$.dropdownMenu.$.menuButton.set('closeOnActivate', false);
                     this.$.dropdownMenu.$.menuButton.set('ignoreSelect', true);
@@ -398,7 +412,7 @@
                     this.$.dropdownMenu.$.menuButton.set('closeOnActivate', true);
                     this.$.dropdownMenu.$.menuButton.set('ignoreSelect', false);
                 }
-            },
+            }
 
             /**
              * Updates value and selected on _selectedItems change.
@@ -407,18 +421,18 @@
              * @param selectedItems
              * @private
              */
-            _selectedItemsChanged: function (selectedItems) {
+            _selectedItemsChanged(selectedItems) {
                 if (this.multi) {
-                    this.set('value', selectedItems.map((function(item) {
+                    this.set('value', selectedItems.map((function (item) {
                         return this._getItemValue(item);
                     }).bind(this)));
 
                     var items = this.$.list.items;
-                    this.set('selected', selectedItems.map(function(item) {
+                    this.set('selected', selectedItems.map(function (item) {
                         return items.indexOf(item);
                     }));
                 }
-            },
+            }
 
             /**
              * Updates selected item's label to customize value shown in
@@ -427,17 +441,17 @@
              * @param label
              * @private
              */
-            _updateSelectedItemLabel: function(label) {
+            _updateSelectedItemLabel(label) {
                 if (this.multi) {
                     if (this._selectedItems.length > 1) {
-                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' ' + this.multiLabel);
-                    } else if (this._selectedItems.length == 1) {
-                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems[0].textContent.trim());
+                        this.$.dropdownMenu.value = this._selectedItems.length + ' ' + this.selectedPlaceholder;
+                    } else if (this._selectedItems.length === 1) {
+                        this.$.dropdownMenu.value = this._selectedItems[0].textContent.trim();
                     } else {
-                        this.$.dropdownMenu._setSelectedItemLabel(null);
+                        this.$.dropdownMenu.value = null;
                     }
                 }
-            },
+            }
 
             /**
              * Returns value of given Item.
@@ -446,14 +460,14 @@
              * @returns {string} Label/Value of the item.
              * @private
              */
-            _getItemValue: function (item) {
+            _getItemValue(item) {
                 if (item) {
                     if (item.getAttribute('value'))
                         return item.getAttribute('value');
                     else
                         return item.textContent.trim();
                 }
-            },
+            }
 
             /**
              * Updates selected & _attrForSelected on items change.
@@ -461,12 +475,12 @@
              * @param items
              * @private
              */
-            _itemsChanged: function (items) {
+            _itemsChanged(items) {
                 if (items.length > 0) {
                     this._updateSelected(this.value);
                     if (this.multi) {
-                        for (var i in items) {
-                            if (items[i].getAttribute('value')) {
+                        for (let item of items) {
+                            if (item.getAttribute('value')) {
                                 this.set('_attrForSelected', 'value');
                                 return;
                             }
@@ -474,18 +488,7 @@
                         this.set('_attrForSelected', null);
                     }
                 }
-            },
-
-            /**
-             * Returns the value of the item for given index.
-             *
-             * @param index Index of the item
-             * @param items Items in the listbox
-             * @private
-             */
-            _getItemValueFromItems: function (index, items) {
-                return this._getItemValue(items[index]);
-            },
+            }
 
             /**
              * Returns the Label for the given Item.
@@ -494,9 +497,9 @@
              * @return {string} Label of the item.
              * @private
              */
-            _getItemLabel: function (item) {
+            _getItemLabel(item) {
                 return item.textContent.trim();
-            },
+            }
 
             /**
              * Returns the Label shown to user for the item at the
@@ -507,9 +510,9 @@
              * @returns {string} Label of the item.
              * @private
              */
-            _getItemLabelFromItems: function (index, items) {
+            _getItemLabelFromItems(index, items) {
                 return this._getItemLabel(items[index]);
-            },
+            }
 
             /**
              * Updates `selected` property according to `value` property.
@@ -518,24 +521,24 @@
              * @param value
              * @private
              */
-            _updateSelected: function (value) {
+            _updateSelected(value) {
                 var items = this.$.list.items;
                 if (items.length > 0) {
                     if (this.multi) {
                         this.$.list.set('selectedValues', value);
                     } else {
-                        for (var i = 0; i < items.length; i++) {
-                            if (this._getItemValueFromItems(i, items) == value) {
-                                this.set('selected', i);
-                                this.set('_selected', i);
+                        for (let index = 0; index < items.length; index++) {
+                            if (this._getItemValue(items[index]) === value) {
+                                this.set('selected', index);
+                                this.set('_selected', index);
                                 return;
                             }
-                        }
+                        };
                         this.set('_selected', -1);
                         this.set('selected', -1);
                     }
                 }
-            },
+            }
 
             /**
              * Updates `value` property according to `selected` property.
@@ -543,17 +546,17 @@
              * @param selected
              * @private
              */
-            _updateValue: function (selected) {
+            _updateValue(selected) {
                 var items = this.$.list.items;
                 if (items.length > 0 && !this.multi) {
                     if (selected > -1) {
-                        this.set('value', this._getItemValueFromItems(selected, items));
+                        this.set('value', this._getItemValue(items[selected]));
                         return;
                     } else {
                         this.set('value', null);
                     }
                 }
-            },
+            }
 
             /**
              * Called whenever `opened` changes.
@@ -563,14 +566,14 @@
              * @param opened
              * @private
              */
-            _onOpenedChanged: function (opened) {
+            _onOpenedChanged(opened) {
                 if (opened) {
-                    this.fire('open');
+                    this.dispatchEvent(new CustomEvent('open', {detail: null, bubbles: false}));
                 } else {
                     this.set('_searchText', '');
-                    this.fire('close');
+                    this.dispatchEvent(new CustomEvent('close', {detail: null, bubbles: false}));
                 }
-            },
+            }
 
             /**
              * Stops event propagation if up/down keys is not pressed.
@@ -578,11 +581,11 @@
              * @param e Event
              * @private
              */
-            _stopEventPropagation: function (e) {
+            _stopEventPropagation(e) {
                 if (e.keyCode != this.UP_KEY_CODE && e.keyCode != this.DOWN_KEY_CODE) {
                     e.stopPropagation();
                 }
-            },
+            }
 
             /**
              * Shows/Hides listbox items based on searchText
@@ -590,18 +593,20 @@
              * @param searchText Text to be matched in item's label.
              * @private
              */
-            _filter: function (searchText) {
+            _filter(searchText) {
                 var items = this.$.list.items;
-                for (var i in items) {
-                    var display;
-                    if (this._filterCheck(searchText, items[i])) {
+                items.forEach(item => {
+                    let display;
+                    if (this._filterCheck(searchText, item)) {
                         display = 'flex';
                     } else {
                         display = 'none';
                     }
-                    items[i].style.display = display;
-                }
-            },
-        })
+                    item.style.display = display;
+                });
+            }
+        }
+
+        customElements.define(PaperDropDown.is, PaperDropDown);
     </script>
 </dom-module>

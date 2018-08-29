@@ -1,6 +1,6 @@
 {
   "name": "iron-a11y-keys",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A basic element implementation of iron-a11y-keys-behavior, matching the legacy core-a11y-keys.",
   "keywords": [
     "web-components",
@@ -52,11 +52,11 @@
     "webcomponentsjs": "^1.0.0"
   },
   "homepage": "https://github.com/PolymerElements/iron-a11y-keys",
-  "_release": "2.1.1",
+  "_release": "2.1.2",
   "_resolution": {
     "type": "version",
-    "tag": "v2.1.1",
-    "commit": "b037b6270a66b67af554b675453d03b3789e2e93"
+    "tag": "v2.1.2",
+    "commit": "882947a08a1c79f2ede570eb6e30bc42bfa2eead"
   },
   "_source": "https://github.com/PolymerElements/iron-a11y-keys.git",
   "_target": "^2.0.0",

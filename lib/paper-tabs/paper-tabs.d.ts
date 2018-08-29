@@ -113,13 +113,14 @@ interface PaperTabsElement extends Polymer.Element, Polymer.IronResizableBehavio
   noSlide: boolean|null|undefined;
 
   /**
-   * If true, tabs are scrollable and the tab width is based on the label width.
+   * If true, tabs are scrollable and the tab width is based on the label
+   * width.
    */
   scrollable: boolean|null|undefined;
 
   /**
-   * If true, tabs expand to fit their container. This currently only applies when
-   * scrollable is true.
+   * If true, tabs expand to fit their container. This currently only applies
+   * when scrollable is true.
    */
   fitContainer: boolean|null|undefined;
 
@@ -129,12 +130,14 @@ interface PaperTabsElement extends Polymer.Element, Polymer.IronResizableBehavio
   disableDrag: boolean|null|undefined;
 
   /**
-   * If true, scroll buttons (left/right arrow) will be hidden for scrollable tabs.
+   * If true, scroll buttons (left/right arrow) will be hidden for scrollable
+   * tabs.
    */
   hideScrollButtons: boolean|null|undefined;
 
   /**
-   * If true, the tabs are aligned to bottom (the selection bar appears at the top).
+   * If true, the tabs are aligned to bottom (the selection bar appears at the
+   * top).
    */
   alignBottom: boolean|null|undefined;
 

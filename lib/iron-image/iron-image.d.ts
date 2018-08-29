@@ -76,7 +76,8 @@ interface IronImageElement extends Polymer.Element {
   alt: string|null|undefined;
 
   /**
-   * CORS enabled images support: https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
+   * CORS enabled images support:
+   * https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
    */
   crossorigin: string|null|undefined;
 
@@ -102,14 +103,15 @@ interface IronImageElement extends Polymer.Element {
   position: string|null|undefined;
 
   /**
-   * When `true`, any change to the `src` property will cause the `placeholder`
-   * image to be shown until the new image has loaded.
+   * When `true`, any change to the `src` property will cause the
+   * `placeholder` image to be shown until the new image has loaded.
    */
   preload: boolean|null|undefined;
 
   /**
-   * This image will be used as a background/placeholder until the src image has
-   * loaded.  Use of a data-URI for placeholder is encouraged for instant rendering.
+   * This image will be used as a background/placeholder until the src image
+   * has loaded.  Use of a data-URI for placeholder is encouraged for instant
+   * rendering.
    */
   placeholder: string|null|undefined;
 
@@ -125,8 +127,8 @@ interface IronImageElement extends Polymer.Element {
   readonly loaded: boolean|null|undefined;
 
   /**
-   * Read-only value that tracks the loading state of the image when the `preload`
-   * option is used.
+   * Read-only value that tracks the loading state of the image when the
+   * `preload` option is used.
    */
   readonly loading: boolean|null|undefined;
 
@@ -136,14 +138,14 @@ interface IronImageElement extends Polymer.Element {
   readonly error: boolean|null|undefined;
 
   /**
-   * Can be used to set the width of image (e.g. via binding); size may also be
-   * set via CSS.
+   * Can be used to set the width of image (e.g. via binding); size may also
+   * be set via CSS.
    */
   width: number|null|undefined;
 
   /**
-   * Can be used to set the height of image (e.g. via binding); size may also be
-   * set via CSS.
+   * Can be used to set the height of image (e.g. via binding); size may also
+   * be set via CSS.
    */
   height: number|null|undefined;
   created(): void;

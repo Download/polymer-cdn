@@ -30,7 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       HTMLImports.whenReady(function() {
         Polymer({is: 'x-input-wrapper'});
       });
-      </script>
+    </script>
   </dom-module>
 
   <dom-module id="container-slot">
@@ -38,9 +38,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <slot></slot>
     </template>
     <script>
-    HTMLImports.whenReady(function() {
-      Polymer({is: 'container-slot'});
-    });
+      HTMLImports.whenReady(function() {
+        Polymer({is: 'container-slot'});
+      });
     </script>
   </dom-module>
 
@@ -54,9 +54,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </iron-form>
     </template>
     <script>
-    HTMLImports.whenReady(function() {
-      Polymer({is: 'slotted-form'});
-    });
+      HTMLImports.whenReady(function() {
+        Polymer({is: 'slotted-form'});
+      });
     </script>
   </dom-module>
 
@@ -68,9 +68,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </slotted-form>
     </template>
     <script>
-    HTMLImports.whenReady(function() {
-      Polymer({is: 'slotted-slotted-form'});
-    });
+      HTMLImports.whenReady(function() {
+        Polymer({is: 'slotted-slotted-form'});
+      });
     </script>
   </dom-module>
 
@@ -147,14 +147,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       setup(function() {
         server = sinon.fakeServer.create();
         server.respondWith(
-          'GET',
-          /\/get.*/,
-          [
-            200,
-            '{"Content-Type":"application/json"}',
-            '{"success":true}'
-          ]
-        );
+            'GET',
+            /\/get.*/,
+            [200, '{"Content-Type":"application/json"}', '{"success":true}']);
       });
 
       teardown(function() {
@@ -167,7 +162,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
         test('serializes both normal and distributed nodes', function(done) {
           form.addEventListener('iron-form-response', function(event) {
-            var expectedUrl = encodeURI('/get?original=works&checkbox=on&input=some&check_wrapped=foo');
+            var expectedUrl = encodeURI(
+                '/get?original=works&checkbox=on&input=some&check_wrapped=foo');
             expect(event.detail.url).to.equal(expectedUrl);
             expect(event.detail.response.success).to.be.equal(true);
             done();
@@ -186,7 +182,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           });
           test('serializes both normal and distributed nodes', function(done) {
             form.addEventListener('iron-form-response', function(event) {
-              var expectedUrl = encodeURI('/get?original=works&slotted=works too&input=some');
+              var expectedUrl =
+                  encodeURI('/get?original=works&slotted=works too&input=some');
               expect(event.detail.url).to.equal(expectedUrl);
               expect(event.detail.response.success).to.be.equal(true);
               done();
@@ -219,24 +216,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         setup(function() {
           form = fixture('slotted-validation').$.form;
         });
-        test('<paper-checkbox required> is validated and does not submit the form', function(done) {
-          var responses = 0;
-          form.addEventListener('iron-form-response', function(event) {
-            responses++;
-          });
+        test(
+            '<paper-checkbox required> is validated and does not submit the form',
+            function(done) {
+              var responses = 0;
+              form.addEventListener('iron-form-response', function(event) {
+                responses++;
+              });
 
-          // Wait one tick for observeNodes.
-          Polymer.Base.async(function() {
-            expect(form.validate()).to.be.equal(false);
-            form.submit();
-            server.respond();
-          }, 1);
+              // Wait one tick for observeNodes.
+              Polymer.Base.async(function() {
+                expect(form.validate()).to.be.equal(false);
+                form.submit();
+                server.respond();
+              }, 1);
 
-          setTimeout(function() {
-            expect(responses).to.be.equal(0);
-            done();
-          },  200);
-        });
+              setTimeout(function() {
+                expect(responses).to.be.equal(0);
+                done();
+              }, 200);
+            });
       });
     });
 
@@ -257,7 +256,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Wait one tick for observeNodes.
         Polymer.Base.async(function() {
           var initial = form.serializeForm();
-          expect(JSON.stringify(initial)).to.be.equal('{"original":"works","input1":"input1","input2":"","check1":"on","radio1":"on","papercheck1":"on","paper1":"paper1","paper2":""}');
+          expect(JSON.stringify(initial))
+              .to.be.equal(
+                  '{"original":"works","input1":"input1","input2":"","check1":"on","radio1":"on","papercheck1":"on","paper1":"paper1","paper2":""}');
 
           // Modify all the values, flip all the inputs.
           form.querySelector('[name=original]').value = 'works++';
@@ -283,6 +284,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }, 1);
       });
     });
-
   </script>
 </body>

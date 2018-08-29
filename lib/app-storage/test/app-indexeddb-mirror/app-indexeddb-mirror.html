@@ -115,9 +115,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               return;
             }
 
-            mirror.data = {
-              foo: 'bar'
-            };
+            mirror.data = {foo: 'bar'};
 
             return mirror.transactionsComplete.then(function() {
               return expectPersistedValue(mirror.key, mirror.data);
@@ -129,9 +127,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               return;
             }
 
-            mirror.data = {
-              foo: 'bar'
-            };
+            mirror.data = {foo: 'bar'};
 
             expect(mirror.persistedData).to.be.deep.equal(mirror.data);
 
@@ -149,14 +145,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var secondMirror;
 
           setup(function() {
-            mirror.data = {
-              foo: 'bar'
-            };
+            mirror.data = {foo: 'bar'};
             secondMirror = fixture('NoSessionMirror');
-            return Promise.all([
-              mirror.transactionsComplete,
-              secondMirror.transactionsComplete
-            ]);
+            return Promise.all(
+                [mirror.transactionsComplete, secondMirror.transactionsComplete]);
           });
 
           test('the data is preserved', function() {
@@ -177,20 +169,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               return;
             }
 
-            var persistedValue = {
-              foo: 'bar'
-            };
+            var persistedValue = {foo: 'bar'};
             var secondMirror;
 
             mirror.data = persistedValue;
 
-            return mirror.transactionsComplete.then(function() {
-              appStorageTestHelpers.goOffline();
-              secondMirror = fixture('SecondMirror');
-              return secondMirror.transactionsComplete;
-            }).then(function() {
-              expect(secondMirror.persistedData).to.be.deep.equal(persistedValue);
-            });
+            return mirror.transactionsComplete
+                .then(function() {
+                  appStorageTestHelpers.goOffline();
+                  secondMirror = fixture('SecondMirror');
+                  return secondMirror.transactionsComplete;
+                })
+                .then(function() {
+                  expect(secondMirror.persistedData)
+                      .to.be.deep.equal(persistedValue);
+                });
           });
 
           test('sets persistedData to value in IDB', function() {
@@ -198,22 +191,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               return;
             }
 
-            mirror.data = {
-              foo: 'bar'
-            };
+            mirror.data = {foo: 'bar'};
 
-            var persistedValue = {
-              foo: 'baz'
-            };
+            var persistedValue = {foo: 'baz'};
 
-            return mirror.transactionsComplete.then(function() {
-              return setPersistedValue(mirror.key, persistedValue);
-            }).then(function() {
-              appStorageTestHelpers.goOffline();
-              return mirror.transactionsComplete;
-            }).then(function() {
-              expect(mirror.persistedData).to.be.deep.equal(persistedValue);
-            });
+            return mirror.transactionsComplete
+                .then(function() {
+                  return setPersistedValue(mirror.key, persistedValue);
+                })
+                .then(function() {
+                  appStorageTestHelpers.goOffline();
+                  return mirror.transactionsComplete;
+                })
+                .then(function() {
+                  expect(mirror.persistedData).to.be.deep.equal(persistedValue);
+                });
           });
         });
       });

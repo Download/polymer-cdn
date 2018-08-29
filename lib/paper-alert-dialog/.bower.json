@@ -48,15 +48,14 @@
       }
     }
   },
-  "version": "2.0.1",
-  "_release": "2.0.1",
+  "version": "2.0.2",
+  "_release": "2.0.2",
   "_resolution": {
     "type": "version",
-    "tag": "2.0.1",
-    "commit": "7436c46113d52f448cbe0d831de8292e818b4027"
+    "tag": "2.0.2",
+    "commit": "1d206ed26347f14f9b9f9262940e271522bfaf4f"
   },
   "_source": "https://github.com/Collaborne/paper-alert-dialog.git",
   "_target": "^2.0.1",
-  "_originalSource": "Collaborne/paper-alert-dialog",
-  "_direct": true
+  "_originalSource": "Collaborne/paper-alert-dialog"
 }

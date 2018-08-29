@@ -66,7 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 --paper-checkbox-checked-ink-color: var(--paper-red-500);
                 --paper-checkbox-unchecked-color: var(--paper-red-900);
                 --paper-checkbox-unchecked-ink-color: var(--paper-red-900);
-                --paper-checkbox-label-color: var(--paper-red-500);
+                --paper-checkbox-label-color: var(--paper-red-700);
                 --paper-checkbox-vertical-align: top;
               }
 
@@ -79,7 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 --paper-checkbox-checked-ink-color: var(--paper-green-500);
                 --paper-checkbox-unchecked-color: var(--paper-green-900);
                 --paper-checkbox-unchecked-ink-color: var(--paper-green-900);
-                --paper-checkbox-label-color: var(--paper-green-500);
+                --paper-checkbox-label-color: var(--paper-green-700);
                 --paper-checkbox-label-spacing: 0;
                 --paper-checkbox-margin: 8px 16px 8px 0;
                 --paper-checkbox-vertical-align: top;
@@ -90,30 +90,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 --paper-checkbox-checked-ink-color: var(--paper-blue-500);
                 --paper-checkbox-unchecked-color: var(--paper-blue-900);
                 --paper-checkbox-unchecked-ink-color: var(--paper-blue-900);
-                --paper-checkbox-label-color: var(--paper-blue-500);
+                --paper-checkbox-label-color: var(--paper-blue-700);
                 --paper-checkbox-label-checked-color: var(--paper-blue-900);
+              }
+
+              paper-checkbox .title {
+                display: block;
+                font-size: 1.2em;
               }
 
               paper-checkbox .subtitle {
                 display: block;
-                font-size: 0.8em;
-                margin-top: 2px;
+                font-size: 0.9em;
                 max-width: 150px;
               }
             </style>
           </custom-style>
 
           <paper-checkbox class="red">
-            Checkbox
+            <span class="title">Checkbox</span>
             <span class="subtitle">With a subtitle</span>
           </paper-checkbox>
           <paper-checkbox checked class="green">
-            Checkbox
+            <span class="title">Checkbox</span>
             <span class="subtitle">
               With a longer subtitle that wraps to another line
             </span>
           </paper-checkbox>
-          <paper-checkbox class="blue">Checkbox</paper-checkbox>
+          <paper-checkbox class="blue">
+            <span class="title">Checkbox</span>
+          </paper-checkbox>
         </template>
       </demo-snippet>
     </div>

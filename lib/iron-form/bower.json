@@ -1,6 +1,6 @@
 {
   "name": "iron-form",
-  "version": "2.1.6",
+  "version": "2.4.0",
   "description": "Wrapper around native form that submits native and custom elements",
   "keywords": [
     "web-components",

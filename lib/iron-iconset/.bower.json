@@ -1,6 +1,6 @@
 {
   "name": "iron-iconset",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "license": "http://polymer.github.io/LICENSE.txt",
   "description": "Represents a set of icons",
   "authors": [
@@ -53,11 +53,11 @@
     "webcomponentsjs": "^1.0.0"
   },
   "homepage": "https://github.com/PolymerElements/iron-iconset",
-  "_release": "2.1.0",
+  "_release": "2.1.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.1.0",
-    "commit": "28caef77370173aff5c2440592f569d24acb6621"
+    "tag": "v2.1.1",
+    "commit": "d2670067ff08dfb9e57c0501e3371ac8c95a40b2"
   },
   "_source": "https://github.com/PolymerElements/iron-iconset.git",
   "_target": "^2.0.0",

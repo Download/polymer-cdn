@@ -1,6 +1,5 @@
 {
   "name": "paper-swatch-picker",
-  "version": "2.2.0",
   "description": "A color picker element using all the Material Design colours",
   "authors": [
     "The Polymer Authors"
@@ -62,11 +61,12 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "_release": "2.2.0",
+  "version": "2.2.1",
+  "_release": "2.2.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.2.0",
-    "commit": "412e648cd69935799b2cd9b3197f6a6652d0ac36"
+    "tag": "v2.2.1",
+    "commit": "96ad8916c2cad57aa5f1c7d534431bc018978534"
   },
   "_source": "https://github.com/PolymerElements/paper-swatch-picker.git",
   "_target": "^2.0.1",
