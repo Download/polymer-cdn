@@ -1,6 +1,6 @@
 {
   "name": "iron-test-helpers",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "authors": [
     "The Polymer Authors"
   ],
@@ -44,11 +44,11 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "_release": "2.0.0",
+  "_release": "2.0.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.0",
-    "commit": "b972ff1579d882f3196713f8a72a8bf77aeba07c"
+    "tag": "v2.0.1",
+    "commit": "279d8001291035ba86d1bf0f9375fa4abd7444a7"
   },
   "_source": "https://github.com/PolymerElements/iron-test-helpers.git",
   "_target": "^2.0.0",

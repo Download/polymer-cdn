@@ -64,396 +64,396 @@ These dependencies are themselves also listed at the top-level, so you can work 
 tree for a library by carefully examining this diagram.
 
 ```sh
-polymer-cdn#2.6.0.2
-├─┬ app-layout#2.1.0
-│ ├─┬ iron-flex-layout#2.0.3
-│ │ └─┬ polymer#2.6.0
-│ │   ├── shadycss#1.1.2
-│ │   └── webcomponentsjs#1.1.1
-│ ├─┬ iron-media-query#2.1.0
-│ │ └── polymer#2.6.0
-│ ├─┬ iron-resizable-behavior#2.1.0
-│ │ └── polymer#2.6.0
-│ ├─┬ iron-scroll-target-behavior#2.1.0
-│ │ └── polymer#2.6.0
-│ └── polymer#2.6.0
-├─┬ app-localize-behavior#2.0.1
+ polymer-cdn#2.6.0.2 /home/juand/Documentos/colaboracionesGit/polymer-cdn
+├─┬ app-layout#2.1.1 (latest is 3.0.1)
+│ ├─┬ iron-flex-layout#2.0.3 (latest is 3.0.1)
+│ │ └─┬ polymer#2.6.1
+│ │   ├── shadycss#1.5.2
+│ │   └── webcomponentsjs#1.2.7
+│ ├─┬ iron-media-query#2.1.0 (latest is 3.0.1)
+│ │ └── polymer#2.6.1
+│ ├─┬ iron-resizable-behavior#2.1.1 (latest is 3.0.1)
+│ │ └── polymer#2.6.1
+│ ├─┬ iron-scroll-target-behavior#2.1.1 (latest is 3.0.1)
+│ │ └── polymer#2.6.1
+│ └── polymer#2.6.1 (latest is 3.0.5)
+├─┬ app-localize-behavior#2.0.2 (latest is 3.0.1)
 │ ├── intl-messageformat#1.3.0 (latest is 2.2.0)
-│ ├─┬ iron-ajax#2.1.3
-│ │ └── polymer#2.6.0
-│ └── polymer#2.6.0
+│ ├─┬ iron-ajax#2.1.3 (latest is 3.0.1)
+│ │ └── polymer#2.6.1
+│ └── polymer#2.6.1
 ├─┬ app-pouchdb#2.1.1
-│ ├─┬ app-storage#2.1.1
-│ │ └── polymer#2.6.0
-│ ├── polymer#2.6.0
-│ ├── pouchdb#6.4.3
+│ ├─┬ app-storage#2.1.2 (latest is 3.0.2)
+│ │ └── polymer#2.6.1
+│ ├── polymer#2.6.1
+│ ├── pouchdb#6.4.3 (latest is 7.0.0)
 │ └── pouchdb-find#0.10.5
-├─┬ app-route#2.1.0
-│ ├─┬ iron-location#2.2.0
-│ │ └── polymer#2.6.0
-│ └── polymer#2.6.0
-├── app-storage#2.1.1
-├─┬ gold-zip-input#2.1.0
-│ ├─┬ iron-form-element-behavior#2.1.1
-│ │ └── polymer#2.6.0
-│ ├─┬ iron-icon#2.1.0
+├─┬ app-route#2.1.2 (latest is 3.0.2)
+│ ├─┬ iron-location#2.2.2 (latest is 3.0.1)
+│ │ └── polymer#2.6.1
+│ └── polymer#2.6.1
+├── app-storage#2.1.2 (latest is 3.0.2)
+├─┬ gold-zip-input#2.1.0 (latest is 3.0.1)
+│ ├─┬ iron-form-element-behavior#2.1.3 (latest is 3.0.1)
+│ │ └── polymer#2.6.1
+│ ├─┬ iron-icon#2.1.0 (latest is 3.0.1)
 │ │ ├── iron-flex-layout#2.0.3
-│ │ ├─┬ iron-meta#2.1.0
-│ │ │ └── polymer#2.6.0
-│ │ └── polymer#2.6.0
-│ ├─┬ iron-validator-behavior#2.1.0
-│ │ ├── iron-meta#2.1.0
-│ │ └── polymer#2.6.0
-│ ├─┬ paper-input#2.2.0
-│ │ ├── iron-a11y-keys-behavior#2.1.0
-│ │ ├─┬ iron-autogrow-textarea#2.2.0
+│ │ ├─┬ iron-meta#2.1.1 (latest is 3.0.1)
+│ │ │ └── polymer#2.6.1
+│ │ └── polymer#2.6.1
+│ ├─┬ iron-validator-behavior#2.1.0 (latest is 3.0.1)
+│ │ ├── iron-meta#2.1.1
+│ │ └── polymer#2.6.1
+│ ├─┬ paper-input#2.2.3 (latest is 3.0.1)
+│ │ ├── iron-a11y-keys-behavior#2.1.1 (latest is 3.0.1)
+│ │ ├─┬ iron-autogrow-textarea#2.2.0 (latest is 3.0.1)
 │ │ │ ├─┬ iron-behaviors#2.1.1
-│ │ │ │ ├─┬ iron-a11y-keys-behavior#2.1.0
-│ │ │ │ │ └── polymer#2.6.0
-│ │ │ │ └── polymer#2.6.0
+│ │ │ │ ├─┬ iron-a11y-keys-behavior#2.1.1
+│ │ │ │ │ └── polymer#2.6.1
+│ │ │ │ └── polymer#2.6.1
 │ │ │ ├── iron-flex-layout#2.0.3
-│ │ │ ├─┬ iron-validatable-behavior#2.1.0
-│ │ │ │ ├── iron-meta#2.1.0
-│ │ │ │ └── polymer#2.6.0
-│ │ │ └── polymer#2.6.0
-│ │ ├── iron-behaviors#2.1.1
-│ │ ├── iron-form-element-behavior#2.1.1
-│ │ ├─┬ iron-input#2.1.2
-│ │ │ ├─┬ iron-a11y-announcer#2.1.0
-│ │ │ │ └── polymer#2.6.0
+│ │ │ ├─┬ iron-validatable-behavior#2.1.0 (latest is 3.0.1)
+│ │ │ │ ├── iron-meta#2.1.1
+│ │ │ │ └── polymer#2.6.1
+│ │ │ └── polymer#2.6.1
+│ │ ├── iron-behaviors#2.1.1 (latest is 3.0.1)
+│ │ ├── iron-form-element-behavior#2.1.3
+│ │ ├─┬ iron-input#2.1.3 (latest is 3.0.1)
+│ │ │ ├─┬ iron-a11y-announcer#2.1.0 (latest is 3.0.1)
+│ │ │ │ └── polymer#2.6.1
 │ │ │ ├── iron-validatable-behavior#2.1.0
-│ │ │ └── polymer#2.6.0
+│ │ │ └── polymer#2.6.1
 │ │ ├─┬ paper-styles#2.1.0
 │ │ │ ├── font-roboto#1.1.0
 │ │ │ ├── iron-flex-layout#2.0.3
-│ │ │ └── polymer#2.6.0
-│ │ └── polymer#2.6.0
-│ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├── iron-a11y-announcer#2.1.0
-├─┬ iron-a11y-keys#2.1.1
-│ ├── iron-a11y-keys-behavior#2.1.0
-│ └── polymer#2.6.0
-├── iron-a11y-keys-behavior#2.1.0
-├── iron-ajax#2.1.3
-├── iron-autogrow-textarea#2.2.0
-├── iron-behaviors#2.1.1
-├─┬ iron-checked-element-behavior#2.1.0
-│ ├── iron-form-element-behavior#2.1.1
+│ │ │ └── polymer#2.6.1
+│ │ └── polymer#2.6.1
+│ ├── paper-styles#2.1.0 (latest is 3.0.1)
+│ └── polymer#2.6.1
+├── iron-a11y-announcer#2.1.0 (latest is 3.0.1)
+├─┬ iron-a11y-keys#2.1.2 (latest is 3.0.1)
+│ ├── iron-a11y-keys-behavior#2.1.1
+│ └── polymer#2.6.1
+├── iron-a11y-keys-behavior#2.1.1 (latest is 3.0.1)
+├── iron-ajax#2.1.3 (latest is 3.0.1)
+├── iron-autogrow-textarea#2.2.0 (latest is 3.0.1)
+├── iron-behaviors#2.1.1 (latest is 3.0.1)
+├─┬ iron-checked-element-behavior#2.1.1 (latest is 3.0.1)
+│ ├── iron-form-element-behavior#2.1.3
 │ ├── iron-validatable-behavior#2.1.0
-│ └── polymer#2.6.0
-├─┬ iron-collapse#2.2.0
-│ ├── iron-resizable-behavior#2.1.0
-│ └── polymer#2.6.0
-├─┬ iron-component-page#3.0.1
-│ ├── app-layout#2.1.0
+│ └── polymer#2.6.1
+├─┬ iron-collapse#2.2.1 (latest is 3.0.1)
+│ ├── iron-resizable-behavior#2.1.1
+│ └── polymer#2.6.1
+├─┬ iron-component-page#3.0.1 (latest is 4.0.1)
+│ ├── app-layout#2.1.1 (latest is 3.0.1)
 │ ├── iron-ajax#2.1.3
-│ ├─┬ iron-doc-viewer#3.2.0
-│ │ ├── iron-location#2.2.0
-│ │ ├─┬ marked-element#2.4.0
-│ │ │ ├── marked#0.3.18 (0.3.19 available)
-│ │ │ └── polymer#2.6.0
+│ ├─┬ iron-doc-viewer#3.3.2 (latest is 4.0.1)
+│ │ ├── iron-location#2.2.2
+│ │ ├─┬ marked-element#2.4.0 (latest is 3.0.1)
+│ │ │ ├── marked#0.3.19 (latest is 0.5.1)
+│ │ │ └── polymer#2.6.1
 │ │ ├── paper-styles#2.1.0
-│ │ ├── polymer#2.6.0
-│ │ └─┬ prism-element#2.1.0
-│ │   ├── polymer#2.6.0
-│ │   └── prism#1.13.0
-│ ├─┬ iron-icons#2.1.1
+│ │ ├── polymer#2.6.1
+│ │ └─┬ prism-element#2.1.0 (latest is 3.0.1)
+│ │   ├── polymer#2.6.1
+│ │   └── prism#1.15.0
+│ ├─┬ iron-icons#2.1.1 (latest is 3.0.1)
 │ │ ├── iron-icon#2.1.0
-│ │ ├─┬ iron-iconset-svg#2.2.0
-│ │ │ ├── iron-meta#2.1.0
-│ │ │ └── polymer#2.6.0
-│ │ └── polymer#2.6.0
-│ ├─┬ paper-icon-button#2.2.0
+│ │ ├─┬ iron-iconset-svg#2.2.1 (latest is 3.0.1)
+│ │ │ ├── iron-meta#2.1.1
+│ │ │ └── polymer#2.6.1
+│ │ └── polymer#2.6.1
+│ ├─┬ paper-icon-button#2.2.0 (latest is 3.0.1)
 │ │ ├── iron-icon#2.1.0
-│ │ ├─┬ paper-behaviors#2.1.0
+│ │ ├─┬ paper-behaviors#2.1.1 (latest is 3.0.1)
 │ │ │ ├── iron-behaviors#2.1.1
-│ │ │ ├── iron-checked-element-behavior#2.1.0
-│ │ │ ├─┬ paper-ripple#2.1.0
-│ │ │ │ ├── iron-a11y-keys-behavior#2.1.0
-│ │ │ │ └── polymer#2.6.0
-│ │ │ └── polymer#2.6.0
+│ │ │ ├── iron-checked-element-behavior#2.1.1 (latest is 3.0.1)
+│ │ │ ├─┬ paper-ripple#2.1.1 (latest is 3.0.1)
+│ │ │ │ ├── iron-a11y-keys-behavior#2.1.1
+│ │ │ │ └── polymer#2.6.1
+│ │ │ └── polymer#2.6.1
 │ │ ├── paper-styles#2.1.0
-│ │ └── polymer#2.6.0
+│ │ └── polymer#2.6.1
 │ ├── paper-styles#2.1.0
-│ ├─┬ paper-toast#2.1.0
+│ ├─┬ paper-toast#2.1.2 (latest is 3.0.1)
 │ │ ├── iron-a11y-announcer#2.1.0
-│ │ ├── iron-fit-behavior#2.1.1
-│ │ ├─┬ iron-overlay-behavior#2.3.3
-│ │ │ ├── iron-a11y-keys-behavior#2.1.0
-│ │ │ ├─┬ iron-fit-behavior#2.1.1
-│ │ │ │ └── polymer#2.6.0
-│ │ │ ├── iron-resizable-behavior#2.1.0
-│ │ │ └── polymer#2.6.0
-│ │ └── polymer#2.6.0
-│ └── polymer#2.6.0
-├─┬ iron-demo-helpers#2.1.0
-│ ├── font-roboto#1.1.0
+│ │ ├── iron-fit-behavior#2.2.1 (latest is 3.0.1)
+│ │ ├─┬ iron-overlay-behavior#2.3.4 (latest is 3.0.2)
+│ │ │ ├── iron-a11y-keys-behavior#2.1.1
+│ │ │ ├─┬ iron-fit-behavior#2.2.1
+│ │ │ │ └── polymer#2.6.1
+│ │ │ ├── iron-resizable-behavior#2.1.1
+│ │ │ └── polymer#2.6.1
+│ │ └── polymer#2.6.1
+│ └── polymer#2.6.1
+├─┬ iron-demo-helpers#2.1.2 (latest is 3.0.2)
+│ ├── font-roboto#1.1.0 (latest is 3.0.2)
 │ ├── iron-flex-layout#2.0.3
-│ ├── iron-location#2.2.0
+│ ├── iron-location#2.2.2
 │ ├── marked-element#2.4.0
-│ ├── polymer#2.6.0
+│ ├── polymer#2.6.1
 │ └── prism-element#2.1.0
-├── iron-doc-viewer#3.2.0
-├─┬ iron-dropdown#2.2.0
+├── iron-doc-viewer#3.3.2 (latest is 4.0.1)
+├─┬ iron-dropdown#2.2.1 (latest is 3.0.1)
 │ ├── iron-behaviors#2.1.1
-│ ├── iron-overlay-behavior#2.3.3
-│ ├─┬ neon-animation#2.2.1
-│ │ ├── iron-resizable-behavior#2.1.0
-│ │ ├─┬ iron-selector#2.1.0
-│ │ │ └── polymer#2.6.0
-│ │ └── polymer#2.6.0
-│ └── polymer#2.6.0
-├── iron-fit-behavior#2.1.1
-├── iron-flex-layout#2.0.3
-├─┬ iron-form#2.2.1
+│ ├── iron-overlay-behavior#2.3.4 (latest is 3.0.2)
+│ ├─┬ neon-animation#2.2.1 (latest is 3.0.1)
+│ │ ├── iron-resizable-behavior#2.1.1
+│ │ ├─┬ iron-selector#2.1.0 (latest is 3.0.1)
+│ │ │ └── polymer#2.6.1
+│ │ └── polymer#2.6.1
+│ └── polymer#2.6.1
+├── iron-fit-behavior#2.2.1 (latest is 3.0.1)
+├── iron-flex-layout#2.0.3 (latest is 3.0.1)
+├─┬ iron-form#2.4.0 (latest is 3.0.1)
 │ ├── iron-ajax#2.1.3
-│ └── polymer#2.6.0
-├── iron-form-element-behavior#2.1.1
-├── iron-icon#2.1.0
-├── iron-icons#2.1.1
-├─┬ iron-iconset#2.1.0
-│ ├── iron-meta#2.1.0
-│ └── polymer#2.6.0
-├── iron-iconset-svg#2.2.0
-├─┬ iron-image#2.2.0
-│ └── polymer#2.6.0
-├── iron-input#2.1.2
-├─┬ iron-jsonp-library#2.1.0
-│ └── polymer#2.6.0
-├─┬ iron-label#2.1.0
-│ └── polymer#2.6.0
-├─┬ iron-list#2.0.13
-│ ├── iron-a11y-keys-behavior#2.1.0
-│ ├── iron-resizable-behavior#2.1.0
-│ ├── iron-scroll-target-behavior#2.1.0
-│ └── polymer#2.6.0
-├─┬ iron-localstorage#2.1.1
-│ └── polymer#2.6.0
-├── iron-location#2.2.0
-├── iron-media-query#2.1.0
-├─┬ iron-menu-behavior#2.1.0
-│ ├── iron-a11y-keys-behavior#2.1.0
+│ └── polymer#2.6.1
+├── iron-form-element-behavior#2.1.3 (latest is 3.0.1)
+├── iron-icon#2.1.0 (latest is 3.0.1)
+├── iron-icons#2.1.1 (latest is 3.0.1)
+├─┬ iron-iconset#2.1.1 (latest is 3.0.1)
+│ ├── iron-meta#2.1.1
+│ └── polymer#2.6.1
+├── iron-iconset-svg#2.2.1 (latest is 3.0.1)
+├─┬ iron-image#2.2.1 (latest is 3.0.1)
+│ └── polymer#2.6.1
+├── iron-input#2.1.3 (latest is 3.0.1)
+├─┬ iron-jsonp-library#2.1.0 (latest is 3.0.1)
+│ └── polymer#2.6.1
+├─┬ iron-label#2.1.0 (latest is 3.0.1)
+│ └── polymer#2.6.1
+├─┬ iron-list#2.0.19 (latest is 3.0.1)
+│ ├── iron-a11y-keys-behavior#2.1.1
+│ ├── iron-resizable-behavior#2.1.1
+│ ├── iron-scroll-target-behavior#2.1.1
+│ └── polymer#2.6.1
+├─┬ iron-localstorage#2.1.1 (latest is 3.0.1)
+│ └── polymer#2.6.1
+├── iron-location#2.2.2 (latest is 3.0.1)
+├── iron-media-query#2.1.0 (latest is 3.0.1)
+├─┬ iron-menu-behavior#2.1.1 (latest is 3.0.1)
+│ ├── iron-a11y-keys-behavior#2.1.1
 │ ├── iron-flex-layout#2.0.3
 │ ├── iron-selector#2.1.0
-│ └── polymer#2.6.0
-├── iron-meta#2.1.0
-├── iron-overlay-behavior#2.3.3
-├─┬ iron-pages#2.1.0
-│ ├── iron-resizable-behavior#2.1.0
+│ └── polymer#2.6.1
+├── iron-meta#2.1.1 (latest is 3.0.1)
+├── iron-overlay-behavior#2.3.4 (latest is 3.0.2)
+├─┬ iron-pages#2.1.1 (latest is 3.0.1)
+│ ├── iron-resizable-behavior#2.1.1
 │ ├── iron-selector#2.1.0
-│ └── polymer#2.6.0
-├─┬ iron-range-behavior#2.1.0
-│ └── polymer#2.6.0
-├── iron-resizable-behavior#2.1.0
-├── iron-scroll-target-behavior#2.1.0
-├─┬ iron-scroll-threshold#2.0.0
-│ ├── iron-scroll-target-behavior#2.1.0
-│ └── polymer#2.6.0
-├── iron-selector#2.1.0
-├─┬ iron-test-helpers#2.0.0
-│ └── polymer#2.6.0
-├── iron-validatable-behavior#2.1.0
-├── iron-validator-behavior#2.1.0
-├── marked-element#2.4.0
-├── neon-animation#2.2.1
+│ └── polymer#2.6.1
+├─┬ iron-range-behavior#2.1.1 (latest is 3.0.1)
+│ └── polymer#2.6.1
+├── iron-resizable-behavior#2.1.1 (latest is 3.0.1)
+├── iron-scroll-target-behavior#2.1.1 (latest is 3.0.1)
+├─┬ iron-scroll-threshold#2.0.0 (latest is 3.0.1)
+│ ├── iron-scroll-target-behavior#2.1.1
+│ └── polymer#2.6.1
+├── iron-selector#2.1.0 (latest is 3.0.1)
+├─┬ iron-test-helpers#2.0.1 (latest is 3.0.1)
+│ └── polymer#2.6.1
+├── iron-validatable-behavior#2.1.0 (latest is 3.0.1)
+├── iron-validator-behavior#2.1.0 (latest is 3.0.1)
+├── marked-element#2.4.0 (latest is 3.0.1)
+├── neon-animation#2.2.1 (latest is 3.0.1)
 ├─┬ note-app-elements#2.1.2
-│ ├── app-storage#2.1.1
-│ ├── font-roboto#1.1.0
-│ ├── iron-autogrow-textarea#2.2.0
-│ ├── iron-flex-layout#2.0.3
-│ ├── iron-icon#2.1.0
-│ ├── iron-icons#2.1.1
-│ ├── iron-input#2.1.2
-│ ├─┬ paper-button#2.1.0
+│ ├── app-storage#2.1.2
+│ ├── font-roboto#1.1.0 (latest is 3.0.2)
+│ ├── iron-autogrow-textarea#2.2.0 (latest is 3.0.1)
+│ ├── iron-flex-layout#2.0.3 (latest is 3.0.1)
+│ ├── iron-icon#2.1.0 (latest is 3.0.1)
+│ ├── iron-icons#2.1.1 (latest is 3.0.1)
+│ ├── iron-input#2.1.3 (latest is 3.0.1)
+│ ├─┬ paper-button#2.1.3 (latest is 3.0.1)
 │ │ ├── iron-flex-layout#2.0.3
-│ │ ├── paper-behaviors#2.1.0
+│ │ ├── paper-behaviors#2.1.1
 │ │ ├── paper-styles#2.1.0
-│ │ └── polymer#2.6.0
-│ ├─┬ paper-fab#2.1.0
+│ │ └── polymer#2.6.1
+│ ├─┬ paper-fab#2.1.0 (latest is 3.0.1)
 │ │ ├── iron-flex-layout#2.0.3
 │ │ ├── iron-icon#2.1.0
-│ │ ├── paper-behaviors#2.1.0
+│ │ ├── paper-behaviors#2.1.1
 │ │ ├── paper-styles#2.1.0
-│ │ └── polymer#2.6.0
-│ ├── paper-icon-button#2.2.0
-│ ├── paper-styles#2.1.0
-│ ├── polymer#2.6.0
+│ │ └── polymer#2.6.1
+│ ├── paper-icon-button#2.2.0 (latest is 3.0.1)
+│ ├── paper-styles#2.1.0 (latest is 3.0.1)
+│ ├── polymer#2.6.1
 │ └── web-animations-js#2.3.1
-├─┬ paper-alert-dialog#2.0.1
-│ ├── iron-icon#2.1.0
-│ ├── paper-button#2.1.0
-│ ├─┬ paper-dialog#2.1.1
-│ │ ├── iron-overlay-behavior#2.3.3
+├─┬ paper-alert-dialog#2.0.2
+│ ├── iron-icon#2.1.0 (latest is 3.0.1)
+│ ├── paper-button#2.1.3 (latest is 3.0.1)
+│ ├─┬ paper-dialog#2.1.1 (latest is 3.0.1)
+│ │ ├── iron-overlay-behavior#2.3.4
 │ │ ├── neon-animation#2.2.1
-│ │ ├─┬ paper-dialog-behavior#2.2.0
-│ │ │ ├── iron-overlay-behavior#2.3.3
+│ │ ├─┬ paper-dialog-behavior#2.2.2 (latest is 3.0.1)
+│ │ │ ├── iron-overlay-behavior#2.3.4
 │ │ │ ├── paper-styles#2.1.0
-│ │ │ └── polymer#2.6.0
-│ │ └── polymer#2.6.0
-│ └── polymer#2.6.0
-├─┬ paper-badge#2.1.0
+│ │ │ └── polymer#2.6.1
+│ │ └── polymer#2.6.1
+│ └── polymer#2.6.1 (latest is 3.0.5)
+├─┬ paper-badge#2.1.0 (latest is 3.0.1)
 │ ├── iron-flex-layout#2.0.3
 │ ├── iron-icon#2.1.0
-│ ├── iron-resizable-behavior#2.1.0
+│ ├── iron-resizable-behavior#2.1.1
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├── paper-behaviors#2.1.0
-├── paper-button#2.1.0
-├─┬ paper-card#2.1.0
+│ └── polymer#2.6.1
+├── paper-behaviors#2.1.1 (latest is 3.0.1)
+├── paper-button#2.1.3 (latest is 3.0.1)
+├─┬ paper-card#2.1.0 (latest is 3.0.1)
 │ ├── iron-flex-layout#2.0.3
-│ ├── iron-image#2.2.0
+│ ├── iron-image#2.2.1 (latest is 3.0.1)
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-checkbox#2.0.2
-│ ├── iron-a11y-keys-behavior#2.1.0
-│ ├── iron-checked-element-behavior#2.1.0
-│ ├── paper-behaviors#2.1.0
-│ ├── paper-ripple#2.1.0
+│ └── polymer#2.6.1
+├─┬ paper-checkbox#2.0.4 (latest is 3.0.1)
+│ ├── iron-a11y-keys-behavior#2.1.1
+│ ├── iron-checked-element-behavior#2.1.1
+│ ├── paper-behaviors#2.1.1
+│ ├── paper-ripple#2.1.1
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-dialog#2.1.1
-│ ├── iron-overlay-behavior#2.3.3
+│ └── polymer#2.6.1
+├─┬ paper-dialog#2.1.1 (latest is 3.0.1)
+│ ├── iron-overlay-behavior#2.3.4
 │ ├── neon-animation#2.2.1
-│ ├─┬ paper-dialog-behavior#2.2.0
-│ │ ├── iron-overlay-behavior#2.3.3
+│ ├─┬ paper-dialog-behavior#2.2.2
+│ │ ├── iron-overlay-behavior#2.3.4
 │ │ ├── paper-styles#2.1.0
-│ │ └── polymer#2.6.0
-│ └── polymer#2.6.0
-├── paper-dialog-behavior#2.2.0
-├─┬ paper-dialog-scrollable#2.2.0
+│ │ └── polymer#2.6.1
+│ └── polymer#2.6.1
+├── paper-dialog-behavior#2.2.2 (latest is 3.0.1)
+├─┬ paper-dialog-scrollable#2.2.1 (latest is 3.0.1)
 │ ├── iron-flex-layout#2.0.3
-│ ├── paper-dialog-behavior#2.2.0
+│ ├── paper-dialog-behavior#2.2.2
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-drawer-panel#2.1.1
+│ └── polymer#2.6.1
+├─┬ paper-drawer-panel#2.1.2 (latest is 3.0.1)
 │ ├── iron-media-query#2.1.0
-│ ├── iron-resizable-behavior#2.1.0
+│ ├── iron-resizable-behavior#2.1.1
 │ ├── iron-selector#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-dropdown-menu#2.1.0
-│ ├── iron-a11y-keys-behavior#2.1.0
-│ ├── iron-form-element-behavior#2.1.1
+│ └── polymer#2.6.1
+├─┬ paper-dropdown-menu#2.1.0 (latest is 3.0.1)
+│ ├── iron-a11y-keys-behavior#2.1.1
+│ ├── iron-form-element-behavior#2.1.3
 │ ├── iron-icon#2.1.0
-│ ├── iron-iconset-svg#2.2.0
+│ ├── iron-iconset-svg#2.2.1
 │ ├── iron-validatable-behavior#2.1.0
-│ ├── paper-behaviors#2.1.0
-│ ├── paper-input#2.2.0
-│ ├─┬ paper-menu-button#2.1.0
-│ │ ├── iron-a11y-keys-behavior#2.1.0
+│ ├── paper-behaviors#2.1.1
+│ ├── paper-input#2.2.3
+│ ├─┬ paper-menu-button#2.1.1 (latest is 3.0.1)
+│ │ ├── iron-a11y-keys-behavior#2.1.1
 │ │ ├── iron-behaviors#2.1.1
-│ │ ├── iron-dropdown#2.2.0
-│ │ ├── iron-fit-behavior#2.1.1
+│ │ ├── iron-dropdown#2.2.1 (latest is 3.0.1)
+│ │ ├── iron-fit-behavior#2.2.1
 │ │ ├── neon-animation#2.2.1
 │ │ ├── paper-styles#2.1.0
-│ │ └── polymer#2.6.0
-│ ├── paper-ripple#2.1.0
+│ │ └── polymer#2.6.1
+│ ├── paper-ripple#2.1.1
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├── paper-fab#2.1.0
-├─┬ paper-header-panel#2.1.0
+│ └── polymer#2.6.1
+├── paper-fab#2.1.0 (latest is 3.0.1)
+├─┬ paper-header-panel#2.1.0 (latest is 3.0.1)
 │ ├── iron-flex-layout#2.0.3
-│ └── polymer#2.6.0
-├── paper-icon-button#2.2.0
-├── paper-input#2.2.0
-├─┬ paper-item#2.1.0
+│ └── polymer#2.6.1
+├── paper-icon-button#2.2.0 (latest is 3.0.1)
+├── paper-input#2.2.3 (latest is 3.0.1)
+├─┬ paper-item#2.1.1 (latest is 3.0.1)
 │ ├── iron-behaviors#2.1.1
 │ ├── iron-flex-layout#2.0.3
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-listbox#2.1.0
+│ └── polymer#2.6.1
+├─┬ paper-listbox#2.1.1 (latest is 3.0.1)
 │ ├── iron-behaviors#2.1.1
-│ ├── iron-menu-behavior#2.1.0
+│ ├── iron-menu-behavior#2.1.1 (latest is 3.0.1)
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-material#2.1.0
+│ └── polymer#2.6.1
+├─┬ paper-material#2.1.0 (latest is 3.0.1)
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├── paper-menu-button#2.1.0
-├─┬ paper-progress#2.1.0
+│ └── polymer#2.6.1
+├── paper-menu-button#2.1.1 (latest is 3.0.1)
+├─┬ paper-progress#2.1.1 (latest is 3.0.1)
 │ ├── iron-flex-layout#2.0.3
-│ ├── iron-range-behavior#2.1.0
+│ ├── iron-range-behavior#2.1.1 (latest is 3.0.1)
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-radio-button#2.1.0
-│ ├── iron-checked-element-behavior#2.1.0
+│ └── polymer#2.6.1
+├─┬ paper-radio-button#2.1.0 (latest is 3.0.1)
+│ ├── iron-checked-element-behavior#2.1.1
 │ ├── iron-flex-layout#2.0.3
-│ ├── paper-behaviors#2.1.0
+│ ├── paper-behaviors#2.1.1
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-radio-group#2.2.0
-│ ├── iron-a11y-keys-behavior#2.1.0
-│ ├── iron-menu-behavior#2.1.0
-│ ├── paper-radio-button#2.1.0
-│ └── polymer#2.6.0
-├── paper-ripple#2.1.0
-├─┬ paper-scroll-header-panel#2.0.0
-│ ├── iron-resizable-behavior#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-slider#2.0.5
-│ ├── iron-a11y-keys-behavior#2.1.0
+│ └── polymer#2.6.1
+├─┬ paper-radio-group#2.2.0 (latest is 3.0.1)
+│ ├── iron-a11y-keys-behavior#2.1.1
+│ ├── iron-menu-behavior#2.1.1
+│ ├── paper-radio-button#2.1.0 (latest is 3.0.1)
+│ └── polymer#2.6.1
+├── paper-ripple#2.1.1 (latest is 3.0.1)
+├─┬ paper-scroll-header-panel#2.0.0 (latest is 3.0.1)
+│ ├── iron-resizable-behavior#2.1.1
+│ └── polymer#2.6.1
+├─┬ paper-slider#2.0.7 (latest is 3.0.1)
+│ ├── iron-a11y-keys-behavior#2.1.1
 │ ├── iron-behaviors#2.1.1
 │ ├── iron-flex-layout#2.0.3
-│ ├── iron-form-element-behavior#2.1.1
-│ ├── paper-behaviors#2.1.0
-│ ├── paper-input#2.2.0
-│ ├── paper-progress#2.1.0
+│ ├── iron-form-element-behavior#2.1.3
+│ ├── paper-behaviors#2.1.1
+│ ├── paper-input#2.2.3
+│ ├── paper-progress#2.1.1 (latest is 3.0.1)
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-spinner#2.1.0
+│ └── polymer#2.6.1
+├─┬ paper-spinner#2.1.0 (latest is 3.0.1)
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├── paper-styles#2.1.0
-├─┬ paper-swatch-picker#2.2.0
+│ └── polymer#2.6.1
+├── paper-styles#2.1.0 (latest is 3.0.1)
+├─┬ paper-swatch-picker#2.2.1 (latest is 3.0.1)
 │ ├── iron-flex-layout#2.0.3
-│ ├── iron-iconset-svg#2.2.0
+│ ├── iron-iconset-svg#2.2.1
 │ ├── paper-icon-button#2.2.0
-│ ├── paper-item#2.1.0
-│ ├── paper-listbox#2.1.0
-│ ├── paper-menu-button#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-tabs#2.1.0
+│ ├── paper-item#2.1.1 (latest is 3.0.1)
+│ ├── paper-listbox#2.1.1 (latest is 3.0.1)
+│ ├── paper-menu-button#2.1.1
+│ └── polymer#2.6.1
+├─┬ paper-tabs#2.1.1 (latest is 3.0.1)
 │ ├── iron-behaviors#2.1.1
 │ ├── iron-flex-layout#2.0.3
 │ ├── iron-icon#2.1.0
-│ ├── iron-iconset-svg#2.2.0
-│ ├── iron-menu-behavior#2.1.0
-│ ├── iron-resizable-behavior#2.1.0
-│ ├── paper-behaviors#2.1.0
+│ ├── iron-iconset-svg#2.2.1
+│ ├── iron-menu-behavior#2.1.1
+│ ├── iron-resizable-behavior#2.1.1
+│ ├── paper-behaviors#2.1.1
 │ ├── paper-icon-button#2.2.0
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├── paper-toast#2.1.0
-├─┬ paper-toggle-button#2.1.0
-│ ├── iron-checked-element-behavior#2.1.0
-│ ├── paper-behaviors#2.1.0
+│ └── polymer#2.6.1
+├── paper-toast#2.1.2 (latest is 3.0.1)
+├─┬ paper-toggle-button#2.1.1 (latest is 3.0.1)
+│ ├── iron-checked-element-behavior#2.1.1
+│ ├── paper-behaviors#2.1.1
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-toolbar#2.1.0
+│ └── polymer#2.6.1
+├─┬ paper-toolbar#2.1.0 (latest is 3.0.1)
 │ ├── iron-flex-layout#2.0.3
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
-├─┬ paper-tooltip#2.1.1
+│ └── polymer#2.6.1
+├─┬ paper-tooltip#2.1.1 (latest is 3.0.1)
 │ ├── paper-styles#2.1.0
-│ └── polymer#2.6.0
+│ └── polymer#2.6.1
 ├─┬ platinum-sw#2.1.0
-│ ├── polymer#2.6.0
+│ ├── polymer#2.6.1
 │ └── sw-toolbox#3.6.1
-├── polymer#2.6.0
+├── polymer#2.6.1 (latest is 3.0.5)
 ├─┬ polymerfire#2.2.1
-│ ├── app-storage#2.1.1
-│ ├── firebase#4.12.0
-│ └── polymer#2.6.0
-├── prism-element#2.1.0
-├─┬ web-component-tester#6.5.0 (6.6.0-pre.3 available)
+│ ├── app-storage#2.1.2 (latest is 3.0.2)
+│ ├── firebase#4.13.0 (latest is 5.5.2)
+│ └── polymer#2.6.1
+├── prism-element#2.1.0 (latest is 3.0.1)
+├─┬ web-component-tester#6.5.0 (6.6.0-pre.5 available)
 │ ├── accessibility-developer-tools#2.12.0
-│ ├── async#1.5.2 (latest is 2.6.0)
-│ ├── chai#3.5.0 (latest is 4.1.2)
-│ ├── lodash#3.10.1 (3.11.0-npm-packages available, latest is 4.17.8-es)
-│ ├── mocha#3.5.3 (latest is 5.0.5)
-│ ├── sinon-chai#2.14.0 (latest is 3.0.0)
+│ ├── async#1.5.2 (latest is 3.0.1-0)
+│ ├── chai#3.5.0 (latest is 4.2.0)
+│ ├── lodash#3.10.1 (3.11.0-npm-packages available, latest is 4.17.11)
+│ ├── mocha#3.5.3 (latest is 5.2.0)
+│ ├── sinon-chai#2.14.0 (latest is 3.2.0)
 │ ├── sinonjs#1.17.1
 │ ├── stacky#1.3.2
-│ └── test-fixture#3.0.0
-└── webcomponentsjs#1.1.1
+│ └── test-fixture#3.0.0 (latest is 4.0.2)
+└── webcomponentsjs#1.2.7 (latest is 2.1.3)
 ```

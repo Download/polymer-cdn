@@ -66,19 +66,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           expect(MockInteractions).to.exist;
           expect(MockInteractions.tap).to.exist;
         });
-
-        test('registers to this', function() {
-          // Download the script with a synchronous xhr.
-          var xhr = new XMLHttpRequest();
-          xhr.open('get', '../mock-interactions.js', false);
-          xhr.send();
-          expect(xhr.responseText).to.exist;
-          // Execute it in a specific context.
-          var context = {};
-          Function(xhr.responseText).call(context);
-          expect(context.MockInteractions).to.exist;
-          expect(context.MockInteractions.tap).to.exist;
-        });
       });
 
       suite('simulating tap', function() {
@@ -105,21 +92,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       suite('simulating tap in ShadowRoot', function() {
 
         test('only dispatches one tap event', function() {
-          button = button.$.inner;
           var tapSpy = sinon.spy();
-          button.addEventListener('tap', tapSpy);
-          MockInteractions.tap(button);
-          button.removeEventListener('tap', tapSpy);
+          button.$.inner.addEventListener('tap', tapSpy);
+          MockInteractions.tap(button.$.inner);
           expect(tapSpy.callCount).to.be.eql(1);
         });
 
         suite('with touch emulation', function() {
           test('only dispatches one tap event', function() {
-            button = button.$.inner;
             var tapSpy = sinon.spy();
-            Polymer.Gestures.add(button, 'tap', tapSpy);
-            MockInteractions.tap(button, { emulateTouch: true });
-            Polymer.Gestures.remove(button, 'tap', tapSpy);
+            // In Polymer 1.x with native ShadowDOM we need to
+            // patch the button with Gestures.add in order to have
+            // the touch emulation working.
+            if (!Polymer.Element && Polymer.Settings.useShadow) {
+              Polymer.Gestures.add(button.$.inner, 'tap', tapSpy);
+            } else { 
+              button.$.inner.addEventListener('tap', tapSpy);
+            }
+            MockInteractions.tap(button.$.inner, { emulateTouch: true });
             expect(tapSpy.callCount).to.be.eql(1);
           });
         });
@@ -152,11 +142,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       suite('simulating down and up in ShadowRoot', function() {
 
         test('only dispatches one tap event', function(done) {
-          button = button.$.inner;
           var tapSpy = sinon.spy();
-          button.addEventListener('tap', tapSpy);
-          MockInteractions.downAndUp(button, function() {
-            button.removeEventListener('tap', tapSpy);
+          button.$.inner.addEventListener('tap', tapSpy);
+          MockInteractions.downAndUp(button.$.inner, function() {
             expect(tapSpy.callCount).to.be.eql(1);
             done();
           });
@@ -164,11 +152,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         suite('with touch emulation', function() {
           test('only dispatches one tap event', function(done) {
-            button = button.$.inner;
             var tapSpy = sinon.spy();
-            Polymer.Gestures.add(button, 'tap', tapSpy);
-            MockInteractions.downAndUp(button, function() {
-              Polymer.Gestures.remove(button, 'tap', tapSpy);
+            // In Polymer 1.x with native ShadowDOM we need to
+            // patch the button with Gestures.add in order to have
+            // the touch emulation working.
+            if (!Polymer.Element && Polymer.Settings.useShadow) {
+              Polymer.Gestures.add(button.$.inner, 'tap', tapSpy);
+            } else { 
+              button.$.inner.addEventListener('tap', tapSpy);
+            }
+            MockInteractions.downAndUp(button.$.inner, function() {
               expect(tapSpy.callCount).to.be.eql(1);
               done();
             }, { emulateTouch: true });

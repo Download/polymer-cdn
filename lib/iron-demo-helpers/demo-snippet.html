@@ -127,8 +127,8 @@ Custom property | Description | Default
 
       properties: {
         _markdown: {
-          type: String
-        }
+          type: String,
+        },
       },
 
       attached: function() {
@@ -155,22 +155,29 @@ Custom property | Description | Default
 
         var snippet = this.$.marked.unindent(template.innerHTML);
 
+        // Hack: In safari + shady dom, sometime we get an empty 'class' attribute.
+        // if we do, delete it.
+        snippet = snippet.replace(/ class=""/g, '');
+
         // Boolean properties are displayed as checked="", so remove the ="" bit.
         snippet = snippet.replace(/=""/g, '');
-        this._markdown = '```\n' + snippet + '\n' + '```';
 
+        this._markdown = '```\n' + snippet + '\n' +
+            '```';
         // Stamp the template.
         if (!template.hasAttribute('is')) {
           // Don't need to listen for more changes (since stamping the template
           // will trigger an observeNodes)
           Polymer.dom(this.$.content).unobserveNodes(this._observer);
           this._observer = null;
-          Polymer.dom(this).appendChild(document.importNode(template.content, true));
+          Polymer.dom(this).appendChild(
+              document.importNode(template.content, true));
         }
       },
 
       _copyToClipboard: function() {
-        // From https://github.com/google/material-design-lite/blob/master/docs/_assets/snippets.js
+        // From
+        // https://github.com/google/material-design-lite/blob/master/docs/_assets/snippets.js
         var snipRange = document.createRange();
         snipRange.selectNodeContents(this.$.code);
         var selection = window.getSelection();

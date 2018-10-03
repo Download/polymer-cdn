@@ -1,6 +1,6 @@
 {
   "name": "app-localize-behavior",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A behavior to help with internationalizating apps",
   "authors": [
     "The Polymer Authors"

@@ -1,6 +1,6 @@
 {
   "name": "iron-image",
-  "version": "2.1.2",
+  "version": "2.2.1",
   "license": "http://polymer.github.io/LICENSE.txt",
   "description": "An image-displaying element with lots of convenient features",
   "private": true,

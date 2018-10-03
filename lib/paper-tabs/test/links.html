@@ -69,16 +69,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script>
       function waitForIronItemsChanged(selector, callback) {
-        selector.addEventListener('iron-items-changed', function onIronItemsChanged() {
-          selector.removeEventListener('iron-items-changed', onIronItemsChanged);
-          callback();
-        })
+        selector.addEventListener(
+            'iron-items-changed', function onIronItemsChanged() {
+              selector.removeEventListener('iron-items-changed', onIronItemsChanged);
+              callback();
+            })
       }
 
       suite('links', function() {
-
         suite('has link attribute', function() {
-
           var tabs;
           var tab, anchor;
 
@@ -112,11 +111,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             MockInteractions.pressSpace(tab);
           });
-
         });
 
         suite('does not have link attribute', function() {
-
           var tabs;
           var tab, anchor;
 
@@ -140,11 +137,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             MockInteractions.pressEnter(tab);
           });
-
         });
 
         suite('not first child', function() {
-
           var tabs;
           var tab, anchor;
 
@@ -167,11 +162,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             MockInteractions.pressEnter(tab);
           });
-
         });
-
       });
-
     </script>
 
   </body>

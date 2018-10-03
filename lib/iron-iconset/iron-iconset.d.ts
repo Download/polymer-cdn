@@ -13,7 +13,8 @@
 
 /**
  * The `iron-iconset` element allows users to define their own icon set using
- * an image file. (To create an iconset using SVG icons, see [`iron-iconset-svg`](iron-iconset-svg).)
+ * an image file. (To create an iconset using SVG icons, see
+ * [`iron-iconset-svg`](iron-iconset-svg).)
  *
  * The `src` property specifies the url of the icon image. Multiple icons may
  * be included in this image and they may be organized into rows.
@@ -26,8 +27,9 @@
  * All `iron-iconset` elements are available for use by other `iron-iconset`
  * elements via a database keyed by id. Typically, an element author that wants
  * to support a set of custom icons uses a `iron-iconset` to retrieve
- * and use another, user-defined icon set, or simply uses the [`iron-icon`](iron-icon)
- * element to display an icon by specifying its icon set name and id.
+ * and use another, user-defined icon set, or simply uses the
+ * [`iron-icon`](iron-icon) element to display an icon by specifying its icon
+ * set name and id.
  *
  * Example:
  *
@@ -58,7 +60,8 @@
  *
  * See also:
  *
- * -   [`iron-iconset-svg`](iron-iconset-svg). Build icon sets with SVG elements.
+ * -   [`iron-iconset-svg`](iron-iconset-svg). Build icon sets with SVG
+ * elements.
  * -   [`iron-icons`](iron-icons). Predefined icon sets.
  * -   [`iron-icon`](iron-icon). Simple element to display an icon.
  */

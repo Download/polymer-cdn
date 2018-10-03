@@ -1,6 +1,5 @@
 {
   "name": "iron-demo-helpers",
-  "version": "2.1.0",
   "description": "Utility classes to make building demo pages easier",
   "authors": [
     "The Polymer Authors"
@@ -12,7 +11,8 @@
   ],
   "main": [
     "demo-snippet.html",
-    "url-bar.html"
+    "url-bar.html",
+    "demo-pages-shared-styles.html"
   ],
   "private": true,
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "paper-tabs",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "license": "http://polymer.github.io/LICENSE.txt",
   "description": "Material design tabs",
   "private": true,
@@ -70,11 +70,11 @@
     "webcomponentsjs": "^1.0.0"
   },
   "homepage": "https://github.com/PolymerElements/paper-tabs",
-  "_release": "2.1.0",
+  "_release": "2.1.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.1.0",
-    "commit": "1489468a20c13796c1c42ad589d2156ab972911f"
+    "tag": "v2.1.1",
+    "commit": "efae86af2401b8744f355acf7c7a78037ccfc787"
   },
   "_source": "https://github.com/PolymerElements/paper-tabs.git",
   "_target": "^2.0.0",

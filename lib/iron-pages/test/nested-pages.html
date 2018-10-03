@@ -24,13 +24,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Number,
           value: 0,
         },
-      },  
+      },
       refire: function(e, detail) {
-        this.items = e.target.items
-        this.fire('iron-items-changed', e)
+        this.items = e.target.items;
+        this.fire('iron-items-changed', e);
       },
       reselect: function(e, detail) {
-        this.selectedItem = e.target.selectedItem
+        this.selectedItem = e.target.selectedItem;
       },
     });
   </script>

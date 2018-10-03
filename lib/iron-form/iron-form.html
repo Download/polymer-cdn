@@ -34,12 +34,20 @@ By default, a native `<button>` element will submit this form. However, if you
 want to submit it from a custom element's click handler, you need to explicitly
 call the `iron-form`'s `submit` method.
 
-  Example:
+  Example (using `<paper-button>` for the form `<iron-form id="myForm">`):
 
-    <paper-button raised onclick="submitForm()">Submit</paper-button>
+    <paper-button raised on-click="submitForm">Submit</paper-button>
 
     function submitForm() {
-      document.getElementById('iron-form').submit();
+      this.$.myForm.submit();
+    }
+
+  or (using `<button>` for a form in the same document):
+
+    <button raised onclick="submitForm()">Submit</button>
+
+    function submitForm() {
+      document.getElementById('myForm').submit();
     }
 
 If you are not using the `allow-redirect` mode, then you also have the option of
@@ -95,7 +103,7 @@ attach it to the `<iron-form>`:
   </template>
 
   <script>
-  (function() {
+    (function() {
 
     Polymer({
       is: 'iron-form',
@@ -106,26 +114,23 @@ attach it to the `<iron-form>`:
          * ajax request, and you want the page to redirect to the action URL
          * after the form has been submitted.
          */
-        allowRedirect: {
-          type: Boolean,
-          value: false
-        },
+        allowRedirect: {type: Boolean, value: false},
         /**
-        * HTTP request headers to send. See PolymerElements/iron-ajax for
-        * more details. Only works when `allowRedirect` is false.
-        */
+         * HTTP request headers to send. See PolymerElements/iron-ajax for
+         * more details. Only works when `allowRedirect` is false.
+         */
         headers: {
           type: Object,
-          value: function() { return {}; }
+          value: function() {
+            return {};
+          }
         },
         /**
-        * Set the `withCredentials` flag on the request. See PolymerElements/iron-ajax for
-        * more details. Only works when `allowRedirect` is false.
-        */
-        withCredentials: {
-          type: Boolean,
-          value: false
-        },
+         * Set the `withCredentials` flag on the request. See
+         * PolymerElements/iron-ajax for more details. Only works when
+         * `allowRedirect` is false.
+         */
+        withCredentials: {type: Boolean, value: false},
       },
       /**
        * Fired if the form cannot be submitted because it's invalid.
@@ -184,22 +189,21 @@ attach it to the `<iron-form>`:
           // we won't be able to look into their shadowRoots for submittables.
           // We wait a tick and check again for any missing submittable default
           // values.
-          this.async(this._saveInitialValues.bind(this));
+          this.async(this._saveInitialValues.bind(this), 1);
         } else {
-          this._nodeObserver = Polymer.dom(this).observeNodes(
-            function(mutations) {
-              for (var i = 0; i < mutations.addedNodes.length; i++) {
-                if (mutations.addedNodes[i].tagName === 'FORM') {
-                  this._form = mutations.addedNodes[i];
-                  // At this point in time, all custom elements are expected
-                  // to be upgraded, hence we'll be able to traverse their
-                  // shadowRoots.
-                  this._init();
-                  Polymer.dom(this).unobserveNodes(this._nodeObserver);
-                  this._nodeObserver = null;
-                }
+          this._nodeObserver = Polymer.dom(this).observeNodes(function(mutations) {
+            for (var i = 0; i < mutations.addedNodes.length; i++) {
+              if (mutations.addedNodes[i].tagName === 'FORM') {
+                this._form = mutations.addedNodes[i];
+                // At this point in time, all custom elements are expected
+                // to be upgraded, hence we'll be able to traverse their
+                // shadowRoots.
+                this._init();
+                Polymer.dom(this).unobserveNodes(this._nodeObserver);
+                this._nodeObserver = null;
               }
-            }.bind(this));
+            }
+          }.bind(this));
         }
       },
 
@@ -222,20 +226,36 @@ attach it to the `<iron-form>`:
         this._saveInitialValues();
       },
 
-      _saveInitialValues: function() {
-        var nodes = this._getSubmittableElements();
+      /**
+       * Saves the values of all form elements that will be used when resetting
+       * the form. Initially called asynchronously on attach. Any time you
+       * call this function, the previously saved values for a form element will
+       * be overwritten.
+       *
+       * This function is useful if you are dynamically adding elements to
+       * the form, or if your elements are asynchronously setting their values.
+       * @return {void}
+       */
+      saveResetValues: function() {
+        this._saveInitialValues(true);
+      },
+
+      /**
+       * @param {boolean=} overwriteValues
+       * @return {void}
+       */
+      _saveInitialValues: function(overwriteValues) {
+        var nodes = this._getValidatableElements();
         for (var i = 0; i < nodes.length; i++) {
           var node = nodes[i];
-          if (!this._defaults.has(node)) {
+          if (!this._defaults.has(node) || overwriteValues) {
             // Submittables are expected to have `value` property,
             // that's what gets serialized.
-            var defaults = {
-              value: node.value
-            };
+            var defaults = {value: node.value};
             if ('checked' in node) {
               defaults.checked = node.checked;
             }
-            // In 1.x iron-form would reset `invalid`, so 
+            // In 1.x iron-form would reset `invalid`, so
             // keep it here for backwards compat.
             if ('invalid' in node) {
               defaults.invalid = node.invalid;
@@ -296,7 +316,8 @@ attach it to the `<iron-form>`:
           return;
         }
 
-        // Remove any existing children in the submission form (from a previous submit).
+        // Remove any existing children in the submission form (from a previous
+        // submit).
         this.$.helper.textContent = '';
 
         var json = this.serializeForm();
@@ -306,13 +327,15 @@ attach it to the `<iron-form>`:
           // If we're submitting the form natively, then create a hidden element for
           // each of the values.
           for (var element in json) {
-            this.$.helper.appendChild(this._createHiddenElement(element, json[element]));
+            this.$.helper.appendChild(
+                this._createHiddenElement(element, json[element]));
           }
 
           // Copy the original form attributes.
           this.$.helper.action = this._form.getAttribute('action');
           this.$.helper.method = this._form.getAttribute('method') || 'GET';
-          this.$.helper.contentType = this._form.getAttribute('enctype') || 'application/x-www-form-urlencoded';
+          this.$.helper.contentType = this._form.getAttribute('enctype') ||
+              'application/x-www-form-urlencoded';
 
           this.$.helper.submit();
           this.fire('iron-form-submit');
@@ -338,15 +361,16 @@ attach it to the `<iron-form>`:
         }
 
         // Ensure the native form fired the `reset` event.
-        // User might have bound `<button on-click="_resetIronForm">`, or directly called
-        // `ironForm.reset()`. In these cases we want to first reset the native form.
+        // User might have bound `<button on-click="_resetIronForm">`, or directly
+        // called `ironForm.reset()`. In these cases we want to first reset the
+        // native form.
         if (!event || event.type !== 'reset' || event.target !== this._form) {
           this._form.reset();
           return;
         }
 
         // Load the initial values.
-        var nodes = this._getSubmittableElements();
+        var nodes = this._getValidatableElements();
         for (var i = 0; i < nodes.length; i++) {
           var node = nodes[i];
           if (this._defaults.has(node)) {
@@ -380,11 +404,11 @@ attach it to the `<iron-form>`:
         return json;
       },
 
-      _handleFormResponse: function (event) {
+      _handleFormResponse: function(event) {
         this.fire('iron-form-response', event.detail);
       },
 
-      _handleFormError: function (event) {
+      _handleFormError: function(event) {
         this.fire('iron-form-error', event.detail);
       },
 
@@ -392,7 +416,8 @@ attach it to the `<iron-form>`:
         // Initialize the iron-ajax element if we haven't already.
         if (!this.request) {
           this.request = document.createElement('iron-ajax');
-          this.request.addEventListener('response', this._handleFormResponse.bind(this));
+          this.request.addEventListener(
+              'response', this._handleFormResponse.bind(this));
           this.request.addEventListener('error', this._handleFormError.bind(this));
         }
 
@@ -401,7 +426,8 @@ attach it to the `<iron-form>`:
         // elements with those names.
         this.request.url = this._form.getAttribute('action');
         this.request.method = this._form.getAttribute('method') || 'GET';
-        this.request.contentType = this._form.getAttribute('enctype') || 'application/x-www-form-urlencoded';
+        this.request.contentType = this._form.getAttribute('enctype') ||
+            'application/x-www-form-urlencoded';
         this.request.withCredentials = this.withCredentials;
         this.request.headers = this.headers;
 
@@ -413,22 +439,25 @@ attach it to the `<iron-form>`:
 
         // Allow for a presubmit hook
         var event = this.fire('iron-form-presubmit', {}, {cancelable: true});
-        if(!event.defaultPrevented) {
+        if (!event.defaultPrevented) {
           this.request.generateRequest();
           this.fire('iron-form-submit', json);
         }
       },
 
       _getValidatableElements: function() {
-        return this._findElements(this._form, true /* ignoreName */, false /* skipSlots */);
+        return this._findElements(
+            this._form, true /* ignoreName */, false /* skipSlots */);
       },
 
       _getSubmittableElements: function() {
-        return this._findElements(this._form, false /* ignoreName */, false /* skipSlots */);
+        return this._findElements(
+            this._form, false /* ignoreName */, false /* skipSlots */);
       },
 
       /**
-       * Traverse the parent element to find and add all submittable nodes to `submittable`.
+       * Traverse the parent element to find and add all submittable nodes to
+       * `submittable`.
        * @param  {!Node} parent The parent node
        * @param  {!boolean} ignoreName  Whether the name of the submittable nodes should be disregarded
        * @param  {!boolean} skipSlots  Whether to skip traversing of slot elements
@@ -469,12 +498,14 @@ attach it to the `<iron-form>`:
             continue;
           }
 
-          // Note: assignedNodes does not contain <slot> or <content> because 
+          // Note: assignedNodes does not contain <slot> or <content> because
           // getDistributedNodes flattens the tree.
           this._searchSubmittable(submittable, assignedNodes[i], ignoreName);
-          var nestedAssignedNodes = Polymer.dom(assignedNodes[i]).querySelectorAll('*');
+          var nestedAssignedNodes =
+              Polymer.dom(assignedNodes[i]).querySelectorAll('*');
           for (var j = 0; j < nestedAssignedNodes.length; j++) {
-            this._searchSubmittable(submittable, nestedAssignedNodes[j], ignoreName);
+            this._searchSubmittable(
+                submittable, nestedAssignedNodes[j], ignoreName);
           }
         }
       },
@@ -492,33 +523,37 @@ attach it to the `<iron-form>`:
         if (this._isSubmittable(node, ignoreName)) {
           submittable.push(node);
         } else if (node.root) {
-          this._findElements(node.root, ignoreName, true /* skipSlots */, submittable);
+          this._findElements(
+              node.root, ignoreName, true /* skipSlots */, submittable);
         }
       },
 
       /**
        * An element is submittable if it is not disabled, and if it has a
        * 'name' attribute. If we ignore the name, check if is validatable.
-       * This allows `_findElements` to decide if to explore an element's shadowRoot or not:
-       * an element implementing `validate()` is considered validatable, and we don't
-       * search for validatables in its shadowRoot.
+       * This allows `_findElements` to decide if to explore an element's shadowRoot
+       * or not: an element implementing `validate()` is considered validatable, and
+       * we don't search for validatables in its shadowRoot.
        * @param {!Node} node
        * @param {!boolean} ignoreName
        * @return {boolean}
        * @private
        */
       _isSubmittable: function(node, ignoreName) {
-        return  (!node.disabled && (ignoreName ? typeof node.validate === 'function' : node.name));
+        return (
+            !node.disabled &&
+            (ignoreName ? node.name || typeof node.validate === 'function' :
+                          node.name));
       },
 
       _serializeElementValues: function(element) {
         // We will assume that every custom element that needs to be serialized
         // has a `value` property, and it contains the correct value.
-        // The only weird one is an element that implements IronCheckedElementBehaviour,
-        // in which case like the native checkbox/radio button, it's only used
-        // when checked.
-        // For native elements, from https://www.w3.org/TR/html5/forms.html#the-form-element.
-        // Native submittable elements: button, input, keygen, object, select, textarea;
+        // The only weird one is an element that implements
+        // IronCheckedElementBehaviour, in which case like the native checkbox/radio
+        // button, it's only used when checked. For native elements, from
+        // https://www.w3.org/TR/html5/forms.html#the-form-element. Native
+        // submittable elements: button, input, keygen, object, select, textarea;
         // 1. We will skip `keygen and `object` for this iteration, and deal with
         // them if they're actually required.
         // 2. <button> and <textarea> have a `value` property, so they behave like
@@ -526,11 +561,14 @@ attach it to the `<iron-form>`:
         // 3. <select> can have multiple options selected, in which case its
         //    `value` is incorrect, and we must use the values of each of its
         //    `selectedOptions`
-        // 4. <input> can have a whole bunch of behaviours, so it's handled separately.
+        // 4. <input> can have a whole bunch of behaviours, so it's handled
+        // separately.
         // 5. Buttons are hard. The button that was clicked to submit the form
         //    is the one who's name/value gets sent to the server.
         var tag = element.tagName.toLowerCase();
-        if (tag === 'button' || (tag === 'input' && (element.type === 'submit' || element.type === 'reset'))) {
+        if (tag === 'button' ||
+            (tag === 'input' &&
+             (element.type === 'submit' || element.type === 'reset'))) {
           return [];
         }
 
@@ -548,7 +586,8 @@ attach it to the `<iron-form>`:
       _serializeSelectValues: function(element) {
         var values = [];
 
-        // A <select multiple> has an array of options, some of which can be selected.
+        // A <select multiple> has an array of options, some of which can be
+        // selected.
         for (var i = 0; i < element.options.length; i++) {
           if (element.options[i].selected) {
             values.push(element.options[i].value)
@@ -572,10 +611,10 @@ attach it to the `<iron-form>`:
       },
 
       _createHiddenElement: function(name, value) {
-        var input = document.createElement("input");
-        input.setAttribute("type", "hidden");
-        input.setAttribute("name", name);
-        input.setAttribute("value", value);
+        var input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', name);
+        input.setAttribute('value', value);
         return input;
       },
 
@@ -592,6 +631,6 @@ attach it to the `<iron-form>`:
         }
       }
     });
-  })();
+    })();
   </script>
 </dom-module>

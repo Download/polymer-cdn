@@ -10,63 +10,63 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../polymer/polymer.html">
 <script>
   (function() {
-    'use strict';
+  'use strict';
 
-    var networkStatusSubscribers = [];
+  var networkStatusSubscribers = [];
 
-    function notifySubscribers() {
-      for (var i = 0; i < networkStatusSubscribers.length; ++i) {
-        networkStatusSubscribers[i].refreshNetworkStatus();
-      }
+  function notifySubscribers() {
+    for (var i = 0; i < networkStatusSubscribers.length; ++i) {
+      networkStatusSubscribers[i].refreshNetworkStatus();
     }
+  }
 
-    window.addEventListener('online', notifySubscribers);
-    window.addEventListener('offline', notifySubscribers);
+  window.addEventListener('online', notifySubscribers);
+  window.addEventListener('offline', notifySubscribers);
+
+  /**
+   * `Polymer.AppNetworkStatusBehavior` tracks the status of whether the browser
+   * is online or offline. True if the browser is online, and false if the browser
+   * is offline matching the HTML browser state spec.
+   *
+   * @polymerBehavior
+   */
+  Polymer.AppNetworkStatusBehavior = {
+    properties: {
+      /**
+       * True if the browser is online, and false if the browser is offline
+       * matching the HTML browser state spec.
+       *
+       * @type {Boolean}
+       */
+      online: {
+        type: Boolean,
+        readOnly: true,
+        notify: true,
+        value: function() {
+          return window.navigator.onLine;
+        }
+      }
+    },
+
+    attached: function() {
+      networkStatusSubscribers.push(this);
+      this.refreshNetworkStatus();
+    },
+
+    detached: function() {
+      var index = networkStatusSubscribers.indexOf(this);
+      if (index < 0) {
+        return;
+      }
+      networkStatusSubscribers.splice(index, 1);
+    },
 
     /**
-     * `Polymer.AppNetworkStatusBehavior` tracks the status of whether the browser
-     * is online or offline. True if the browser is online, and false if the browser is
-     * offline matching the HTML browser state spec.
-     *
-     * @polymerBehavior
+     * Updates the `online` property to reflect the browser connection status.
      */
-    Polymer.AppNetworkStatusBehavior = {
-      properties: {
-        /**
-         * True if the browser is online, and false if the browser is offline
-         * matching the HTML browser state spec.
-         *
-         * @type {Boolean}
-         */
-        online: {
-          type: Boolean,
-          readOnly: true,
-          notify: true,
-          value: function() {
-            return window.navigator.onLine;
-          }
-        }
-      },
-
-      attached: function() {
-        networkStatusSubscribers.push(this);
-        this.refreshNetworkStatus();
-      },
-
-      detached: function() {
-        var index = networkStatusSubscribers.indexOf(this);
-        if (index < 0) {
-          return;
-        }
-        networkStatusSubscribers.splice(index, 1);
-      },
-
-      /**
-       * Updates the `online` property to reflect the browser connection status.
-       */
-      refreshNetworkStatus: function() {
-        this._setOnline(window.navigator.onLine);
-      }
-    };
+    refreshNetworkStatus: function() {
+      this._setOnline(window.navigator.onLine);
+    }
+  };
   })();
 </script>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 		<link rel="import" href="../../iron-icons/iron-icons.html">
 		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
@@ -55,17 +55,23 @@
 		</demo-snippet>
 
 		<script>
-			const dialogDemo = document.querySelector("#dialog-demo");
-			dialogDemo.openDialog = function(e) {
-				this.$.dialog.open();
-			};
-			dialogDemo.confirm = e => alert("Confirmed!");
-			dialogDemo.dismiss = e => alert("Dismissed!");
+			window.addEventListener('WebComponentsReady', function(e) {
+				const dialogDemo = document.querySelector("#dialog-demo");
+				dialogDemo.openDialog = function(e) {
+					this.$.dialog.open();
+				};
+				dialogDemo.confirm = function(e) {
+			      		alert("Confirmed!");
+				};
+			    	dialogDemo.dismiss = function(e) {
+			      		alert("Dismissed!");
+			    	};
 
-			const dialogWithHeaderDemo = document.querySelector("#dialog-with-header-demo");
-			dialogWithHeaderDemo.openDialogWithHeader = function(e) {
-				this.$.dialog.open();
-			};
+				const dialogWithHeaderDemo = document.querySelector("#dialog-with-header-demo");
+				dialogWithHeaderDemo.openDialogWithHeader = function(e) {
+					this.$.dialog.open();
+				};
+			});
 		</script>
 	</body>
 </html>

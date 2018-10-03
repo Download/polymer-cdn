@@ -219,6 +219,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <form action="/get" method="get">
           <input type="input" name="input1" id="input1" value="input1">
           <input type="input" name="input2" id="input2">
+          <paper-input id="inputNoName"></paper-input>
           <input type="checkbox" name="check1" id="check1" checked>
           <input type="checkbox" name="check2" id="check2">
           <input type="radio" name="radio1" id="radio1" checked>
@@ -228,6 +229,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-input name="paper1" id="paper1" value="paper1"></paper-input>
           <paper-input name="paper2" id="paper2" value="" required auto-validate></paper-input>
           <input type="reset">
+        </form>
+      </iron-form>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="reset-dynamic-polymer1">
+    <template>
+      <iron-form>
+        <form action="/get" method="get">
+          <template id="repeat" is="dom-repeat" >
+              <paper-input name="paper_[[index]]" id="paper_[[index]]" value="input"></paper-input>
+          </template>
+        </form>
+      </iron-form>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="reset-dynamic-polymer2">
+    <template>
+      <iron-form>
+        <form action="/get" method="get">
+          <dom-repeat id="repeat">
+            <template>
+                <paper-input name="paper_[[index]]" id="paper_[[index]]" value="input"></paper-input>
+            </template>
+          </dom-repeat>
         </form>
       </iron-form>
     </template>
@@ -264,7 +291,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var f;
       var server;
 
-      suiteSetup(function () {
+      suiteSetup(function() {
         Polymer({is: 'x-input-wrapper'});
         Polymer({is: 'paper-input-wrapper'});
       });
@@ -274,14 +301,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         server = sinon.fakeServer.create();
         server.respondWith(
-          'GET',
-          /\/get.*/,
-          [
-            200,
-            '{"Content-Type":"application/json"}',
-            '{"success":true}'
-          ]
-        );
+            'GET',
+            /\/get.*/,
+            [200, '{"Content-Type":"application/json"}', '{"success":true}']);
       });
 
       teardown(function() {
@@ -352,7 +374,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var form = f.querySelector('#native-inputs');
 
         form.addEventListener('iron-form-response', function(event) {
-          expect(event.detail.url).to.equal('/get?input1=&input1=foo&input1=zag&input2=bar&pass1=pass&number1=35&empty=&empty=');
+          expect(event.detail.url)
+              .to.equal(
+                  '/get?input1=&input1=foo&input1=zag&input2=bar&pass1=pass&number1=35&empty=&empty=');
           expect(event.detail.response.success).to.be.equal(true);
           done();
         });
@@ -397,7 +421,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('serializes custom inputs', function(done) {
         var form = f.querySelector('#custom-inputs');
         form.addEventListener('iron-form-response', function(event) {
-          expect(event.detail.url).to.equal('/get?input1=&input1=foo&input1=zag&input2=bar&pass1=pass&number1=35&empty=&empty=&check_wrapped=foo');
+          expect(event.detail.url)
+              .to.equal(
+                  '/get?input1=&input1=foo&input1=zag&input2=bar&pass1=pass&number1=35&empty=&empty=&check_wrapped=foo');
           expect(event.detail.response.success).to.be.equal(true);
           done();
         });
@@ -412,7 +438,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('serializes elements deeply nested in divs', function(done) {
         var form = f.querySelector('#nested-elements');
         form.addEventListener('iron-form-response', function(event) {
-          expect(event.detail.url).to.equal('/get?input1=i1&paper-input1=p1&input2=i2&paper-input2=p2');
+          expect(event.detail.url)
+              .to.equal('/get?input1=i1&paper-input1=p1&input2=i2&paper-input2=p2');
           expect(event.detail.response.success).to.be.equal(true);
           done();
         });
@@ -426,7 +453,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('serializes elements with duplicate names', function(done) {
         var form = f.querySelector('#duplicate-names');
         form.addEventListener('iron-form-response', function(event) {
-          expect(event.detail.url).to.equal('/get?input1=&input1=foo&input1=&input1=bar&empty=&empty=&empty=&empty=');
+          expect(event.detail.url)
+              .to.equal(
+                  '/get?input1=&input1=foo&input1=&input1=bar&empty=&empty=&empty=&empty=');
           expect(event.detail.response.success).to.be.equal(true);
           done();
         });
@@ -448,14 +477,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         server = sinon.fakeServer.create();
         server.respondWith(
-          'GET',
-          /\/get.*/,
-          [
-            200,
-            '{"Content-Type":"application/json"}',
-            '{"success":true}'
-          ]
-        );
+            'GET',
+            /\/get.*/,
+            [200, '{"Content-Type":"application/json"}', '{"success":true}']);
       });
 
       teardown(function() {
@@ -481,26 +505,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       });
 
-      test('<input required> is validated and does not submit the form', function(done) {
-        var form = f.querySelector('#native-required');
+      test(
+          '<input required> is validated and does not submit the form',
+          function(done) {
+            var form = f.querySelector('#native-required');
 
-        var responses = 0;
-        form.addEventListener('iron-form-response', function(event) {
-          responses++;
-        });
+            var responses = 0;
+            form.addEventListener('iron-form-response', function(event) {
+              responses++;
+            });
 
-        // Wait one tick for observeNodes.
-        Polymer.Base.async(function() {
-          expect(form.validate()).to.be.equal(false);
-          form.submit();
-          server.respond();
-        });
+            // Wait one tick for observeNodes.
+            Polymer.Base.async(function() {
+              expect(form.validate()).to.be.equal(false);
+              form.submit();
+              server.respond();
+            });
 
-        setTimeout(function() {
-          expect(responses).to.be.equal(0);
-          done();
-        },  200);
-      });
+            setTimeout(function() {
+              expect(responses).to.be.equal(0);
+              done();
+            }, 200);
+          });
 
       test('novalidate skips the validation', function(done) {
         var form = f.querySelector('#required-novalidate');
@@ -518,90 +544,98 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }, 1);
       });
 
-      test('invalid <input> but not required is validated and does not submit the form', function(done) {
-        var form = f.querySelector('#native-invalid');
+      test(
+          'invalid <input> but not required is validated and does not submit the form',
+          function(done) {
+            var form = f.querySelector('#native-invalid');
 
-        var responses = 0;
-        form.addEventListener('iron-form-response', function(event) {
-          responses++;
-        });
+            var responses = 0;
+            form.addEventListener('iron-form-response', function(event) {
+              responses++;
+            });
 
-        // Wait one tick for observeNodes.
-        Polymer.Base.async(function() {
-          expect(form.validate()).to.be.equal(false);
-          form.submit();
-          server.respond();
-        });
+            // Wait one tick for observeNodes.
+            Polymer.Base.async(function() {
+              expect(form.validate()).to.be.equal(false);
+              form.submit();
+              server.respond();
+            });
 
-        setTimeout(function() {
-          expect(responses).to.be.equal(0);
-          done();
-        },  200);
-      });
+            setTimeout(function() {
+              expect(responses).to.be.equal(0);
+              done();
+            }, 200);
+          });
 
-      test('<paper-input required> is validated and does not submit the form', function(done) {
-        var form = f.querySelector('#custom-required');
+      test(
+          '<paper-input required> is validated and does not submit the form',
+          function(done) {
+            var form = f.querySelector('#custom-required');
 
-        var responses = 0;
-        form.addEventListener('iron-form-response', function(event) {
-          responses++;
-        });
+            var responses = 0;
+            form.addEventListener('iron-form-response', function(event) {
+              responses++;
+            });
 
-        // Wait one tick for observeNodes.
-        Polymer.Base.async(function() {
-          form.validate();
-          expect(form.validate()).to.be.equal(false);
-          form.submit();
-          server.respond();
-        });
+            // Wait one tick for observeNodes.
+            Polymer.Base.async(function() {
+              form.validate();
+              expect(form.validate()).to.be.equal(false);
+              form.submit();
+              server.respond();
+            });
 
-        setTimeout(function() {
-          expect(responses).to.be.equal(0);
-          done();
-        },  200);
-      });
+            setTimeout(function() {
+              expect(responses).to.be.equal(0);
+              done();
+            }, 200);
+          });
 
-      test('<paper-input-wrapper> not implementing validate() is validated and does not submit the form', function(done) {
-        var form = f.querySelector('#custom-invalid-no-validate');
+      test(
+          '<paper-input-wrapper> not implementing validate() is validated and does not submit the form',
+          function(done) {
+            var form = f.querySelector('#custom-invalid-no-validate');
 
-        var responses = 0;
-        form.addEventListener('iron-form-response', function(event) {
-          responses++;
-        });
+            var responses = 0;
+            form.addEventListener('iron-form-response', function(event) {
+              responses++;
+            });
 
-        // Wait one tick for observeNodes.
-        Polymer.Base.async(function() {
-          expect(form.validate()).to.be.equal(false);
-          form.submit();
-          server.respond();
-        });
+            // Wait one tick for observeNodes.
+            Polymer.Base.async(function() {
+              expect(form.validate()).to.be.equal(false);
+              form.submit();
+              server.respond();
+            });
 
-        setTimeout(function() {
-          expect(responses).to.be.equal(0);
-          done();
-        },  200);
-      });
+            setTimeout(function() {
+              expect(responses).to.be.equal(0);
+              done();
+            }, 200);
+          });
 
-      test('invalid <paper-input> but not required is validated and does not submit the form', function(done) {
-        var form = f.querySelector('#custom-invalid');
+      test(
+          'invalid <paper-input> but not required is validated and does not submit the form',
+          function(done) {
+            var form = f.querySelector('#custom-invalid');
 
-        var responses = 0;
-        form.addEventListener('iron-form-response', function(event) {
-          responses++;
-        });
+            var responses = 0;
+            form.addEventListener('iron-form-response', function(event) {
+              responses++;
+            });
 
-        // Wait one tick for observeNodes.
-        Polymer.Base.async(function() {
-          expect(form.validate()).to.be.equal(false);
-          form.submit();
-          server.respond();
-        });
+            // Wait one tick for observeNodes.
+            Polymer.Base.async(function() {
+              expect(form.validate()).to.be.equal(false);
+              form.submit();
+              server.respond();
+            });
 
-        setTimeout(function() {
-          expect(responses).to.be.equal(0);
-          done();
-        },  200);
-      });
+            setTimeout(function() {
+              expect(responses).to.be.equal(0);
+              done();
+            }, 200);
+          });
     });
 
     suite('submission', function() {
@@ -613,32 +647,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         server = sinon.fakeServer.create();
         server.respondWith(
-          'GET',
-          /\/get.*/,
-          [
-            200,
-            '{"Content-Type":"application/json"}',
-            '{"success":true}'
-          ]
-        );
+            'GET',
+            /\/get.*/,
+            [200, '{"Content-Type":"application/json"}', '{"success":true}']);
         server.respondWith(
-          'POST',
-          /\/post.*/,
-          [
-            200,
-            '{"Content-Type":"application/json"}',
-            '{"success":true}'
-          ]
-        );
+            'POST',
+            /\/post.*/,
+            [200, '{"Content-Type":"application/json"}', '{"success":true}']);
         server.respondWith(
-          'GET',
-          /\/error.*/,
-          [
-            404,
-            '{"Content-Type":"application/text"}',
-            '{"success":false}'
-          ]
-        );
+            'GET',
+            /\/error.*/,
+            [404, '{"Content-Type":"application/text"}', '{"success":false}']);
       });
 
       teardown(function() {
@@ -697,9 +716,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           done();
         });
 
-         // enctype is set in template
-         form.headers = {'x-some': 'header-value'};
-         form.withCredentials = true;
+        // enctype is set in template
+        form.headers = {'x-some': 'header-value'};
+        form.withCredentials = true;
 
         // Wait one tick for observeNodes.
         Polymer.Base.async(function() {
@@ -721,41 +740,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       });
 
-      test('pressing an <input type=button> with an event handler submits the form', function(done) {
-        form.addEventListener('iron-form-response', function(event) {
-          expect(event.detail.response.success).to.be.equal(true);
-          done();
-        });
+      test(
+          'pressing an <input type=button> with an event handler submits the form',
+          function(done) {
+            form.addEventListener('iron-form-response', function(event) {
+              expect(event.detail.response.success).to.be.equal(true);
+              done();
+            });
 
-        // Wait one tick for observeNodes.
-        Polymer.Base.async(function() {
-          var button = form._form.querySelector('input[type=button]');
-          button.addEventListener('click', function() {
-            form.submit();
+            // Wait one tick for observeNodes.
+            Polymer.Base.async(function() {
+              var button = form._form.querySelector('input[type=button]');
+              button.addEventListener('click', function() {
+                form.submit();
+              });
+              button.click();
+
+              server.respond();
+            });
           });
-          button.click();
 
-          server.respond();
-        });
-      });
+      test(
+          'pressing a paper-button with an event handler submits the form',
+          function(done) {
+            form.addEventListener('iron-form-response', function(event) {
+              expect(event.detail.response.success).to.be.equal(true);
+              done();
+            });
 
-      test('pressing a paper-button with an event handler submits the form', function(done) {
-        form.addEventListener('iron-form-response', function(event) {
-          expect(event.detail.response.success).to.be.equal(true);
-          done();
-        });
+            // Wait one tick for observeNodes.
+            Polymer.Base.async(function() {
+              var button = form._form.querySelector('paper-button');
+              button.addEventListener('click', function() {
+                form.submit();
+              });
+              button.click();
 
-        // Wait one tick for observeNodes.
-        Polymer.Base.async(function() {
-          var button = form._form.querySelector('paper-button');
-          button.addEventListener('click', function() {
-            form.submit();
+              server.respond();
+            });
           });
-          button.click();
-
-          server.respond();
-        });
-      });
 
       test('can modify the request in the presubmit', function(done) {
         var submitted = false;
@@ -842,8 +865,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         // Wait one tick for observeNodes.
         Polymer.Base.async(function() {
+          // HACK: In the test, the form runs the initial values before paper-input
+          // reliably saved its default value, so udpate the default values here
+          // again.
+          form.saveResetValues();
           var initial = form.serializeForm();
-          expect(JSON.stringify(initial)).to.be.equal('{"input1":"input1","input2":"","check1":"on","radio1":"on","papercheck1":"on","paper1":"paper1","paper2":""}');
+          var initialEmptyInputValue = document.getElementById('inputNoName').value;
+          expect(JSON.stringify(initial))
+              .to.be.equal(
+                  '{"input1":"input1","input2":"","check1":"on","radio1":"on","papercheck1":"on","paper1":"paper1","paper2":""}');
 
           // Modify all the values, flip all the inputs.
           document.getElementById('input1').value = 'input1++';
@@ -856,14 +886,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           document.getElementById('papercheck2').checked = true;
           document.getElementById('paper1').value = 'paper1++';
           document.getElementById('paper2').value = 'paper2++';
+          document.getElementById('inputNoName').value = 'inputNoName';
+
 
           var updated = form.serializeForm();
           expect(JSON.stringify(updated)).to.not.be.equal(initial);
           form.reset();
           var final = form.serializeForm();
           expect(JSON.stringify(initial)).to.be.equal(JSON.stringify(final));
+          expect(document.getElementById('inputNoName').value)
+              .to.be.equal(initialEmptyInputValue);
           done();
         });
+      })
+
+      test('reset dynamic element', function(done) {
+        var form;
+
+        if (Polymer.Element) {
+          form = fixture('reset-dynamic-polymer2');
+        } else {
+          form = fixture('reset-dynamic-polymer1');
+        }
+
+        document.getElementById('repeat').items = ['item'];
+
+        Polymer.Base.async(function() {
+          document.getElementById('paper_0').value = 'input1++';
+
+          form.reset();
+
+          expect(document.getElementById('paper_0').value).to.be.equal('input');
+          done();
+        }, 1);
       });
 
       test('fires reset and iron-form-reset events', function(done) {
@@ -945,14 +1000,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       setup(function() {
         server = sinon.fakeServer.create();
         server.respondWith(
-          'GET',
-          /\/get.*/,
-          [
-            200,
-            '{"Content-Type":"application/json"}',
-            '{"success":true}'
-          ]
-        );
+            'GET',
+            /\/get.*/,
+            [200, '{"Content-Type":"application/json"}', '{"success":true}']);
       });
 
       teardown(function() {
@@ -1008,70 +1058,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('submits a form with text/plain', function(done) {
         var form = f.querySelector('#plain-form');
 
-        server.respondWith(
-          'POST',
-          /\/valid\/url.*/,
-          function (request) {
-            expect(request.requestHeaders).to.deep.equal({
-                "content-type": "text/plain;charset=utf-8",
-                "accept": "application/json"});
-            expect(request.requestBody).to.deep.equal({
-                "paper1": "value1",
-                "paper2": "value2"});
-            done();
-          }
-        );
-
-          // Wait one tick for observeNodes.
-          Polymer.Base.async(function() {
-            form.submit();
-            server.respond();
+        server.respondWith('POST', /\/valid\/url.*/, function(request) {
+          expect(request.requestHeaders).to.deep.equal({
+            'content-type': 'text/plain;charset=utf-8',
+            'accept': 'application/json'
           });
+          expect(request.requestBody)
+              .to.deep.equal({'paper1': 'value1', 'paper2': 'value2'});
+          done();
+        });
+
+        // Wait one tick for observeNodes.
+        Polymer.Base.async(function() {
+          form.submit();
+          server.respond();
+        });
       });
       test('submits a form with application/json', function(done) {
-          var form = f.querySelector('#json-form');
+        var form = f.querySelector('#json-form');
 
-          server.respondWith(
-            'POST',
-            /\/valid\/url.*/,
-            function (request) {
-              expect(request.requestHeaders).to.deep.equal({
-                  "content-type": "application/json;charset=utf-8",
-                  "accept": "application/json"});
-              expect(request.requestBody).to.equal(
-                  '{"paper1":"value1","paper2":"value2"}');
-              done();
-            }
-          );
-
-          // Wait one tick for observeNodes.
-          Polymer.Base.async(function() {
-            form.submit();
-            server.respond();
+        server.respondWith('POST', /\/valid\/url.*/, function(request) {
+          expect(request.requestHeaders).to.deep.equal({
+            'content-type': 'application/json;charset=utf-8',
+            'accept': 'application/json'
           });
-      });
-        test('submits a form with application/x-www-form-urlencoded', function(done) {
-            var form = f.querySelector('#simple-form');
-
-            server.respondWith(
-                'POST',
-                /\/valid\/url.*/,
-                function (request) {
-                    expect(request.requestHeaders).to.deep.equal({
-                        "content-type": "application/x-www-form-urlencoded;charset=utf-8",
-                        "accept": "application/json"});
-                    expect(request.requestBody).to.equal(
-                        'paper1=value1&paper2=value2');
-                    done();
-                }
-            );
-
-            // Wait one tick for observeNodes.
-            Polymer.Base.async(function() {
-                form.submit();
-                server.respond();
-            });
+          expect(request.requestBody)
+              .to.equal('{"paper1":"value1","paper2":"value2"}');
+          done();
         });
+
+        // Wait one tick for observeNodes.
+        Polymer.Base.async(function() {
+          form.submit();
+          server.respond();
+        });
+      });
+      test('submits a form with application/x-www-form-urlencoded', function(done) {
+        var form = f.querySelector('#simple-form');
+
+        server.respondWith('POST', /\/valid\/url.*/, function(request) {
+          expect(request.requestHeaders).to.deep.equal({
+            'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+            'accept': 'application/json'
+          });
+          expect(request.requestBody).to.equal('paper1=value1&paper2=value2');
+          done();
+        });
+
+        // Wait one tick for observeNodes.
+        Polymer.Base.async(function() {
+          form.submit();
+          server.respond();
+        });
+      });
     });
   </script>
 </body>

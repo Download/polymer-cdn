@@ -28,20 +28,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           expect(TestHelpers.forceXIfStamp).to.exist;
           expect(forceXIfStamp).to.exist;
         });
-
-        test('registers to this', function() {
-          // Download the script with a synchronous xhr.
-          var xhr = new XMLHttpRequest();
-          xhr.open('get', '../test-helpers.js', false);
-          xhr.send();
-          expect(xhr.responseText).to.exist;
-          // Execute it in a specific context.
-          var context = {};
-          Function(xhr.responseText).call(context);
-          expect(context.TestHelpers).to.exist;
-          expect(context.TestHelpers.forceXIfStamp).to.exist;
-          expect(context.forceXIfStamp).to.exist;
-        });
       });
     });
 

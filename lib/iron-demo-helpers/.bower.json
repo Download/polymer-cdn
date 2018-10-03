@@ -1,6 +1,5 @@
 {
   "name": "iron-demo-helpers",
-  "version": "2.1.0",
   "description": "Utility classes to make building demo pages easier",
   "authors": [
     "The Polymer Authors"
@@ -12,7 +11,8 @@
   ],
   "main": [
     "demo-snippet.html",
-    "url-bar.html"
+    "url-bar.html",
+    "demo-pages-shared-styles.html"
   ],
   "private": true,
   "repository": {
@@ -60,11 +60,12 @@
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
   },
-  "_release": "2.1.0",
+  "version": "2.1.2",
+  "_release": "2.1.2",
   "_resolution": {
     "type": "version",
-    "tag": "v2.1.0",
-    "commit": "0136908426423d1e4a85d5c87a55234ac3848579"
+    "tag": "v2.1.2",
+    "commit": "29c21aaad7ca3fc746dd65dfa83ae11c0afd6ba9"
   },
   "_source": "https://github.com/PolymerElements/iron-demo-helpers.git",
   "_target": "^2.0.0",

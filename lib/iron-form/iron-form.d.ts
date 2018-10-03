@@ -34,12 +34,20 @@
  * want to submit it from a custom element's click handler, you need to explicitly
  * call the `iron-form`'s `submit` method.
  *
- *   Example:
+ *   Example (using `<paper-button>` for the form `<iron-form id="myForm">`):
  *
- *     <paper-button raised onclick="submitForm()">Submit</paper-button>
+ *     <paper-button raised on-click="submitForm">Submit</paper-button>
  *
  *     function submitForm() {
- *       document.getElementById('iron-form').submit();
+ *       this.$.myForm.submit();
+ *     }
+ *
+ *   or (using `<button>` for a form in the same document):
+ *
+ *     <button raised onclick="submitForm()">Submit</button>
+ *
+ *     function submitForm() {
+ *       document.getElementById('myForm').submit();
  *     }
  *
  * If you are not using the `allow-redirect` mode, then you also have the option of
@@ -90,14 +98,26 @@ interface IronFormElement extends Polymer.Element {
   headers: object|null|undefined;
 
   /**
-   * Set the `withCredentials` flag on the request. See PolymerElements/iron-ajax for
-   * more details. Only works when `allowRedirect` is false.
+   * Set the `withCredentials` flag on the request. See
+   * PolymerElements/iron-ajax for more details. Only works when
+   * `allowRedirect` is false.
    */
   withCredentials: boolean|null|undefined;
   attached(): void;
   detached(): void;
   _init(): void;
-  _saveInitialValues(): void;
+
+  /**
+   * Saves the values of all form elements that will be used when resetting
+   * the form. Initially called asynchronously on attach. Any time you
+   * call this function, the previously saved values for a form element will
+   * be overwritten.
+   *
+   * This function is useful if you are dynamically adding elements to
+   * the form, or if your elements are asynchronously setting their values.
+   */
+  saveResetValues(): void;
+  _saveInitialValues(overwriteValues?: boolean): void;
 
   /**
    * Validates all the required elements (custom and native) in the form.

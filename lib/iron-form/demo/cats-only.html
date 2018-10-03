@@ -28,27 +28,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </dom-module>
 
 <script>
-
   Polymer({
     is: 'cats-only',
 
     properties: {
-      value: {
-        type: String
-      },
+      value: {type: String},
 
-      name: {
-        type: String
-      }
+      name: {type: String}
     },
 
-    behaviors: [
-      Polymer.IronValidatableBehavior
-    ],
+    behaviors: [Polymer.IronValidatableBehavior],
 
-    listeners: {
-      'input': '_onInput'
-    },
+    listeners: {'input': '_onInput'},
 
     _onInput: function() {
       this.value = this.$.input.value;
@@ -61,5 +52,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
   });
-
 </script>

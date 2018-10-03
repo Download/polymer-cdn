@@ -1,5 +1,5 @@
 language: node_js
-sudo: required
+sudo: 'false'
 before_script:
   - npm install -g polymer-cli
   - polymer install --variants
@@ -7,15 +7,13 @@ before_script:
     npm run update-types && git diff --exit-code || (echo -e
     '\n\033[31mERROR:\033[0m Typings are stale. Please run "npm run
     update-types".' && false)
-node_js: stable
+  - >-
+    npm run format && git diff --exit-code || (echo -e '\n\033[31mERROR:\033[0m
+    Project is not formatted. Please run "npm run format".' && false)
+node_js: '9'
 addons:
   firefox: latest
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-  sauce_connect: true
+  chrome: stable
 script:
   - xvfb-run polymer test
   - >-
@@ -25,6 +23,9 @@ dist: trusty
 env:
   global:
     - secure: >-
-        AhT656+287bNaHUPaCe5eyeO3NGr50x4RoV5C3hB5Q6qkraVIu7PV8SjVN041wxXIkSJYe1bwh+f4LnmfrB1J1NBANk8RqrnY/Be/cq/2JmZFFT8F8Mk6vLEqY/81fGi16G/U2j0Ke6Fs423gCaLpvJLHoTz57n1uhduGPnYRKn+i691ktTjn6838oItBFDAcb89qOOlFr1oAlYKQHWmQ7MflD3xll62bOd4gN+1zU/fTE6ES2hSLhkhfcXfEHDuxlUnLcKM0VZxQ02em8o66EtAuWnL+MJviAUsEPd0ycFiCUID87RxsQJqgFZsHItQk5xvXYFDgxRfvR8JZnffc7XiFZYyuE8XVUluj8ugW1ATTqpgoiF42GD/fVYmGsmfUHJuJrcQroF0oq6mJhCGooLi23fzawi7nhERvGWib9meW43t9K4CrSVObn5zl7l4TxwNnBKFd4Wtuc0jLwTM9iClA5ULU+mY0pnwPnea8aQKIx7/HptaxjFBBIPVXYoHK7rqJR1N1dW5PZVmJS4U4nR1h1Rpw3Xno0RJXZgKhKLNkorpkCY4pWjtyGPdwv/LKZGnGUoQvJX0dQEsrDMfLWGT5OE5MJmdLCACxEUZbWduq18qLzGDevfXhOGJs/6bphj0F7SshM8jdEHX+Vp+4YSvuhF9LTEj8XJaTBpO1P0=
+        pYgk6o0gEXK9FyKHy1H9ZguVpM0A6igZQwTqZGUg8hLWe1ktipiwyPUwMmzBbDyAghqnnb2/s7/HcULRRM/MP0v7cyMdlV4bmz7ksQQVy32t0xadf3LHrHp2eWLozV150iwUzoyRRF/lSvGSQhk7fJLBdQcpLx+LT2Rmpa5pbOiAe87bCAG8zVQzMqYt8hOX6uriXZ9Af+g5nGT9fjLUvjJxXroZc2b6XACjBB4ygbYmI4+agpH48AJuPz/Jxl8NFwWvOBrdH7gnKher6SPOKHxKETpE/H0YCYh+uOMWmeMFdYHUE15YS8HPXLx4dIBMn7xt+NtJTifX7y2HZ3PHxmLxMkcxf0k33rM9w48b6iL+HvIy+wltgwSc1W756B5/eGZNioVe00V/P/ukye1kuhA3H+paaWpZLyK2NMJm5WysOBO8DsRX5xjtYVsrkuyJ2YwffFoNE6beWIEvSTJ3wxgqEq5smPIFDMMNSk++wKALmBf8VCZJs+O8PgWCSK7LF5GA4ncFZRhJKMNxtT1976FXzDFuiLjYRYicXaJnDbi1Fh4G4mp7vr4/Ge7al7iP1Fihb4FRq5XhNTGfuy7QVTy/5odYbKJgL63fVU5kPy0MLS8WVOxIcWDsuFmuIOSTp+SNOdQVxcAu+8T6GMETnwU0PKb80ev4kwW3xBI0ZBA=
     - secure: >-
-        Shc1QD4paw7CAPNkaSnjH3vcQBzlBL4qrk+SBfvcnnDqW+cYjSZoZYseJkznOuNgRSb8lytXl7fb/p/5uTD7rW8mgKNYxrWrJzTEqcMRHGgLVLlYGyUFgdD2x6GFCVsY8rupHy1/8A/HFalVGc66sTWkyYIvTFZrKzw3aA9ogdonc4cnNwVGUQyJkDYh4LCjXvwLR3jg45baircECxAQAq4yvl9/aldjq36GLtMcALXqcOblF1kX/LMU+WGj0s3756moLhZvnO1uaF7M9uZ4XRfTE8yHw0RAaxyOHTyLSvVczuXspbB5FOyUEZiL6sk8YctUektxc3t7aFBtqJnE6UtZOnIpjnMZRHKIECQc1WbrdtWauexf0d9HGLAX2R+2wTRRoC3AVk+5QNCaJfV5WxifPTVe9KkXmmNtz2XMuXKRqaEz9YEl55SvCA7xTAz8sD2NG5hsBiO/Wehy2TkTFO1KE/g/+1sVBQkExKae+ZbSImBuvBbF28BKMwfwcZ4jrvct5Yx+xvBkyWbR7ZG3qMRpzBwH9WL8lFmIjzXrkDsT+j0hmbk1N0Vs4ZH7IFSLOdRwcmSxs4YRzecqjqM0jAW8ZYLfHnHP0S1z/CMV5b92NIMYUv51YS1gHPTwDxqmNWchILrHwOy2brfJpp/RfDBHjPKFoDt+MzbqAFYCcUk=
+        YmZBg0Ux1VZ7IWTio8aFIWg86toxLiJa8WZBBhG8ge3wETxOhm7AujHUvy4tkAHVw0C6H0rjqDRZUR5xrJngAAiMat8xyrjLXo4KeRN/9JhL8wtSXDzDFRGYNCiYdSFTnEGbvNpj/ncGkkCDky/To/illAHNtvUWHslMWazAwQ2VVpglDq45IjJg8Zk+iRDpMok8wb+BHnCzB1mhM1SgYWJxYLgZF0qxJZAmxfyx/HnMuJb2fESFQNlXaHuEu4mEdSsj7ti60CesCkspOj9YfmC+mX3E84B5W+Uy3LTsURkiVco4mhPy0qB3v4Be8+s6v+7A7u2yJTSMHKPaXpjIzpdxBZbjPRBmHaCI9amXETdx8M/g1dqlNUK3eRHTuBSLQwv7MRvMmBwRvk36JA5zwVoPe8Z4n+gYmO6CjP+Q77IKISn04+zRIfSC1hc0PG+hx98lvW3cgyfCAS6maYfIL+BqqWGBjd2HTebA+T7hEfBi6+ka8dLI9RVc3NnoUOAmsqWUgauDxg98TtKMbfA4JgrkZw28f+W+4EGEgKm487TgGGnGCJLuhqtFBwIOEh2Hbt8LTX2sW8jpBJo1PRLC9QjG6Okjj3yyUPY3pbj2+18Im8B6cV2ULyW3MCfnSN4qyaYsuJ5tSmWVT6Tb2ybqtxCluPfZ7mIQHY3F7r6XDqE=
+cache:
+  directories:
+    - node_modules

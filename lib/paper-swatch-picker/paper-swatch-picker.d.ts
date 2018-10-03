@@ -87,8 +87,8 @@ interface PaperSwatchPickerElement extends Polymer.Element {
   icon: string|null|undefined;
 
   /**
-   * If true, the color picker button will not produce a ripple effect when interacted
-   * with via the pointer.
+   * If true, the color picker button will not produce a ripple effect when
+   * interacted with via the pointer.
    */
   noink: boolean|null|undefined;
   hostAttributes: object|null;
