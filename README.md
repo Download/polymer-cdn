@@ -64,7 +64,7 @@ These dependencies are themselves also listed at the top-level, so you can work 
 tree for a library by carefully examining this diagram.
 
 ```sh
- polymer-cdn#2.6.0.2 /home/juand/Documentos/colaboracionesGit/polymer-cdn
+ polymer-cdn#2.6.0.2
 ├─┬ app-layout#2.1.1 (latest is 3.0.1)
 │ ├─┬ iron-flex-layout#2.0.3 (latest is 3.0.1)
 │ │ └─┬ polymer#2.6.1
